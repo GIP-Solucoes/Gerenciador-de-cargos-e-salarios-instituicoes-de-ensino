@@ -14,7 +14,7 @@ class HeroContent extends StatelessWidget {
     return LayoutBuilder(
       builder: ((context, constraints) {
         if (constraints.maxWidth >= 850) {
-          return const DesktopAempresa();
+          return const DesktopHero();
         } else if (constraints.maxWidth >= 600) {
           return const TabletHero();
         }
