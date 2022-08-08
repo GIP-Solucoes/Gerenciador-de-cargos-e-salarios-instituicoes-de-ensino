@@ -8,17 +8,8 @@ class AempresaText extends StatelessWidget {
     return Column(
 
       crossAxisAlignment: CrossAxisAlignment.center,
-      children: const [
+      children: const [  
 
-        //Title(),
-        Logo(),    
-        //SizedBox(height: 40.0),
-        //Paragrafo(),
-        //SizedBox(height: 20.0),
-
-        //CappucinoPrice(),
-        //SizedBox(height: 10.0),
-        //BuyNowButton(),
       ],
     );
   }

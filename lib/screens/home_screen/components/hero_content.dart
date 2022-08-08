@@ -5,6 +5,7 @@ import 'package:starbucks_landing_page/screens/home_screen/components/desktop_ae
 import 'package:starbucks_landing_page/screens/home_screen/components/desktop_esqueci.dart';
 import 'package:starbucks_landing_page/screens/home_screen/components/desktop_faq.dart';
 import 'package:starbucks_landing_page/screens/home_screen/components/desktop_login.dart';
+import 'package:starbucks_landing_page/screens/home_screen/components/desktop_menu.dart';
 import 'package:starbucks_landing_page/screens/home_screen/components/mobile_hero.dart';
 import 'package:starbucks_landing_page/screens/home_screen/components/tablet_hero.dart';
 
@@ -16,7 +17,7 @@ class HeroContent extends StatelessWidget {
     return LayoutBuilder(
       builder: ((context, constraints) {
         if (constraints.maxWidth >= 850) {
-          return const DesktopEsqueci();
+          return const DesktopMenu();
         } else if (constraints.maxWidth >= 600) {
           return const TabletHero();
         }
