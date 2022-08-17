@@ -1,23 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+//import 'package:starbucks_landing_page/screens/home_screen/components/design_pattern_category.dart';
 
-  class Tema extends StatelessWidget {
-  const Tema({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return AutoSizeText(
-      "Tema XXXXXXXXX (XX quantidade de artigos publicados)",
-      textAlign: TextAlign.start,
-      style: TextStyle(
-        color: Colors.black,
-        fontSize: 18.0,
-      ),
-    );
-  }
-}
 class Base extends StatelessWidget {
   const Base({
     Key? key,
@@ -35,6 +19,7 @@ class Base extends StatelessWidget {
     );
   }
 }
+
 class Link extends StatelessWidget {
   const Link({
     Key? key,
@@ -52,6 +37,7 @@ class Link extends StatelessWidget {
     );
   }
 }
+
 class Titulo extends StatelessWidget {
   const Titulo({
     Key? key,
@@ -90,6 +76,7 @@ class TitleFaq extends StatelessWidget {
     );
   }
 }
+
 class SearchButton extends StatelessWidget {
   const SearchButton({Key? key}) : super(key: key);
 
@@ -127,3 +114,180 @@ class SearchButton extends StatelessWidget {
     );
   }
 }
+
+/* class Tema extends StatelessWidget {
+    final DesignPatternCategory category;
+  const Tema({
+    required this.category,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ExpansionTile(
+      /*tilePadding: const EdgeInsets.symmetric(
+        horizontal: LayoutConstants.paddingL,
+        vertical: LayoutConstants.paddingM,
+      ),*/
+      iconColor: Colors.white,
+      collapsedIconColor: Colors.white,
+      title: _CategoryTitle(
+        title: category.title,
+        itemsCount: category.patterns.length,
+      ),
+      /*children: category.patterns
+          .map<Widget>(
+            (designPattern) => _DesignPatternTile(designPattern: designPattern),
+          )
+          .toList()
+          .addBetween(const SizedBox(height: LayoutConstants.spaceXS)),*/
+    );
+  }
+}*/ /*
+class BasicTile {
+  final String title;
+  final List<BasicTile> tiles;
+  const BasicTile({
+    required this.title,
+    this.tiles = const [],
+  });
+}
+
+final basicTiles = <BasicTile>[
+  const BasicTile(title: 'Pergunta 1', tiles: [BasicTile(title: 'Pergunta 1')])
+];*/
+class Imagem extends StatelessWidget {
+  const Imagem({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Image.asset('assets/images/unaerp.faq',height: 60.0),
+        //const SizedBox(width: 10.0),
+        //Image.asset('assets/images/title.png', height: 35.0),
+      ],
+    );
+  }
+}
+class Perguntas extends StatelessWidget {
+  const Perguntas({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+          //crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+         Container(
+      //height: 600,
+      width: 700,
+      margin: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Colors.grey[200],
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: ExpansionTile(
+        title: Text('1. Pergunta 1 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'),
+        backgroundColor: Colors.grey[200],
+        iconColor: Colors.blue[600],
+        collapsedIconColor: Colors.blue[600],
+        children: [
+          ListTile(
+              title: Text('1. Resposta 1 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')),
+        ],
+      ),
+
+      /*Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            width: 80,
+            height: 80,
+            decoration: BoxDecoration(
+              color: Colors.grey[200],
+              borderRadius: BorderRadius.circular(80),
+            ),
+          ),
+          /*const SizedBox(
+            height: 20,
+          ),*/
+          
+          /*Text(
+            e.title,
+            textAlign: TextAlign.center,
+            style: GoogleFonts.josefinSans(
+              color: Colors.blue[600],
+              fontSize: 20,
+              fontWeight: FontWeight.w800,
+            ),
+          )*/
+        ],
+      ),*/
+    ),
+    Container(
+      height: 300,
+      width: 300,
+      child: Image.asset('assets/images/faq.png'),
+      ),
+
+      /*Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            width: 80,
+            height: 80,
+            decoration: BoxDecoration(
+              color: Colors.grey[200],
+              borderRadius: BorderRadius.circular(80),
+            ),
+          ),
+          /*const SizedBox(
+            height: 20,
+          ),*/
+          
+          /*Text(
+            e.title,
+            textAlign: TextAlign.center,
+            style: GoogleFonts.josefinSans(
+              color: Colors.blue[600],
+              fontSize: 20,
+              fontWeight: FontWeight.w800,
+            ),
+          )*/
+        ],
+      ),*/
+    //)
+      ],
+    );
+   ;
+
+    /*ExpansionTile(
+      title: Text('1. Pergunta 1 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'),
+      backgroundColor: Colors.grey[200],
+      iconColor: Colors.blue[600],
+      collapsedIconColor: Colors.blue[600],
+      children: [
+        ListTile(title: Text('1. Resposta 1 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')),
+      ],
+    );*/
+  }
+}
+
+/*Widget buildTile(BasicTile tile) {
+  if (tile.tiles.isEmpty) {
+    return ListTile(
+      title:Text(tile.title),
+    );
+  }else{
+    return ExpansionTile(
+    title: Text(tile.title),
+    children: tile.tiles.map((tile) => buildTile(tile)).toList(),
+  );
+  }
+}*/

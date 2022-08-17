@@ -22,31 +22,47 @@ class DesktopFaq extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
               
               children: [
-                  SizedBox(height: 60),
-                Row(children: [
-                  TitleFaq(),
-                ],),
+                //Column(children: [
+                  Perguntas(),
+                  //Perguntas(),
+                //],)
+                //Perguntas(),
+                /*Column(
+                  //SizedBox(height: 60),
+                  children:[Perguntas(),],
+                ),
+                Column(
+                  //SizedBox(height: 60),
+                  children:[Perguntas(),],
+                ),*/
+                /*Row(children: [
+                  //Perguntas(),
+                  //Tema(category: category,),
+                  //TitleFaq(),
+                  //CategoryPatternsExpandableView(),
+                ],),*/
+                /*
                 SizedBox(height: 10,),
                   Row(children: [
-                  SearchButton(),
+                  //SearchButton(),
                 ],),
                 SizedBox(height: 50,),
                 Row(children: [
-                  Base(),
+                  //Base(),
                 ],),
                 SizedBox(height: 10,),
                 Row(children: [
-                  Titulo(),
+                  //Titulo(),
                 ],),
                 SizedBox(height: 10,),
                 Row(children: [
-                  Tema(),
+                  //Tema(),
                 ],),
                 SizedBox(height: 15,),
                 Row(children: [
-                  Link(),
+                  //Link(),
                 ],),
-              SizedBox(height: 5,),
+              SizedBox(height: 5,),*/
               
             
             //const SizedBox(height: 75.0),
@@ -71,6 +87,7 @@ class DesktopFaq extends StatelessWidget {
     );
   }
 }
+
 
 class _ServingItems extends StatelessWidget {
   const _ServingItems({Key? key}) : super(key: key);
