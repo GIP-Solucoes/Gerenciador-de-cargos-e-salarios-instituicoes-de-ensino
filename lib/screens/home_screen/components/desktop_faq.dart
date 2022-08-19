@@ -19,10 +19,18 @@ class DesktopFaq extends StatelessWidget {
             vertical: 20.0, horizontal: mediaQuery.width * 0.07),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
               
               children: [
                 //Column(children: [
+                  SizedBox(height: 60),
+                  Row(children: [
+                    SizedBox(
+                      width: 150,
+                    ),
+                    Base(),
+                  ],),
+                  
                   Perguntas(),
                   //Perguntas(),
                 //],)

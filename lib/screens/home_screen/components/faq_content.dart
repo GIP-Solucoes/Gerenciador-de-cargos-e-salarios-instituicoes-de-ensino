@@ -10,7 +10,7 @@ class Base extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AutoSizeText(
-      "Base de conhecimento",
+      "Perguntas frequentes",
       textAlign: TextAlign.start,
       style: TextStyle(
         color: Colors.black,
@@ -182,7 +182,8 @@ class Perguntas extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
           //crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-         Container(
+        Column(children: [
+          Container(
       //height: 600,
       width: 700,
       margin: const EdgeInsets.all(20),
@@ -230,10 +231,97 @@ class Perguntas extends StatelessWidget {
       ),*/
     ),
     Container(
+      //height: 600,
+      width: 700,
+      margin: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Colors.grey[200],
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: ExpansionTile(
+        title: Text('2. Pergunta 2 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'),
+        backgroundColor: Colors.grey[200],
+        iconColor: Colors.blue[600],
+        collapsedIconColor: Colors.blue[600],
+        children: [
+          ListTile(
+              title: Text('2. Resposta 2 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')),
+        ],
+      ),
+    ),
+    Container(
+      //height: 600,
+      width: 700,
+      margin: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Colors.grey[200],
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: ExpansionTile(
+        title: Text('3. Pergunta 3 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'),
+        backgroundColor: Colors.grey[200],
+        iconColor: Colors.blue[600],
+        collapsedIconColor: Colors.blue[600],
+        children: [
+          ListTile(
+              title: Text('3. Resposta 3 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')),
+        ],
+      ),
+    ),
+    Container(
+      //height: 600,
+      width: 700,
+      margin: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Colors.grey[200],
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: ExpansionTile(
+        title: Text('4. Pergunta 4 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'),
+        backgroundColor: Colors.grey[200],
+        iconColor: Colors.blue[600],
+        collapsedIconColor: Colors.blue[600],
+        children: [
+          ListTile(
+              title: Text('4. Resposta 4 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')),
+        ],
+      ),
+    ),
+    Container(
+      //height: 600,
+      width: 700,
+      margin: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Colors.grey[200],
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: ExpansionTile(
+        title: Text('5. Pergunta 5 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'),
+        backgroundColor: Colors.grey[200],
+        iconColor: Colors.blue[600],
+        collapsedIconColor: Colors.blue[600],
+        children: [
+          ListTile(
+              title: Text('5. Resposta 5 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')),
+        ],
+      ),
+    ),
+        ],
+        
+        ),
+        SizedBox(
+            width: 40,
+          ),
+        Column(children: [
+          
+          Container(
       height: 300,
       width: 300,
       child: Image.asset('assets/images/faq.png'),
       ),
+        ],)
+         
+    
 
       /*Column(
         mainAxisAlignment: MainAxisAlignment.center,
