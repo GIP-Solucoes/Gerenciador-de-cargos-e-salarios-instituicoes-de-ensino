@@ -11,7 +11,7 @@ class CustomNavbar extends StatelessWidget {
     return LayoutBuilder(
       builder: ((context, constraints) {
         if (constraints.maxWidth >= 750) {
-          return const DesktopNavbar();
+          return const DesktopNavbarMenu();
         }
         //else if (constraints.maxWidth >= kTabletWidth) {
         //   return const Des();
