@@ -422,29 +422,7 @@ class Resultados extends StatelessWidget {
             //padding: EdgeInsets.symmetric(
             //vertical: 10.0, horizontal: mediaQuery.width * 0.1),
       scrollDirection: Axis.horizontal,
-      child: /*Row(
-        children: [
-        Text("Teste"),
-        Text("Teste"),
-        Text("Teste"),
-        Text("Teste"),
-        Text("Teste"),
-        Text("Teste"),Text("Teste"),
-        Text("Teste"),
-        Text("Teste"),
-        Text("Teste"),
-        Text("Teste"),
-        Text("Teste"),
-        Text("Teste"),
-        Text("Teste"),
-        Text("Teste"),Text("Teste"),Text("Teste"),Text("Teste"),Text("Teste"),Text("Teste"),Text("Teste"),
-        Text("Teste"),Text("Teste"),Text("Teste"),Text("Teste"),Text("Teste"),Text("Teste"),Text("Teste"),
-        Text("Teste"),Text("Teste"),Text("Teste"),Text("Teste"),Text("Teste"),Text("Teste"),Text("Teste"),
-        Text("Teste"),Text("Teste"),Text("Teste"),Text("Teste"),Text("Teste"),Text("Teste"),Text("Teste"),
-        Text("Teste"),Text("Teste"),Text("Teste"),Text("Teste"),Text("Teste"),Text("Teste"),Text("Teste"),
-        Text("Teste"),Text("Teste"),Text("Teste"),Text("Teste"),Text("Teste"),Text("Teste"),Text("Teste"),
-        Text("Teste"),Text("Teste"),Text("Teste"),Text("Teste"),Text("Teste"),Text("Teste"),Text("Teste"),
-      ],)*/
+      child:
       Column(children: [
         Row(children: [
           SizedBox(height: 1,)
