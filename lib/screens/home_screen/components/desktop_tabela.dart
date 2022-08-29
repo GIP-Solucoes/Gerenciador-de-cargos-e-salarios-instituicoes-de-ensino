@@ -2,24 +2,15 @@ import 'package:flutter/material.dart';
 
 import 'package:starbucks_landing_page/screens/home_screen/components/aempresa_text.dart';
 import 'package:starbucks_landing_page/screens/home_screen/components/esqueci_content.dart';
-import 'package:starbucks_landing_page/screens/home_screen/components/resultado_content.dart';
+import 'package:starbucks_landing_page/screens/home_screen/components/tabela_content.dart';
 import 'package:starbucks_landing_page/screens/home_screen/components/youtube.dart';
 import 'package:starbucks_landing_page/screens/home_screen/components/menu_content.dart';
 import 'package:starbucks_landing_page/screens/home_screen/components/serving_items_list.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
-class DesktopResultados extends StatefulWidget {
-  const DesktopResultados({Key? key}) : super(key: key);
+class DesktopTabela extends StatelessWidget {
+  const DesktopTabela({Key? key}) : super(key: key);
 
-  
-  
-  @override
-  State<DesktopResultados> createState() {
-    // TODO: implement createState
-    return _StateDesktopResultados();
-  }
-}
-class _StateDesktopResultados extends State<DesktopResultados>{
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context).size;
@@ -34,16 +25,18 @@ class _StateDesktopResultados extends State<DesktopResultados>{
               children: [
                 Row(children: [
                   SizedBox(width: 5),
-                  TitleResultado(),
+                  TitleTabela(),
                 ],),
                 
-                Resultados(),
+                Tabela(),
                 SizedBox(
                   height: 20,
                 ),
                 Row(children: [
                   SizedBox(width: 5,),
                   BotaoVoltar(),
+                  SizedBox(width: 5,),
+                  BotaoSalvar(),
                 ],)
                 
           ],

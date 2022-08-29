@@ -15,12 +15,22 @@ void main() {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+  
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return _StateMyApp();
+  }
 
+  
+}
+class _StateMyApp extends State<MyApp>{
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      
       scrollBehavior: MyCustomScrollBehavior(),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
