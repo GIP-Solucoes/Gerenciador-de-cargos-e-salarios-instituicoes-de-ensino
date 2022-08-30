@@ -201,7 +201,10 @@ class _StateTabela extends State<Tabela> {
     TextEditingController(text: "40"),
     TextEditingController(text: "50"),
   ];
-  double linha1 = 10;
+  double linha11 = double.parse(controllerlinha1[1].text) + 1;
+  double linha12 = double.parse(controllerlinha1[2].text) + 1;
+  double linha13 = double.parse(controllerlinha1[3].text) + 1;
+  double linha14 = double.parse(controllerlinha1[4].text) + 1;
   static List<TextEditingController> controllerlinha2 = [
     TextEditingController(text: "50"),
     TextEditingController(text: "60"),
@@ -210,6 +213,10 @@ class _StateTabela extends State<Tabela> {
     TextEditingController(text: "90"),
     TextEditingController(text: "100"),
   ];
+  double linha21 = double.parse(controllerlinha2[1].text) + 1;
+  double linha22 = double.parse(controllerlinha2[2].text) + 1;
+  double linha23 = double.parse(controllerlinha2[3].text) + 1;
+  double linha24 = double.parse(controllerlinha2[4].text) + 1;
   static List<TextEditingController> controllerlinha3 = [
     TextEditingController(text: "100"),
     TextEditingController(text: "110"),
@@ -218,6 +225,10 @@ class _StateTabela extends State<Tabela> {
     TextEditingController(text: "140"),
     TextEditingController(text: "150"),
   ];
+  double linha31 = double.parse(controllerlinha3[1].text) + 1;
+  double linha32 = double.parse(controllerlinha3[2].text) + 1;
+  double linha33 = double.parse(controllerlinha3[3].text) + 1;
+  double linha34 = double.parse(controllerlinha3[4].text) + 1;
   static List<TextEditingController> controllerlinha4 = [
     TextEditingController(text: "150"),
     TextEditingController(text: "160"),
@@ -226,6 +237,10 @@ class _StateTabela extends State<Tabela> {
     TextEditingController(text: "190"),
     TextEditingController(text: "200"),
   ];
+  double linha41 = double.parse(controllerlinha4[1].text) + 1;
+  double linha42 = double.parse(controllerlinha4[2].text) + 1;
+  double linha43 = double.parse(controllerlinha4[3].text) + 1;
+  double linha44 = double.parse(controllerlinha4[4].text) + 1;
   static List<TextEditingController> controllerlinha5 = [
     TextEditingController(text: "200"),
     TextEditingController(text: "210"),
@@ -234,16 +249,11 @@ class _StateTabela extends State<Tabela> {
     TextEditingController(text: "240"),
     TextEditingController(text: "250"),
   ];
-  static List<TextEditingController> controllerlinha11 = [];
-  static List<TextEditingController> controllerlinha22 = [];
-  static List<TextEditingController> controllerlinha33 = [];
-  static List<TextEditingController> controllerlinha44 = [];
-  static List<TextEditingController> controllerlinha55 = [];
-  /*controller[0].text = "Professor Graduado";
-    controller[1].text = "Professor Especialista";
-    controller[2].text = "Professor Mestre";
-    controller[3].text = "Professor Doutor";
-    controller[4].text = "Professor Livre Docente";*/
+  double linha51 = double.parse(controllerlinha5[1].text) + 1;
+  double linha52 = double.parse(controllerlinha5[2].text) + 1;
+  double linha53 = double.parse(controllerlinha5[3].text) + 1;
+  double linha54 = double.parse(controllerlinha5[4].text) + 1;
+
   _StateTabela({
     Key? key,
   });
@@ -631,7 +641,7 @@ class _StateTabela extends State<Tabela> {
                                                             child: Row(
                                                               children: [
                                                                 Text(
-                                                                  "  DE $linha1 A ",
+                                                                  "  DE ",
                                                                   style:
                                                                       TextStyle(
                                                                     color: Colors
@@ -663,6 +673,50 @@ class _StateTabela extends State<Tabela> {
                                                                               .bold,
                                                                     ),
                                                                   ),
+                                                                ),
+                                                                Text(
+                                                                  " A ",
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontSize:
+                                                                        16.0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                  ),
+                                                                ),
+                                                                Flexible(
+                                                                  child:
+                                                                      TextField(
+                                                                    controller:
+                                                                        controllerlinha1[
+                                                                            1],
+                                                                    //maxLines: 3,
+                                                                    maxLines:
+                                                                        null,
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: Colors
+                                                                          .black,
+                                                                      fontSize:
+                                                                          16.0,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                    ),
+                                                                    onChanged:
+                                                                        (value) =>
+                                                                            {
+                                                                      setState(
+                                                                        () {
+                                                                          linha11 =
+                                                                              double.parse(controllerlinha1[1].text) + 1;
+                                                                        },
+                                                                      )
+                                                                    },
+                                                                  ),
                                                                 )
                                                                 /**/
                                                               ],
@@ -684,18 +738,36 @@ class _StateTabela extends State<Tabela> {
                                                                   .circular(
                                                                       5.0),
                                                         ),
-                                                        child: TextField(
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          controller:
-                                                              controllerlinha1[
-                                                                  0],
-                                                          //maxLines: 3,
-                                                          maxLines: null,
-                                                          style: TextStyle(
-                                                            color: Colors.black,
-                                                            fontSize: 16.0,
-                                                          ),
+                                                        child: Row(
+                                                          children: [
+                                                            Text(
+                                                              "R\$ ",
+                                                              style: TextStyle(
+                                                                color: Colors
+                                                                    .black,
+                                                                fontSize: 16.0,
+                                                              ),
+                                                            ),
+                                                            Flexible(
+                                                              child: TextField(
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .center,
+                                                                controller:
+                                                                    controllerlinha1[
+                                                                        0],
+                                                                //maxLines: 3,
+                                                                maxLines: null,
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontSize:
+                                                                      16.0,
+                                                                ),
+                                                              ),
+                                                            )
+                                                          ],
                                                         ),
                                                       ),
                                                     ],
@@ -732,7 +804,7 @@ class _StateTabela extends State<Tabela> {
                                                             child: Row(
                                                               children: [
                                                                 Text(
-                                                                  "  DE 0 A ",
+                                                                  "  DE $linha11 A ",
                                                                   style:
                                                                       TextStyle(
                                                                     color: Colors
@@ -785,18 +857,36 @@ class _StateTabela extends State<Tabela> {
                                                                   .circular(
                                                                       5.0),
                                                         ),
-                                                        child: TextField(
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          controller:
-                                                              controllerlinha1[
-                                                                  0],
-                                                          //maxLines: 3,
-                                                          maxLines: null,
-                                                          style: TextStyle(
-                                                            color: Colors.black,
-                                                            fontSize: 16.0,
-                                                          ),
+                                                        child: Row(
+                                                          children: [
+                                                            Text(
+                                                              "R\$ ",
+                                                              style: TextStyle(
+                                                                color: Colors
+                                                                    .black,
+                                                                fontSize: 16.0,
+                                                              ),
+                                                            ),
+                                                            Flexible(
+                                                              child: TextField(
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .center,
+                                                                controller:
+                                                                    controllerlinha1[
+                                                                        0],
+                                                                //maxLines: 3,
+                                                                maxLines: null,
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontSize:
+                                                                      16.0,
+                                                                ),
+                                                              ),
+                                                            )
+                                                          ],
                                                         ),
                                                       ),
                                                     ],
@@ -883,18 +973,36 @@ class _StateTabela extends State<Tabela> {
                                                                   .circular(
                                                                       5.0),
                                                         ),
-                                                        child: TextField(
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          controller:
-                                                              controllerlinha1[
-                                                                  0],
-                                                          //maxLines: 3,
-                                                          maxLines: null,
-                                                          style: TextStyle(
-                                                            color: Colors.black,
-                                                            fontSize: 16.0,
-                                                          ),
+                                                        child: Row(
+                                                          children: [
+                                                            Text(
+                                                              "R\$ ",
+                                                              style: TextStyle(
+                                                                color: Colors
+                                                                    .black,
+                                                                fontSize: 16.0,
+                                                              ),
+                                                            ),
+                                                            Flexible(
+                                                              child: TextField(
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .center,
+                                                                controller:
+                                                                    controllerlinha1[
+                                                                        0],
+                                                                //maxLines: 3,
+                                                                maxLines: null,
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontSize:
+                                                                      16.0,
+                                                                ),
+                                                              ),
+                                                            )
+                                                          ],
                                                         ),
                                                       ),
                                                     ],
@@ -980,18 +1088,36 @@ class _StateTabela extends State<Tabela> {
                                                                   .circular(
                                                                       5.0),
                                                         ),
-                                                        child: TextField(
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          controller:
-                                                              controllerlinha1[
-                                                                  0],
-                                                          //maxLines: 3,
-                                                          maxLines: null,
-                                                          style: TextStyle(
-                                                            color: Colors.black,
-                                                            fontSize: 16.0,
-                                                          ),
+                                                        child: Row(
+                                                          children: [
+                                                            Text(
+                                                              "R\$ ",
+                                                              style: TextStyle(
+                                                                color: Colors
+                                                                    .black,
+                                                                fontSize: 16.0,
+                                                              ),
+                                                            ),
+                                                            Flexible(
+                                                              child: TextField(
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .center,
+                                                                controller:
+                                                                    controllerlinha1[
+                                                                        0],
+                                                                //maxLines: 3,
+                                                                maxLines: null,
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontSize:
+                                                                      16.0,
+                                                                ),
+                                                              ),
+                                                            )
+                                                          ],
                                                         ),
                                                       ),
                                                     ],
@@ -1077,18 +1203,36 @@ class _StateTabela extends State<Tabela> {
                                                                   .circular(
                                                                       5.0),
                                                         ),
-                                                        child: TextField(
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          controller:
-                                                              controllerlinha1[
-                                                                  0],
-                                                          //maxLines: 3,
-                                                          maxLines: null,
-                                                          style: TextStyle(
-                                                            color: Colors.black,
-                                                            fontSize: 16.0,
-                                                          ),
+                                                        child: Row(
+                                                          children: [
+                                                            Text(
+                                                              "R\$ ",
+                                                              style: TextStyle(
+                                                                color: Colors
+                                                                    .black,
+                                                                fontSize: 16.0,
+                                                              ),
+                                                            ),
+                                                            Flexible(
+                                                              child: TextField(
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .center,
+                                                                controller:
+                                                                    controllerlinha1[
+                                                                        0],
+                                                                //maxLines: 3,
+                                                                maxLines: null,
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontSize:
+                                                                      16.0,
+                                                                ),
+                                                              ),
+                                                            )
+                                                          ],
                                                         ),
                                                       ),
                                                     ],
@@ -1167,7 +1311,40 @@ class _StateTabela extends State<Tabela> {
                                                               child: Row(
                                                                 children: [
                                                                   Text(
-                                                                    "  DE 0 A ",
+                                                                    "  DE ",
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: Colors
+                                                                          .black,
+                                                                      fontSize:
+                                                                          16.0,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                    ),
+                                                                  ),
+                                                                  Flexible(
+                                                                    child:
+                                                                        TextField(
+                                                                      controller:
+                                                                          controllerlinha1[
+                                                                              0],
+                                                                      //maxLines: 3,
+                                                                      maxLines:
+                                                                          null,
+                                                                      style:
+                                                                          TextStyle(
+                                                                        color: Colors
+                                                                            .black,
+                                                                        fontSize:
+                                                                            16.0,
+                                                                        fontWeight:
+                                                                            FontWeight.bold,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  Text(
+                                                                    " A ",
                                                                     style:
                                                                         TextStyle(
                                                                       color: Colors
@@ -1219,19 +1396,40 @@ class _StateTabela extends State<Tabela> {
                                                                     .circular(
                                                                         5.0),
                                                           ),
-                                                          child: TextField(
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            controller:
-                                                                controllerlinha1[
-                                                                    0],
-                                                            //maxLines: 3,
-                                                            maxLines: null,
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.black,
-                                                              fontSize: 16.0,
-                                                            ),
+                                                          child: Row(
+                                                            children: [
+                                                              Text(
+                                                                "R\$ ",
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontSize:
+                                                                      16.0,
+                                                                ),
+                                                              ),
+                                                              Flexible(
+                                                                child:
+                                                                    TextField(
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  controller:
+                                                                      controllerlinha1[
+                                                                          0],
+                                                                  //maxLines: 3,
+                                                                  maxLines:
+                                                                      null,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontSize:
+                                                                        16.0,
+                                                                  ),
+                                                                ),
+                                                              )
+                                                            ],
                                                           ),
                                                         ),
                                                       ],
@@ -1321,19 +1519,40 @@ class _StateTabela extends State<Tabela> {
                                                                     .circular(
                                                                         5.0),
                                                           ),
-                                                          child: TextField(
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            controller:
-                                                                controllerlinha1[
-                                                                    0],
-                                                            //maxLines: 3,
-                                                            maxLines: null,
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.black,
-                                                              fontSize: 16.0,
-                                                            ),
+                                                          child: Row(
+                                                            children: [
+                                                              Text(
+                                                                "R\$ ",
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontSize:
+                                                                      16.0,
+                                                                ),
+                                                              ),
+                                                              Flexible(
+                                                                child:
+                                                                    TextField(
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  controller:
+                                                                      controllerlinha1[
+                                                                          0],
+                                                                  //maxLines: 3,
+                                                                  maxLines:
+                                                                      null,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontSize:
+                                                                        16.0,
+                                                                  ),
+                                                                ),
+                                                              )
+                                                            ],
                                                           ),
                                                         ),
                                                       ],
@@ -1420,19 +1639,40 @@ class _StateTabela extends State<Tabela> {
                                                                     .circular(
                                                                         5.0),
                                                           ),
-                                                          child: TextField(
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            controller:
-                                                                controllerlinha1[
-                                                                    0],
-                                                            //maxLines: 3,
-                                                            maxLines: null,
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.black,
-                                                              fontSize: 16.0,
-                                                            ),
+                                                          child: Row(
+                                                            children: [
+                                                              Text(
+                                                                "R\$ ",
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontSize:
+                                                                      16.0,
+                                                                ),
+                                                              ),
+                                                              Flexible(
+                                                                child:
+                                                                    TextField(
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  controller:
+                                                                      controllerlinha1[
+                                                                          0],
+                                                                  //maxLines: 3,
+                                                                  maxLines:
+                                                                      null,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontSize:
+                                                                        16.0,
+                                                                  ),
+                                                                ),
+                                                              )
+                                                            ],
                                                           ),
                                                         ),
                                                       ],
@@ -1518,19 +1758,40 @@ class _StateTabela extends State<Tabela> {
                                                                     .circular(
                                                                         5.0),
                                                           ),
-                                                          child: TextField(
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            controller:
-                                                                controllerlinha1[
-                                                                    0],
-                                                            //maxLines: 3,
-                                                            maxLines: null,
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.black,
-                                                              fontSize: 16.0,
-                                                            ),
+                                                          child: Row(
+                                                            children: [
+                                                              Text(
+                                                                "R\$ ",
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontSize:
+                                                                      16.0,
+                                                                ),
+                                                              ),
+                                                              Flexible(
+                                                                child:
+                                                                    TextField(
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  controller:
+                                                                      controllerlinha1[
+                                                                          0],
+                                                                  //maxLines: 3,
+                                                                  maxLines:
+                                                                      null,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontSize:
+                                                                        16.0,
+                                                                  ),
+                                                                ),
+                                                              )
+                                                            ],
                                                           ),
                                                         ),
                                                       ],
@@ -1616,19 +1877,40 @@ class _StateTabela extends State<Tabela> {
                                                                     .circular(
                                                                         5.0),
                                                           ),
-                                                          child: TextField(
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            controller:
-                                                                controllerlinha1[
-                                                                    0],
-                                                            //maxLines: 3,
-                                                            maxLines: null,
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.black,
-                                                              fontSize: 16.0,
-                                                            ),
+                                                          child: Row(
+                                                            children: [
+                                                              Text(
+                                                                "R\$ ",
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontSize:
+                                                                      16.0,
+                                                                ),
+                                                              ),
+                                                              Flexible(
+                                                                child:
+                                                                    TextField(
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  controller:
+                                                                      controllerlinha1[
+                                                                          0],
+                                                                  //maxLines: 3,
+                                                                  maxLines:
+                                                                      null,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontSize:
+                                                                        16.0,
+                                                                  ),
+                                                                ),
+                                                              )
+                                                            ],
                                                           ),
                                                         ),
                                                       ],
@@ -1708,7 +1990,40 @@ class _StateTabela extends State<Tabela> {
                                                               child: Row(
                                                                 children: [
                                                                   Text(
-                                                                    "  DE 0 A ",
+                                                                    "  DE ",
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: Colors
+                                                                          .black,
+                                                                      fontSize:
+                                                                          16.0,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                    ),
+                                                                  ),
+                                                                  Flexible(
+                                                                    child:
+                                                                        TextField(
+                                                                      controller:
+                                                                          controllerlinha1[
+                                                                              0],
+                                                                      //maxLines: 3,
+                                                                      maxLines:
+                                                                          null,
+                                                                      style:
+                                                                          TextStyle(
+                                                                        color: Colors
+                                                                            .black,
+                                                                        fontSize:
+                                                                            16.0,
+                                                                        fontWeight:
+                                                                            FontWeight.bold,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  Text(
+                                                                    " A ",
                                                                     style:
                                                                         TextStyle(
                                                                       color: Colors
@@ -1760,19 +2075,40 @@ class _StateTabela extends State<Tabela> {
                                                                     .circular(
                                                                         5.0),
                                                           ),
-                                                          child: TextField(
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            controller:
-                                                                controllerlinha1[
-                                                                    0],
-                                                            //maxLines: 3,
-                                                            maxLines: null,
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.black,
-                                                              fontSize: 16.0,
-                                                            ),
+                                                          child: Row(
+                                                            children: [
+                                                              Text(
+                                                                "R\$ ",
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontSize:
+                                                                      16.0,
+                                                                ),
+                                                              ),
+                                                              Flexible(
+                                                                child:
+                                                                    TextField(
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  controller:
+                                                                      controllerlinha1[
+                                                                          0],
+                                                                  //maxLines: 3,
+                                                                  maxLines:
+                                                                      null,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontSize:
+                                                                        16.0,
+                                                                  ),
+                                                                ),
+                                                              )
+                                                            ],
                                                           ),
                                                         ),
                                                       ],
@@ -1862,19 +2198,40 @@ class _StateTabela extends State<Tabela> {
                                                                     .circular(
                                                                         5.0),
                                                           ),
-                                                          child: TextField(
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            controller:
-                                                                controllerlinha1[
-                                                                    0],
-                                                            //maxLines: 3,
-                                                            maxLines: null,
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.black,
-                                                              fontSize: 16.0,
-                                                            ),
+                                                          child: Row(
+                                                            children: [
+                                                              Text(
+                                                                "R\$ ",
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontSize:
+                                                                      16.0,
+                                                                ),
+                                                              ),
+                                                              Flexible(
+                                                                child:
+                                                                    TextField(
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  controller:
+                                                                      controllerlinha1[
+                                                                          0],
+                                                                  //maxLines: 3,
+                                                                  maxLines:
+                                                                      null,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontSize:
+                                                                        16.0,
+                                                                  ),
+                                                                ),
+                                                              )
+                                                            ],
                                                           ),
                                                         ),
                                                       ],
@@ -1961,19 +2318,40 @@ class _StateTabela extends State<Tabela> {
                                                                     .circular(
                                                                         5.0),
                                                           ),
-                                                          child: TextField(
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            controller:
-                                                                controllerlinha1[
-                                                                    0],
-                                                            //maxLines: 3,
-                                                            maxLines: null,
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.black,
-                                                              fontSize: 16.0,
-                                                            ),
+                                                          child: Row(
+                                                            children: [
+                                                              Text(
+                                                                "R\$ ",
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontSize:
+                                                                      16.0,
+                                                                ),
+                                                              ),
+                                                              Flexible(
+                                                                child:
+                                                                    TextField(
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  controller:
+                                                                      controllerlinha1[
+                                                                          0],
+                                                                  //maxLines: 3,
+                                                                  maxLines:
+                                                                      null,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontSize:
+                                                                        16.0,
+                                                                  ),
+                                                                ),
+                                                              )
+                                                            ],
                                                           ),
                                                         ),
                                                       ],
@@ -2059,19 +2437,40 @@ class _StateTabela extends State<Tabela> {
                                                                     .circular(
                                                                         5.0),
                                                           ),
-                                                          child: TextField(
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            controller:
-                                                                controllerlinha1[
-                                                                    0],
-                                                            //maxLines: 3,
-                                                            maxLines: null,
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.black,
-                                                              fontSize: 16.0,
-                                                            ),
+                                                          child: Row(
+                                                            children: [
+                                                              Text(
+                                                                "R\$ ",
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontSize:
+                                                                      16.0,
+                                                                ),
+                                                              ),
+                                                              Flexible(
+                                                                child:
+                                                                    TextField(
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  controller:
+                                                                      controllerlinha1[
+                                                                          0],
+                                                                  //maxLines: 3,
+                                                                  maxLines:
+                                                                      null,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontSize:
+                                                                        16.0,
+                                                                  ),
+                                                                ),
+                                                              )
+                                                            ],
                                                           ),
                                                         ),
                                                       ],
@@ -2157,19 +2556,40 @@ class _StateTabela extends State<Tabela> {
                                                                     .circular(
                                                                         5.0),
                                                           ),
-                                                          child: TextField(
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            controller:
-                                                                controllerlinha1[
-                                                                    0],
-                                                            //maxLines: 3,
-                                                            maxLines: null,
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.black,
-                                                              fontSize: 16.0,
-                                                            ),
+                                                          child: Row(
+                                                            children: [
+                                                              Text(
+                                                                "R\$ ",
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontSize:
+                                                                      16.0,
+                                                                ),
+                                                              ),
+                                                              Flexible(
+                                                                child:
+                                                                    TextField(
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  controller:
+                                                                      controllerlinha1[
+                                                                          0],
+                                                                  //maxLines: 3,
+                                                                  maxLines:
+                                                                      null,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontSize:
+                                                                        16.0,
+                                                                  ),
+                                                                ),
+                                                              )
+                                                            ],
                                                           ),
                                                         ),
                                                       ],
@@ -2249,7 +2669,40 @@ class _StateTabela extends State<Tabela> {
                                                               child: Row(
                                                                 children: [
                                                                   Text(
-                                                                    "  DE 0 A ",
+                                                                    "  DE ",
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: Colors
+                                                                          .black,
+                                                                      fontSize:
+                                                                          16.0,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                    ),
+                                                                  ),
+                                                                  Flexible(
+                                                                    child:
+                                                                        TextField(
+                                                                      controller:
+                                                                          controllerlinha1[
+                                                                              0],
+                                                                      //maxLines: 3,
+                                                                      maxLines:
+                                                                          null,
+                                                                      style:
+                                                                          TextStyle(
+                                                                        color: Colors
+                                                                            .black,
+                                                                        fontSize:
+                                                                            16.0,
+                                                                        fontWeight:
+                                                                            FontWeight.bold,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  Text(
+                                                                    " A ",
                                                                     style:
                                                                         TextStyle(
                                                                       color: Colors
@@ -2301,19 +2754,40 @@ class _StateTabela extends State<Tabela> {
                                                                     .circular(
                                                                         5.0),
                                                           ),
-                                                          child: TextField(
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            controller:
-                                                                controllerlinha1[
-                                                                    0],
-                                                            //maxLines: 3,
-                                                            maxLines: null,
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.black,
-                                                              fontSize: 16.0,
-                                                            ),
+                                                          child: Row(
+                                                            children: [
+                                                              Text(
+                                                                "R\$ ",
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontSize:
+                                                                      16.0,
+                                                                ),
+                                                              ),
+                                                              Flexible(
+                                                                child:
+                                                                    TextField(
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  controller:
+                                                                      controllerlinha1[
+                                                                          0],
+                                                                  //maxLines: 3,
+                                                                  maxLines:
+                                                                      null,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontSize:
+                                                                        16.0,
+                                                                  ),
+                                                                ),
+                                                              )
+                                                            ],
                                                           ),
                                                         ),
                                                       ],
@@ -2403,19 +2877,40 @@ class _StateTabela extends State<Tabela> {
                                                                     .circular(
                                                                         5.0),
                                                           ),
-                                                          child: TextField(
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            controller:
-                                                                controllerlinha1[
-                                                                    0],
-                                                            //maxLines: 3,
-                                                            maxLines: null,
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.black,
-                                                              fontSize: 16.0,
-                                                            ),
+                                                          child: Row(
+                                                            children: [
+                                                              Text(
+                                                                "R\$ ",
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontSize:
+                                                                      16.0,
+                                                                ),
+                                                              ),
+                                                              Flexible(
+                                                                child:
+                                                                    TextField(
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  controller:
+                                                                      controllerlinha1[
+                                                                          0],
+                                                                  //maxLines: 3,
+                                                                  maxLines:
+                                                                      null,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontSize:
+                                                                        16.0,
+                                                                  ),
+                                                                ),
+                                                              )
+                                                            ],
                                                           ),
                                                         ),
                                                       ],
@@ -2502,19 +2997,40 @@ class _StateTabela extends State<Tabela> {
                                                                     .circular(
                                                                         5.0),
                                                           ),
-                                                          child: TextField(
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            controller:
-                                                                controllerlinha1[
-                                                                    0],
-                                                            //maxLines: 3,
-                                                            maxLines: null,
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.black,
-                                                              fontSize: 16.0,
-                                                            ),
+                                                          child: Row(
+                                                            children: [
+                                                              Text(
+                                                                "R\$ ",
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontSize:
+                                                                      16.0,
+                                                                ),
+                                                              ),
+                                                              Flexible(
+                                                                child:
+                                                                    TextField(
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  controller:
+                                                                      controllerlinha1[
+                                                                          0],
+                                                                  //maxLines: 3,
+                                                                  maxLines:
+                                                                      null,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontSize:
+                                                                        16.0,
+                                                                  ),
+                                                                ),
+                                                              )
+                                                            ],
                                                           ),
                                                         ),
                                                       ],
@@ -2600,19 +3116,40 @@ class _StateTabela extends State<Tabela> {
                                                                     .circular(
                                                                         5.0),
                                                           ),
-                                                          child: TextField(
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            controller:
-                                                                controllerlinha1[
-                                                                    0],
-                                                            //maxLines: 3,
-                                                            maxLines: null,
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.black,
-                                                              fontSize: 16.0,
-                                                            ),
+                                                          child: Row(
+                                                            children: [
+                                                              Text(
+                                                                "R\$ ",
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontSize:
+                                                                      16.0,
+                                                                ),
+                                                              ),
+                                                              Flexible(
+                                                                child:
+                                                                    TextField(
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  controller:
+                                                                      controllerlinha1[
+                                                                          0],
+                                                                  //maxLines: 3,
+                                                                  maxLines:
+                                                                      null,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontSize:
+                                                                        16.0,
+                                                                  ),
+                                                                ),
+                                                              )
+                                                            ],
                                                           ),
                                                         ),
                                                       ],
@@ -2698,19 +3235,40 @@ class _StateTabela extends State<Tabela> {
                                                                     .circular(
                                                                         5.0),
                                                           ),
-                                                          child: TextField(
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            controller:
-                                                                controllerlinha1[
-                                                                    0],
-                                                            //maxLines: 3,
-                                                            maxLines: null,
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.black,
-                                                              fontSize: 16.0,
-                                                            ),
+                                                          child: Row(
+                                                            children: [
+                                                              Text(
+                                                                "R\$ ",
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontSize:
+                                                                      16.0,
+                                                                ),
+                                                              ),
+                                                              Flexible(
+                                                                child:
+                                                                    TextField(
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  controller:
+                                                                      controllerlinha1[
+                                                                          0],
+                                                                  //maxLines: 3,
+                                                                  maxLines:
+                                                                      null,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontSize:
+                                                                        16.0,
+                                                                  ),
+                                                                ),
+                                                              )
+                                                            ],
                                                           ),
                                                         ),
                                                       ],
@@ -2790,7 +3348,40 @@ class _StateTabela extends State<Tabela> {
                                                               child: Row(
                                                                 children: [
                                                                   Text(
-                                                                    "  DE 0 A ",
+                                                                    "  DE ",
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: Colors
+                                                                          .black,
+                                                                      fontSize:
+                                                                          16.0,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                    ),
+                                                                  ),
+                                                                  Flexible(
+                                                                    child:
+                                                                        TextField(
+                                                                      controller:
+                                                                          controllerlinha1[
+                                                                              0],
+                                                                      //maxLines: 3,
+                                                                      maxLines:
+                                                                          null,
+                                                                      style:
+                                                                          TextStyle(
+                                                                        color: Colors
+                                                                            .black,
+                                                                        fontSize:
+                                                                            16.0,
+                                                                        fontWeight:
+                                                                            FontWeight.bold,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  Text(
+                                                                    " A ",
                                                                     style:
                                                                         TextStyle(
                                                                       color: Colors
@@ -2842,19 +3433,40 @@ class _StateTabela extends State<Tabela> {
                                                                     .circular(
                                                                         5.0),
                                                           ),
-                                                          child: TextField(
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            controller:
-                                                                controllerlinha1[
-                                                                    0],
-                                                            //maxLines: 3,
-                                                            maxLines: null,
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.black,
-                                                              fontSize: 16.0,
-                                                            ),
+                                                          child: Row(
+                                                            children: [
+                                                              Text(
+                                                                "R\$ ",
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontSize:
+                                                                      16.0,
+                                                                ),
+                                                              ),
+                                                              Flexible(
+                                                                child:
+                                                                    TextField(
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  controller:
+                                                                      controllerlinha1[
+                                                                          0],
+                                                                  //maxLines: 3,
+                                                                  maxLines:
+                                                                      null,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontSize:
+                                                                        16.0,
+                                                                  ),
+                                                                ),
+                                                              )
+                                                            ],
                                                           ),
                                                         ),
                                                       ],
@@ -2944,19 +3556,40 @@ class _StateTabela extends State<Tabela> {
                                                                     .circular(
                                                                         5.0),
                                                           ),
-                                                          child: TextField(
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            controller:
-                                                                controllerlinha1[
-                                                                    0],
-                                                            //maxLines: 3,
-                                                            maxLines: null,
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.black,
-                                                              fontSize: 16.0,
-                                                            ),
+                                                          child: Row(
+                                                            children: [
+                                                              Text(
+                                                                "R\$ ",
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontSize:
+                                                                      16.0,
+                                                                ),
+                                                              ),
+                                                              Flexible(
+                                                                child:
+                                                                    TextField(
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  controller:
+                                                                      controllerlinha1[
+                                                                          0],
+                                                                  //maxLines: 3,
+                                                                  maxLines:
+                                                                      null,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontSize:
+                                                                        16.0,
+                                                                  ),
+                                                                ),
+                                                              )
+                                                            ],
                                                           ),
                                                         ),
                                                       ],
@@ -3043,19 +3676,40 @@ class _StateTabela extends State<Tabela> {
                                                                     .circular(
                                                                         5.0),
                                                           ),
-                                                          child: TextField(
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            controller:
-                                                                controllerlinha1[
-                                                                    0],
-                                                            //maxLines: 3,
-                                                            maxLines: null,
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.black,
-                                                              fontSize: 16.0,
-                                                            ),
+                                                          child: Row(
+                                                            children: [
+                                                              Text(
+                                                                "R\$ ",
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontSize:
+                                                                      16.0,
+                                                                ),
+                                                              ),
+                                                              Flexible(
+                                                                child:
+                                                                    TextField(
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  controller:
+                                                                      controllerlinha1[
+                                                                          0],
+                                                                  //maxLines: 3,
+                                                                  maxLines:
+                                                                      null,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontSize:
+                                                                        16.0,
+                                                                  ),
+                                                                ),
+                                                              )
+                                                            ],
                                                           ),
                                                         ),
                                                       ],
@@ -3141,19 +3795,40 @@ class _StateTabela extends State<Tabela> {
                                                                     .circular(
                                                                         5.0),
                                                           ),
-                                                          child: TextField(
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            controller:
-                                                                controllerlinha1[
-                                                                    0],
-                                                            //maxLines: 3,
-                                                            maxLines: null,
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.black,
-                                                              fontSize: 16.0,
-                                                            ),
+                                                          child: Row(
+                                                            children: [
+                                                              Text(
+                                                                "R\$ ",
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontSize:
+                                                                      16.0,
+                                                                ),
+                                                              ),
+                                                              Flexible(
+                                                                child:
+                                                                    TextField(
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  controller:
+                                                                      controllerlinha1[
+                                                                          0],
+                                                                  //maxLines: 3,
+                                                                  maxLines:
+                                                                      null,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontSize:
+                                                                        16.0,
+                                                                  ),
+                                                                ),
+                                                              )
+                                                            ],
                                                           ),
                                                         ),
                                                       ],
@@ -3239,19 +3914,40 @@ class _StateTabela extends State<Tabela> {
                                                                     .circular(
                                                                         5.0),
                                                           ),
-                                                          child: TextField(
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            controller:
-                                                                controllerlinha1[
-                                                                    0],
-                                                            //maxLines: 3,
-                                                            maxLines: null,
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.black,
-                                                              fontSize: 16.0,
-                                                            ),
+                                                          child: Row(
+                                                            children: [
+                                                              Text(
+                                                                "R\$ ",
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontSize:
+                                                                      16.0,
+                                                                ),
+                                                              ),
+                                                              Flexible(
+                                                                child:
+                                                                    TextField(
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  controller:
+                                                                      controllerlinha1[
+                                                                          0],
+                                                                  //maxLines: 3,
+                                                                  maxLines:
+                                                                      null,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontSize:
+                                                                        16.0,
+                                                                  ),
+                                                                ),
+                                                              )
+                                                            ],
                                                           ),
                                                         ),
                                                       ],
