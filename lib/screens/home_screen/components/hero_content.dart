@@ -6,6 +6,7 @@ import 'package:starbucks_landing_page/screens/home_screen/components/desktop_es
 import 'package:starbucks_landing_page/screens/home_screen/components/desktop_faq.dart';
 import 'package:starbucks_landing_page/screens/home_screen/components/desktop_login.dart';
 import 'package:starbucks_landing_page/screens/home_screen/components/desktop_menu.dart';
+import 'package:starbucks_landing_page/screens/home_screen/components/desktop_professores.dart';
 import 'package:starbucks_landing_page/screens/home_screen/components/desktop_resultados.dart';
 import 'package:starbucks_landing_page/screens/home_screen/components/desktop_tabela.dart';
 import 'package:starbucks_landing_page/screens/home_screen/components/mobile_hero.dart';
@@ -28,7 +29,7 @@ class _StateHeroContent extends State<HeroContent>{
     return LayoutBuilder(
       builder: ((context, constraints) {
         if (constraints.maxWidth >= 850) {
-          return const DesktopTabela();
+          return const DesktopProfessores();
         } else if (constraints.maxWidth >= 600) {
           return const TabletHero();
         }

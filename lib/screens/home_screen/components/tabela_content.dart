@@ -112,8 +112,8 @@ class BotaoSalvar extends StatelessWidget {
   }
 }
 
-class BotaoTabelasalarial extends StatelessWidget {
-  BotaoTabelasalarial({
+class BotaoCargos extends StatelessWidget {
+  BotaoCargos({
     Key? key,
   }) : super(key: key);
 
@@ -121,7 +121,7 @@ class BotaoTabelasalarial extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      width: 160.0,
+      width: 205.0,
       height: 40.0,
       decoration: BoxDecoration(
         color: Colors.blue,
@@ -130,15 +130,49 @@ class BotaoTabelasalarial extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Icon(Icons.shopping_bag, color: Colors.white, size: 15.0),
           Text(
-            "Tabela Salarial",
+            " DADOS DOS CARGOS",
             style: TextStyle(
               color: Colors.white,
               fontSize: 16.0,
               // fontWeight: FontWeight.bold,
             ),
           ),
-          Icon(Icons.attach_money, color: Colors.white, size: 30.0),
+          
+        ],
+      ),
+    );
+  }
+}
+class BotaoNovafaixasalarial extends StatelessWidget {
+  BotaoNovafaixasalarial({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.center,
+      width: 205.0,
+      height: 40.0,
+      decoration: BoxDecoration(
+        color: Colors.blue,
+        borderRadius: BorderRadius.circular(5.0),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(Icons.add_circle, color: Colors.white, size: 15.0),
+          Text(
+            " NOVA FAIXA SALARIAL",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 16.0,
+              // fontWeight: FontWeight.bold,
+            ),
+          ),
+          
         ],
       ),
     );
@@ -241,6 +275,7 @@ class _StateTabela extends State<Tabela> {
   double linha42 = double.parse(controllerlinha4[2].text) + 1;
   double linha43 = double.parse(controllerlinha4[3].text) + 1;
   double linha44 = double.parse(controllerlinha4[4].text) + 1;
+  
   static List<TextEditingController> controllerlinha5 = [
     TextEditingController(text: "200"),
     TextEditingController(text: "210"),
@@ -253,6 +288,47 @@ class _StateTabela extends State<Tabela> {
   double linha52 = double.parse(controllerlinha5[2].text) + 1;
   double linha53 = double.parse(controllerlinha5[3].text) + 1;
   double linha54 = double.parse(controllerlinha5[4].text) + 1;
+
+  static List<TextEditingController> controllerlinha11 = [
+    TextEditingController(text: "45,71"),
+    TextEditingController(text: "47,49"),
+    TextEditingController(text: "49,34"),
+    TextEditingController(text: "51,26"),
+    TextEditingController(text: "53,26"),
+    TextEditingController(text: "55,34"),
+  ];
+  static List<TextEditingController> controllerlinha22 = [
+    TextEditingController(text: "53,26"),
+    TextEditingController(text: "55,34"),
+    TextEditingController(text: "57,50"),
+    TextEditingController(text: "62,07"),
+    TextEditingController(text: "64,49"),
+    TextEditingController(text: "67,01"),
+  ];
+  static List<TextEditingController> controllerlinha33 = [
+    TextEditingController(text: "62,07"),
+    TextEditingController(text: "64,49"),
+    TextEditingController(text: "67,01"),
+    TextEditingController(text: "69,62"),
+    TextEditingController(text: "72,34"),
+    TextEditingController(text: "75,16"),
+  ];
+  static List<TextEditingController> controllerlinha44 = [
+    TextEditingController(text: "72,34"),
+    TextEditingController(text: "75,16"),
+    TextEditingController(text: "78,09"),
+    TextEditingController(text: "81,13"),
+    TextEditingController(text: "84,30"),
+    TextEditingController(text: "87,59"),
+  ];
+  static List<TextEditingController> controllerlinha55 = [
+    TextEditingController(text: "84,30"),
+    TextEditingController(text: "87,59"),
+    TextEditingController(text: "91,00"),
+    TextEditingController(text: "94,55"),
+    TextEditingController(text: "98,24"),
+    TextEditingController(text: "102,07"),
+  ];
 
   _StateTabela({
     Key? key,
@@ -310,7 +386,7 @@ class _StateTabela extends State<Tabela> {
           children: [
             Padding(
                 padding: EdgeInsets.symmetric(
-                    vertical: 15.0, horizontal: mediaQuery.width * 0.01),
+                    vertical: mediaQuery.height *0.005, horizontal: mediaQuery.width * 0.01),
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -330,6 +406,7 @@ class _StateTabela extends State<Tabela> {
                               //vertical: 10.0, horizontal: mediaQuery.width * 0.1),
                               scrollDirection: Axis.horizontal,
                               child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Row(
                                     children: [
@@ -406,7 +483,7 @@ class _StateTabela extends State<Tabela> {
                                                 key: categorias[1],
                                                 alignment: Alignment.center,
                                                 width: 130.0,
-                                                height: 26.0,
+                                                height: 30.0,
                                                 decoration: BoxDecoration(
                                                   color: Colors.blue[300],
                                                   borderRadius:
@@ -588,7 +665,7 @@ class _StateTabela extends State<Tabela> {
                                                   //width: 209.0,
                                                   //height: 40.0,
                                                   constraints: BoxConstraints(
-                                                      maxHeight: 100),
+                                                      maxHeight: 95),
                                                   width: 209.0,
                                                   decoration: BoxDecoration(
                                                     color: Colors.white,
@@ -659,9 +736,8 @@ class _StateTabela extends State<Tabela> {
                                                                     controller:
                                                                         controllerlinha1[
                                                                             0],
-                                                                    //maxLines: 3,
                                                                     maxLines:
-                                                                        null,
+                                                                        1,
                                                                     style:
                                                                         TextStyle(
                                                                       color: Colors
@@ -693,9 +769,8 @@ class _StateTabela extends State<Tabela> {
                                                                     controller:
                                                                         controllerlinha1[
                                                                             1],
-                                                                    //maxLines: 3,
                                                                     maxLines:
-                                                                        null,
+                                                                        1,
                                                                     style:
                                                                         TextStyle(
                                                                       color: Colors
@@ -754,10 +829,9 @@ class _StateTabela extends State<Tabela> {
                                                                     TextAlign
                                                                         .center,
                                                                 controller:
-                                                                    controllerlinha1[
+                                                                    controllerlinha11[
                                                                         0],
-                                                                //maxLines: 3,
-                                                                maxLines: null,
+                                                                maxLines: 1,
                                                                 style:
                                                                     TextStyle(
                                                                   color: Colors
@@ -785,7 +859,6 @@ class _StateTabela extends State<Tabela> {
                                                   child: Column(
                                                     children: [
                                                       Container(
-                                                        //constraints: BoxConstraints(maxHeight: 50),
                                                         child: Container(
                                                             alignment: Alignment
                                                                 .center,
@@ -821,10 +894,9 @@ class _StateTabela extends State<Tabela> {
                                                                       TextField(
                                                                     controller:
                                                                         controllerlinha1[
-                                                                            0],
-                                                                    //maxLines: 3,
+                                                                            2],
                                                                     maxLines:
-                                                                        null,
+                                                                        1,
                                                                     style:
                                                                         TextStyle(
                                                                       color: Colors
@@ -835,6 +907,16 @@ class _StateTabela extends State<Tabela> {
                                                                           FontWeight
                                                                               .bold,
                                                                     ),
+                                                                    onChanged:
+                                                                        (value) =>
+                                                                            {
+                                                                      setState(
+                                                                        () {
+                                                                          linha12 =
+                                                                              double.parse(controllerlinha1[2].text) + 1;
+                                                                        },
+                                                                      )
+                                                                    },
                                                                   ),
                                                                 )
                                                                 /**/
@@ -873,10 +955,9 @@ class _StateTabela extends State<Tabela> {
                                                                     TextAlign
                                                                         .center,
                                                                 controller:
-                                                                    controllerlinha1[
-                                                                        0],
-                                                                //maxLines: 3,
-                                                                maxLines: null,
+                                                                    controllerlinha11[
+                                                                        1],
+                                                                maxLines: 1,
                                                                 style:
                                                                     TextStyle(
                                                                   color: Colors
@@ -897,17 +978,13 @@ class _StateTabela extends State<Tabela> {
                                                   width: 2,
                                                 ),
                                                 Container(
-                                                  //constraints: BoxConstraints(maxHeight: 100),
                                                   child: Column(
                                                     children: [
                                                       Container(
-                                                        //constraints: BoxConstraints(maxHeight: 50),
                                                         child: Container(
                                                             alignment: Alignment
                                                                 .center,
                                                             width: 130,
-                                                            //height: _key1.currentContext.size!.height,
-                                                            // constraints: BoxConstraints(maxHeight: 50),
                                                             decoration:
                                                                 BoxDecoration(
                                                               color: Colors
@@ -920,7 +997,7 @@ class _StateTabela extends State<Tabela> {
                                                             child: Row(
                                                               children: [
                                                                 Text(
-                                                                  "  DE 0 A ",
+                                                                  "  DE $linha12 A ",
                                                                   style:
                                                                       TextStyle(
                                                                     color: Colors
@@ -937,10 +1014,10 @@ class _StateTabela extends State<Tabela> {
                                                                       TextField(
                                                                     controller:
                                                                         controllerlinha1[
-                                                                            0],
-                                                                    //maxLines: 3,
+                                                                            3],
+    
                                                                     maxLines:
-                                                                        null,
+                                                                        1,
                                                                     style:
                                                                         TextStyle(
                                                                       color: Colors
@@ -951,6 +1028,16 @@ class _StateTabela extends State<Tabela> {
                                                                           FontWeight
                                                                               .bold,
                                                                     ),
+                                                                    onChanged:
+                                                                        (value) =>
+                                                                            {
+                                                                      setState(
+                                                                        () {
+                                                                          linha13 =
+                                                                              double.parse(controllerlinha1[3].text) + 1;
+                                                                        },
+                                                                      )
+                                                                    },
                                                                   ),
                                                                 )
                                                                 /**/
@@ -989,125 +1076,9 @@ class _StateTabela extends State<Tabela> {
                                                                     TextAlign
                                                                         .center,
                                                                 controller:
-                                                                    controllerlinha1[
-                                                                        0],
-                                                                //maxLines: 3,
-                                                                maxLines: null,
-                                                                style:
-                                                                    TextStyle(
-                                                                  color: Colors
-                                                                      .black,
-                                                                  fontSize:
-                                                                      16.0,
-                                                                ),
-                                                              ),
-                                                            )
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  width: 2,
-                                                ),
-                                                Container(
-                                                  //constraints: BoxConstraints(maxHeight: 100),
-                                                  child: Column(
-                                                    children: [
-                                                      Container(
-                                                        //constraints: BoxConstraints(maxHeight: 50),
-                                                        child: Container(
-                                                            alignment: Alignment
-                                                                .center,
-                                                            width: 130,
-                                                            //height: _key1.currentContext.size!.height,
-                                                            // constraints: BoxConstraints(maxHeight: 50),
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: Colors
-                                                                  .grey[400],
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          5.0),
-                                                            ),
-                                                            child: Row(
-                                                              children: [
-                                                                Text(
-                                                                  "  DE 0 A ",
-                                                                  style:
-                                                                      TextStyle(
-                                                                    color: Colors
-                                                                        .black,
-                                                                    fontSize:
-                                                                        16.0,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold,
-                                                                  ),
-                                                                ),
-                                                                Flexible(
-                                                                  child:
-                                                                      TextField(
-                                                                    controller:
-                                                                        controllerlinha1[
-                                                                            0],
-                                                                    //maxLines: 3,
-                                                                    maxLines:
-                                                                        null,
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontSize:
-                                                                          16.0,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                    ),
-                                                                  ),
-                                                                )
-                                                                /**/
-                                                              ],
-                                                            )),
-                                                      ),
-                                                      Container(
-                                                        alignment:
-                                                            Alignment.center,
-
-                                                        width: 130,
-                                                        //height: 300,
-                                                        //height: _key1.currentContext.size!.height,
-                                                        //constraints: BoxConstraints(maxHeight: 50),
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: Colors.white,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      5.0),
-                                                        ),
-                                                        child: Row(
-                                                          children: [
-                                                            Text(
-                                                              "R\$ ",
-                                                              style: TextStyle(
-                                                                color: Colors
-                                                                    .black,
-                                                                fontSize: 16.0,
-                                                              ),
-                                                            ),
-                                                            Flexible(
-                                                              child: TextField(
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .center,
-                                                                controller:
-                                                                    controllerlinha1[
-                                                                        0],
-                                                                //maxLines: 3,
-                                                                maxLines: null,
+                                                                    controllerlinha11[
+                                                                        2],
+                                                                maxLines: 1,
                                                                 style:
                                                                     TextStyle(
                                                                   color: Colors
@@ -1150,7 +1121,7 @@ class _StateTabela extends State<Tabela> {
                                                             child: Row(
                                                               children: [
                                                                 Text(
-                                                                  "  DE 0 A ",
+                                                                  "  DE $linha13 A ",
                                                                   style:
                                                                       TextStyle(
                                                                     color: Colors
@@ -1167,10 +1138,9 @@ class _StateTabela extends State<Tabela> {
                                                                       TextField(
                                                                     controller:
                                                                         controllerlinha1[
-                                                                            0],
-                                                                    //maxLines: 3,
+                                                                            4],
                                                                     maxLines:
-                                                                        null,
+                                                                        1,
                                                                     style:
                                                                         TextStyle(
                                                                       color: Colors
@@ -1181,6 +1151,16 @@ class _StateTabela extends State<Tabela> {
                                                                           FontWeight
                                                                               .bold,
                                                                     ),
+                                                                    onChanged:
+                                                                        (value) =>
+                                                                            {
+                                                                      setState(
+                                                                        () {
+                                                                          linha14 =
+                                                                              double.parse(controllerlinha1[4].text) + 1;
+                                                                        },
+                                                                      )
+                                                                    },
                                                                   ),
                                                                 )
                                                                 /**/
@@ -1219,10 +1199,124 @@ class _StateTabela extends State<Tabela> {
                                                                     TextAlign
                                                                         .center,
                                                                 controller:
-                                                                    controllerlinha1[
-                                                                        0],
+                                                                    controllerlinha11[
+                                                                        3],
+                                                                maxLines: 1,
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontSize:
+                                                                      16.0,
+                                                                ),
+                                                              ),
+                                                            )
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  width: 2,
+                                                ),
+                                                Container(
+                                                  //constraints: BoxConstraints(maxHeight: 100),
+                                                  child: Column(
+                                                    children: [
+                                                      Container(
+                                                        //constraints: BoxConstraints(maxHeight: 50),
+                                                        child: Container(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            width: 130,
+                                                            //height: _key1.currentContext.size!.height,
+                                                            // constraints: BoxConstraints(maxHeight: 50),
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color: Colors
+                                                                  .grey[400],
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          5.0),
+                                                            ),
+                                                            child: Row(
+                                                              children: [
+                                                                Text(
+                                                                  "  DE $linha14 A ",
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontSize:
+                                                                        16.0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                  ),
+                                                                ),
+                                                                Flexible(
+                                                                  child:
+                                                                      TextField(
+                                                                    controller:
+                                                                        controllerlinha1[
+                                                                            5],
+                                                                    maxLines:
+                                                                        1,
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: Colors
+                                                                          .black,
+                                                                      fontSize:
+                                                                          16.0,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                    ),
+                                                                    
+                                                                  ),
+                                                                )
+                                                                /**/
+                                                              ],
+                                                            )),
+                                                      ),
+                                                      Container(
+                                                        alignment:
+                                                            Alignment.center,
+
+                                                        width: 130,
+                                                        //height: 300,
+                                                        //height: _key1.currentContext.size!.height,
+                                                        //constraints: BoxConstraints(maxHeight: 50),
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: Colors.white,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      5.0),
+                                                        ),
+                                                        child: Row(
+                                                          children: [
+                                                            Text(
+                                                              "R\$ ",
+                                                              style: TextStyle(
+                                                                color: Colors
+                                                                    .black,
+                                                                fontSize: 16.0,
+                                                              ),
+                                                            ),
+                                                            Flexible(
+                                                              child: TextField(
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .center,
+                                                                controller:
+                                                                    controllerlinha11[
+                                                                        4],
                                                                 //maxLines: 3,
-                                                                maxLines: null,
+                                                                maxLines: 1,
                                                                 style:
                                                                     TextStyle(
                                                                   color: Colors
@@ -1257,7 +1351,7 @@ class _StateTabela extends State<Tabela> {
                                                     //width: 209.0,
                                                     //height: 40.0,
                                                     constraints: BoxConstraints(
-                                                        maxHeight: 100),
+                                                        maxHeight: 95),
                                                     width: 209.0,
                                                     decoration: BoxDecoration(
                                                       color: Colors.white,
@@ -1271,7 +1365,7 @@ class _StateTabela extends State<Tabela> {
                                                         //children: [
                                                         TextField(
                                                       maxLines: null,
-                                                      controller: controller[0],
+                                                      controller: controller[1],
                                                       style: TextStyle(
                                                         color: Colors.black,
                                                         fontSize: 16.0,
@@ -1327,11 +1421,11 @@ class _StateTabela extends State<Tabela> {
                                                                     child:
                                                                         TextField(
                                                                       controller:
-                                                                          controllerlinha1[
+                                                                          controllerlinha2[
                                                                               0],
                                                                       //maxLines: 3,
                                                                       maxLines:
-                                                                          null,
+                                                                          1,
                                                                       style:
                                                                           TextStyle(
                                                                         color: Colors
@@ -1360,11 +1454,10 @@ class _StateTabela extends State<Tabela> {
                                                                     child:
                                                                         TextField(
                                                                       controller:
-                                                                          controllerlinha1[
-                                                                              0],
-                                                                      //maxLines: 3,
+                                                                          controllerlinha2[
+                                                                              1],
                                                                       maxLines:
-                                                                          null,
+                                                                          1,
                                                                       style:
                                                                           TextStyle(
                                                                         color: Colors
@@ -1374,6 +1467,16 @@ class _StateTabela extends State<Tabela> {
                                                                         fontWeight:
                                                                             FontWeight.bold,
                                                                       ),
+                                                                      onChanged:
+                                                                        (value) =>
+                                                                            {
+                                                                      setState(
+                                                                        () {
+                                                                          linha22 =
+                                                                              double.parse(controllerlinha2[1].text) + 1;
+                                                                        },
+                                                                      )
+                                                                    },
                                                                     ),
                                                                   )
                                                                   /**/
@@ -1415,11 +1518,11 @@ class _StateTabela extends State<Tabela> {
                                                                       TextAlign
                                                                           .center,
                                                                   controller:
-                                                                      controllerlinha1[
+                                                                      controllerlinha22[
                                                                           0],
                                                                   //maxLines: 3,
                                                                   maxLines:
-                                                                      null,
+                                                                      1,
                                                                   style:
                                                                       TextStyle(
                                                                     color: Colors
@@ -1467,7 +1570,7 @@ class _StateTabela extends State<Tabela> {
                                                               child: Row(
                                                                 children: [
                                                                   Text(
-                                                                    "  DE 0 A ",
+                                                                    "  DE $linha21 A ",
                                                                     style:
                                                                         TextStyle(
                                                                       color: Colors
@@ -1483,11 +1586,11 @@ class _StateTabela extends State<Tabela> {
                                                                     child:
                                                                         TextField(
                                                                       controller:
-                                                                          controllerlinha1[
-                                                                              0],
+                                                                          controllerlinha2[
+                                                                              2],
                                                                       //maxLines: 3,
                                                                       maxLines:
-                                                                          null,
+                                                                          1,
                                                                       style:
                                                                           TextStyle(
                                                                         color: Colors
@@ -1497,6 +1600,16 @@ class _StateTabela extends State<Tabela> {
                                                                         fontWeight:
                                                                             FontWeight.bold,
                                                                       ),
+                                                                      onChanged:
+                                                                        (value) =>
+                                                                            {
+                                                                      setState(
+                                                                        () {
+                                                                          linha22 =
+                                                                              double.parse(controllerlinha2[2].text) + 1;
+                                                                        },
+                                                                      )
+                                                                    },
                                                                     ),
                                                                   )
                                                                   /**/
@@ -1538,11 +1651,11 @@ class _StateTabela extends State<Tabela> {
                                                                       TextAlign
                                                                           .center,
                                                                   controller:
-                                                                      controllerlinha1[
-                                                                          0],
+                                                                      controllerlinha22[
+                                                                          1],
                                                                   //maxLines: 3,
                                                                   maxLines:
-                                                                      null,
+                                                                      1,
                                                                   style:
                                                                       TextStyle(
                                                                     color: Colors
@@ -1587,7 +1700,7 @@ class _StateTabela extends State<Tabela> {
                                                               child: Row(
                                                                 children: [
                                                                   Text(
-                                                                    "  DE 0 A ",
+                                                                    "  DE $linha22 A ",
                                                                     style:
                                                                         TextStyle(
                                                                       color: Colors
@@ -1603,11 +1716,11 @@ class _StateTabela extends State<Tabela> {
                                                                     child:
                                                                         TextField(
                                                                       controller:
-                                                                          controllerlinha1[
-                                                                              0],
+                                                                          controllerlinha2[
+                                                                              3],
                                                                       //maxLines: 3,
                                                                       maxLines:
-                                                                          null,
+                                                                          1,
                                                                       style:
                                                                           TextStyle(
                                                                         color: Colors
@@ -1617,6 +1730,16 @@ class _StateTabela extends State<Tabela> {
                                                                         fontWeight:
                                                                             FontWeight.bold,
                                                                       ),
+                                                                      onChanged:
+                                                                        (value) =>
+                                                                            {
+                                                                      setState(
+                                                                        () {
+                                                                          linha23 =
+                                                                              double.parse(controllerlinha2[3].text) + 1;
+                                                                        },
+                                                                      )
+                                                                    },
                                                                     ),
                                                                   )
                                                                   /**/
@@ -1658,11 +1781,11 @@ class _StateTabela extends State<Tabela> {
                                                                       TextAlign
                                                                           .center,
                                                                   controller:
-                                                                      controllerlinha1[
-                                                                          0],
+                                                                      controllerlinha22[
+                                                                          2],
                                                                   //maxLines: 3,
                                                                   maxLines:
-                                                                      null,
+                                                                      1,
                                                                   style:
                                                                       TextStyle(
                                                                     color: Colors
@@ -1706,7 +1829,7 @@ class _StateTabela extends State<Tabela> {
                                                               child: Row(
                                                                 children: [
                                                                   Text(
-                                                                    "  DE 0 A ",
+                                                                    "  DE $linha23 A ",
                                                                     style:
                                                                         TextStyle(
                                                                       color: Colors
@@ -1722,11 +1845,11 @@ class _StateTabela extends State<Tabela> {
                                                                     child:
                                                                         TextField(
                                                                       controller:
-                                                                          controllerlinha1[
-                                                                              0],
+                                                                          controllerlinha2[
+                                                                              4],
                                                                       //maxLines: 3,
                                                                       maxLines:
-                                                                          null,
+                                                                          1,
                                                                       style:
                                                                           TextStyle(
                                                                         color: Colors
@@ -1736,7 +1859,18 @@ class _StateTabela extends State<Tabela> {
                                                                         fontWeight:
                                                                             FontWeight.bold,
                                                                       ),
+onChanged:
+                                                                        (value) =>
+                                                                            {
+                                                                      setState(
+                                                                        () {
+                                                                          linha24 =
+                                                                              double.parse(controllerlinha2[4].text) + 1;
+                                                                        },
+                                                                      )
+                                                                    },
                                                                     ),
+                                                                    
                                                                   )
                                                                   /**/
                                                                 ],
@@ -1777,11 +1911,11 @@ class _StateTabela extends State<Tabela> {
                                                                       TextAlign
                                                                           .center,
                                                                   controller:
-                                                                      controllerlinha1[
-                                                                          0],
+                                                                      controllerlinha22[
+                                                                          3],
                                                                   //maxLines: 3,
                                                                   maxLines:
-                                                                      null,
+                                                                      1,
                                                                   style:
                                                                       TextStyle(
                                                                     color: Colors
@@ -1825,7 +1959,7 @@ class _StateTabela extends State<Tabela> {
                                                               child: Row(
                                                                 children: [
                                                                   Text(
-                                                                    "  DE 0 A ",
+                                                                    "  DE $linha24 A ",
                                                                     style:
                                                                         TextStyle(
                                                                       color: Colors
@@ -1841,11 +1975,11 @@ class _StateTabela extends State<Tabela> {
                                                                     child:
                                                                         TextField(
                                                                       controller:
-                                                                          controllerlinha1[
-                                                                              0],
+                                                                          controllerlinha2[
+                                                                              5],
                                                                       //maxLines: 3,
                                                                       maxLines:
-                                                                          null,
+                                                                          1,
                                                                       style:
                                                                           TextStyle(
                                                                         color: Colors
@@ -1896,11 +2030,11 @@ class _StateTabela extends State<Tabela> {
                                                                       TextAlign
                                                                           .center,
                                                                   controller:
-                                                                      controllerlinha1[
-                                                                          0],
+                                                                      controllerlinha22[
+                                                                          4],
                                                                   //maxLines: 3,
                                                                   maxLines:
-                                                                      null,
+                                                                      1,
                                                                   style:
                                                                       TextStyle(
                                                                     color: Colors
@@ -1936,7 +2070,7 @@ class _StateTabela extends State<Tabela> {
                                                     //width: 209.0,
                                                     //height: 40.0,
                                                     constraints: BoxConstraints(
-                                                        maxHeight: 100),
+                                                        maxHeight: 95),
                                                     width: 209.0,
                                                     decoration: BoxDecoration(
                                                       color: Colors.white,
@@ -1950,7 +2084,7 @@ class _StateTabela extends State<Tabela> {
                                                         //children: [
                                                         TextField(
                                                       maxLines: null,
-                                                      controller: controller[0],
+                                                      controller: controller[2],
                                                       style: TextStyle(
                                                         color: Colors.black,
                                                         fontSize: 16.0,
@@ -2006,11 +2140,11 @@ class _StateTabela extends State<Tabela> {
                                                                     child:
                                                                         TextField(
                                                                       controller:
-                                                                          controllerlinha1[
+                                                                          controllerlinha3[
                                                                               0],
                                                                       //maxLines: 3,
                                                                       maxLines:
-                                                                          null,
+                                                                          1,
                                                                       style:
                                                                           TextStyle(
                                                                         color: Colors
@@ -2039,11 +2173,11 @@ class _StateTabela extends State<Tabela> {
                                                                     child:
                                                                         TextField(
                                                                       controller:
-                                                                          controllerlinha1[
-                                                                              0],
+                                                                          controllerlinha3[
+                                                                              1],
                                                                       //maxLines: 3,
                                                                       maxLines:
-                                                                          null,
+                                                                          1,
                                                                       style:
                                                                           TextStyle(
                                                                         color: Colors
@@ -2053,6 +2187,16 @@ class _StateTabela extends State<Tabela> {
                                                                         fontWeight:
                                                                             FontWeight.bold,
                                                                       ),
+                                                                      onChanged:
+                                                                        (value) =>
+                                                                            {
+                                                                      setState(
+                                                                        () {
+                                                                          linha31 =
+                                                                              double.parse(controllerlinha3[1].text) + 1;
+                                                                        },
+                                                                      )
+                                                                    },
                                                                     ),
                                                                   )
                                                                   /**/
@@ -2094,11 +2238,11 @@ class _StateTabela extends State<Tabela> {
                                                                       TextAlign
                                                                           .center,
                                                                   controller:
-                                                                      controllerlinha1[
+                                                                      controllerlinha33[
                                                                           0],
                                                                   //maxLines: 3,
                                                                   maxLines:
-                                                                      null,
+                                                                      1,
                                                                   style:
                                                                       TextStyle(
                                                                     color: Colors
@@ -2146,7 +2290,7 @@ class _StateTabela extends State<Tabela> {
                                                               child: Row(
                                                                 children: [
                                                                   Text(
-                                                                    "  DE 0 A ",
+                                                                    "  DE $linha31 A ",
                                                                     style:
                                                                         TextStyle(
                                                                       color: Colors
@@ -2162,11 +2306,11 @@ class _StateTabela extends State<Tabela> {
                                                                     child:
                                                                         TextField(
                                                                       controller:
-                                                                          controllerlinha1[
-                                                                              0],
+                                                                          controllerlinha3[
+                                                                              2],
                                                                       //maxLines: 3,
                                                                       maxLines:
-                                                                          null,
+                                                                          1,
                                                                       style:
                                                                           TextStyle(
                                                                         color: Colors
@@ -2176,6 +2320,16 @@ class _StateTabela extends State<Tabela> {
                                                                         fontWeight:
                                                                             FontWeight.bold,
                                                                       ),
+                                                                      onChanged:
+                                                                        (value) =>
+                                                                            {
+                                                                      setState(
+                                                                        () {
+                                                                          linha32 =
+                                                                              double.parse(controllerlinha3[2].text) + 1;
+                                                                        },
+                                                                      )
+                                                                    },
                                                                     ),
                                                                   )
                                                                   /**/
@@ -2217,11 +2371,11 @@ class _StateTabela extends State<Tabela> {
                                                                       TextAlign
                                                                           .center,
                                                                   controller:
-                                                                      controllerlinha1[
-                                                                          0],
+                                                                      controllerlinha33[
+                                                                          1],
                                                                   //maxLines: 3,
                                                                   maxLines:
-                                                                      null,
+                                                                      1,
                                                                   style:
                                                                       TextStyle(
                                                                     color: Colors
@@ -2266,7 +2420,7 @@ class _StateTabela extends State<Tabela> {
                                                               child: Row(
                                                                 children: [
                                                                   Text(
-                                                                    "  DE 0 A ",
+                                                                    "  DE $linha32 A ",
                                                                     style:
                                                                         TextStyle(
                                                                       color: Colors
@@ -2282,11 +2436,11 @@ class _StateTabela extends State<Tabela> {
                                                                     child:
                                                                         TextField(
                                                                       controller:
-                                                                          controllerlinha1[
-                                                                              0],
+                                                                          controllerlinha3[
+                                                                              3],
                                                                       //maxLines: 3,
                                                                       maxLines:
-                                                                          null,
+                                                                          1,
                                                                       style:
                                                                           TextStyle(
                                                                         color: Colors
@@ -2296,6 +2450,16 @@ class _StateTabela extends State<Tabela> {
                                                                         fontWeight:
                                                                             FontWeight.bold,
                                                                       ),
+                                                                      onChanged:
+                                                                        (value) =>
+                                                                            {
+                                                                      setState(
+                                                                        () {
+                                                                          linha33 =
+                                                                              double.parse(controllerlinha3[3].text) + 1;
+                                                                        },
+                                                                      )
+                                                                    },
                                                                     ),
                                                                   )
                                                                   /**/
@@ -2337,11 +2501,10 @@ class _StateTabela extends State<Tabela> {
                                                                       TextAlign
                                                                           .center,
                                                                   controller:
-                                                                      controllerlinha1[
-                                                                          0],
-                                                                  //maxLines: 3,
+                                                                      controllerlinha33[
+                                                                          2],
                                                                   maxLines:
-                                                                      null,
+                                                                      1,
                                                                   style:
                                                                       TextStyle(
                                                                     color: Colors
@@ -2385,7 +2548,7 @@ class _StateTabela extends State<Tabela> {
                                                               child: Row(
                                                                 children: [
                                                                   Text(
-                                                                    "  DE 0 A ",
+                                                                    "  DE $linha33 A ",
                                                                     style:
                                                                         TextStyle(
                                                                       color: Colors
@@ -2401,11 +2564,10 @@ class _StateTabela extends State<Tabela> {
                                                                     child:
                                                                         TextField(
                                                                       controller:
-                                                                          controllerlinha1[
-                                                                              0],
-                                                                      //maxLines: 3,
+                                                                          controllerlinha3[
+                                                                              4],
                                                                       maxLines:
-                                                                          null,
+                                                                          1,
                                                                       style:
                                                                           TextStyle(
                                                                         color: Colors
@@ -2415,6 +2577,16 @@ class _StateTabela extends State<Tabela> {
                                                                         fontWeight:
                                                                             FontWeight.bold,
                                                                       ),
+                                                                      onChanged:
+                                                                        (value) =>
+                                                                            {
+                                                                      setState(
+                                                                        () {
+                                                                          linha34 =
+                                                                              double.parse(controllerlinha3[4].text) + 1;
+                                                                        },
+                                                                      )
+                                                                    },
                                                                     ),
                                                                   )
                                                                   /**/
@@ -2456,11 +2628,10 @@ class _StateTabela extends State<Tabela> {
                                                                       TextAlign
                                                                           .center,
                                                                   controller:
-                                                                      controllerlinha1[
-                                                                          0],
-                                                                  //maxLines: 3,
+                                                                      controllerlinha33[
+                                                                          3],
                                                                   maxLines:
-                                                                      null,
+                                                                      1,
                                                                   style:
                                                                       TextStyle(
                                                                     color: Colors
@@ -2504,7 +2675,7 @@ class _StateTabela extends State<Tabela> {
                                                               child: Row(
                                                                 children: [
                                                                   Text(
-                                                                    "  DE 0 A ",
+                                                                    "  DE $linha34 A ",
                                                                     style:
                                                                         TextStyle(
                                                                       color: Colors
@@ -2520,11 +2691,10 @@ class _StateTabela extends State<Tabela> {
                                                                     child:
                                                                         TextField(
                                                                       controller:
-                                                                          controllerlinha1[
-                                                                              0],
-                                                                      //maxLines: 3,
+                                                                          controllerlinha3[
+                                                                              5],
                                                                       maxLines:
-                                                                          null,
+                                                                          1,
                                                                       style:
                                                                           TextStyle(
                                                                         color: Colors
@@ -2575,11 +2745,10 @@ class _StateTabela extends State<Tabela> {
                                                                       TextAlign
                                                                           .center,
                                                                   controller:
-                                                                      controllerlinha1[
-                                                                          0],
-                                                                  //maxLines: 3,
+                                                                      controllerlinha33[
+                                                                          4],
                                                                   maxLines:
-                                                                      null,
+                                                                      1,
                                                                   style:
                                                                       TextStyle(
                                                                     color: Colors
@@ -2615,7 +2784,7 @@ class _StateTabela extends State<Tabela> {
                                                     //width: 209.0,
                                                     //height: 40.0,
                                                     constraints: BoxConstraints(
-                                                        maxHeight: 100),
+                                                        maxHeight: 95),
                                                     width: 209.0,
                                                     decoration: BoxDecoration(
                                                       color: Colors.white,
@@ -2624,22 +2793,14 @@ class _StateTabela extends State<Tabela> {
                                                               5.0),
                                                     ),
                                                     child:
-                                                        //Row(
-
-                                                        //children: [
                                                         TextField(
                                                       maxLines: null,
-                                                      controller: controller[0],
+                                                      controller: controller[3],
                                                       style: TextStyle(
                                                         color: Colors.black,
                                                         fontSize: 16.0,
-
-                                                        //fontWeight: FontWeight.bold,
-                                                        // fontWeight: FontWeight.bold,
                                                       ),
                                                     ),
-                                                    //],
-                                                    //),
                                                   ),
                                                   Container(
                                                     width: 2,
@@ -2685,11 +2846,10 @@ class _StateTabela extends State<Tabela> {
                                                                     child:
                                                                         TextField(
                                                                       controller:
-                                                                          controllerlinha1[
+                                                                          controllerlinha4[
                                                                               0],
-                                                                      //maxLines: 3,
                                                                       maxLines:
-                                                                          null,
+                                                                          1,
                                                                       style:
                                                                           TextStyle(
                                                                         color: Colors
@@ -2718,11 +2878,10 @@ class _StateTabela extends State<Tabela> {
                                                                     child:
                                                                         TextField(
                                                                       controller:
-                                                                          controllerlinha1[
-                                                                              0],
-                                                                      //maxLines: 3,
+                                                                          controllerlinha4[
+                                                                              1],
                                                                       maxLines:
-                                                                          null,
+                                                                          1,
                                                                       style:
                                                                           TextStyle(
                                                                         color: Colors
@@ -2732,6 +2891,16 @@ class _StateTabela extends State<Tabela> {
                                                                         fontWeight:
                                                                             FontWeight.bold,
                                                                       ),
+                                                                      onChanged:
+                                                                        (value) =>
+                                                                            {
+                                                                      setState(
+                                                                        () {
+                                                                          linha41 =
+                                                                              double.parse(controllerlinha4[1].text) + 1;
+                                                                        },
+                                                                      )
+                                                                    },
                                                                     ),
                                                                   )
                                                                   /**/
@@ -2773,11 +2942,10 @@ class _StateTabela extends State<Tabela> {
                                                                       TextAlign
                                                                           .center,
                                                                   controller:
-                                                                      controllerlinha1[
+                                                                      controllerlinha44[
                                                                           0],
-                                                                  //maxLines: 3,
                                                                   maxLines:
-                                                                      null,
+                                                                      1,
                                                                   style:
                                                                       TextStyle(
                                                                     color: Colors
@@ -2825,7 +2993,7 @@ class _StateTabela extends State<Tabela> {
                                                               child: Row(
                                                                 children: [
                                                                   Text(
-                                                                    "  DE 0 A ",
+                                                                    "  DE $linha41 A ",
                                                                     style:
                                                                         TextStyle(
                                                                       color: Colors
@@ -2841,11 +3009,10 @@ class _StateTabela extends State<Tabela> {
                                                                     child:
                                                                         TextField(
                                                                       controller:
-                                                                          controllerlinha1[
-                                                                              0],
-                                                                      //maxLines: 3,
+                                                                          controllerlinha4[
+                                                                              2],
                                                                       maxLines:
-                                                                          null,
+                                                                          1,
                                                                       style:
                                                                           TextStyle(
                                                                         color: Colors
@@ -2855,6 +3022,16 @@ class _StateTabela extends State<Tabela> {
                                                                         fontWeight:
                                                                             FontWeight.bold,
                                                                       ),
+                                                                      onChanged:
+                                                                        (value) =>
+                                                                            {
+                                                                      setState(
+                                                                        () {
+                                                                          linha42 =
+                                                                              double.parse(controllerlinha4[2].text) + 1;
+                                                                        },
+                                                                      )
+                                                                    },
                                                                     ),
                                                                   )
                                                                   /**/
@@ -2896,11 +3073,10 @@ class _StateTabela extends State<Tabela> {
                                                                       TextAlign
                                                                           .center,
                                                                   controller:
-                                                                      controllerlinha1[
-                                                                          0],
-                                                                  //maxLines: 3,
+                                                                      controllerlinha44[
+                                                                          1],
                                                                   maxLines:
-                                                                      null,
+                                                                      1,
                                                                   style:
                                                                       TextStyle(
                                                                     color: Colors
@@ -2945,7 +3121,7 @@ class _StateTabela extends State<Tabela> {
                                                               child: Row(
                                                                 children: [
                                                                   Text(
-                                                                    "  DE 0 A ",
+                                                                    "  DE $linha42 A ",
                                                                     style:
                                                                         TextStyle(
                                                                       color: Colors
@@ -2961,11 +3137,10 @@ class _StateTabela extends State<Tabela> {
                                                                     child:
                                                                         TextField(
                                                                       controller:
-                                                                          controllerlinha1[
-                                                                              0],
-                                                                      //maxLines: 3,
+                                                                          controllerlinha4[
+                                                                              3],
                                                                       maxLines:
-                                                                          null,
+                                                                          1,
                                                                       style:
                                                                           TextStyle(
                                                                         color: Colors
@@ -2975,6 +3150,16 @@ class _StateTabela extends State<Tabela> {
                                                                         fontWeight:
                                                                             FontWeight.bold,
                                                                       ),
+                                                                      onChanged:
+                                                                        (value) =>
+                                                                            {
+                                                                      setState(
+                                                                        () {
+                                                                          linha43 =
+                                                                              double.parse(controllerlinha4[3].text) + 1;
+                                                                        },
+                                                                      )
+                                                                    },
                                                                     ),
                                                                   )
                                                                   /**/
@@ -3016,11 +3201,10 @@ class _StateTabela extends State<Tabela> {
                                                                       TextAlign
                                                                           .center,
                                                                   controller:
-                                                                      controllerlinha1[
-                                                                          0],
-                                                                  //maxLines: 3,
+                                                                      controllerlinha44[
+                                                                          2],
                                                                   maxLines:
-                                                                      null,
+                                                                      1,
                                                                   style:
                                                                       TextStyle(
                                                                     color: Colors
@@ -3064,7 +3248,7 @@ class _StateTabela extends State<Tabela> {
                                                               child: Row(
                                                                 children: [
                                                                   Text(
-                                                                    "  DE 0 A ",
+                                                                    "  DE $linha43 A ",
                                                                     style:
                                                                         TextStyle(
                                                                       color: Colors
@@ -3080,11 +3264,10 @@ class _StateTabela extends State<Tabela> {
                                                                     child:
                                                                         TextField(
                                                                       controller:
-                                                                          controllerlinha1[
-                                                                              0],
-                                                                      //maxLines: 3,
+                                                                          controllerlinha4[
+                                                                              4],
                                                                       maxLines:
-                                                                          null,
+                                                                          1,
                                                                       style:
                                                                           TextStyle(
                                                                         color: Colors
@@ -3094,6 +3277,16 @@ class _StateTabela extends State<Tabela> {
                                                                         fontWeight:
                                                                             FontWeight.bold,
                                                                       ),
+                                                                      onChanged:
+                                                                        (value) =>
+                                                                            {
+                                                                      setState(
+                                                                        () {
+                                                                          linha44 =
+                                                                              double.parse(controllerlinha4[4].text) + 1;
+                                                                        },
+                                                                      )
+                                                                    },
                                                                     ),
                                                                   )
                                                                   /**/
@@ -3135,11 +3328,10 @@ class _StateTabela extends State<Tabela> {
                                                                       TextAlign
                                                                           .center,
                                                                   controller:
-                                                                      controllerlinha1[
-                                                                          0],
-                                                                  //maxLines: 3,
+                                                                      controllerlinha44[
+                                                                          3],
                                                                   maxLines:
-                                                                      null,
+                                                                      1,
                                                                   style:
                                                                       TextStyle(
                                                                     color: Colors
@@ -3183,7 +3375,7 @@ class _StateTabela extends State<Tabela> {
                                                               child: Row(
                                                                 children: [
                                                                   Text(
-                                                                    "  DE 0 A ",
+                                                                    "  DE $linha44 A ",
                                                                     style:
                                                                         TextStyle(
                                                                       color: Colors
@@ -3199,11 +3391,10 @@ class _StateTabela extends State<Tabela> {
                                                                     child:
                                                                         TextField(
                                                                       controller:
-                                                                          controllerlinha1[
-                                                                              0],
-                                                                      //maxLines: 3,
+                                                                          controllerlinha4[
+                                                                              5],
                                                                       maxLines:
-                                                                          null,
+                                                                          1,
                                                                       style:
                                                                           TextStyle(
                                                                         color: Colors
@@ -3254,11 +3445,10 @@ class _StateTabela extends State<Tabela> {
                                                                       TextAlign
                                                                           .center,
                                                                   controller:
-                                                                      controllerlinha1[
-                                                                          0],
-                                                                  //maxLines: 3,
+                                                                      controllerlinha44[
+                                                                          4],
                                                                   maxLines:
-                                                                      null,
+                                                                      1,
                                                                   style:
                                                                       TextStyle(
                                                                     color: Colors
@@ -3294,7 +3484,7 @@ class _StateTabela extends State<Tabela> {
                                                     //width: 209.0,
                                                     //height: 40.0,
                                                     constraints: BoxConstraints(
-                                                        maxHeight: 100),
+                                                        maxHeight: 95),
                                                     width: 209.0,
                                                     decoration: BoxDecoration(
                                                       color: Colors.white,
@@ -3308,7 +3498,7 @@ class _StateTabela extends State<Tabela> {
                                                         //children: [
                                                         TextField(
                                                       maxLines: null,
-                                                      controller: controller[0],
+                                                      controller: controller[4],
                                                       style: TextStyle(
                                                         color: Colors.black,
                                                         fontSize: 16.0,
@@ -3364,11 +3554,10 @@ class _StateTabela extends State<Tabela> {
                                                                     child:
                                                                         TextField(
                                                                       controller:
-                                                                          controllerlinha1[
+                                                                          controllerlinha5[
                                                                               0],
-                                                                      //maxLines: 3,
                                                                       maxLines:
-                                                                          null,
+                                                                          1,
                                                                       style:
                                                                           TextStyle(
                                                                         color: Colors
@@ -3397,11 +3586,10 @@ class _StateTabela extends State<Tabela> {
                                                                     child:
                                                                         TextField(
                                                                       controller:
-                                                                          controllerlinha1[
-                                                                              0],
-                                                                      //maxLines: 3,
+                                                                          controllerlinha5[
+                                                                              1],
                                                                       maxLines:
-                                                                          null,
+                                                                          1,
                                                                       style:
                                                                           TextStyle(
                                                                         color: Colors
@@ -3411,7 +3599,18 @@ class _StateTabela extends State<Tabela> {
                                                                         fontWeight:
                                                                             FontWeight.bold,
                                                                       ),
+                                                                      onChanged:
+                                                                        (value) =>
+                                                                            {
+                                                                      setState(
+                                                                        () {
+                                                                          linha51 =
+                                                                              double.parse(controllerlinha5[1].text) + 1;
+                                                                        },
+                                                                      )
+                                                                    },
                                                                     ),
+                                                                    
                                                                   )
                                                                   /**/
                                                                 ],
@@ -3452,11 +3651,10 @@ class _StateTabela extends State<Tabela> {
                                                                       TextAlign
                                                                           .center,
                                                                   controller:
-                                                                      controllerlinha1[
+                                                                      controllerlinha55[
                                                                           0],
-                                                                  //maxLines: 3,
                                                                   maxLines:
-                                                                      null,
+                                                                      1,
                                                                   style:
                                                                       TextStyle(
                                                                     color: Colors
@@ -3504,7 +3702,7 @@ class _StateTabela extends State<Tabela> {
                                                               child: Row(
                                                                 children: [
                                                                   Text(
-                                                                    "  DE 0 A ",
+                                                                    "  DE $linha51 A ",
                                                                     style:
                                                                         TextStyle(
                                                                       color: Colors
@@ -3520,11 +3718,10 @@ class _StateTabela extends State<Tabela> {
                                                                     child:
                                                                         TextField(
                                                                       controller:
-                                                                          controllerlinha1[
-                                                                              0],
-                                                                      //maxLines: 3,
+                                                                          controllerlinha5[
+                                                                              2],
                                                                       maxLines:
-                                                                          null,
+                                                                          1,
                                                                       style:
                                                                           TextStyle(
                                                                         color: Colors
@@ -3534,6 +3731,16 @@ class _StateTabela extends State<Tabela> {
                                                                         fontWeight:
                                                                             FontWeight.bold,
                                                                       ),
+                                                                      onChanged:
+                                                                        (value) =>
+                                                                            {
+                                                                      setState(
+                                                                        () {
+                                                                          linha52 =
+                                                                              double.parse(controllerlinha5[2].text) + 1;
+                                                                        },
+                                                                      )
+                                                                    },
                                                                     ),
                                                                   )
                                                                   /**/
@@ -3575,11 +3782,10 @@ class _StateTabela extends State<Tabela> {
                                                                       TextAlign
                                                                           .center,
                                                                   controller:
-                                                                      controllerlinha1[
-                                                                          0],
-                                                                  //maxLines: 3,
+                                                                      controllerlinha55[
+                                                                          1],
                                                                   maxLines:
-                                                                      null,
+                                                                      1,
                                                                   style:
                                                                       TextStyle(
                                                                     color: Colors
@@ -3624,7 +3830,7 @@ class _StateTabela extends State<Tabela> {
                                                               child: Row(
                                                                 children: [
                                                                   Text(
-                                                                    "  DE 0 A ",
+                                                                    "  DE $linha52 A ",
                                                                     style:
                                                                         TextStyle(
                                                                       color: Colors
@@ -3640,11 +3846,10 @@ class _StateTabela extends State<Tabela> {
                                                                     child:
                                                                         TextField(
                                                                       controller:
-                                                                          controllerlinha1[
-                                                                              0],
-                                                                      //maxLines: 3,
+                                                                          controllerlinha5[
+                                                                              3],
                                                                       maxLines:
-                                                                          null,
+                                                                          1,
                                                                       style:
                                                                           TextStyle(
                                                                         color: Colors
@@ -3654,6 +3859,16 @@ class _StateTabela extends State<Tabela> {
                                                                         fontWeight:
                                                                             FontWeight.bold,
                                                                       ),
+                                                                      onChanged:
+                                                                        (value) =>
+                                                                            {
+                                                                      setState(
+                                                                        () {
+                                                                          linha53 =
+                                                                              double.parse(controllerlinha5[3].text) + 1;
+                                                                        },
+                                                                      )
+                                                                    },
                                                                     ),
                                                                   )
                                                                   /**/
@@ -3695,11 +3910,10 @@ class _StateTabela extends State<Tabela> {
                                                                       TextAlign
                                                                           .center,
                                                                   controller:
-                                                                      controllerlinha1[
-                                                                          0],
-                                                                  //maxLines: 3,
+                                                                      controllerlinha55[
+                                                                          2],
                                                                   maxLines:
-                                                                      null,
+                                                                      1,
                                                                   style:
                                                                       TextStyle(
                                                                     color: Colors
@@ -3743,7 +3957,7 @@ class _StateTabela extends State<Tabela> {
                                                               child: Row(
                                                                 children: [
                                                                   Text(
-                                                                    "  DE 0 A ",
+                                                                    "  DE $linha53 A ",
                                                                     style:
                                                                         TextStyle(
                                                                       color: Colors
@@ -3759,11 +3973,10 @@ class _StateTabela extends State<Tabela> {
                                                                     child:
                                                                         TextField(
                                                                       controller:
-                                                                          controllerlinha1[
-                                                                              0],
-                                                                      //maxLines: 3,
+                                                                          controllerlinha5[
+                                                                              4],
                                                                       maxLines:
-                                                                          null,
+                                                                          1,
                                                                       style:
                                                                           TextStyle(
                                                                         color: Colors
@@ -3773,6 +3986,16 @@ class _StateTabela extends State<Tabela> {
                                                                         fontWeight:
                                                                             FontWeight.bold,
                                                                       ),
+                                                                      onChanged:
+                                                                        (value) =>
+                                                                            {
+                                                                      setState(
+                                                                        () {
+                                                                          linha54 =
+                                                                              double.parse(controllerlinha5[4].text) + 1;
+                                                                        },
+                                                                      )
+                                                                    },
                                                                     ),
                                                                   )
                                                                   /**/
@@ -3814,11 +4037,10 @@ class _StateTabela extends State<Tabela> {
                                                                       TextAlign
                                                                           .center,
                                                                   controller:
-                                                                      controllerlinha1[
-                                                                          0],
-                                                                  //maxLines: 3,
+                                                                      controllerlinha55[
+                                                                          3],
                                                                   maxLines:
-                                                                      null,
+                                                                      1,
                                                                   style:
                                                                       TextStyle(
                                                                     color: Colors
@@ -3862,7 +4084,7 @@ class _StateTabela extends State<Tabela> {
                                                               child: Row(
                                                                 children: [
                                                                   Text(
-                                                                    "  DE 0 A ",
+                                                                    "  DE $linha54 A ",
                                                                     style:
                                                                         TextStyle(
                                                                       color: Colors
@@ -3878,11 +4100,10 @@ class _StateTabela extends State<Tabela> {
                                                                     child:
                                                                         TextField(
                                                                       controller:
-                                                                          controllerlinha1[
-                                                                              0],
-                                                                      //maxLines: 3,
+                                                                          controllerlinha5[
+                                                                              5],
                                                                       maxLines:
-                                                                          null,
+                                                                          1,
                                                                       style:
                                                                           TextStyle(
                                                                         color: Colors
@@ -3933,11 +4154,10 @@ class _StateTabela extends State<Tabela> {
                                                                       TextAlign
                                                                           .center,
                                                                   controller:
-                                                                      controllerlinha1[
-                                                                          0],
-                                                                  //maxLines: 3,
+                                                                      controllerlinha55[
+                                                                          4],
                                                                   maxLines:
-                                                                      null,
+                                                                      1,
                                                                   style:
                                                                       TextStyle(
                                                                     color: Colors
@@ -3957,77 +4177,101 @@ class _StateTabela extends State<Tabela> {
                                               ),
                                             ),
                                           ),
-                                          SizedBox(height: 2),
+                                          
                                         ],
-                                      )))
+                                      ))
+                                      
+                                      ),
+                                      Row(
+                                        children: [
+                                            SizedBox(
+                                              width: 211.0,
+                                              height: 20,
+                                            ),
+                                            Container(
+                                              alignment:Alignment.center,
+                                              width: 130,
+                                            child: 
+                                            IconButton(
+                                              icon: const Icon(Icons.cancel),
+                                              color:Colors.red,
+                                              onPressed: () {
+                                            },
+                                            ),
+                                            ),
+                                            SizedBox(width: 2,),
+                                            Container(
+                                              alignment:Alignment.center,
+                                              width: 130,
+                                            child: 
+                                            IconButton(
+                                              icon: const Icon(Icons.cancel),
+                                              color:Colors.red,
+                                              onPressed: () {
+                                            },
+                                            ),
+                                            ),
+                                            SizedBox(width: 2,),
+                                            Container(
+                                              alignment:Alignment.center,
+                                              width: 130,
+                                            child: 
+                                            IconButton(
+                                              icon: const Icon(Icons.cancel),
+                                              color:Colors.red,
+                                              onPressed: () {
+                                            },
+                                            ),
+                                            ),
+                                            SizedBox(width: 2,),
+                                            Container(
+                                              alignment:Alignment.center,
+                                              width: 130,
+                                            child: 
+                                            IconButton(
+                                              icon: const Icon(Icons.cancel),
+                                              color:Colors.red,
+                                              onPressed: () {
+                                            },
+                                            ),
+                                            ),
+                                            SizedBox(width: 2,),
+                                            Container(
+                                              alignment:Alignment.center,
+                                              width: 130,
+                                            child: 
+                                            IconButton(
+                                              icon: const Icon(Icons.cancel),
+                                              color:Colors.red,
+                                              onPressed: () {
+                                            },
+                                            ),
+                                            ),
+                                            SizedBox(width: 2,)
+                                          ],)
                                 ],
                               ),
                             ),
-                            //height: double.infinity,
                           ),
-                          //  ],)
-                          //Row(children: [
-                          //Row(
-                          //mainAxisAlignment: MainAxisAlignment.start,
-                          //crossAxisAlignment: CrossAxisAlignment.start,
-                          //children: [
-
-                          //],//)
-
-                          //],)
                         ],
-                      ),
-                      //Row(
-                      // mainAxisAlignment:MainAxisAlignment.start,
-                      //children: [
-                      SizedBox(
-                        height: 20,
                       ),
                       Row(
                         children: [
-                          BotaoTabelasalarial(),
-                          //Row(
-                          //mainAxisAlignment: MainAxisAlignment.center,
-                          //children: [
+                          BotaoCargos(),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          BotaoNovafaixasalarial(),
+                          Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
                           SizedBox(
                             width: (mediaQuery.width * 0.3) - 160,
                           ),
-                          Container(
-                              width: ind == 0 ? 10 : 5,
-                              height: ind == 0 ? 10 : 5,
-                              margin: EdgeInsets.symmetric(
-                                  horizontal: mediaQuery.width * 0.01),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(30),
-                                  color: ind == 0
-                                      ? Colors.blue
-                                      : Colors.grey[300]),
-                              child: OutlinedButton(
-                                onPressed: () {
-                                  scrollTo(0);
-                                },
-                                child: Text("teste"),
-                              )),
-                          //],),
-                          Container(
-                              width: ind == 1 ? 10 : 5,
-                              height: ind == 1 ? 10 : 5,
-                              margin: EdgeInsets.symmetric(
-                                  horizontal: mediaQuery.width * 0.01),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(30),
-                                  color: ind == 1
-                                      ? Colors.blue
-                                      : Colors.grey[300]),
-                              child: OutlinedButton(
-                                onPressed: () {
-                                  scrollTo(1);
-                                },
-                                child: Text("teste"),
-                              )),
+                          
                         ],
                       )
-                      //],)
+                      ],)
                     ])),
             /*const SizedBox(
                 height: 20,
