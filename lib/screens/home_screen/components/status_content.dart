@@ -146,148 +146,28 @@ class BotaoNovostatus extends StatelessWidget {
 }
 
 class _StateResultados extends State<Resultados> {
-  final List<GlobalKey> categorias = [
-    GlobalKey(),
-    GlobalKey(),
-  ];
   int ind = 0;
   late ScrollController scrollCont;
   BuildContext? tabContext;
   double mediaQueryx=0;
 
-  scrollTo(int index) async {
-    scrollCont.removeListener(changeTabs);
-    final categoria = categorias[index].currentContext!;
-
-    await Scrollable.ensureVisible(categoria,
-        duration: Duration(milliseconds: 600));
-    setState(() {
-      ind = index;
-    });
-    scrollCont.addListener(changeTabs);
-  }
-
   @override
   void initState() {
-    scrollCont = ScrollController();
-    scrollCont.addListener(changeTabs);
     super.initState();
   }
 
-  changeTabs() {
-    late RenderBox box;
-    for (var i = 0; i < categorias.length; i++) {
-      box = categorias[i].currentContext!.findRenderObject() as RenderBox;
-      Offset position = box.localToGlobal(Offset.zero);
-      if (scrollCont.offset >= (position.dx-(mediaQueryx*0.15)))
-        setState(() {
-          ind = i;
-        });
-    }
-  }
-
-  static List<TextEditingController> controller = [
-    TextEditingController(text: "Professor Graduado"),
-    TextEditingController(text: "Professor Especialista"),
-    TextEditingController(text: "Professor Mestre"),
-    TextEditingController(text: "Professor Doutor"),
-    TextEditingController(text: "Professor Livre Docente"),
+  static List<TextEditingController> controllercoluna1 = [
+    TextEditingController(text: "Ativo"),
+    TextEditingController(text: "Inativo"),
+    TextEditingController(text: "Afastado"),
   ];
-  static List<TextEditingController> controllerlinha1 = [
-    TextEditingController(text: "Graduação"),
-    TextEditingController(text: "1 ano"),
-    TextEditingController(text: "1 ano"),
-    TextEditingController(
-        text:
-            "Executam serviços de apoio nas áreas de recursos humanos, administração, finanças e logística; atendem fornecedores e clientes, fornecendo e recebendo informações sobre produtos e serviços; tratam de documentos variados, cumprindo todo o procedimento necessário referente aos mesmos."),
-    TextEditingController(
-        text:
-            "Executam serviços de apoio nas áreas de recursos humanos, administração, finanças e logística; atendem fornecedores e clientes, fornecendo e recebendo informações sobre produtos e serviços; tratam de documentos variados, cumprindo todo o procedimento necessário referente aos mesmos."),
-  ];
-  static List<TextEditingController> controllerlinha2 = [
-    TextEditingController(text: "Especialização"),
-    TextEditingController(text: "1 ano"),
-    TextEditingController(text: "1 ano"),
-    TextEditingController(
-        text:
-            "Executam serviços de apoio nas áreas de recursos humanos, administração, finanças e logística; atendem fornecedores e clientes, fornecendo e recebendo informações sobre produtos e serviços; tratam de documentos variados, cumprindo todo o procedimento necessário referente aos mesmos."),
-    TextEditingController(
-        text:
-            "Executam serviços de apoio nas áreas de recursos humanos, administração, finanças e logística; atendem fornecedores e clientes, fornecendo e recebendo informações sobre produtos e serviços; tratam de documentos variados, cumprindo todo o procedimento necessário referente aos mesmos."),
-  ];
-  static List<TextEditingController> controllerlinha3 = [
-    TextEditingController(text: "Mestrado"),
-    TextEditingController(text: "2 anos"),
-    TextEditingController(text: "2 anos"),
-    TextEditingController(
-        text:
-            "Executam serviços de apoio nas áreas de recursos humanos, administração, finanças e logística; atendem fornecedores e clientes, fornecendo e recebendo informações sobre produtos e serviços; tratam de documentos variados, cumprindo todo o procedimento necessário referente aos mesmos; preparam relatórios e planilhas."),
-    TextEditingController(
-        text:
-            "Executam serviços de apoio nas áreas de recursos humanos, administração, finanças e logística; atendem fornecedores e clientes, fornecendo e recebendo informações sobre produtos e serviços; tratam de documentos variados, cumprindo todo o procedimento necessário referente aos mesmos; preparam relatórios e planilhas."),
-  ];
-  static List<TextEditingController> controllerlinha4 = [
-    TextEditingController(text: "Doutorado"),
-    TextEditingController(text: "3 anos"),
-    TextEditingController(text: "3 anos"),
-    TextEditingController(
-        text:
-            "Desenvolvem e implantam sistemas informatizados dimensionando requisitos e funcionalidade dos sistemas, especificando sua arquitetura, escolhendo ferramentas de desenvolvimento, especificando programas, codificando aplicativos. Prestam suporte técnico ao cliente, elaboram documentação técnica."),
-    TextEditingController(
-        text:
-            "Desenvolvem e implantam sistemas informatizados dimensionando requisitos e funcionalidade dos sistemas, especificando sua arquitetura, escolhendo ferramentas de desenvolvimento, especificando programas, codificando aplicativos. Prestam suporte técnico ao cliente, elaboram documentação técnica."),
-  ];
-  static List<TextEditingController> controllerlinha5 = [
-    TextEditingController(text: "Livre Docência"),
-    TextEditingController(text: "4 anos"),
-    TextEditingController(text: "3 anos"),
-    TextEditingController(
-        text:
-            "Desenvolvem e implantam sistemas informatizados dimensionando requisitos e funcionalidade dos sistemas, especificando sua arquitetura, escolhendo ferramentas de desenvolvimento, especificando programas, codificando aplicativos. Administram ambiente informatizado, prestam suporte técnico ao cliente, elaboram documentação técnica."),
-    TextEditingController(
-        text:
-            "Desenvolvem e implantam sistemas informatizados dimensionando requisitos e funcionalidade dos sistemas, especificando sua arquitetura, escolhendo ferramentas de desenvolvimento, especificando programas, codificando aplicativos. Administram ambiente informatizado, prestam suporte técnico ao cliente, elaboram documentação técnica."),
-  ];
-  /*controller[0].text = "Professor Graduado";
-    controller[1].text = "Professor Especialista";
-    controller[2].text = "Professor Mestre";
-    controller[3].text = "Professor Doutor";
-    controller[4].text = "Professor Livre Docente";*/
+  final dropValue = ValueNotifier('');
+  final dropOpcoes = ['Considera', 'Não considera',];
+ 
   _StateResultados({
     Key? key,
   });
-  /*final whatIDo = [
-    NameIconColor(
-      title: "Meu cargo",
-      iconData: Icons.business_center, //assigment_indbusiness center
-      color: Colors.blue[600]!,
-    ),
-    NameIconColor(
-      title: "Resultado",
-      iconData: Icons.trending_up,
-      color: Colors.blue[600]!,
-    ),
-    NameIconColor(
-      title: "Dados dos cargos",
-      iconData: Icons.assignment_outlined,
-      color: Colors.blue[600]!,
-    ),
-    NameIconColor(
-      title: "Dados dos funcionários",
-      iconData: Icons.file_copy, //file copy
-      color: Colors.blue[600]!,
-    ),
-    NameIconColor(
-      title: "Pontuação",
-      iconData: Icons.insert_chart,
-      color: Colors.blue[600]!,
-    ),
-    NameIconColor(
-      title: "Simulador",
-      iconData: Icons.play_circle,
-      color: Colors.blue[600]!,
-    ),
-  ];*/
+ 
   @override
   Widget build(BuildContext context) {
     int quantidadel = 2;
@@ -313,20 +193,13 @@ class _StateResultados extends State<Resultados> {
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    //crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
-                        //mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          //Column(children: [
                           SizedBox(
                             width: (mediaQuery.width * 0.63)/1.75,
-                            //height: 40,
                             child: SingleChildScrollView(
-                              controller: scrollCont,
-                              //padding: EdgeInsets.symmetric(
-                              //vertical: 10.0, horizontal: mediaQuery.width * 0.1),
                               scrollDirection: Axis.horizontal,
                               child: Row(
                                 children: [
@@ -338,7 +211,6 @@ class _StateResultados extends State<Resultados> {
                                       Row(
                                         children: [
                                           Container(
-                                            key: categorias[0],
                                             alignment: Alignment.center,
                                             width: 209.0,
                                             height: 40.0,
@@ -373,7 +245,7 @@ class _StateResultados extends State<Resultados> {
                                           ),
                                           Container(
                                             alignment: Alignment.center,
-                                            width: 104.5,
+                                            width: 150,
                                             height: 40.0,
                                             decoration: BoxDecoration(
                                               color: Colors.blue,
@@ -444,7 +316,7 @@ class _StateResultados extends State<Resultados> {
                                                               TextField(
                                                             maxLines: null,
                                                             controller:
-                                                                controller[0],
+                                                                controllercoluna1[0],
                                                             style: TextStyle(
                                                               color: Colors.black,
                                                               fontSize: 16.0,
@@ -466,7 +338,7 @@ class _StateResultados extends State<Resultados> {
                                                           alignment:
                                                               Alignment.center,
 
-                                                          width: 104.5,
+                                                          width: 150,
                                                           //height: 300,
                                                           //height: _key1.currentContext.size!.height,
                                                           //constraints: BoxConstraints(maxHeight: 50),
@@ -476,16 +348,49 @@ class _StateResultados extends State<Resultados> {
                                                                 BorderRadius
                                                                     .circular(5.0),
                                                           ),
-                                                          child: TextField(
-                                                            controller:
-                                                                controllerlinha1[0],
-                                                            maxLines: null,
-                                                            //maxLines: null,
-                                                            style: TextStyle(
-                                                              color: Colors.black,
-                                                              fontSize: 16.0,
-                                                            ),
-                                                          ),
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              ValueListenableBuilder(
+                                                                      valueListenable:
+                                                                          dropValue,
+                                                                      builder: (BuildContext
+                                                                              context,
+                                                                          String
+                                                                              value,
+                                                                          _) {
+                                                                        return DropdownButton<
+                                                                            String>(
+                                                                          hint: Text(
+                                                                            textAlign:TextAlign.center,
+                                                                            style: TextStyle(
+                                                                  color:
+                                                                      Colors.black,
+                                                                  fontSize: 16.0,
+                                                                ),
+                                                                              dropOpcoes[
+                                                                                  0]),
+                                                                          value: (value
+                                                                                  .isEmpty)
+                                                                              ? null
+                                                                              : value,
+                                                                          onChanged:
+                                                                              (escolha) {
+                                                                            dropValue.value =
+                                                                                escolha.toString();
+                                                                          },
+                                                                          items: dropOpcoes
+                                                                              .map((op) => DropdownMenuItem(
+                                                                                    value: op,
+                                                                                    child: Text(op),
+                                                                                  ))
+                                                                              .toList(),
+                                                                        );
+                                                                      }),
+                                                            ],
+                                                          )
                                                         ), //)
 
                                                         //],),
@@ -536,7 +441,7 @@ class _StateResultados extends State<Resultados> {
                                                               TextField(
                                                             maxLines: null,
                                                             controller:
-                                                                controller[0],
+                                                                controllercoluna1[1],
                                                             style: TextStyle(
                                                               color: Colors.black,
                                                               fontSize: 16.0,
@@ -558,7 +463,7 @@ class _StateResultados extends State<Resultados> {
                                                           alignment:
                                                               Alignment.center,
 
-                                                          width: 104.5,
+                                                          width: 150,
                                                           //height: 300,
                                                           //height: _key1.currentContext.size!.height,
                                                           //constraints: BoxConstraints(maxHeight: 50),
@@ -568,16 +473,42 @@ class _StateResultados extends State<Resultados> {
                                                                 BorderRadius
                                                                     .circular(5.0),
                                                           ),
-                                                          child: TextField(
-                                                            controller:
-                                                                controllerlinha1[0],
-                                                            maxLines: null,
-                                                            //maxLines: null,
-                                                            style: TextStyle(
-                                                              color: Colors.black,
-                                                              fontSize: 16.0,
-                                                            ),
-                                                          ),
+                                                          child: ValueListenableBuilder(
+                                                                      valueListenable:
+                                                                          dropValue,
+                                                                      builder: (BuildContext
+                                                                              context,
+                                                                          String
+                                                                              value,
+                                                                          _) {
+                                                                        return DropdownButton<
+                                                                            String>(
+                                                                          hint: Text(
+                                                                            textAlign:TextAlign.center,
+                                                                            style: TextStyle(
+                                                                  color:
+                                                                      Colors.black,
+                                                                  fontSize: 16.0,
+                                                                ),
+                                                                              dropOpcoes[
+                                                                                  1]),
+                                                                          value: (value
+                                                                                  .isEmpty)
+                                                                              ? null
+                                                                              : value,
+                                                                          onChanged:
+                                                                              (escolha) {
+                                                                            dropValue.value =
+                                                                                escolha.toString();
+                                                                          },
+                                                                          items: dropOpcoes
+                                                                              .map((op) => DropdownMenuItem(
+                                                                                    value: op,
+                                                                                    child: Text(op),
+                                                                                  ))
+                                                                              .toList(),
+                                                                        );
+                                                                      }),
                                                         ), //)
 
                                                         //],),
@@ -630,7 +561,7 @@ class _StateResultados extends State<Resultados> {
                                                               TextField(
                                                             maxLines: null,
                                                             controller:
-                                                                controller[0],
+                                                                controllercoluna1[2],
                                                             style: TextStyle(
                                                               color: Colors.black,
                                                               fontSize: 16.0,
@@ -652,7 +583,7 @@ class _StateResultados extends State<Resultados> {
                                                           alignment:
                                                               Alignment.center,
 
-                                                          width: 104.5,
+                                                          width: 150,
                                                           //height: 300,
                                                           //height: _key1.currentContext.size!.height,
                                                           //constraints: BoxConstraints(maxHeight: 50),
@@ -662,16 +593,42 @@ class _StateResultados extends State<Resultados> {
                                                                 BorderRadius
                                                                     .circular(5.0),
                                                           ),
-                                                          child: TextField(
-                                                            controller:
-                                                                controllerlinha1[0],
-                                                            maxLines: null,
-                                                            //maxLines: null,
-                                                            style: TextStyle(
-                                                              color: Colors.black,
-                                                              fontSize: 16.0,
-                                                            ),
-                                                          ),
+                                                          child: ValueListenableBuilder(
+                                                                      valueListenable:
+                                                                          dropValue,
+                                                                      builder: (BuildContext
+                                                                              context,
+                                                                          String
+                                                                              value,
+                                                                          _) {
+                                                                        return DropdownButton<
+                                                                            String>(
+                                                                          hint: Text(
+                                                                            textAlign:TextAlign.center,
+                                                                            style: TextStyle(
+                                                                  color:
+                                                                      Colors.black,
+                                                                  fontSize: 16.0,
+                                                                ),
+                                                                              dropOpcoes[
+                                                                                  0]),
+                                                                          value: (value
+                                                                                  .isEmpty)
+                                                                              ? null
+                                                                              : value,
+                                                                          onChanged:
+                                                                              (escolha) {
+                                                                            dropValue.value =
+                                                                                escolha.toString();
+                                                                          },
+                                                                          items: dropOpcoes
+                                                                              .map((op) => DropdownMenuItem(
+                                                                                    value: op,
+                                                                                    child: Text(op),
+                                                                                  ))
+                                                                              .toList(),
+                                                                        );
+                                                                      }),
                                                         ), //)
 
                                                         //],),
