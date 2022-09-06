@@ -13,17 +13,19 @@ import 'package:starbucks_landing_page/screens/home_screen/components/mobile_her
 import 'package:starbucks_landing_page/screens/home_screen/components/tablet_hero.dart';
 import 'package:starbucks_landing_page/screens/home_screen/components/desktop_cargos.dart';
 
+int pagina = 0;
+
 class HeroContent extends StatefulWidget {
   const HeroContent({Key? key}) : super(key: key);
 
-  
   @override
   State<HeroContent> createState() {
     // TODO: implement createState
     return _StateHeroContent();
   }
 }
-class _StateHeroContent extends State<HeroContent>{
+
+class _StateHeroContent extends State<HeroContent> {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(

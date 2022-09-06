@@ -1,7 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:starbucks_landing_page/main.dart';
+import 'package:starbucks_landing_page/screens/home_screen/components/hero_content.dart';
 import 'package:starbucks_landing_page/screens/home_screen/components/name_color.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:starbucks_landing_page/screens/home_screen/home_screen.dart';
 //import 'package:my_portfolio/models/name_color.dart';
 
 class MenuText extends StatelessWidget {
@@ -43,12 +46,12 @@ class BotaoNovofuncionario extends StatelessWidget {
               // fontWeight: FontWeight.bold,
             ),
           ),
-          
         ],
       ),
     );
   }
 }
+
 class BotaoPlanilha extends StatelessWidget {
   BotaoPlanilha({
     Key? key,
@@ -76,12 +79,12 @@ class BotaoPlanilha extends StatelessWidget {
               // fontWeight: FontWeight.bold,
             ),
           ),
-          
         ],
       ),
     );
   }
 }
+
 class BotaoStatus extends StatelessWidget {
   BotaoStatus({
     Key? key,
@@ -109,12 +112,12 @@ class BotaoStatus extends StatelessWidget {
               // fontWeight: FontWeight.bold,
             ),
           ),
-          
         ],
       ),
     );
   }
 }
+
 class BotaoSalvar extends StatelessWidget {
   BotaoSalvar({
     Key? key,
@@ -147,6 +150,7 @@ class BotaoSalvar extends StatelessWidget {
     );
   }
 }
+
 class SearchButton extends StatelessWidget {
   const SearchButton({Key? key}) : super(key: key);
 
@@ -186,6 +190,47 @@ class SearchButton extends StatelessWidget {
 }
 
 class _ProfessoresState extends State<Professores> {
+  int statusCont = 1;
+  static List<TextEditingController> controllerl1 = [
+    TextEditingController(text: "6876875"),
+    TextEditingController(text: "Adriana Carta"),
+    TextEditingController(text: "Professor Graduado"),
+    TextEditingController(text: "Professor Mestre"),
+    TextEditingController(text: "Mestrado"),
+    TextEditingController(text: "0"),
+    TextEditingController(text: "0"),
+    TextEditingController(text: "0"),
+    TextEditingController(text: "0"),
+    TextEditingController(text: "0"),
+    TextEditingController(text: "0"),
+    TextEditingController(text: "0"),
+    TextEditingController(text: "0"),
+    TextEditingController(text: "0"),
+    TextEditingController(text: "0"),
+    TextEditingController(text: "7"),
+    TextEditingController(text: "11/08/14"),
+    TextEditingController(text: "Gente boa!"),
+  ];
+  static List<TextEditingController> controllerl2 = [
+    TextEditingController(text: "7652615"),
+    TextEditingController(text: "Adriana Naime Pontes Passoni"),
+    TextEditingController(text: "Professor Graduado"),
+    TextEditingController(text: "Professor Mestre"),
+    TextEditingController(text: "Mestrado"),
+    TextEditingController(text: "0"),
+    TextEditingController(text: "3"),
+    TextEditingController(text: "1"),
+    TextEditingController(text: "1"),
+    TextEditingController(text: "2"),
+    TextEditingController(text: "4"),
+    TextEditingController(text: "1"),
+    TextEditingController(text: "1"),
+    TextEditingController(text: "3"),
+    TextEditingController(text: "1"),
+    TextEditingController(text: "0"),
+    TextEditingController(text: "24/03/95"),
+    TextEditingController(text: "Chato demais!"),
+  ];
   final List<GlobalKey> categorias = [
     GlobalKey(),
     GlobalKey(),
@@ -193,14 +238,31 @@ class _ProfessoresState extends State<Professores> {
     GlobalKey(),
     GlobalKey()
   ];
+  final List<GlobalKey>keyAltura = [GlobalKey(),
+    GlobalKey(),
+    GlobalKey(),
+    GlobalKey(),
+    GlobalKey(),
+    GlobalKey(),
+    GlobalKey()];
+  List<Size> sizeAltura =[Size(0, 49),
+  Size(0, 49),
+  Size(0, 49),
+  Size(0, 49),
+  Size(0, 49),
+  Size(0, 49),
+  Size(0, 49)
+  ];
   int ind = 0;
   late ScrollController scrollCont;
+  final dropValue = ValueNotifier('');
+  final dropOpcoes = ['Ativo', 'Inativo', 'Afastado'];
   BuildContext? tabContext;
-
+  late ScrollController _scrollControllerOne, _scrollControllerTwo;
   scrollTo(int index) async {
     scrollCont.removeListener(changeTabs);
     final categoria = categorias[index].currentContext!;
-    
+
     await Scrollable.ensureVisible(categoria,
         duration: Duration(milliseconds: 600));
     setState(() {
@@ -214,6 +276,46 @@ class _ProfessoresState extends State<Professores> {
     scrollCont = ScrollController();
     scrollCont.addListener(changeTabs);
     super.initState();
+    for(int i=0;i<keyAltura.length;i++)
+    atualizaContainer(i);
+    _scrollControllerOne = ScrollController();
+    _scrollControllerTwo = ScrollController();
+    _scrollControllerTwo.addListener(() {
+      //_scrollControllerOne.removeListener(scrollTwo);
+      scrollOne();
+      //_scrollControllerOne.addListener(scrollTwo);
+    });
+    _scrollControllerOne.addListener(() {
+      //_scrollControllerTwo.removeListener(scrollOne);
+      scrollTwo();
+      //_scrollControllerTwo.addListener(scrollOne);
+    });
+    
+  }
+
+  void scrollOne() {
+    _scrollControllerOne.animateTo(_scrollControllerTwo.offset,
+        duration: const Duration(milliseconds: 1), curve: Curves.linear);
+  }
+
+  void scrollTwo() {
+    _scrollControllerTwo.animateTo(_scrollControllerOne.offset,
+        duration: const Duration(milliseconds: 1), curve: Curves.linear);
+  }
+
+  @override
+  void dispose() {
+    _scrollControllerOne.dispose();
+    _scrollControllerTwo.dispose();
+    super.dispose();
+  }
+
+  void atualizaContainer(int index) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      late RenderBox boxx;
+      boxx = keyAltura[index].currentContext!.findRenderObject() as RenderBox;
+      sizeAltura[index] = boxx.size;
+    });
   }
 
   changeTabs() {
@@ -233,6 +335,7 @@ class _ProfessoresState extends State<Professores> {
     final mediaQuery = MediaQuery.of(context).size;
     return Builder(builder: (BuildContext context) {
       tabContext = context;
+
       return Container(
         height: 430,
         width: 1000,
@@ -247,7 +350,8 @@ class _ProfessoresState extends State<Professores> {
           children: [
             Padding(
               padding: EdgeInsets.symmetric(
-                  vertical: mediaQuery.height *0.005, horizontal: mediaQuery.width * 0.01),
+                  vertical: mediaQuery.height * 0.005,
+                  horizontal: mediaQuery.width * 0.01),
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -257,8 +361,7 @@ class _ProfessoresState extends State<Professores> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Row(
-                          children: [
-                          ],
+                          children: [],
                         ),
                         SizedBox(
                           width: 350.0,
@@ -304,117 +407,130 @@ class _ProfessoresState extends State<Professores> {
                           //mainAxisAlignment: MainAxisAlignment.start,
                           //crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
-                              children: [
-                                Container(
-                                              alignment:Alignment.center,
-                                              width: 40,
-                                              height: 40,
-                                            ),
-                              ],
+                            Container(
+                              alignment: Alignment.center,
+                              width: 40,
+                              height: 40,
                             ),
                             SizedBox(height: 2),
-                            Row(
-                              children: [
-                                Container(
-                                              alignment:Alignment.center,
-                                              width: 40,
-                                              height: 40,
-                                            child: 
-                                            IconButton(
+                            SizedBox(
+                              height: 250,
+                              child: ScrollConfiguration(
+                                behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+                                child: SingleChildScrollView(
+                                  
+                                  controller: _scrollControllerOne,
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Container(
+                                            alignment: Alignment.center,
+                                            width: 40,
+                                            height: sizeAltura[0].height,
+                                            child: IconButton(
                                               icon: const Icon(Icons.cancel),
-                                              color:Colors.red,
-                                              onPressed: () {
-                                            },
+                                              color: Colors.red,
+                                              onPressed: () {},
                                             ),
-                                            ),
-                              ],
-                            ),
-                            SizedBox(height: 2),
-                            Row(
-                              children: [
-                                Container(
-                                              alignment:Alignment.center,
-                                              width: 40,
-                                              height: 40,
-                                            child: 
-                                            IconButton(
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(height: 2),
+                                      Row(
+                                        children: [
+                                          Container(
+                                            alignment: Alignment.center,
+                                            width: 40,
+                                            height: sizeAltura[1].height,
+                                            child: IconButton(
                                               icon: const Icon(Icons.cancel),
-                                              color:Colors.red,
-                                              onPressed: () {
-                                            },
+                                              color: Colors.red,
+                                              onPressed: () {},
                                             ),
-                                            ),
-                              ],
-                            ),
-                            SizedBox(height: 2),
-                            Row(
-                              children: [
-                                Container(
-                                              alignment:Alignment.center,
-                                              width: 40,
-                                              height: 40,
-                                            child: 
-                                            IconButton(
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(height: 2),
+                                      Row(
+                                        children: [
+                                          Container(
+                                            alignment: Alignment.center,
+                                            width: 40,
+                                            height: sizeAltura[2].height,
+                                            child: IconButton(
                                               icon: const Icon(Icons.cancel),
-                                              color:Colors.red,
-                                              onPressed: () {
-                                            },
+                                              color: Colors.red,
+                                              onPressed: () {},
                                             ),
-                                            ),
-                              ],
-                            ),
-                            SizedBox(height: 2),
-                            Row(
-                              children: [
-                                Container(
-                                              alignment:Alignment.center,
-                                              width: 40,
-                                              height: 40,
-                                            child: 
-                                            IconButton(
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(height: 2),
+                                      Row(
+                                        children: [
+                                          Container(
+                                            alignment: Alignment.center,
+                                            width: 40,
+                                            height: sizeAltura[3].height,
+                                            child: IconButton(
                                               icon: const Icon(Icons.cancel),
-                                              color:Colors.red,
-                                              onPressed: () {
-                                            },
+                                              color: Colors.red,
+                                              onPressed: () {},
                                             ),
-                                            ),
-                              ],
-                            ),
-                            SizedBox(height: 2),
-                            Row(
-                              children: [
-                                Container(
-                                              alignment:Alignment.center,
-                                              width: 40,
-                                              height: 40,
-                                            child: 
-                                            IconButton(
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(height: 2),
+                                      Row(
+                                        children: [
+                                          Container(
+                                            alignment: Alignment.center,
+                                            width: 40,
+                                            height: sizeAltura[4].height,
+                                            child: IconButton(
                                               icon: const Icon(Icons.cancel),
-                                              color:Colors.red,
-                                              onPressed: () {
-                                            },
+                                              color: Colors.red,
+                                              onPressed: () {},
                                             ),
-                                            ),
-                              ],
-                            ),
-                            SizedBox(height: 2),
-                            Row(
-                              children: [
-                                Container(
-                                              alignment:Alignment.center,
-                                              width: 40,
-                                              height: 40,
-                                            child: 
-                                            IconButton(
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(height: 2),
+                                      Row(
+                                        children: [
+                                          Container(
+                                            alignment: Alignment.center,
+                                            width: 40,
+                                            height: sizeAltura[5].height,
+                                            child: IconButton(
                                               icon: const Icon(Icons.cancel),
-                                              color:Colors.red,
-                                              onPressed: () {
-                                            },
+                                              color: Colors.red,
+                                              onPressed: () {},
                                             ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(height: 2),
+                                      Row(
+                                        children: [
+                                          Container(
+                                            alignment: Alignment.center,
+                                            width: 40,
+                                            height: sizeAltura[6].height,
+                                            child: IconButton(
+                                              icon: const Icon(Icons.cancel),
+                                              color: Colors.red,
+                                              onPressed: () {},
                                             ),
-                              ],
-                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            )
                           ],
                         ),
                         //Column(children: [
@@ -524,7 +640,7 @@ class _ProfessoresState extends State<Professores> {
                                     ),
                                     Container(
                                       alignment: Alignment.center,
-                                      width: 104.5,
+                                      width: 209,
                                       height: 40.0,
                                       decoration: BoxDecoration(
                                         color: Colors.blue,
@@ -536,7 +652,7 @@ class _ProfessoresState extends State<Professores> {
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                            "Título",
+                                            "Cargo Antigo",
                                             style: TextStyle(
                                               color: Colors.black,
                                               fontSize: 16.0,
@@ -553,7 +669,7 @@ class _ProfessoresState extends State<Professores> {
                                     Container(
                                       key: categorias[1],
                                       alignment: Alignment.center,
-                                      width: 104.5,
+                                      width: 209,
                                       height: 40.0,
                                       decoration: BoxDecoration(
                                         color: Colors.blue,
@@ -565,13 +681,42 @@ class _ProfessoresState extends State<Professores> {
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                            "Aprovação em\nconcurso público",
+                                            "Cargo Novo",
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               color: Colors.black,
-                                              fontSize: 8.0,
+                                              fontSize: 16.0,
                                               fontWeight: FontWeight.bold,
 
+                                              // fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 2,
+                                    ),
+                                    Container(
+                                      alignment: Alignment.center,
+                                      width: 209,
+                                      height: 40.0,
+                                      decoration: BoxDecoration(
+                                        color: Colors.blue,
+                                        borderRadius:
+                                            BorderRadius.circular(5.0),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            textAlign: TextAlign.center,
+                                            "Título",
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 16.0,
+                                              fontWeight: FontWeight.bold,
                                               // fontWeight: FontWeight.bold,
                                             ),
                                           ),
@@ -586,7 +731,7 @@ class _ProfessoresState extends State<Professores> {
                                       width: 104.5,
                                       height: 40.0,
                                       decoration: BoxDecoration(
-                                        color: Colors.blue,
+                                        color: Colors.blue[200],
                                         borderRadius:
                                             BorderRadius.circular(5.0),
                                       ),
@@ -596,7 +741,36 @@ class _ProfessoresState extends State<Professores> {
                                         children: [
                                           Text(
                                             textAlign: TextAlign.center,
-                                            "Créditos de pós-\ngraduação",
+                                            "Aprovação em\nconcurso público",
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 8.0,
+                                              fontWeight: FontWeight.bold,
+                                              // fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 2,
+                                    ),
+                                    Container(
+                                      alignment: Alignment.center,
+                                      width: 104.5,
+                                      height: 40.0,
+                                      decoration: BoxDecoration(
+                                        color: Colors.blue[200],
+                                        borderRadius:
+                                            BorderRadius.circular(5.0),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            textAlign: TextAlign.center,
+                                            "Créditos de pós\ngraduação",
                                             style: TextStyle(
                                               color: Colors.black,
                                               fontSize: 8.0,
@@ -669,6 +843,7 @@ class _ProfessoresState extends State<Professores> {
                                       width: 2,
                                     ),
                                     Container(
+                                      key: categorias[2],
                                       alignment: Alignment.center,
                                       width: 104.5,
                                       height: 40.0,
@@ -727,65 +902,6 @@ class _ProfessoresState extends State<Professores> {
                                       width: 2,
                                     ),
                                     Container(
-                                      key: categorias[2],
-                                      alignment: Alignment.center,
-                                      width: 104.5,
-                                      height: 40.0,
-                                      decoration: BoxDecoration(
-                                        color: Colors.blue[200],
-                                        borderRadius:
-                                            BorderRadius.circular(5.0),
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            textAlign: TextAlign.center,
-                                            "Livros publicados",
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 8.0,
-                                              fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 2,
-                                    ),
-                                    Container(
-                                      alignment: Alignment.center,
-                                      width: 104.5,
-                                      height: 40.0,
-                                      decoration: BoxDecoration(
-                                        color: Colors.blue[200],
-                                        borderRadius:
-                                            BorderRadius.circular(5.0),
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            textAlign: TextAlign.center,
-                                            "Realização de\npesquisas",
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 8.0,
-                                              fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 2,
-                                    ),
-                                    Container(
                                       alignment: Alignment.center,
                                       width: 104.5,
                                       height: 40.0,
@@ -800,7 +916,7 @@ class _ProfessoresState extends State<Professores> {
                                         children: [
                                           Text(
                                             textAlign: TextAlign.center,
-                                            "Professor de\nuniversidade pública",
+                                            "TOTAL\nFormação\nAcadêmica",
                                             style: TextStyle(
                                               color: Colors.black,
                                               fontSize: 8.0,
@@ -829,65 +945,7 @@ class _ProfessoresState extends State<Professores> {
                                         children: [
                                           Text(
                                             textAlign: TextAlign.center,
-                                            "Trabalhos científicos",
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 8.0,
-                                              fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 2,
-                                    ),
-                                    Container(
-                                      alignment: Alignment.center,
-                                      width: 104.5,
-                                      height: 40.0,
-                                      decoration: BoxDecoration(
-                                        color: Colors.blue[400],
-                                        borderRadius:
-                                            BorderRadius.circular(5.0),
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            textAlign: TextAlign.center,
-                                            "Assiduidade",
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 16.0,
-                                              fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 2,
-                                    ),
-                                    Container(
-                                      alignment: Alignment.center,
-                                      width: 104.5,
-                                      height: 40.0,
-                                      decoration: BoxDecoration(
-                                        color: Colors.blue[400],
-                                        borderRadius:
-                                            BorderRadius.circular(5.0),
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            textAlign: TextAlign.center,
-                                            "Tempo de empresa",
+                                            "Livros Publicados",
                                             style: TextStyle(
                                               color: Colors.black,
                                               fontSize: 8.0,
@@ -917,10 +975,10 @@ class _ProfessoresState extends State<Professores> {
                                         children: [
                                           Text(
                                             textAlign: TextAlign.center,
-                                            "Pontos",
+                                            "Pesquisa realizada",
                                             style: TextStyle(
                                               color: Colors.black,
-                                              fontSize: 16.0,
+                                              fontSize: 8.0,
                                               fontWeight: FontWeight.bold,
                                               // fontWeight: FontWeight.bold,
                                             ),
@@ -946,10 +1004,69 @@ class _ProfessoresState extends State<Professores> {
                                         children: [
                                           Text(
                                             textAlign: TextAlign.center,
-                                            "Cargo",
+                                            "Professor de\nuniversidade pública",
                                             style: TextStyle(
                                               color: Colors.black,
-                                              fontSize: 16.0,
+                                              fontSize: 8.0,
+                                              fontWeight: FontWeight.bold,
+                                              // fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 2,
+                                    ),
+                                    Container(
+                                      
+                                      alignment: Alignment.center,
+                                      width: 104.5,
+                                      height: 40.0,
+                                      decoration: BoxDecoration(
+                                        color: Colors.blue[400],
+                                        borderRadius:
+                                            BorderRadius.circular(5.0),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            textAlign: TextAlign.center,
+                                            "Trabalhos científicos\npublicados",
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 8.0,
+                                              fontWeight: FontWeight.bold,
+                                              // fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 2,
+                                    ),
+                                    Container(
+                                      alignment: Alignment.center,
+                                      width: 104.5,
+                                      height: 40.0,
+                                      decoration: BoxDecoration(
+                                        color: Colors.blue[400],
+                                        borderRadius:
+                                            BorderRadius.circular(5.0),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            textAlign: TextAlign.center,
+                                            "TOTAL\nExperiência",
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 8.0,
                                               fontWeight: FontWeight.bold,
                                               // fontWeight: FontWeight.bold,
                                             ),
@@ -976,65 +1093,7 @@ class _ProfessoresState extends State<Professores> {
                                         children: [
                                           Text(
                                             textAlign: TextAlign.center,
-                                            "Faixa Salarial",
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 8.0,
-                                              fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 2,
-                                    ),
-                                    Container(
-                                      alignment: Alignment.center,
-                                      width: 104.5,
-                                      height: 40.0,
-                                      decoration: BoxDecoration(
-                                        color: Colors.blue,
-                                        borderRadius:
-                                            BorderRadius.circular(5.0),
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            textAlign: TextAlign.center,
-                                            "Salário Atual",
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 8.0,
-                                              fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 2,
-                                    ),
-                                    Container(
-                                      alignment: Alignment.center,
-                                      width: 104.5,
-                                      height: 40.0,
-                                      decoration: BoxDecoration(
-                                        color: Colors.blue,
-                                        borderRadius:
-                                            BorderRadius.circular(5.0),
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            textAlign: TextAlign.center,
-                                            "Salário Ideal",
+                                            "Assiduidade",
                                             style: TextStyle(
                                               color: Colors.black,
                                               fontSize: 16.0,
@@ -1063,7 +1122,36 @@ class _ProfessoresState extends State<Professores> {
                                         children: [
                                           Text(
                                             textAlign: TextAlign.center,
-                                            "Reajuste %",
+                                            "Data de admissão",
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 8.0,
+                                              fontWeight: FontWeight.bold,
+                                              // fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 2,
+                                    ),
+                                    Container(
+                                      alignment: Alignment.center,
+                                      width: 209,
+                                      height: 40.0,
+                                      decoration: BoxDecoration(
+                                        color: Colors.blue,
+                                        borderRadius:
+                                            BorderRadius.circular(5.0),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            textAlign: TextAlign.center,
+                                            "Observações",
                                             style: TextStyle(
                                               color: Colors.black,
                                               fontSize: 16.0,
@@ -1092,39 +1180,10 @@ class _ProfessoresState extends State<Professores> {
                                         children: [
                                           Text(
                                             textAlign: TextAlign.center,
-                                            "Impacto Atual",
+                                            "PONTUAÇÃO",
                                             style: TextStyle(
                                               color: Colors.black,
-                                              fontSize: 8.0,
-                                              fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 2,
-                                    ),
-                                    Container(
-                                      alignment: Alignment.center,
-                                      width: 104.5,
-                                      height: 40.0,
-                                      decoration: BoxDecoration(
-                                        color: Colors.blue,
-                                        borderRadius:
-                                            BorderRadius.circular(5.0),
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            textAlign: TextAlign.center,
-                                            "Impacto Financeiro",
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 8.0,
+                                              fontSize: 16.0,
                                               fontWeight: FontWeight.bold,
                                               // fontWeight: FontWeight.bold,
                                             ),
@@ -1140,4531 +1199,5168 @@ class _ProfessoresState extends State<Professores> {
                                 SizedBox(
                                     height: 250,
                                     child: SingleChildScrollView(
+                                        controller: _scrollControllerTwo,
                                         child: Column(
-                                      children: [
-                                        Row(
                                           children: [
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    "Ativo",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
+                                            IntrinsicHeight(
+                                              child: Container(
+                                                key: keyAltura[0],
+                                                constraints: BoxConstraints(
+                                                    maxHeight: 100),
+                                                child: Row(
+                                                  children: [
+                                                    Row(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .stretch,
+                                                      children: [
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          height: 40.0,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              ValueListenableBuilder(
+                                                                  valueListenable:
+                                                                      dropValue,
+                                                                  builder: (BuildContext
+                                                                          context,
+                                                                      String
+                                                                          value,
+                                                                      _) {
+                                                                    return DropdownButton<
+                                                                        String>(
+                                                                      hint: Text(
+                                                                        textAlign:TextAlign.center,
+                                                                        style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                                          dropOpcoes[
+                                                                              0]),
+                                                                      value: (value
+                                                                              .isEmpty)
+                                                                          ? null
+                                                                          : value,
+                                                                      onChanged:
+                                                                          (escolha) {
+                                                                        dropValue.value =
+                                                                            escolha.toString();
+                                                                        setState(
+                                                                            () {
+                                                                          for (int i = 0;
+                                                                              i < 3;
+                                                                              i++)
+                                                                            if (dropOpcoes[i] ==
+                                                                                escolha)
+                                                                              setState(() {
+                                                                                statusCont = i + 1;
+                                                                              });
+                                                                        });
+                                                                      },
+                                                                      items: dropOpcoes
+                                                                          .map((op) => DropdownMenuItem(
+                                                                                value: op,
+                                                                                child: Text(op),
+                                                                              ))
+                                                                          .toList(),
+                                                                    );
+                                                                  })
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          constraints:
+                                                              BoxConstraints(
+                                                                  minHeight:
+                                                                      40),
+                                                          child: TextField(
+                                                            textAlign:TextAlign.center,
+                                                            controller: controllerl1[0],
+                                                            maxLines: null,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                            onChanged: (value) {
+                                                              setState(() {
+                                                                atualizaContainer(0);
+                                                              });
+                                                            },
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 300.0,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            textAlign:TextAlign.center,
+                                                            controller: controllerl1[1],
+                                                            maxLines: null,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 209,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            textAlign:TextAlign.center,
+                                                            controller: controllerl1[2],
+                                                            maxLines: null,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 209,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl1[3],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 209,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl1[4],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl1[5],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl1[6],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl1[7],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            
+                                                            controller: controllerl1[8],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            
+                                                            controller: controllerl1[9],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl1[10],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Colors
+                                                                .blue[300],
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: Text(
+                                                            "0,00",
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl1[11],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl1[12],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl1[13],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl1[14],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Colors
+                                                                .blue[400],
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: Text(
+                                                            "0,00",
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl1[15],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl1[16],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 209,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl1[17],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 8.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Colors.blue,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: Text(
+                                                            "26,00",
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
                                                     ),
-                                                  ),
-                                                ],
+                                                  ],
+                                                ),
                                               ),
                                             ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    "XXXXX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
+                                            SizedBox(height: 2),
+                                            IntrinsicHeight(
+                                              child: Container(
+                                                key: keyAltura[1],
+                                                constraints: BoxConstraints(
+                                                    maxHeight: 100),
+                                                child: Row(
+                                                  children: [
+                                                    Row(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .stretch,
+                                                      children: [
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          height: 40.0,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              ValueListenableBuilder(
+                                                                  valueListenable:
+                                                                      dropValue,
+                                                                  builder: (BuildContext
+                                                                          context,
+                                                                      String
+                                                                          value,
+                                                                      _) {
+                                                                    return DropdownButton<
+                                                                        String>(
+                                                                      hint: Text(
+                                                                        textAlign:TextAlign.center,
+                                                                        style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                                          dropOpcoes[
+                                                                              0]),
+                                                                      value: (value
+                                                                              .isEmpty)
+                                                                          ? null
+                                                                          : value,
+                                                                      onChanged:
+                                                                          (escolha) {
+                                                                        dropValue.value =
+                                                                            escolha.toString();
+                                                                        setState(
+                                                                            () {
+                                                                          for (int i = 0;
+                                                                              i < 3;
+                                                                              i++)
+                                                                            if (dropOpcoes[i] ==
+                                                                                escolha)
+                                                                              setState(() {
+                                                                                statusCont = i + 1;
+                                                                              });
+                                                                        });
+                                                                      },
+                                                                      items: dropOpcoes
+                                                                          .map((op) => DropdownMenuItem(
+                                                                                value: op,
+                                                                                child: Text(op),
+                                                                              ))
+                                                                          .toList(),
+                                                                    );
+                                                                  })
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          constraints:
+                                                              BoxConstraints(
+                                                                  minHeight:
+                                                                      40),
+                                                          child: TextField(
+                                                            textAlign:TextAlign.center,
+                                                            controller: controllerl2[0],
+                                                            maxLines: null,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                            onChanged: (value) {
+                                                              setState(() {
+                                                                atualizaContainer(1);
+                                                              });
+                                                            },
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 300.0,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            textAlign:TextAlign.center,
+                                                            controller: controllerl2[1],
+                                                            maxLines: null,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 209,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            textAlign:TextAlign.center,
+                                                            controller: controllerl2[2],
+                                                            maxLines: null,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 209,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[3],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 209,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[4],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[5],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[6],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[7],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            
+                                                            controller: controllerl2[8],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            
+                                                            controller: controllerl2[9],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[10],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Colors
+                                                                .blue[300],
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: Text(
+                                                            "0,00",
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[11],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[12],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[13],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[14],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Colors
+                                                                .blue[400],
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: Text(
+                                                            "0,00",
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[15],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[16],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 209,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[17],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 8.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Colors.blue,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: Text(
+                                                            "26,00",
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
                                                     ),
-                                                  ),
-                                                ],
+                                                  ],
+                                                ),
                                               ),
                                             ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 300.0,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    "XXXXX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
+                                            SizedBox(height: 2),
+                                            IntrinsicHeight(
+                                              child: Container(
+                                                key: keyAltura[2],
+                                                constraints: BoxConstraints(
+                                                    maxHeight: 100),
+                                                child: Row(
+                                                  children: [
+                                                    Row(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .stretch,
+                                                      children: [
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          height: 40.0,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              ValueListenableBuilder(
+                                                                  valueListenable:
+                                                                      dropValue,
+                                                                  builder: (BuildContext
+                                                                          context,
+                                                                      String
+                                                                          value,
+                                                                      _) {
+                                                                    return DropdownButton<
+                                                                        String>(
+                                                                      hint: Text(
+                                                                        textAlign:TextAlign.center,
+                                                                        style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                                          dropOpcoes[
+                                                                              0]),
+                                                                      value: (value
+                                                                              .isEmpty)
+                                                                          ? null
+                                                                          : value,
+                                                                      onChanged:
+                                                                          (escolha) {
+                                                                        dropValue.value =
+                                                                            escolha.toString();
+                                                                        setState(
+                                                                            () {
+                                                                          for (int i = 0;
+                                                                              i < 3;
+                                                                              i++)
+                                                                            if (dropOpcoes[i] ==
+                                                                                escolha)
+                                                                              setState(() {
+                                                                                statusCont = i + 1;
+                                                                              });
+                                                                        });
+                                                                      },
+                                                                      items: dropOpcoes
+                                                                          .map((op) => DropdownMenuItem(
+                                                                                value: op,
+                                                                                child: Text(op),
+                                                                              ))
+                                                                          .toList(),
+                                                                    );
+                                                                  })
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          constraints:
+                                                              BoxConstraints(
+                                                                  minHeight:
+                                                                      40),
+                                                          child: TextField(
+                                                            textAlign:TextAlign.center,
+                                                            controller: controllerl2[0],
+                                                            maxLines: null,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                            onChanged: (value) {
+                                                              setState(() {
+                                                                atualizaContainer(2);
+                                                              });
+                                                            },
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 300.0,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            textAlign:TextAlign.center,
+                                                            controller: controllerl2[1],
+                                                            maxLines: null,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 209,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            textAlign:TextAlign.center,
+                                                            controller: controllerl2[2],
+                                                            maxLines: null,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 209,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[3],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 209,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[4],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[5],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[6],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[7],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            
+                                                            controller: controllerl2[8],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            
+                                                            controller: controllerl2[9],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[10],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Colors
+                                                                .blue[300],
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: Text(
+                                                            "0,00",
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[11],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[12],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[13],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[14],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Colors
+                                                                .blue[400],
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: Text(
+                                                            "0,00",
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[15],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[16],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 209,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[17],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 8.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Colors.blue,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: Text(
+                                                            "26,00",
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
                                                     ),
-                                                  ),
-                                                ],
+                                                  ],
+                                                ),
                                               ),
                                             ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
+                                            SizedBox(height: 2),
+                                            IntrinsicHeight(
+                                              child: Container(
+                                                key: keyAltura[3],
+                                                constraints: BoxConstraints(
+                                                    maxHeight: 100),
+                                                child: Row(
+                                                  children: [
+                                                    Row(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .stretch,
+                                                      children: [
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          height: 40.0,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              ValueListenableBuilder(
+                                                                  valueListenable:
+                                                                      dropValue,
+                                                                  builder: (BuildContext
+                                                                          context,
+                                                                      String
+                                                                          value,
+                                                                      _) {
+                                                                    return DropdownButton<
+                                                                        String>(
+                                                                      hint: Text(
+                                                                        textAlign:TextAlign.center,
+                                                                        style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                                          dropOpcoes[
+                                                                              0]),
+                                                                      value: (value
+                                                                              .isEmpty)
+                                                                          ? null
+                                                                          : value,
+                                                                      onChanged:
+                                                                          (escolha) {
+                                                                        dropValue.value =
+                                                                            escolha.toString();
+                                                                        setState(
+                                                                            () {
+                                                                          for (int i = 0;
+                                                                              i < 3;
+                                                                              i++)
+                                                                            if (dropOpcoes[i] ==
+                                                                                escolha)
+                                                                              setState(() {
+                                                                                statusCont = i + 1;
+                                                                              });
+                                                                        });
+                                                                      },
+                                                                      items: dropOpcoes
+                                                                          .map((op) => DropdownMenuItem(
+                                                                                value: op,
+                                                                                child: Text(op),
+                                                                              ))
+                                                                          .toList(),
+                                                                    );
+                                                                  })
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          constraints:
+                                                              BoxConstraints(
+                                                                  minHeight:
+                                                                      40),
+                                                          child: TextField(
+                                                            textAlign:TextAlign.center,
+                                                            controller: controllerl2[0],
+                                                            maxLines: null,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                            onChanged: (value) {
+                                                              setState(() {
+                                                                atualizaContainer(3);
+                                                              });
+                                                            },
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 300.0,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            textAlign:TextAlign.center,
+                                                            controller: controllerl2[1],
+                                                            maxLines: null,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 209,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            textAlign:TextAlign.center,
+                                                            controller: controllerl2[2],
+                                                            maxLines: null,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 209,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[3],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 209,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[4],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[5],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[6],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[7],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            
+                                                            controller: controllerl2[8],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            
+                                                            controller: controllerl2[9],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[10],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Colors
+                                                                .blue[300],
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: Text(
+                                                            "0,00",
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[11],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[12],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[13],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[14],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Colors
+                                                                .blue[400],
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: Text(
+                                                            "0,00",
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[15],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[16],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 209,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[17],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 8.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Colors.blue,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: Text(
+                                                            "26,00",
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
                                                     ),
-                                                  ),
-                                                ],
+                                                  ],
+                                                ),
                                               ),
                                             ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    "XX",
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
+                                            SizedBox(height: 2),
+                                            IntrinsicHeight(
+                                              child: Container(
+                                                key: keyAltura[4],
+                                                constraints: BoxConstraints(
+                                                    maxHeight: 100),
+                                                child: Row(
+                                                  children: [
+                                                    Row(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .stretch,
+                                                      children: [
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          height: 40.0,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              ValueListenableBuilder(
+                                                                  valueListenable:
+                                                                      dropValue,
+                                                                  builder: (BuildContext
+                                                                          context,
+                                                                      String
+                                                                          value,
+                                                                      _) {
+                                                                    return DropdownButton<
+                                                                        String>(
+                                                                      hint: Text(
+                                                                        textAlign:TextAlign.center,
+                                                                        style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                                          dropOpcoes[
+                                                                              0]),
+                                                                      value: (value
+                                                                              .isEmpty)
+                                                                          ? null
+                                                                          : value,
+                                                                      onChanged:
+                                                                          (escolha) {
+                                                                        dropValue.value =
+                                                                            escolha.toString();
+                                                                        setState(
+                                                                            () {
+                                                                          for (int i = 0;
+                                                                              i < 3;
+                                                                              i++)
+                                                                            if (dropOpcoes[i] ==
+                                                                                escolha)
+                                                                              setState(() {
+                                                                                statusCont = i + 1;
+                                                                              });
+                                                                        });
+                                                                      },
+                                                                      items: dropOpcoes
+                                                                          .map((op) => DropdownMenuItem(
+                                                                                value: op,
+                                                                                child: Text(op),
+                                                                              ))
+                                                                          .toList(),
+                                                                    );
+                                                                  })
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          constraints:
+                                                              BoxConstraints(
+                                                                  minHeight:
+                                                                      40),
+                                                          child: TextField(
+                                                            textAlign:TextAlign.center,
+                                                            controller: controllerl2[0],
+                                                            maxLines: null,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                            onChanged: (value) {
+                                                              setState(() {
+                                                                atualizaContainer(4);
+                                                              });
+                                                            },
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 300.0,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            textAlign:TextAlign.center,
+                                                            controller: controllerl2[1],
+                                                            maxLines: null,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 209,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            textAlign:TextAlign.center,
+                                                            controller: controllerl2[2],
+                                                            maxLines: null,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 209,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[3],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 209,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[4],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[5],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[6],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[7],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            
+                                                            controller: controllerl2[8],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            
+                                                            controller: controllerl2[9],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[10],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Colors
+                                                                .blue[300],
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: Text(
+                                                            "0,00",
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[11],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[12],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[13],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[14],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Colors
+                                                                .blue[400],
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: Text(
+                                                            "0,00",
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[15],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[16],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 209,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[17],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 8.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Colors.blue,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: Text(
+                                                            "26,00",
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
                                                     ),
-                                                  ),
-                                                ],
+                                                  ],
+                                                ),
                                               ),
                                             ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
+                                            SizedBox(height: 2),
+                                            IntrinsicHeight(
+                                              child: Container(
+                                                key: keyAltura[5],
+                                                constraints: BoxConstraints(
+                                                    maxHeight: 100),
+                                                child: Row(
+                                                  children: [
+                                                    Row(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .stretch,
+                                                      children: [
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          height: 40.0,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              ValueListenableBuilder(
+                                                                  valueListenable:
+                                                                      dropValue,
+                                                                  builder: (BuildContext
+                                                                          context,
+                                                                      String
+                                                                          value,
+                                                                      _) {
+                                                                    return DropdownButton<
+                                                                        String>(
+                                                                      hint: Text(
+                                                                        textAlign:TextAlign.center,
+                                                                        style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                                          dropOpcoes[
+                                                                              0]),
+                                                                      value: (value
+                                                                              .isEmpty)
+                                                                          ? null
+                                                                          : value,
+                                                                      onChanged:
+                                                                          (escolha) {
+                                                                        dropValue.value =
+                                                                            escolha.toString();
+                                                                        setState(
+                                                                            () {
+                                                                          for (int i = 0;
+                                                                              i < 3;
+                                                                              i++)
+                                                                            if (dropOpcoes[i] ==
+                                                                                escolha)
+                                                                              setState(() {
+                                                                                statusCont = i + 1;
+                                                                              });
+                                                                        });
+                                                                      },
+                                                                      items: dropOpcoes
+                                                                          .map((op) => DropdownMenuItem(
+                                                                                value: op,
+                                                                                child: Text(op),
+                                                                              ))
+                                                                          .toList(),
+                                                                    );
+                                                                  })
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          constraints:
+                                                              BoxConstraints(
+                                                                  minHeight:
+                                                                      40),
+                                                          child: TextField(
+                                                            textAlign:TextAlign.center,
+                                                            controller: controllerl2[0],
+                                                            maxLines: null,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                            onChanged: (value) {
+                                                              setState(() {
+                                                                atualizaContainer(5);
+                                                              });
+                                                            },
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 300.0,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            textAlign:TextAlign.center,
+                                                            controller: controllerl2[1],
+                                                            maxLines: null,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 209,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            textAlign:TextAlign.center,
+                                                            controller: controllerl2[2],
+                                                            maxLines: null,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 209,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[3],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 209,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[4],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[5],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[6],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[7],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            
+                                                            controller: controllerl2[8],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            
+                                                            controller: controllerl2[9],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[10],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Colors
+                                                                .blue[300],
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: Text(
+                                                            "0,00",
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[11],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[12],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[13],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[14],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Colors
+                                                                .blue[400],
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: Text(
+                                                            "0,00",
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[15],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[16],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 209,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[17],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 8.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Colors.blue,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: Text(
+                                                            "26,00",
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
                                                     ),
-                                                  ),
-                                                ],
+                                                  ],
+                                                ),
                                               ),
                                             ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
+                                            IntrinsicHeight(
+                                              child: Container(
+                                                key: keyAltura[6],
+                                                constraints: BoxConstraints(
+                                                    maxHeight: 100),
+                                                child: Row(
+                                                  children: [
+                                                    Row(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .stretch,
+                                                      children: [
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          height: 40.0,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              ValueListenableBuilder(
+                                                                  valueListenable:
+                                                                      dropValue,
+                                                                  builder: (BuildContext
+                                                                          context,
+                                                                      String
+                                                                          value,
+                                                                      _) {
+                                                                    return DropdownButton<
+                                                                        String>(
+                                                                      hint: Text(
+                                                                        textAlign:TextAlign.center,
+                                                                        style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                                          dropOpcoes[
+                                                                              0]),
+                                                                      value: (value
+                                                                              .isEmpty)
+                                                                          ? null
+                                                                          : value,
+                                                                      onChanged:
+                                                                          (escolha) {
+                                                                        dropValue.value =
+                                                                            escolha.toString();
+                                                                        setState(
+                                                                            () {
+                                                                          for (int i = 0;
+                                                                              i < 3;
+                                                                              i++)
+                                                                            if (dropOpcoes[i] ==
+                                                                                escolha)
+                                                                              setState(() {
+                                                                                statusCont = i + 1;
+                                                                              });
+                                                                        });
+                                                                      },
+                                                                      items: dropOpcoes
+                                                                          .map((op) => DropdownMenuItem(
+                                                                                value: op,
+                                                                                child: Text(op),
+                                                                              ))
+                                                                          .toList(),
+                                                                    );
+                                                                  })
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          constraints:
+                                                              BoxConstraints(
+                                                                  minHeight:
+                                                                      40),
+                                                          child: TextField(
+                                                            textAlign:TextAlign.center,
+                                                            controller: controllerl2[0],
+                                                            maxLines: null,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                            onChanged: (value) {
+                                                              setState(() {
+                                                                atualizaContainer(6);
+                                                              });
+                                                            },
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 300.0,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            textAlign:TextAlign.center,
+                                                            controller: controllerl2[1],
+                                                            maxLines: null,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 209,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            textAlign:TextAlign.center,
+                                                            controller: controllerl2[2],
+                                                            maxLines: null,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 209,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[3],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 209,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[4],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[5],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[6],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[7],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            
+                                                            controller: controllerl2[8],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            
+                                                            controller: controllerl2[9],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[10],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Colors
+                                                                .blue[300],
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: Text(
+                                                            "0,00",
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[11],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[12],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[13],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[14],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Colors
+                                                                .blue[400],
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: Text(
+                                                            "0,00",
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[15],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[16],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 209,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: statusCont ==
+                                                                    2
+                                                                ? Colors
+                                                                    .red[200]
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            controller: controllerl2[17],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 8.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Colors.blue,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: Text(
+                                                            "26,00",
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
                                                     ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
+                                                  ],
+                                                ),
                                               ),
                                             ),
                                           ],
-                                        ),
-                                        SizedBox(height: 2),
-                                        Row(
-                                          children: [
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    "Inativo",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    "XXXXX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 300.0,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    "XXXXX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    "XX",
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(height: 2),
-                                        Row(
-                                          children: [
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    "Ativo",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    "XXXXX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 300.0,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    "XXXXX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    "XX",
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(height: 2),
-                                        Row(
-                                          children: [
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    "Inativo",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    "XXXXX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 300.0,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    "XXXXX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    "XX",
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(height: 2),
-                                        Row(
-                                          children: [
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    "Ativo",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    "XXXXX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 300.0,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    "XXXXX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    "XX",
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(height: 2),
-                                        Row(
-                                          children: [
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    "Inativo",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    "XXXXX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 300.0,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    "XXXXX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    "XX",
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(height: 2),
-                                        Row(
-                                          children: [
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    "Ativo",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    "XXXXX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 300.0,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    "XXXXX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    "XX",
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              width: 104.5,
-                                              height: 40.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    textAlign: TextAlign.center,
-                                                    "XX",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    )))
+                                        )))
                               ],
                             ),
                           ),
@@ -5685,16 +6381,26 @@ class _ProfessoresState extends State<Professores> {
                     const SizedBox(
                       height: 9,
                     ),
-                    Row(children: [
-                      const SizedBox(width: 22,),
-                      BotaoNovofuncionario(),
-                      const SizedBox(width: 18,),
-                      BotaoPlanilha(),
-                      const SizedBox(width: 18,),
-                      BotaoStatus(),
-                      const SizedBox(width: 18,),
-                      BotaoSalvar()
-                    ],),
+                    Row(
+                      children: [
+                        const SizedBox(
+                          width: 22,
+                        ),
+                        BotaoNovofuncionario(),
+                        const SizedBox(
+                          width: 18,
+                        ),
+                        BotaoPlanilha(),
+                        const SizedBox(
+                          width: 18,
+                        ),
+                        BotaoStatus(),
+                        const SizedBox(
+                          width: 18,
+                        ),
+                        BotaoSalvar()
+                      ],
+                    ),
                     const SizedBox(
                       height: 18,
                     ),
@@ -5792,10 +6498,10 @@ class Professores extends StatefulWidget {
     Key? key,
   }) : super(key: key);
   @override
+  @override
   State<StatefulWidget> createState() {
     return _ProfessoresState();
   }
-
   /*final whatIDo = [
     NameIconColor(
       title: "Meu cargo",
@@ -5883,6 +6589,5 @@ class BotaoVoltar extends StatelessWidget {
     );
   }
 }
-
 
 /**/
