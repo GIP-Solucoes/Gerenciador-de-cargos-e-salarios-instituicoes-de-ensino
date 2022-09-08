@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
 
 import 'package:starbucks_landing_page/screens/home_screen/components/aempresa_text.dart';
-import 'package:starbucks_landing_page/screens/home_screen/components/esqueci_content.dart';
+import 'package:starbucks_landing_page/screens/home_screen/components/simulador_content.dart';
 import 'package:starbucks_landing_page/screens/home_screen/components/youtube.dart';
 import 'package:starbucks_landing_page/screens/home_screen/components/menu_content.dart';
-import 'package:starbucks_landing_page/screens/home_screen/components/pontuacoes_content.dart';
 import 'package:starbucks_landing_page/screens/home_screen/components/serving_items_list.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
-class DesktopPontuacoes extends StatefulWidget {
-  const DesktopPontuacoes({Key? key}) : super(key: key);
+class DesktopSimulador extends StatefulWidget {
+  const DesktopSimulador({Key? key}) : super(key: key);
 
   
   
   @override
-  State<DesktopPontuacoes> createState() {
+  State<DesktopSimulador> createState() {
     // TODO: implement createState
-    return _StateDesktopProfessores();
+    return _StateDesktopSimulador();
   }
 }
-class _StateDesktopProfessores extends State<DesktopPontuacoes>{
+class _StateDesktopSimulador extends State<DesktopSimulador>{
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context).size;
@@ -33,18 +32,19 @@ class _StateDesktopProfessores extends State<DesktopPontuacoes>{
               children: [
                 Row(children: [
                   SizedBox(width: 5),
-                  TitlePontuacoes(),
+                  TitleSimulador(),
                 ],),
                 
-                Pontuacoes(),
+                Simulador(),
                 SizedBox(
                   height: 17,
                 ),
-                Row(children: [
-                  SizedBox(width: 5,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                  BotaoCalcular(),
+                  Resultado(),
                   BotaoVoltar(),
-                  SizedBox(width: 5,),
-                  BotaoSalvar(),
                 ],)
                 
           ],

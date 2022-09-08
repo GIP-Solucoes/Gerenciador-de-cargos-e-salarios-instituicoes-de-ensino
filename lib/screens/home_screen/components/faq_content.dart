@@ -38,45 +38,6 @@ class Link extends StatelessWidget {
   }
 }
 
-class Titulo extends StatelessWidget {
-  const Titulo({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return AutoSizeText(
-      "Título",
-      textAlign: TextAlign.start,
-      style: TextStyle(
-        color: Colors.grey,
-        fontSize: 20.0,
-      ),
-    );
-  }
-}
-
-class TitleFaq extends StatelessWidget {
-  const TitleFaq({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const AutoSizeText(
-      "Como podemos ajudar você hoje?",
-      textAlign: TextAlign.start,
-      maxLines: 2,
-      style: TextStyle(
-        color: Colors.blue,
-        fontSize: 30.0,
-        fontWeight: FontWeight.w900,
-        fontFamily: 'Santana',
-      ),
-    );
-  }
-}
-
 class SearchButton extends StatelessWidget {
   const SearchButton({Key? key}) : super(key: key);
 

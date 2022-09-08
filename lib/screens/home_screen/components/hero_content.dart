@@ -2,17 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:starbucks_landing_page/components/app_bar/components/mobile_appbar.dart';
 import 'package:starbucks_landing_page/constants.dart';
 import 'package:starbucks_landing_page/screens/home_screen/components/desktop_aempresa.dart';
+import 'package:starbucks_landing_page/screens/home_screen/components/desktop_configuracoes.dart';
 import 'package:starbucks_landing_page/screens/home_screen/components/desktop_esqueci.dart';
 import 'package:starbucks_landing_page/screens/home_screen/components/desktop_faq.dart';
 import 'package:starbucks_landing_page/screens/home_screen/components/desktop_login.dart';
 import 'package:starbucks_landing_page/screens/home_screen/components/desktop_menu.dart';
+import 'package:starbucks_landing_page/screens/home_screen/components/desktop_meucargo.dart';
+import 'package:starbucks_landing_page/screens/home_screen/components/desktop_pontuacoes.dart';
 import 'package:starbucks_landing_page/screens/home_screen/components/desktop_professores.dart';
 import 'package:starbucks_landing_page/screens/home_screen/components/desktop_resultados.dart';
 import 'package:starbucks_landing_page/screens/home_screen/components/desktop_status.dart';
+import 'package:starbucks_landing_page/screens/home_screen/components/desktop_suaspontuacoes.dart';
 import 'package:starbucks_landing_page/screens/home_screen/components/desktop_tabela.dart';
 import 'package:starbucks_landing_page/screens/home_screen/components/mobile_hero.dart';
 import 'package:starbucks_landing_page/screens/home_screen/components/tablet_hero.dart';
-import 'package:starbucks_landing_page/screens/home_screen/components/desktop_pontuacoes.dart';
+import 'package:starbucks_landing_page/screens/home_screen/components/desktop_simulador.dart';
 
 int pagina = 0;
 
@@ -32,7 +36,7 @@ class _StateHeroContent extends State<HeroContent> {
     return LayoutBuilder(
       builder: ((context, constraints) {
         if (constraints.maxWidth >= 850) {
-          return const DesktopPontuacoes();
+          return const DesktopConfiguracoes();
         } else if (constraints.maxWidth >= 600) {
           return const TabletHero();
         }

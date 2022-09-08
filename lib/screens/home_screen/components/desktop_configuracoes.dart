@@ -2,49 +2,68 @@ import 'package:flutter/material.dart';
 
 import 'package:starbucks_landing_page/screens/home_screen/components/aempresa_text.dart';
 import 'package:starbucks_landing_page/screens/home_screen/components/esqueci_content.dart';
+import 'package:starbucks_landing_page/screens/home_screen/components/configuracoes_content.dart';
 import 'package:starbucks_landing_page/screens/home_screen/components/youtube.dart';
 import 'package:starbucks_landing_page/screens/home_screen/components/menu_content.dart';
-import 'package:starbucks_landing_page/screens/home_screen/components/pontuacoes_content.dart';
 import 'package:starbucks_landing_page/screens/home_screen/components/serving_items_list.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
-class DesktopPontuacoes extends StatefulWidget {
-  const DesktopPontuacoes({Key? key}) : super(key: key);
+class DesktopConfiguracoes extends StatelessWidget {
+  const DesktopConfiguracoes({Key? key}) : super(key: key);
 
-  
-  
-  @override
-  State<DesktopPontuacoes> createState() {
-    // TODO: implement createState
-    return _StateDesktopProfessores();
-  }
-}
-class _StateDesktopProfessores extends State<DesktopPontuacoes>{
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context).size;
-    return Container(
-      child:Container(
+    return Center(
+      child:Center(
         child: Padding(
         padding: EdgeInsets.symmetric(horizontal: mediaQuery.width * 0.175),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
               
               children: [
                 Row(children: [
                   SizedBox(width: 5),
-                  TitlePontuacoes(),
+                  TitleConfiguracoes(),
                 ],),
                 
-                Pontuacoes(),
+                Container(
+        height: 450,
+        width: 600,
+        //margin: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: Colors.grey[200],
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: 
+            Padding(
+                padding: EdgeInsets.symmetric(
+                    vertical: 15.0, horizontal: mediaQuery.width * 0.01),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Dadosgerais(),
+                          BotaoSalvar()
+                        ],
+                      ),
+                      Column(children: [
+                        Segundonome(),
+                        SizedBox(height: 30,),
+                        Alterarimagem()
+                      ],)
+                    ])),
+      ),
                 SizedBox(
-                  height: 17,
+                  height: 10,
                 ),
                 Row(children: [
                   SizedBox(width: 5,),
                   BotaoVoltar(),
-                  SizedBox(width: 5,),
-                  BotaoSalvar(),
                 ],)
                 
           ],

@@ -7,149 +7,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:starbucks_landing_page/screens/home_screen/home_screen.dart';
 //import 'package:my_portfolio/models/name_color.dart';
 
-class MenuText extends StatelessWidget {
-  const MenuText({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: const [],
-    );
-  }
-}
-
-class BotaoNovofuncionario extends StatelessWidget {
-  BotaoNovofuncionario({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      width: 205.0,
-      height: 40.0,
-      decoration: BoxDecoration(
-        color: Colors.blue,
-        borderRadius: BorderRadius.circular(5.0),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(Icons.person_add_alt_1, color: Colors.white, size: 15.0),
-          Text(
-            " NOVO FUNCIONÁRIO",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16.0,
-              // fontWeight: FontWeight.bold,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class BotaoPlanilha extends StatelessWidget {
-  BotaoPlanilha({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      width: 205.0,
-      height: 40.0,
-      decoration: BoxDecoration(
-        color: Colors.blue,
-        borderRadius: BorderRadius.circular(5.0),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(Icons.file_open, color: Colors.white, size: 15.0),
-          Text(
-            " ADICIONAR PLANILHA",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16.0,
-              // fontWeight: FontWeight.bold,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class BotaoStatus extends StatelessWidget {
-  BotaoStatus({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      width: 205.0,
-      height: 40.0,
-      decoration: BoxDecoration(
-        color: Colors.blue,
-        borderRadius: BorderRadius.circular(5.0),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(Icons.settings, color: Colors.white, size: 15.0),
-          Text(
-            " GERENCIAR STATUS",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16.0,
-              // fontWeight: FontWeight.bold,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class BotaoSalvar extends StatelessWidget {
-  BotaoSalvar({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      width: 110.0,
-      height: 40.0,
-      decoration: BoxDecoration(
-        color: Colors.green,
-        borderRadius: BorderRadius.circular(5.0),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(Icons.arrow_back_ios, color: Colors.white, size: 30.0),
-          Text(
-            "SALVAR",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16.0,
-              // fontWeight: FontWeight.bold,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
 
 class _PontuacoesState extends State<Pontuacoes> {
   int statusCont = 1;
@@ -371,10 +228,7 @@ class _PontuacoesState extends State<Pontuacoes> {
                                         borderRadius:
                                             BorderRadius.circular(5.0),
                                       ),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
+                                      child:
                                           Text(
                                             "Qtde",
                                             style: TextStyle(
@@ -384,17 +238,6 @@ class _PontuacoesState extends State<Pontuacoes> {
                                               // fontWeight: FontWeight.bold,
                                             ),
                                           ),
-                                          Text(
-                                            "Máx.",
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 8.0,
-                                              fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
                                     ),
                                     SizedBox(
                                       width: 30,
@@ -476,10 +319,7 @@ class _PontuacoesState extends State<Pontuacoes> {
                                         borderRadius:
                                             BorderRadius.circular(5.0),
                                       ),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
+                                      child:
                                           Text(
                                             "Qtde",
                                             style: TextStyle(
@@ -489,24 +329,13 @@ class _PontuacoesState extends State<Pontuacoes> {
                                               // fontWeight: FontWeight.bold,
                                             ),
                                           ),
-                                          Text(
-                                            "Máx.",
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 8.0,
-                                              fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
                                     ),
                                     SizedBox(
                                       width: 30,
                                     ),
                                     Container(
                                       alignment: Alignment.center,
-                                      width: 104.5,
+                                      width: 157,
                                       height: 40.0,
                                       decoration: BoxDecoration(
                                         color: Colors.blue[200],
@@ -519,39 +348,10 @@ class _PontuacoesState extends State<Pontuacoes> {
                                         children: [
                                           Text(
                                             textAlign: TextAlign.center,
-                                            "Tempo de\ncasa",
+                                            "Data de admissão",
                                             style: TextStyle(
                                               color: Colors.black,
-                                              fontSize: 8.0,
-                                              fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 2,
-                                    ),
-                                    Container(
-                                      alignment: Alignment.center,
-                                      width: 104.5,
-                                      height: 40.0,
-                                      decoration: BoxDecoration(
-                                        color: Colors.blue[200],
-                                        borderRadius:
-                                            BorderRadius.circular(5.0),
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            textAlign: TextAlign.center,
-                                            "Valor\npontuação",
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 8.0,
+                                              fontSize: 16.0,
                                               fontWeight: FontWeight.bold,
                                               // fontWeight: FontWeight.bold,
                                             ),
@@ -569,6 +369,295 @@ class _PontuacoesState extends State<Pontuacoes> {
                                     child: SingleChildScrollView(
                                         child: Column(
                                       children: [
+                                        IntrinsicHeight(
+                                          child: Container(
+                                            constraints:
+                                                BoxConstraints(maxHeight: 100),
+                                            child: Row(
+                                              children: [
+                                                Row(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment
+                                                          .stretch,
+                                                  children: [
+                                                    Container(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      width: 209,
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.blue,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(5.0),
+                                                      ),
+                                                      child: Text(
+                                                        "Seu cargo",
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 16.0,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 30,
+                                                    ),
+                                                    Container(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      width: 320,
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(5.0),
+                                                      ),
+                                                      child: Text(
+                                                        "Aprovação em Concurso Público",
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 16.0,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 2,
+                                                    ),
+                                                    Container(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      width: 50,
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(5.0),
+                                                      ),
+                                                      constraints:
+                                                          BoxConstraints(
+                                                              minHeight: 40),
+                                                      child: Text(
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        '0',
+                                                        style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 16.0,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 2,
+                                                    ),
+                                                    Container(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      width: 50,
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(5.0),
+                                                      ),
+                                                      constraints:
+                                                          BoxConstraints(
+                                                              minHeight: 40),
+                                                      child: Column(
+                                                        children: [
+
+                                                              Container(
+                                                                alignment: Alignment
+                                                                    .topRight,
+                                                                height: 20,
+                                                                width: 50,
+                                                                child: IconButton(
+                                                                  onPressed: () {
+                                                                    showDialog(
+                                                                        context:
+                                                                            context,
+                                                                        builder: (_) =>
+                                                                            AlertDialog(
+                                                                              title:
+                                                                                  Text("Máximo de pontos:",),
+                                                                              content:
+                                                                                  Text("O máximo de pontos para este atributo é 5."),
+                                                                              actions: [
+                                                                                TextButton(
+                                                                                    onPressed: () {
+                                                                                      Navigator.of(context).pop();
+                                                                                    },
+                                                                                    child: Text('Ok')),
+                                                                              ],
+                                                                            ));
+                                                                  },
+                                                                  icon: const Icon(
+                                                                      Icons
+                                                                          .help_outlined,
+                                                                      size: 15,
+                                                                      color: Colors
+                                                                          .blue),
+                                                                ),
+                                                              ),
+                                                          Text(
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            '0',
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 30,
+                                                    ),
+                                                    Container(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      width: 320,
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(5.0),
+                                                      ),
+                                                      child: Text(
+                                                        "Livros publicados",
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 16.0,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 2,
+                                                    ),
+                                                    Container(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      width: 50,
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(5.0),
+                                                      ),
+                                                      constraints:
+                                                          BoxConstraints(
+                                                              minHeight: 40),
+                                                      child: Text(
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        '0',
+                                                        style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 16.0,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 2,
+                                                    ),
+                                                    Container(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      width: 50,
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(5.0),
+                                                      ),
+                                                      constraints:
+                                                          BoxConstraints(
+                                                              minHeight: 40),
+                                                      child: Column(
+                                                        children: [
+
+                                                              Container(
+                                                                alignment: Alignment
+                                                                    .topRight,
+                                                                height: 20,
+                                                                width: 50,
+                                                                child: IconButton(
+                                                                  onPressed: () {
+                                                                    showDialog(
+                                                                        context:
+                                                                            context,
+                                                                        builder: (_) =>
+                                                                            AlertDialog(
+                                                                              title:
+                                                                                  Text("Máximo de pontos:",),
+                                                                              content:
+                                                                                  Text("O máximo de pontos para este atributo é 5."),
+                                                                              actions: [
+                                                                                TextButton(
+                                                                                    onPressed: () {
+                                                                                      Navigator.of(context).pop();
+                                                                                    },
+                                                                                    child: Text('Ok')),
+                                                                              ],
+                                                                            ));
+                                                                  },
+                                                                  icon: const Icon(
+                                                                      Icons
+                                                                          .help_outlined,
+                                                                      size: 15,
+                                                                      color: Colors
+                                                                          .blue),
+                                                                ),
+                                                              ),
+                                                          Text(
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            '0',
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 30,
+                                                    ),
+                                                    Container(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      width: 157,
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(5.0),
+                                                      ),
+                                                      child: Text(
+                                                        "XX/XX/XXXX",
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 16.0,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(height: 2),
                                         IntrinsicHeight(
                                           child: Container(
                                             constraints:
@@ -616,12 +705,10 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                       constraints:
                                                           BoxConstraints(
                                                               minHeight: 40),
-                                                      child: TextField(
+                                                      child: Text(
                                                         textAlign:
                                                             TextAlign.center,
-                                                        controller:
-                                                            controllerl1[1],
-                                                        maxLines: null,
+                                                        '3',
                                                         style: TextStyle(
                                                           color: Colors.black,
                                                           fontSize: 16.0,
@@ -642,7 +729,7 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                                 .circular(5.0),
                                                       ),
                                                       child: Text(
-                                                        "Aprovação em Concurso Público",
+                                                        "Créditos de Pós-Graduação \"Stricto Sensu\" por disciplina",
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyle(
@@ -667,12 +754,10 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                       constraints:
                                                           BoxConstraints(
                                                               minHeight: 40),
-                                                      child: TextField(
+                                                      child: Text(
                                                         textAlign:
                                                             TextAlign.center,
-                                                        controller:
-                                                            controllerl1[0],
-                                                        maxLines: null,
+                                                        '0',
                                                         style: TextStyle(
                                                           color: Colors.black,
                                                           fontSize: 16.0,
@@ -695,12 +780,224 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                       constraints:
                                                           BoxConstraints(
                                                               minHeight: 40),
-                                                      child: TextField(
+                                                      child: Column(
+                                                        children: [
+
+                                                              Container(
+                                                                alignment: Alignment
+                                                                    .topRight,
+                                                                height: 20,
+                                                                width: 50,
+                                                                child: IconButton(
+                                                                  onPressed: () {
+                                                                    showDialog(
+                                                                        context:
+                                                                            context,
+                                                                        builder: (_) =>
+                                                                            AlertDialog(
+                                                                              title:
+                                                                                  Text("Máximo de pontos:",),
+                                                                              content:
+                                                                                  Text("O máximo de pontos para este atributo é 5."),
+                                                                              actions: [
+                                                                                TextButton(
+                                                                                    onPressed: () {
+                                                                                      Navigator.of(context).pop();
+                                                                                    },
+                                                                                    child: Text('Ok')),
+                                                                              ],
+                                                                            ));
+                                                                  },
+                                                                  icon: const Icon(
+                                                                      Icons
+                                                                          .help_outlined,
+                                                                      size: 15,
+                                                                      color: Colors
+                                                                          .blue),
+                                                                ),
+                                                              ),
+                                                          Text(
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            '0',
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 30,
+                                                    ),
+                                                    Container(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      width: 320,
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(5.0),
+                                                      ),
+                                                      child: Text(
+                                                        "Realização de Pesquisa aprovada pela Instituição (Mínimo 1 ano)",
                                                         textAlign:
                                                             TextAlign.center,
-                                                        controller:
-                                                            controllerl1[0],
-                                                        maxLines: null,
+                                                        style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 16.0,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 2,
+                                                    ),
+                                                    Container(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      width: 50,
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(5.0),
+                                                      ),
+                                                      constraints:
+                                                          BoxConstraints(
+                                                              minHeight: 40),
+                                                      child: Text(
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        '0',
+                                                        style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 16.0,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 2,
+                                                    ),
+                                                    Container(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      width: 50,
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(5.0),
+                                                      ),
+                                                      constraints:
+                                                          BoxConstraints(
+                                                              minHeight: 40),
+                                                      child: Column(
+                                                        children: [
+
+                                                              Container(
+                                                                alignment: Alignment
+                                                                    .topRight,
+                                                                height: 20,
+                                                                width: 50,
+                                                                child: IconButton(
+                                                                  onPressed: () {
+                                                                    showDialog(
+                                                                        context:
+                                                                            context,
+                                                                        builder: (_) =>
+                                                                            AlertDialog(
+                                                                              title:
+                                                                                  Text("Máximo de pontos:",),
+                                                                              content:
+                                                                                  Text("O máximo de pontos para este atributo é 5."),
+                                                                              actions: [
+                                                                                TextButton(
+                                                                                    onPressed: () {
+                                                                                      Navigator.of(context).pop();
+                                                                                    },
+                                                                                    child: Text('Ok')),
+                                                                              ],
+                                                                            ));
+                                                                  },
+                                                                  icon: const Icon(
+                                                                      Icons
+                                                                          .help_outlined,
+                                                                      size: 15,
+                                                                      color: Colors
+                                                                          .blue),
+                                                                ),
+                                                              ),
+                                                          Text(
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            '0',
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 30,
+                                                    ),
+                                                    Container(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      width: 157,
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.blue,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(5.0),
+                                                      ),
+                                                      child: Text(
+                                                        "Tempo de serviço",
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 16.0,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(height: 2),
+                                        IntrinsicHeight(
+                                          child: Container(
+                                            constraints:
+                                                BoxConstraints(maxHeight: 100),
+                                            child: Row(
+                                              children: [
+                                                Row(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment
+                                                          .stretch,
+                                                  children: [
+                                                    Container(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      width: 209,
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.blue,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(5.0),
+                                                      ),
+                                                      child: Text(
+                                                        "Próximo cargo",
+                                                        textAlign:
+                                                            TextAlign.center,
                                                         style: TextStyle(
                                                           color: Colors.black,
                                                           fontSize: 16.0,
@@ -721,7 +1018,7 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                                 .circular(5.0),
                                                       ),
                                                       child: Text(
-                                                        "Livros publicados",
+                                                        "Cursos de Aperfeiçoamento (mínimo 180 Hs)",
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyle(
@@ -746,12 +1043,10 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                       constraints:
                                                           BoxConstraints(
                                                               minHeight: 40),
-                                                      child: TextField(
+                                                      child: Text(
                                                         textAlign:
                                                             TextAlign.center,
-                                                        controller:
-                                                            controllerl1[0],
-                                                        maxLines: null,
+                                                        '0',
                                                         style: TextStyle(
                                                           color: Colors.black,
                                                           fontSize: 16.0,
@@ -774,16 +1069,53 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                       constraints:
                                                           BoxConstraints(
                                                               minHeight: 40),
-                                                      child: TextField(
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        controller:
-                                                            controllerl1[0],
-                                                        maxLines: null,
-                                                        style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 16.0,
-                                                        ),
+                                                      child: Column(
+                                                        children: [
+
+                                                              Container(
+                                                                alignment: Alignment
+                                                                    .topRight,
+                                                                height: 20,
+                                                                width: 50,
+                                                                child: IconButton(
+                                                                  onPressed: () {
+                                                                    showDialog(
+                                                                        context:
+                                                                            context,
+                                                                        builder: (_) =>
+                                                                            AlertDialog(
+                                                                              title:
+                                                                                  Text("Máximo de pontos:",),
+                                                                              content:
+                                                                                  Text("O máximo de pontos para este atributo é 5."),
+                                                                              actions: [
+                                                                                TextButton(
+                                                                                    onPressed: () {
+                                                                                      Navigator.of(context).pop();
+                                                                                    },
+                                                                                    child: Text('Ok')),
+                                                                              ],
+                                                                            ));
+                                                                  },
+                                                                  icon: const Icon(
+                                                                      Icons
+                                                                          .help_outlined,
+                                                                      size: 15,
+                                                                      color: Colors
+                                                                          .blue),
+                                                                ),
+                                                              ),
+                                                          Text(
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            '0',
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ],
                                                       ),
                                                     ),
                                                     SizedBox(
@@ -792,7 +1124,7 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                     Container(
                                                       alignment:
                                                           Alignment.center,
-                                                      width: 104.5,
+                                                      width: 320,
                                                       decoration: BoxDecoration(
                                                         color: Colors.white,
                                                         borderRadius:
@@ -800,7 +1132,7 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                                 .circular(5.0),
                                                       ),
                                                       child: Text(
-                                                        "1 ano",
+                                                        "Professor de universidade pública (Por ano completo)",
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyle(
@@ -815,7 +1147,7 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                     Container(
                                                       alignment:
                                                           Alignment.center,
-                                                      width: 104.5,
+                                                      width: 50,
                                                       decoration: BoxDecoration(
                                                         color: Colors.white,
                                                         borderRadius:
@@ -825,12 +1157,98 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                       constraints:
                                                           BoxConstraints(
                                                               minHeight: 40),
-                                                      child: TextField(
+                                                      child: Text(
                                                         textAlign:
                                                             TextAlign.center,
-                                                        controller:
-                                                            controllerl1[6],
-                                                        maxLines: null,
+                                                        '0',
+                                                        style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 16.0,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 2,
+                                                    ),
+                                                    Container(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      width: 50,
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(5.0),
+                                                      ),
+                                                      constraints:
+                                                          BoxConstraints(
+                                                              minHeight: 40),
+                                                      child: Column(
+                                                        children: [
+
+                                                              Container(
+                                                                alignment: Alignment
+                                                                    .topRight,
+                                                                height: 20,
+                                                                width: 50,
+                                                                child: IconButton(
+                                                                  onPressed: () {
+                                                                    showDialog(
+                                                                        context:
+                                                                            context,
+                                                                        builder: (_) =>
+                                                                            AlertDialog(
+                                                                              title:
+                                                                                  Text("Máximo de pontos:",),
+                                                                              content:
+                                                                                  Text("O máximo de pontos para este atributo é 5."),
+                                                                              actions: [
+                                                                                TextButton(
+                                                                                    onPressed: () {
+                                                                                      Navigator.of(context).pop();
+                                                                                    },
+                                                                                    child: Text('Ok')),
+                                                                              ],
+                                                                            ));
+                                                                  },
+                                                                  icon: const Icon(
+                                                                      Icons
+                                                                          .help_outlined,
+                                                                      size: 15,
+                                                                      color: Colors
+                                                                          .blue),
+                                                                ),
+                                                              ),
+                                                          Text(
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            '0',
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 30,
+                                                    ),
+                                                    Container(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      width: 157,
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(5.0),
+                                                      ),
+                                                      child: Text(
+                                                        "XX ano(s) e XX mes(es)",
+                                                        textAlign:
+                                                            TextAlign.center,
                                                         style: TextStyle(
                                                           color: Colors.black,
                                                           fontSize: 16.0,
@@ -891,562 +1309,10 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                       constraints:
                                                           BoxConstraints(
                                                               minHeight: 40),
-                                                      child: TextField(
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        controller:
-                                                            controllerl1[2],
-                                                        maxLines: null,
-                                                        style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 16.0,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      width: 30,
-                                                    ),
-                                                    Container(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      width: 320,
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(5.0),
-                                                      ),
                                                       child: Text(
-                                                        "Créditos de Pós-Graduação \"Stricto Sensu\" por disciplina",
                                                         textAlign:
                                                             TextAlign.center,
-                                                        style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 16.0,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      width: 2,
-                                                    ),
-                                                    Container(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      width: 50,
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(5.0),
-                                                      ),
-                                                      constraints:
-                                                          BoxConstraints(
-                                                              minHeight: 40),
-                                                      child: TextField(
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        controller:
-                                                            controllerl1[0],
-                                                        maxLines: null,
-                                                        style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 16.0,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      width: 2,
-                                                    ),
-                                                    Container(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      width: 50,
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(5.0),
-                                                      ),
-                                                      constraints:
-                                                          BoxConstraints(
-                                                              minHeight: 40),
-                                                      child: TextField(
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        controller:
-                                                            controllerl1[0],
-                                                        maxLines: null,
-                                                        style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 16.0,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      width: 30,
-                                                    ),
-                                                    Container(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      width: 320,
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(5.0),
-                                                      ),
-                                                      child: Text(
-                                                        "Realização de Pesquisa aprovada pela Instituição (Mínimo 1 ano)",
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 16.0,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      width: 2,
-                                                    ),
-                                                    Container(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      width: 50,
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(5.0),
-                                                      ),
-                                                      constraints:
-                                                          BoxConstraints(
-                                                              minHeight: 40),
-                                                      child: TextField(
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        controller:
-                                                            controllerl1[0],
-                                                        maxLines: null,
-                                                        style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 16.0,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      width: 2,
-                                                    ),
-                                                    Container(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      width: 50,
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(5.0),
-                                                      ),
-                                                      constraints:
-                                                          BoxConstraints(
-                                                              minHeight: 40),
-                                                      child: TextField(
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        controller:
-                                                            controllerl1[0],
-                                                        maxLines: null,
-                                                        style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 16.0,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      width: 30,
-                                                    ),
-                                                    Container(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      width: 104.5,
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(5.0),
-                                                      ),
-                                                      child: Text(
-                                                        "2 anos",
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 16.0,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      width: 2,
-                                                    ),
-                                                    Container(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      width: 104.5,
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(5.0),
-                                                      ),
-                                                      constraints:
-                                                          BoxConstraints(
-                                                              minHeight: 40),
-                                                      child: TextField(
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        controller:
-                                                            controllerl1[7],
-                                                        maxLines: null,
-                                                        style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 16.0,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(height: 2),
-                                        IntrinsicHeight(
-                                          child: Container(
-                                            constraints:
-                                                BoxConstraints(maxHeight: 100),
-                                            child: Row(
-                                              children: [
-                                                Row(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment
-                                                          .stretch,
-                                                  children: [
-                                                    Container(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      width: 157,
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(5.0),
-                                                      ),
-                                                      child: Text(
-                                                        "DOUTORADO",
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 16.0,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      width: 2,
-                                                    ),
-                                                    Container(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      width: 50,
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(5.0),
-                                                      ),
-                                                      constraints:
-                                                          BoxConstraints(
-                                                              minHeight: 40),
-                                                      child: TextField(
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        controller:
-                                                            controllerl1[3],
-                                                        maxLines: null,
-                                                        style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 16.0,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      width: 30,
-                                                    ),
-                                                    Container(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      width: 320,
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(5.0),
-                                                      ),
-                                                      child: Text(
-                                                        "Cursos de Aperfeiçoamento (mínimo 180 Hs)",
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 16.0,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      width: 2,
-                                                    ),
-                                                    Container(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      width: 50,
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(5.0),
-                                                      ),
-                                                      constraints:
-                                                          BoxConstraints(
-                                                              minHeight: 40),
-                                                      child: TextField(
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        controller:
-                                                            controllerl1[0],
-                                                        maxLines: null,
-                                                        style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 16.0,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      width: 2,
-                                                    ),
-                                                    Container(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      width: 50,
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(5.0),
-                                                      ),
-                                                      constraints:
-                                                          BoxConstraints(
-                                                              minHeight: 40),
-                                                      child: TextField(
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        controller:
-                                                            controllerl1[0],
-                                                        maxLines: null,
-                                                        style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 16.0,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      width: 30,
-                                                    ),
-                                                    Container(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      width: 320,
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(5.0),
-                                                      ),
-                                                      child: Text(
-                                                        "Professor de universidade pública (Por ano completo)",
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 16.0,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      width: 2,
-                                                    ),
-                                                    Container(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      width: 50,
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(5.0),
-                                                      ),
-                                                      constraints:
-                                                          BoxConstraints(
-                                                              minHeight: 40),
-                                                      child: TextField(
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        controller:
-                                                            controllerl1[0],
-                                                        maxLines: null,
-                                                        style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 16.0,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      width: 2,
-                                                    ),
-                                                    Container(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      width: 50,
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(5.0),
-                                                      ),
-                                                      constraints:
-                                                          BoxConstraints(
-                                                              minHeight: 40),
-                                                      child: TextField(
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        controller:
-                                                            controllerl1[0],
-                                                        maxLines: null,
-                                                        style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 16.0,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      width: 30,
-                                                    ),
-                                                    Container(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      width: 104.5,
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(5.0),
-                                                      ),
-                                                      child: Text(
-                                                        "3 anos",
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 16.0,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      width: 2,
-                                                    ),
-                                                    Container(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      width: 104.5,
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(5.0),
-                                                      ),
-                                                      constraints:
-                                                          BoxConstraints(
-                                                              minHeight: 40),
-                                                      child: TextField(
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        controller:
-                                                            controllerl1[8],
-                                                        maxLines: null,
-                                                        style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 16.0,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(height: 2),
-                                        IntrinsicHeight(
-                                          child: Container(
-                                            constraints:
-                                                BoxConstraints(maxHeight: 100),
-                                            child: Row(
-                                              children: [
-                                                Row(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment
-                                                          .stretch,
-                                                  children: [
-                                                    Container(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      width: 157,
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(5.0),
-                                                      ),
-                                                      child: Text(
-                                                        "LIVRE DOCENTE",
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 16.0,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      width: 2,
-                                                    ),
-                                                    Container(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      width: 50,
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(5.0),
-                                                      ),
-                                                      constraints:
-                                                          BoxConstraints(
-                                                              minHeight: 40),
-                                                      child: TextField(
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        controller:
-                                                            controllerl1[4],
-                                                        maxLines: null,
+                                                        '20',
                                                         style: TextStyle(
                                                           color: Colors.black,
                                                           fontSize: 16.0,
@@ -1492,12 +1358,10 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                       constraints:
                                                           BoxConstraints(
                                                               minHeight: 40),
-                                                      child: TextField(
+                                                      child: Text(
                                                         textAlign:
                                                             TextAlign.center,
-                                                        controller:
-                                                            controllerl1[0],
-                                                        maxLines: null,
+                                                        '0',
                                                         style: TextStyle(
                                                           color: Colors.black,
                                                           fontSize: 16.0,
@@ -1520,16 +1384,53 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                       constraints:
                                                           BoxConstraints(
                                                               minHeight: 40),
-                                                      child: TextField(
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        controller:
-                                                            controllerl1[0],
-                                                        maxLines: null,
-                                                        style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 16.0,
-                                                        ),
+                                                      child: Column(
+                                                        children: [
+
+                                                              Container(
+                                                                alignment: Alignment
+                                                                    .topRight,
+                                                                height: 20,
+                                                                width: 50,
+                                                                child: IconButton(
+                                                                  onPressed: () {
+                                                                    showDialog(
+                                                                        context:
+                                                                            context,
+                                                                        builder: (_) =>
+                                                                            AlertDialog(
+                                                                              title:
+                                                                                  Text("Máximo de pontos:",),
+                                                                              content:
+                                                                                  Text("O máximo de pontos para este atributo é 5."),
+                                                                              actions: [
+                                                                                TextButton(
+                                                                                    onPressed: () {
+                                                                                      Navigator.of(context).pop();
+                                                                                    },
+                                                                                    child: Text('Ok')),
+                                                                              ],
+                                                                            ));
+                                                                  },
+                                                                  icon: const Icon(
+                                                                      Icons
+                                                                          .help_outlined,
+                                                                      size: 15,
+                                                                      color: Colors
+                                                                          .blue),
+                                                                ),
+                                                              ),
+                                                          Text(
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            '0',
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ],
                                                       ),
                                                     ),
                                                     SizedBox(
@@ -1571,12 +1472,10 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                       constraints:
                                                           BoxConstraints(
                                                               minHeight: 40),
-                                                      child: TextField(
+                                                      child: Text(
                                                         textAlign:
                                                             TextAlign.center,
-                                                        controller:
-                                                            controllerl1[0],
-                                                        maxLines: null,
+                                                        '0',
                                                         style: TextStyle(
                                                           color: Colors.black,
                                                           fontSize: 16.0,
@@ -1599,16 +1498,53 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                       constraints:
                                                           BoxConstraints(
                                                               minHeight: 40),
-                                                      child: TextField(
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        controller:
-                                                            controllerl1[0],
-                                                        maxLines: null,
-                                                        style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 16.0,
-                                                        ),
+                                                      child: Column(
+                                                        children: [
+
+                                                              Container(
+                                                                alignment: Alignment
+                                                                    .topRight,
+                                                                height: 20,
+                                                                width: 50,
+                                                                child: IconButton(
+                                                                  onPressed: () {
+                                                                    showDialog(
+                                                                        context:
+                                                                            context,
+                                                                        builder: (_) =>
+                                                                            AlertDialog(
+                                                                              title:
+                                                                                  Text("Máximo de pontos:",),
+                                                                              content:
+                                                                                  Text("O máximo de pontos para este atributo é 5."),
+                                                                              actions: [
+                                                                                TextButton(
+                                                                                    onPressed: () {
+                                                                                      Navigator.of(context).pop();
+                                                                                    },
+                                                                                    child: Text('Ok')),
+                                                                              ],
+                                                                            ));
+                                                                  },
+                                                                  icon: const Icon(
+                                                                      Icons
+                                                                          .help_outlined,
+                                                                      size: 15,
+                                                                      color: Colors
+                                                                          .blue),
+                                                                ),
+                                                              ),
+                                                          Text(
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            '0',
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ],
                                                       ),
                                                     ),
                                                     SizedBox(
@@ -1617,45 +1553,17 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                     Container(
                                                       alignment:
                                                           Alignment.center,
-                                                      width: 104.5,
+                                                      width: 157,
                                                       decoration: BoxDecoration(
-                                                        color: Colors.white,
+                                                        color: Colors.blue,
                                                         borderRadius:
                                                             BorderRadius
                                                                 .circular(5.0),
                                                       ),
                                                       child: Text(
-                                                        "4 anos",
+                                                        "Pontuação",
                                                         textAlign:
                                                             TextAlign.center,
-                                                        style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 16.0,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      width: 2,
-                                                    ),
-                                                    Container(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      width: 104.5,
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(5.0),
-                                                      ),
-                                                      constraints:
-                                                          BoxConstraints(
-                                                              minHeight: 40),
-                                                      child: TextField(
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        controller:
-                                                            controllerl1[9],
-                                                        maxLines: null,
                                                         style: TextStyle(
                                                           color: Colors.black,
                                                           fontSize: 16.0,
@@ -1741,12 +1649,10 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                       constraints:
                                                           BoxConstraints(
                                                               minHeight: 40),
-                                                      child: TextField(
+                                                      child: Text(
                                                         textAlign:
                                                             TextAlign.center,
-                                                        controller:
-                                                            controllerl1[0],
-                                                        maxLines: null,
+                                                        '0',
                                                         style: TextStyle(
                                                           color: Colors.black,
                                                           fontSize: 16.0,
@@ -1769,16 +1675,53 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                       constraints:
                                                           BoxConstraints(
                                                               minHeight: 40),
-                                                      child: TextField(
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        controller:
-                                                            controllerl1[0],
-                                                        maxLines: null,
-                                                        style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 16.0,
-                                                        ),
+                                                      child: Column(
+                                                        children: [
+
+                                                              Container(
+                                                                alignment: Alignment
+                                                                    .topRight,
+                                                                height: 20,
+                                                                width: 50,
+                                                                child: IconButton(
+                                                                  onPressed: () {
+                                                                    showDialog(
+                                                                        context:
+                                                                            context,
+                                                                        builder: (_) =>
+                                                                            AlertDialog(
+                                                                              title:
+                                                                                  Text("Máximo de pontos:",),
+                                                                              content:
+                                                                                  Text("O máximo de pontos para este atributo é 5."),
+                                                                              actions: [
+                                                                                TextButton(
+                                                                                    onPressed: () {
+                                                                                      Navigator.of(context).pop();
+                                                                                    },
+                                                                                    child: Text('Ok')),
+                                                                              ],
+                                                                            ));
+                                                                  },
+                                                                  icon: const Icon(
+                                                                      Icons
+                                                                          .help_outlined,
+                                                                      size: 15,
+                                                                      color: Colors
+                                                                          .blue),
+                                                                ),
+                                                              ),
+                                                          Text(
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            '0',
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ],
                                                       ),
                                                     ),
                                                     SizedBox(
@@ -1787,7 +1730,7 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                     Container(
                                                       alignment:
                                                           Alignment.center,
-                                                      width: 104.5,
+                                                      width: 157,
                                                       decoration: BoxDecoration(
                                                         color: Colors.white,
                                                         borderRadius:
@@ -1795,37 +1738,9 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                                 .circular(5.0),
                                                       ),
                                                       child: Text(
-                                                        "5 anos",
+                                                        "XX",
                                                         textAlign:
                                                             TextAlign.center,
-                                                        style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 16.0,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      width: 2,
-                                                    ),
-                                                    Container(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      width: 104.5,
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(5.0),
-                                                      ),
-                                                      constraints:
-                                                          BoxConstraints(
-                                                              minHeight: 40),
-                                                      child: TextField(
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        controller:
-                                                            text,
-                                                        maxLines: null,
                                                         style: TextStyle(
                                                           color: Colors.black,
                                                           fontSize: 16.0,
@@ -1852,10 +1767,72 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                   children: [
                                                     Column(
                                                       children: [
+                                                        
                                                         Container(
                                                           alignment:
                                                               Alignment.center,
-                                                          width: 103.5,
+                                                          width: 68,
+                                                          height: 19,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Colors.blue,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: Text(
+                                                            "Quantidade",
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .black,
+                                                                fontSize: 8.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          height: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 68,
+                                                          height: 28,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: Text(
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            '0',
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 8.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    SizedBox(
+                                                      width: 2.5,
+                                                    ),
+                                                    Column(
+                                                      children: [
+                                                        
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 68,
                                                           height: 19,
                                                           decoration:
                                                               BoxDecoration(
@@ -1884,7 +1861,7 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                         Container(
                                                           alignment:
                                                               Alignment.center,
-                                                          width: 103.5,
+                                                          width: 68,
                                                           height: 28,
                                                           decoration:
                                                               BoxDecoration(
@@ -1894,12 +1871,10 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                                     .circular(
                                                                         5.0),
                                                           ),
-                                                          child: TextField(
+                                                          child: Text(
                                                             textAlign: TextAlign
                                                                 .center,
-                                                            controller:
-                                                                controllerl1[5],
-                                                            maxLines: null,
+                                                            '6',
                                                             style: TextStyle(
                                                               color:
                                                                   Colors.black,
@@ -1910,14 +1885,14 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                       ],
                                                     ),
                                                     SizedBox(
-                                                      width: 2,
+                                                      width: 2.5,
                                                     ),
                                                     Column(
                                                       children: [
                                                         Container(
                                                           alignment:
                                                               Alignment.center,
-                                                          width: 103.5,
+                                                          width:68,
                                                           height: 19,
                                                           decoration:
                                                               BoxDecoration(
@@ -1946,7 +1921,7 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                         Container(
                                                           alignment:
                                                               Alignment.center,
-                                                          width: 103.5,
+                                                          width: 68,
                                                           height: 28,
                                                           decoration:
                                                               BoxDecoration(
@@ -1956,12 +1931,10 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                                     .circular(
                                                                         5.0),
                                                           ),
-                                                          child: TextField(
+                                                          child: Text(
                                                             textAlign: TextAlign
                                                                 .center,
-                                                            controller:
-                                                                controllerl1[6],
-                                                            maxLines: null,
+                                                            '1',
                                                             style: TextStyle(
                                                               color:
                                                                   Colors.black,
@@ -2010,12 +1983,10 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                       constraints:
                                                           BoxConstraints(
                                                               minHeight: 40),
-                                                      child: TextField(
+                                                      child: Text(
                                                         textAlign:
                                                             TextAlign.center,
-                                                        controller:
-                                                            controllerl1[0],
-                                                        maxLines: null,
+                                                        '0',
                                                         style: TextStyle(
                                                           color: Colors.black,
                                                           fontSize: 16.0,
@@ -2038,20 +2009,57 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                       constraints:
                                                           BoxConstraints(
                                                               minHeight: 40),
-                                                      child: TextField(
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        controller:
-                                                            controllerl1[0],
-                                                        maxLines: null,
-                                                        style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 16.0,
-                                                        ),
+                                                      child: Column(
+                                                        children: [
+
+                                                              Container(
+                                                                alignment: Alignment
+                                                                    .topRight,
+                                                                height: 20,
+                                                                width: 50,
+                                                                child: IconButton(
+                                                                  onPressed: () {
+                                                                    showDialog(
+                                                                        context:
+                                                                            context,
+                                                                        builder: (_) =>
+                                                                            AlertDialog(
+                                                                              title:
+                                                                                  Text("Máximo de pontos:",),
+                                                                              content:
+                                                                                  Text("O máximo de pontos para este atributo é 5."),
+                                                                              actions: [
+                                                                                TextButton(
+                                                                                    onPressed: () {
+                                                                                      Navigator.of(context).pop();
+                                                                                    },
+                                                                                    child: Text('Ok')),
+                                                                              ],
+                                                                            ));
+                                                                  },
+                                                                  icon: const Icon(
+                                                                      Icons
+                                                                          .help_outlined,
+                                                                      size: 15,
+                                                                      color: Colors
+                                                                          .blue),
+                                                                ),
+                                                              ),
+                                                          Text(
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            '0',
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ],
                                                       ),
                                                     ),
                                                     SizedBox(
-                                                      width: 695,
+                                                      width: 641,
                                                     )
                                                   ],
                                                 ),
@@ -2168,15 +2176,15 @@ class Pontuacoes extends StatefulWidget {
   ];*/
 }
 
-class TitlePontuacoes extends StatelessWidget {
-  TitlePontuacoes({
+class TitleSuaspontuacoes extends StatelessWidget {
+  TitleSuaspontuacoes({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return const AutoSizeText(
-      "Pontuações",
+      "Suas Pontuações",
       textAlign: TextAlign.start,
       maxLines: 2,
       style: TextStyle(
