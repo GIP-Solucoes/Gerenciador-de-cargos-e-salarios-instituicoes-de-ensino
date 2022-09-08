@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:starbucks_landing_page/screens/home_screen/components/view/content/hero_content.dart';
 
 class Header extends StatelessWidget {
   const Header({
@@ -10,7 +11,13 @@ class Header extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Image.asset('assets/images/logo.png',height: 30.0),
+        TextButton(
+            onPressed: () {
+              pagina = 4;
+              Navigator.pushNamed(context, '/');
+            },
+            child: Image.asset('assets/images/logo.png', height: 30.0)),
+            
         //const SizedBox(width: 10.0),
         //Image.asset('assets/images/title.png', height: 35.0),
       ],

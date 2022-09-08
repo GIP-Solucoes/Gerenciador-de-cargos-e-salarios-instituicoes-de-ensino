@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:starbucks_landing_page/screens/home_screen/components/view/content/hero_content.dart';
 
 // navbar_items
-final navbarItems = ["A empresa", "Suporte", "Icone", "FAQ"];
+final navbarItems = ["A empresa", "Suporte", "FAQ"];
 
 class NavbarItems extends StatelessWidget {
   const NavbarItems({
@@ -15,9 +16,15 @@ class NavbarItems extends StatelessWidget {
     return ListView.separated(
       scrollDirection: isMobile ? Axis.vertical : Axis.horizontal,
       itemBuilder: (context, index) {
-        if (index == 2) return Icon(Icons.whatsapp);
+        /*if (index == 1) return Row(
+          children: [
+            NavbarItem(title: navbarItems[index], index: index),
+            //Icon(Icons.whatsapp),
+          ],
+        );*/
         return NavbarItem(
           title: navbarItems[index],
+          index: index,
         );
       },
       separatorBuilder: (context, index) {
@@ -30,20 +37,54 @@ class NavbarItems extends StatelessWidget {
   }
 }
 
-class NavbarItem extends StatelessWidget {
-  const NavbarItem({
+class _StateNavbarItem extends State<NavbarItem>{
+   _StateNavbarItem({
     Key? key,
     required this.title,
-  }) : super(key: key);
+    required this.index,
+  });
   final String title;
+  final int index;
   @override
   Widget build(BuildContext context) {
-    return Text(
-      title,
-      style: const TextStyle(
-        color: Colors.black,
-        fontSize: 20.0,
+    return TextButton(
+      onPressed: () {
+        
+        if(index!=1){
+            pagina = index;
+
+        Navigator.pushNamed(context, '/');
+        }
+        
+      },
+      child: index==1?Row(children: [Text(
+        title+' ',
+        style: const TextStyle(
+          color: Colors.black,
+          fontSize: 20.0,
+        ),
+      ),
+      Icon(Icons.whatsapp,color: Colors.black,)],):Text(
+        title,
+        style: const TextStyle(
+          color: Colors.black,
+          fontSize: 20.0,
+        ),
       ),
     );
+  }
+}
+class NavbarItem extends StatefulWidget {
+  NavbarItem({
+    Key? key,
+    required this.title,
+    required this.index,
+  }) : super(key: key);
+  final String title;
+  final int index;
+  @override
+  @override
+  State<StatefulWidget> createState() {
+    return _StateNavbarItem(index: index, title: title);
   }
 }
