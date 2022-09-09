@@ -51,7 +51,7 @@ class EsqueciCampo extends StatelessWidget {
     return SizedBox(
       width: 350,
       child: TextField(
-        style: TextStyle(color: Colors.grey.shade200),
+        style: TextStyle(color: Colors.grey),
         decoration: InputDecoration(
           hintText: 'Insira seu e-mail...',
           hintStyle: TextStyle(color: Colors.grey.shade200),

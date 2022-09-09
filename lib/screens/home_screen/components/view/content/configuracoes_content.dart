@@ -215,9 +215,9 @@ class Alterarimagem extends StatelessWidget {
           height: 15,
         ),
         Image.asset(
-          'assets/images/image_config.png',
-          height: 125.0,
+          'assets/images/image_config.png',height: 125,
         ),
+        
       ],
     );
   }
