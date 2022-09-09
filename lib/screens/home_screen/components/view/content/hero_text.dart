@@ -102,7 +102,7 @@ class CappucinoTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const AutoSizeText(
-      "Saiba mais sobre nós",
+      "Saiba mais sobre nóss",
       maxLines: 2,
       style: TextStyle(
         color: Colors.black,
