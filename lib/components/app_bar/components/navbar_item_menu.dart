@@ -13,6 +13,7 @@ class NavbarItemMenu extends StatelessWidget {
         children:[
           SizedBox(
           child:CircleAvatar(
+            
   backgroundImage: AssetImage('assets/images/pedro.png'),
 ),),
           
