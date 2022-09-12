@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import 'package:starbucks_landing_page/screens/home_screen/components/view/content/aempresa_text.dart';
-import 'package:starbucks_landing_page/screens/home_screen/components/view/content/meucargo_content.dart';
-import 'package:starbucks_landing_page/screens/home_screen/components/view/content/youtube.dart';
-import 'package:starbucks_landing_page/screens/home_screen/components/view/content/hero_text.dart';
-import 'package:starbucks_landing_page/screens/home_screen/components/view/content/serving_items_list.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/content/aempresa_text.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/content/meucargo_content.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/content/youtube.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/content/hero_text.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/content/serving_items_list.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 class DesktopMeucargo extends StatelessWidget {

@@ -1,11 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:starbucks_landing_page/main.dart';
-import 'package:starbucks_landing_page/screens/home_screen/components/view/content/hero_content.dart';
-import 'package:starbucks_landing_page/screens/home_screen/components/view/content/name_color.dart';
+import 'package:gip_solucoes/main.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/content/hero_content.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/content/name_color.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:starbucks_landing_page/screens/home_screen/components/view/content/sistema_content.dart';
-import 'package:starbucks_landing_page/screens/home_screen/home_screen.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/content/sistema_content.dart';
+import 'package:gip_solucoes/screens/home_screen/home_screen.dart';
 //import 'package:my_portfolio/models/name_color.dart';
 
 class _PontuacoesState extends State<Pontuacoes> {

@@ -10,8 +10,8 @@ Text(
                               )*/
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:starbucks_landing_page/screens/home_screen/components/view/content/hero_content.dart';
-import 'package:starbucks_landing_page/screens/home_screen/components/view/content/sistema_content.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/content/hero_content.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/content/sistema_content.dart';
 
 class HeaderMenu extends StatelessWidget {
   const HeaderMenu({
@@ -47,6 +47,7 @@ class Sair extends StatelessWidget {
         IconButton(
           icon: Icon(Icons.settings, color: Colors.blue[600], size: 30.0),
           onPressed: () {
+            if(paginaS!=1)
             pagina_backup = paginaS;
             paginaS = 1;
             Navigator.pushNamed(context, '/sistema');

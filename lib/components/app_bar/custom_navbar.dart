@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:starbucks_landing_page/components/app_bar/components/desktop_navbar_menu.dart';
-import 'package:starbucks_landing_page/constants.dart';
+import 'package:gip_solucoes/components/app_bar/components/desktop_navbar_menu.dart';
+import 'package:gip_solucoes/constants.dart';
 import '../components.dart';
 
 class CustomNavbar extends StatelessWidget {

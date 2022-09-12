@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
-import 'package:starbucks_landing_page/screens/home_screen/sistema_screen.dart';
+import 'package:gip_solucoes/screens/home_screen/sistema_screen.dart';
 
 import './screens/screens.dart';
 

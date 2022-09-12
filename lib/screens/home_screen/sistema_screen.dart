@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:starbucks_landing_page/components/app_bar/custom_navbar_sistema.dart';
-import 'package:starbucks_landing_page/components/components.dart';
-import 'package:starbucks_landing_page/constants.dart';
-import 'package:starbucks_landing_page/screens/home_screen/components/view/content/hero_content.dart';
-import 'package:starbucks_landing_page/screens/home_screen/components/view/content/sistema_content.dart';
+import 'package:gip_solucoes/components/app_bar/custom_navbar_sistema.dart';
+import 'package:gip_solucoes/components/components.dart';
+import 'package:gip_solucoes/constants.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/content/hero_content.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/content/sistema_content.dart';
 
 class SistemaScreen extends StatefulWidget {
   const SistemaScreen({Key? key}) : super(key: key);

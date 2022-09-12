@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:starbucks_landing_page/components/app_bar/components/navbar_menu_content.dart';
+import 'package:gip_solucoes/components/app_bar/components/navbar_menu_content.dart';
 
 import '../../components.dart';
 

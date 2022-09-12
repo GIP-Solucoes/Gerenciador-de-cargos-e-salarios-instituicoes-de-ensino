@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:starbucks_landing_page/constants.dart';
+import 'package:gip_solucoes/constants.dart';
 
-import 'package:starbucks_landing_page/screens/home_screen/components/view/content/hero_image.dart';
-import 'package:starbucks_landing_page/screens/home_screen/components/view/content/hero_text.dart';
-import 'package:starbucks_landing_page/screens/home_screen/components/view/content/serving_item.dart';
-import 'package:starbucks_landing_page/screens/home_screen/components/view/content/serving_items_list.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/content/hero_image.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/content/hero_text.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/content/serving_item.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/content/serving_items_list.dart';
 
 class MobileHero extends StatelessWidget {
   const MobileHero({Key? key}) : super(key: key);

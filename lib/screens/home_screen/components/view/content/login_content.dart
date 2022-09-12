@@ -1,7 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:starbucks_landing_page/screens/home_screen/components/view/content/hero_content.dart';
-import 'package:starbucks_landing_page/screens/home_screen/components/view/content/sistema_content.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/content/hero_content.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/content/sistema_content.dart';
 
 class Login extends StatelessWidget {
   const Login({

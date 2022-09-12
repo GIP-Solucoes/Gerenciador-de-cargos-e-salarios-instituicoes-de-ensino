@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:starbucks_landing_page/screens/home_screen/components/view/content/hero_content.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/content/hero_content.dart';
 
 // navbar_items
 final navbarItems = ["A empresa", "Suporte", "FAQ"];
