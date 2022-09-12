@@ -198,7 +198,7 @@ class _SimuladorState extends State<Simulador> {
     for (var i = 0; i < categorias.length; i++) {
       box = categorias[i].currentContext!.findRenderObject() as RenderBox;
       Offset position = box.localToGlobal(Offset.zero);
-      if (scrollCont.offset >= (position.dx - (mediaQueryx * 0.5)))
+      if (scrollCont.offset >= (position.dx - (mediaQueryx * 0.25)))
         setState(() {
           ind = i;
         });
