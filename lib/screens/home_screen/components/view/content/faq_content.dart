@@ -127,164 +127,150 @@ class Imagem extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Image.asset('assets/images/unaerp.faq',height: 60.0),
+        Image.asset('assets/images/unaerp.faq', height: 60.0),
         //const SizedBox(width: 10.0),
         //Image.asset('assets/images/title.png', height: 35.0),
       ],
     );
   }
 }
+
 class Perguntas extends StatelessWidget {
-  const Perguntas({Key? key}) : super(key: key);
+  double tamanhoitem;
+  double tamanhoimagem;
+  Perguntas(
+      {Key? key, required this.tamanhoitem, required this.tamanhoimagem})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-          //crossAxisAlignment: CrossAxisAlignment.center,
+      //crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Column(children: [
-          Container(
-      //height: 600,
-      width: 700,
-      margin: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.grey[200],
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: ExpansionTile(
-        title: Text('1. Pergunta 1 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'),
-        backgroundColor: Colors.grey[200],
-        iconColor: Colors.blue[600],
-        collapsedIconColor: Colors.blue[600],
-        children: [
-          ListTile(
-              title: Text('1. Resposta 1 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')),
-        ],
-      ),
-
-      /*Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Container(
-            width: 80,
-            height: 80,
-            decoration: BoxDecoration(
-              color: Colors.grey[200],
-              borderRadius: BorderRadius.circular(80),
+        Column(
+          children: [
+            Container(
+              //height: 600,
+              width: tamanhoitem,
+              margin: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: Colors.grey[200],
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: ExpansionTile(
+                title:
+                    Text('1. Pergunta 1 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'),
+                backgroundColor: Colors.grey[200],
+                iconColor: Colors.blue[600],
+                collapsedIconColor: Colors.blue[600],
+                children: [
+                  ListTile(
+                      title: Text(
+                          '1. Resposta 1 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')),
+                ],
+              ),
             ),
-          ),
-          /*const SizedBox(
-            height: 20,
-          ),*/
-          
-          /*Text(
-            e.title,
-            textAlign: TextAlign.center,
-            style: GoogleFonts.josefinSans(
-              color: Colors.blue[600],
-              fontSize: 20,
-              fontWeight: FontWeight.w800,
+            Container(
+              //height: 600,
+              width: tamanhoitem,
+              margin: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: Colors.grey[200],
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: ExpansionTile(
+                title:
+                    Text('2. Pergunta 2 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'),
+                backgroundColor: Colors.grey[200],
+                iconColor: Colors.blue[600],
+                collapsedIconColor: Colors.blue[600],
+                children: [
+                  ListTile(
+                      title: Text(
+                          '2. Resposta 2 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')),
+                ],
+              ),
             ),
-          )*/
-        ],
-      ),*/
-    ),
-    Container(
-      //height: 600,
-      width: 700,
-      margin: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.grey[200],
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: ExpansionTile(
-        title: Text('2. Pergunta 2 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'),
-        backgroundColor: Colors.grey[200],
-        iconColor: Colors.blue[600],
-        collapsedIconColor: Colors.blue[600],
-        children: [
-          ListTile(
-              title: Text('2. Resposta 2 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')),
-        ],
-      ),
-    ),
-    Container(
-      //height: 600,
-      width: 700,
-      margin: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.grey[200],
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: ExpansionTile(
-        title: Text('3. Pergunta 3 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'),
-        backgroundColor: Colors.grey[200],
-        iconColor: Colors.blue[600],
-        collapsedIconColor: Colors.blue[600],
-        children: [
-          ListTile(
-              title: Text('3. Resposta 3 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')),
-        ],
-      ),
-    ),
-    Container(
-      //height: 600,
-      width: 700,
-      margin: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.grey[200],
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: ExpansionTile(
-        title: Text('4. Pergunta 4 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'),
-        backgroundColor: Colors.grey[200],
-        iconColor: Colors.blue[600],
-        collapsedIconColor: Colors.blue[600],
-        children: [
-          ListTile(
-              title: Text('4. Resposta 4 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')),
-        ],
-      ),
-    ),
-    Container(
-      //height: 600,
-      width: 700,
-      margin: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.grey[200],
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: ExpansionTile(
-        title: Text('5. Pergunta 5 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'),
-        backgroundColor: Colors.grey[200],
-        iconColor: Colors.blue[600],
-        collapsedIconColor: Colors.blue[600],
-        children: [
-          ListTile(
-              title: Text('5. Resposta 5 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')),
-        ],
-      ),
-    ),
-        ],
-        
+            Container(
+              //height: 600,
+              width: tamanhoitem,
+              margin: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: Colors.grey[200],
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: ExpansionTile(
+                title:
+                    Text('3. Pergunta 3 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'),
+                backgroundColor: Colors.grey[200],
+                iconColor: Colors.blue[600],
+                collapsedIconColor: Colors.blue[600],
+                children: [
+                  ListTile(
+                      title: Text(
+                          '3. Resposta 3 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')),
+                ],
+              ),
+            ),
+            Container(
+              //height: 600,
+              width: tamanhoitem,
+              margin: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: Colors.grey[200],
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: ExpansionTile(
+                title:
+                    Text('4. Pergunta 4 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'),
+                backgroundColor: Colors.grey[200],
+                iconColor: Colors.blue[600],
+                collapsedIconColor: Colors.blue[600],
+                children: [
+                  ListTile(
+                      title: Text(
+                          '4. Resposta 4 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')),
+                ],
+              ),
+            ),
+            Container(
+              //height: 600,
+              width: tamanhoitem,
+              margin: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: Colors.grey[200],
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: ExpansionTile(
+                title:
+                    Text('5. Pergunta 5 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'),
+                backgroundColor: Colors.grey[200],
+                iconColor: Colors.blue[600],
+                collapsedIconColor: Colors.blue[600],
+                children: [
+                  ListTile(
+                      title: Text(
+                          '5. Resposta 5 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')),
+                ],
+              ),
+            ),
+          ],
         ),
         SizedBox(
-            width: 40,
-          ),
-        Column(children: [
-          
-          Container(
-      height: 300,
-      width: 300,
-      child: Image.asset('assets/images/faq.png'),
-      ),
-        ],)
-         
-    
+          width: 40,
+        ),
+        Column(
+          children: [
+            Container(
+              height: tamanhoimagem,
+              width: tamanhoimagem,
+              child: Image.asset('assets/images/faq.png'),
+            ),
+          ],
+        )
 
-      /*Column(
+        /*Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -311,10 +297,10 @@ class Perguntas extends StatelessWidget {
           )*/
         ],
       ),*/
-    //)
+        //)
       ],
     );
-   ;
+    ;
 
     /*ExpansionTile(
       title: Text('1. Pergunta 1 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'),

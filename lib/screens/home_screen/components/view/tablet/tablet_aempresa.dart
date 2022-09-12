@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-import 'package:gip_solucoes/screens/home_screen/components/view/content/hero_image.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/content/aempresa_text.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/youtube.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/hero_text.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/serving_items_list.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
-class TabletHero extends StatelessWidget {
-  const TabletHero({Key? key}) : super(key: key);
+class TabletAempresa extends StatelessWidget {
+  const TabletAempresa({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,24 +21,13 @@ class TabletHero extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            
-            HeroText(),
-            Container(
-              padding: EdgeInsets.symmetric(
-            vertical: 40.0, horizontal: mediaQuery.width * 0.14),
-              child:YoutubePlayerIFrame(
-              controller: YoutubePlayerController(
-                initialVideoId: 'L3wKzyIN1yk',
-                params: const YoutubePlayerParams(
-        startAt: const Duration(minutes: 1, seconds: 36),
-        showControls: true,
-        showFullscreenButton: true,
-        desktopMode: false,
-        privacyEnhanced: true,
-        useHybridComposition: true,
-      ),
-                ),
-            ),),
+            Row(children: [
+              TitleEmpresa(),
+              SizedBox(width: 20,),
+              Logo(),
+            ],),
+            SizedBox(height: 30,),
+            Paragrafo(),
             
             //const SizedBox(height: 75.0),
             //Row(

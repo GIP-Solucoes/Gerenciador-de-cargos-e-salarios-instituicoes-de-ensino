@@ -16,6 +16,8 @@ import 'package:gip_solucoes/screens/home_screen/components/view/desktop/desktop
 import 'package:gip_solucoes/screens/home_screen/components/view/desktop/desktop_suaspontuacoes.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/desktop/desktop_tabela.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/mobile/mobile_hero.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/tablet/tablet_aempresa.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/tablet/tablet_faq.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/tablet/tablet_hero.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/desktop/desktop_simulador.dart';
 
@@ -52,6 +54,17 @@ class _StateHeroContent extends State<HeroContent> {
           }
           return const DesktopLogin();
         } else if (constraints.maxWidth >= 600) {
+          switch (pagina) {
+            case 4:
+              return const TabletHero();
+              break;
+              case 0:
+              return const TabletAempresa();
+              break;
+              case 2:
+              return const TabletFaq();
+              break;
+          }
           return Container(
             height: 50,
             width: 50,

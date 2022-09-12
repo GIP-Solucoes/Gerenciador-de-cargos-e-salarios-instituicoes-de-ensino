@@ -36,7 +36,6 @@ class DesktopNavbar extends StatelessWidget {
                     child: NavbarItems(),
                   ),
                 ]),
-            if (width >= 1100)
               Row(
                 //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

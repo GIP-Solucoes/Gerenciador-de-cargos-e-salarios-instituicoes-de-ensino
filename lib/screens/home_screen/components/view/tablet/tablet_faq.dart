@@ -6,8 +6,8 @@ import 'package:gip_solucoes/screens/home_screen/components/view/content/faq_con
 import 'package:gip_solucoes/screens/home_screen/components/view/content/serving_items_list.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
-class DesktopFaq extends StatelessWidget {
-  const DesktopFaq({Key? key}) : super(key: key);
+class TabletFaq extends StatelessWidget {
+  const TabletFaq({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class DesktopFaq extends StatelessWidget {
                     Base(),
                   ],),
                   
-                  Perguntas(tamanhoimagem: 300, tamanhoitem: 700,),
+                  Perguntas(tamanhoimagem: 150, tamanhoitem: 350,),
                   //Perguntas(),
                 //],)
                 //Perguntas(),

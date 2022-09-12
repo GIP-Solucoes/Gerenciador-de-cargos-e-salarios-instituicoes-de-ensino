@@ -20,7 +20,7 @@ class AppDrawer extends StatelessWidget {
             children: [
               const SizedBox(width: double.infinity),
               const SizedBox(height: 30.0),
-              const SearchButton(),
+              const LoginButton(),
               const SizedBox(height: 30.0),
 
               // const Divider(thickness: 2.0),
