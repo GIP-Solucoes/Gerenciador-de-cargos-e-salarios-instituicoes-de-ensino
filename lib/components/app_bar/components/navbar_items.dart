@@ -14,7 +14,7 @@ class NavbarItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-      scrollDirection: isMobile ? Axis.vertical : Axis.horizontal,
+      scrollDirection: /*isMobile ? Axis.vertical :*/ Axis.horizontal,
       itemBuilder: (context, index) {
         /*if (index == 1) return Row(
           children: [
@@ -57,7 +57,9 @@ class _StateNavbarItem extends State<NavbarItem>{
         }
         
       },
-      child: index==1?Row(children: [Text(
+      child: index==1?Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [Text(
         title+' ',
         style: const TextStyle(
           color: Colors.black,

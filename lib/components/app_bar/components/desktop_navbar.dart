@@ -32,7 +32,7 @@ class DesktopNavbar extends StatelessWidget {
                     width: 15,
                   ),
                   const SizedBox(
-                    height: 30,
+                    //height: 30,
                     child: NavbarItems(),
                   ),
                 ]),
