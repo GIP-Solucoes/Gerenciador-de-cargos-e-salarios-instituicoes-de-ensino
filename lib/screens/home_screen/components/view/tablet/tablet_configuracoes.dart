@@ -2,20 +2,20 @@ import 'package:flutter/material.dart';
 
 import 'package:gip_solucoes/screens/home_screen/components/view/content/aempresa_text.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/esqueci_content.dart';
-import 'package:gip_solucoes/screens/home_screen/components/view/content/cargos_content.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/content/configuracoes_content.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/youtube.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/menu_content.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/serving_items_list.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
-class DesktopCargos extends StatelessWidget {
-  const DesktopCargos({Key? key}) : super(key: key);
+class TabletConfiguracoes extends StatelessWidget {
+  const TabletConfiguracoes({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context).size;
-    return Center(
-      child:SingleChildScrollView(
+    return SingleChildScrollView(
+      child:Center(
         child: Padding(
         padding: EdgeInsets.symmetric(horizontal: mediaQuery.width * 0.175),
         child: Column(
@@ -25,18 +25,45 @@ class DesktopCargos extends StatelessWidget {
               children: [
                 Row(children: [
                   SizedBox(width: 5),
-                  TitleCargos(),
+                  TitleConfiguracoes(),
                 ],),
                 
-                Cargos(valor:0.63),
+                Container(
+        height: 800,
+        width: 300,
+        //margin: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: Colors.grey[200],
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: 
+            Padding(
+                padding: EdgeInsets.symmetric(
+                    vertical: 15.0, horizontal: mediaQuery.width * 0.01),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Primeironome(),
+                          Segundonome(),
+                          Dadosgerais(),
+                          
+                          SizedBox(height: 30,),
+                        Alterarimagem(),
+                        BotaoSalvar(),
+                        ],
+                      ),
+                    ])),
+      ),
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 Row(children: [
                   SizedBox(width: 5,),
                   BotaoVoltar(),
-                  SizedBox(width: 5,),
-                  BotaoSalvar(),
                 ],)
                 
           ],

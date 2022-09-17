@@ -2,43 +2,45 @@ import 'package:flutter/material.dart';
 
 import 'package:gip_solucoes/screens/home_screen/components/view/content/aempresa_text.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/esqueci_content.dart';
-import 'package:gip_solucoes/screens/home_screen/components/view/content/cargos_content.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/youtube.dart';
-import 'package:gip_solucoes/screens/home_screen/components/view/content/menu_content.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/content/faq_content.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/serving_items_list.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
-class DesktopCargos extends StatelessWidget {
-  const DesktopCargos({Key? key}) : super(key: key);
+class TabletEsqueci extends StatelessWidget {
+  const TabletEsqueci({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context).size;
-    return Center(
-      child:SingleChildScrollView(
+    return SingleChildScrollView(
+      child:Center(
         child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: mediaQuery.width * 0.175),
+        padding: EdgeInsets.symmetric(
+            vertical: 20.0, horizontal: mediaQuery.width * 0.07),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
               
               children: [
+                  SizedBox(height: 60),
                 Row(children: [
-                  SizedBox(width: 5),
-                  TitleCargos(),
+                  TitleEsqueci(),
                 ],),
-                
-                Cargos(valor:0.63),
-                SizedBox(
-                  height: 20,
-                ),
+                SizedBox(height: 10,),
+                  Row(children: [
+                  EscritaEsqueci(tamanho:mediaQuery.width*0.85),
+                ],),
+                SizedBox(height: 10,),
                 Row(children: [
-                  SizedBox(width: 5,),
-                  BotaoVoltar(),
-                  SizedBox(width: 5,),
-                  BotaoSalvar(),
-                ],)
-                
+                  EsqueciCampo(),
+                ],),
+                SizedBox(height: 10,),
+                Row(children: [
+                  EsqueciBotao(),
+                  VoltarBotao(),
+                ],),
+              
           ],
         ),
         

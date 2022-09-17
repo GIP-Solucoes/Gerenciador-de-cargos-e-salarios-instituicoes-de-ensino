@@ -19,10 +19,14 @@ class MenuText extends StatelessWidget {
 }
 
 class Tabela extends StatefulWidget {
+  double valor;
+  Tabela({
+    Key? key,required this.valor
+  }) : super(key: key);
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return _StateTabela();
+    return _StateTabela(this.valor);
   }
 }
 
@@ -192,6 +196,10 @@ class BotaoNovafaixasalarial extends StatelessWidget {
 }
 
 class _StateTabela extends State<Tabela> {
+  double valor = 0.63;
+  _StateTabela(double valor) {
+    this.valor = valor;
+  }
   final List<GlobalKey> categorias = [
     GlobalKey(),
     GlobalKey(),
@@ -341,10 +349,6 @@ class _StateTabela extends State<Tabela> {
     TextEditingController(text: "98,24"),
     TextEditingController(text: "102,07"),
   ];
-
-  _StateTabela({
-    Key? key,
-  });
   /*final whatIDo = [
     NameIconColor(
       title: "Meu cargo",
@@ -411,7 +415,7 @@ class _StateTabela extends State<Tabela> {
                         children: [
                           //Column(children: [
                           SizedBox(
-                            width: (mediaQuery.width * 0.63),
+                            width: (mediaQuery.width * valor),
                             //height: 40,
                             child: SingleChildScrollView(
                               controller: scrollCont,
@@ -4235,22 +4239,25 @@ class _StateTabela extends State<Tabela> {
                           ),
                         ],
                       ),
-                      Row(
-                        children: [
-                          BotaoCargos(),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          BotaoNovafaixasalarial(),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                width: (mediaQuery.width * 0.3) - 160,
-                              ),
-                            ],
-                          )
-                        ],
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: [
+                            BotaoCargos(),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            BotaoNovafaixasalarial(),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  width: (mediaQuery.width * 0.3) - 160,
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
                       )
                     ])),
             /*const SizedBox(

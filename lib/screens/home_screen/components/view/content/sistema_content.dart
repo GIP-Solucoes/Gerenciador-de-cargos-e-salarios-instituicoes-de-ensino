@@ -17,8 +17,19 @@ import 'package:gip_solucoes/screens/home_screen/components/view/desktop/desktop
 import 'package:gip_solucoes/screens/home_screen/components/view/desktop/desktop_suaspontuacoes.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/desktop/desktop_tabela.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/mobile/mobile_hero.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/tablet/tablet_cargos.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/tablet/tablet_configuracoes.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/tablet/tablet_hero.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/desktop/desktop_simulador.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/tablet/tablet_menu.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/tablet/tablet_meucargo.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/tablet/tablet_pontuacoes.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/tablet/tablet_professores.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/tablet/tablet_resultados.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/tablet/tablet_simulador.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/tablet/tablet_status.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/tablet/tablet_suaspontuacoes.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/tablet/tablet_tabela.dart';
 
 int paginaS = 0;
 int pagina_backup=0;
@@ -74,12 +85,48 @@ class _StateSistemaContent extends State<SistemaContent> {
               break;
           }
         } else if (constraints.maxWidth >= 600) {
+          switch (paginaS) {
+            case 0:
+              return const TabletMenu();
+              break;
+              case 1:
+              return const TabletConfiguracoes();
+              break;
+              case 2:
+              return const TabletMeucargo();
+              break;
+              case 3:
+              return const TabletResultados();
+              break;
+              case 4:
+              return const TabletCargos();
+              break;
+              case 5:
+              return const TabletProfessores();
+              break;
+              case 6:
+              return const TabletPontuacoes();
+              break;
+              case 7:
+              return const TabletSimulador();
+              break;
+              case 8:
+              return const TabletSuaspontuacoes();
+              break;
+              case 9:
+              return const TabletTabela();
+              break;
+              case 10:
+              return const TabletStatus();
+              break;
+          }
+
           return Container(
             height: 50,
             width: 50,
             color: Colors.red,
             child: Text('Em desenvolvimento!'),
-          ); //const TabletHero();
+          ); 
         }
         return Container(
             height: 50,

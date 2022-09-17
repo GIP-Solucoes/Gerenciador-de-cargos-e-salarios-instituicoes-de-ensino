@@ -20,105 +20,6 @@ class MenuText extends StatelessWidget {
   }
 }
 
-class BotaoNovofuncionario extends StatelessWidget {
-  BotaoNovofuncionario({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      width: 205.0,
-      height: 40.0,
-      decoration: BoxDecoration(
-        color: Colors.blue,
-        borderRadius: BorderRadius.circular(5.0),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(Icons.person_add_alt_1, color: Colors.white, size: 15.0),
-          Text(
-            " NOVO FUNCIONÁRIO",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16.0,
-              // fontWeight: FontWeight.bold,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class BotaoPlanilha extends StatelessWidget {
-  BotaoPlanilha({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      width: 205.0,
-      height: 40.0,
-      decoration: BoxDecoration(
-        color: Colors.blue,
-        borderRadius: BorderRadius.circular(5.0),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(Icons.file_open, color: Colors.white, size: 15.0),
-          Text(
-            " ADICIONAR PLANILHA",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16.0,
-              // fontWeight: FontWeight.bold,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class BotaoStatus extends StatelessWidget {
-  BotaoStatus({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      width: 205.0,
-      height: 40.0,
-      decoration: BoxDecoration(
-        color: Colors.blue,
-        borderRadius: BorderRadius.circular(5.0),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(Icons.settings, color: Colors.white, size: 15.0),
-          Text(
-            " GERENCIAR STATUS",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16.0,
-              // fontWeight: FontWeight.bold,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
 class BotaoSalvar extends StatelessWidget {
   BotaoSalvar({
     Key? key,
@@ -155,6 +56,10 @@ class BotaoSalvar extends StatelessWidget {
 class _PontuacoesState extends State<Pontuacoes> {
   int statusCont = 1;
   double mediaQueryx = 0;
+  double valor = 0.63;
+  _PontuacoesState(double valor) {
+    this.valor = valor;
+  }
   static List<TextEditingController> controllerl1 = [
     TextEditingController(text: "0"),
     TextEditingController(text: "3"),
@@ -255,7 +160,7 @@ class _PontuacoesState extends State<Pontuacoes> {
                       children: [
                         //Column(children: [
                         SizedBox(
-                          width: (mediaQuery.width * 0.63) - 40,
+                          width: (mediaQuery.width * valor) - 40,
                           //height: 40,
                           child: SingleChildScrollView(
                             controller: scrollCont,
@@ -2123,13 +2028,14 @@ class _PontuacoesState extends State<Pontuacoes> {
 }
 
 class Pontuacoes extends StatefulWidget {
+  double valor;
   Pontuacoes({
-    Key? key,
+    Key? key,required this.valor
   }) : super(key: key);
   @override
   @override
   State<StatefulWidget> createState() {
-    return _PontuacoesState();
+    return _PontuacoesState(this.valor);
   }
   /*final whatIDo = [
     NameIconColor(

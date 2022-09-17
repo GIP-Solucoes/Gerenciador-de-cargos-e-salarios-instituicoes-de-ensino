@@ -36,49 +36,13 @@ class DesktopNavbarMenu extends StatelessWidget {
             child: NavbarItemMenu(),
           ),
               ]),
-              if(width>=1100)
               Row(
-                
-                //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Sair(),
-                //const SearchButton(),
-                //const SizedBox(width: 10.0),
-                //IconButton(
-                  //icon: const Icon(
-                    //Icons.lock_outline,
-                    //color: Colors.black,
-                    //size: 25.0,
-                  //),
-                  //onPressed: () {},
-                //),
 
               ],)
               
           ],),
-          /*if(width>=1100)
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-            //trailing
-          //if (width >= 1100)
-            //Column(
-              
-              //children: [
-                const SearchButton(),
-                const SizedBox(width: 10.0),
-                IconButton(
-                  icon: const Icon(
-                    Icons.lock_outline,
-                    color: Colors.black,
-                    size: 25.0,
-                  ),
-                  onPressed: () {},
-                ),
-              //],
-            //),
-          ],)*/
-        //],
 
       ),
     );

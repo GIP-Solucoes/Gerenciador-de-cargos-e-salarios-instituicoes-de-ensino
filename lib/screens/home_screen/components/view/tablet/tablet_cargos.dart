@@ -8,8 +8,8 @@ import 'package:gip_solucoes/screens/home_screen/components/view/content/menu_co
 import 'package:gip_solucoes/screens/home_screen/components/view/content/serving_items_list.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
-class DesktopCargos extends StatelessWidget {
-  const DesktopCargos({Key? key}) : super(key: key);
+class TabletCargos extends StatelessWidget {
+  const TabletCargos({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class DesktopCargos extends StatelessWidget {
     return Center(
       child:SingleChildScrollView(
         child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: mediaQuery.width * 0.175),
+        padding: EdgeInsets.symmetric(horizontal: mediaQuery.width * 0.05),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -28,7 +28,7 @@ class DesktopCargos extends StatelessWidget {
                   TitleCargos(),
                 ],),
                 
-                Cargos(valor:0.63),
+                Cargos(valor:0.877),
                 SizedBox(
                   height: 20,
                 ),

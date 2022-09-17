@@ -17,11 +17,15 @@ class MenuText extends StatelessWidget {
   }
 }
 
-class Resultados extends StatefulWidget {
+class Cargos extends StatefulWidget {
+  double valor;
+  Cargos({
+    Key? key,required this.valor
+  }) : super(key: key);
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return _StateResultados();
+    return _StateCargos(this.valor);
   }
 }
 
@@ -157,7 +161,11 @@ class BotaoTabelasalarial extends StatelessWidget {
   }
 }
 
-class _StateResultados extends State<Resultados> {
+class _StateCargos extends State<Cargos> {
+  double valor=0.63;
+  _StateCargos(double valor) {
+    this.valor = valor;
+  }
   final List<GlobalKey> categorias = [
     GlobalKey(),
     GlobalKey(),
@@ -265,9 +273,6 @@ class _StateResultados extends State<Resultados> {
     controller[2].text = "Professor Mestre";
     controller[3].text = "Professor Doutor";
     controller[4].text = "Professor Livre Docente";*/
-  _StateResultados({
-    Key? key,
-  });
   /*final whatIDo = [
     NameIconColor(
       title: "Meu cargo",
@@ -333,7 +338,7 @@ class _StateResultados extends State<Resultados> {
                         children: [
                           //Column(children: [
                           SizedBox(
-                            width: (mediaQuery.width * 0.63),
+                            width: (mediaQuery.width * this.valor),
                             //height: 40,
                             child: SingleChildScrollView(
                               controller: scrollCont,

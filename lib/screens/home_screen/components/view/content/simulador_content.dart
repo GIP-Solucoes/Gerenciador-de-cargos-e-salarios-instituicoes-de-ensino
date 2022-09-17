@@ -139,6 +139,10 @@ class BotaoStatus extends StatelessWidget {
 class _SimuladorState extends State<Simulador> {
   int statusCont = 1;
   double mediaQueryx = 0;
+  double valor = 0.65;
+  _SimuladorState(double valor) {
+    this.valor = valor;
+  }
   final dropValue = ValueNotifier('');
   final dropOpcoes = [
     'Graduação',
@@ -249,7 +253,7 @@ class _SimuladorState extends State<Simulador> {
                       children: [
                         //Column(children: [
                         SizedBox(
-                          width: (mediaQuery.width * 0.63) - 40,
+                          width: (mediaQuery.width * valor) - 40,
                           //height: 40,
                           child: SingleChildScrollView(
                             controller: scrollCont,
@@ -1825,13 +1829,14 @@ class _SimuladorState extends State<Simulador> {
 }
 
 class Simulador extends StatefulWidget {
+  double valor;
   Simulador({
-    Key? key,
+    Key? key,required this.valor
   }) : super(key: key);
   @override
   @override
   State<StatefulWidget> createState() {
-    return _SimuladorState();
+    return _SimuladorState(this.valor);
   }
 }
 

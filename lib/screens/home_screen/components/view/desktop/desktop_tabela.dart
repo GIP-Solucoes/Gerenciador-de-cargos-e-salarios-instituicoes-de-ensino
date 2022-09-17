@@ -14,7 +14,7 @@ class DesktopTabela extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context).size;
-    return Center(
+    return SingleChildScrollView(
       child:Center(
         child: Padding(
         padding: EdgeInsets.symmetric(horizontal: mediaQuery.width * 0.175),
@@ -28,7 +28,7 @@ class DesktopTabela extends StatelessWidget {
                   TitleTabela(),
                 ],),
                 
-                Tabela(),
+                Tabela(valor:0.63),
                 SizedBox(
                   height: 20,
                 ),

@@ -10,6 +10,7 @@ class NavbarItemMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
         children:[
           SizedBox(
           child:CircleAvatar(
@@ -18,7 +19,7 @@ class NavbarItemMenu extends StatelessWidget {
 ),),
           
          Text(
-          'Pedro',
+          ' Pedro',
           style: const TextStyle(
             color: Colors.black,
             fontSize: 20.0,

@@ -23,7 +23,7 @@ class _StateDesktopProfessores extends State<DesktopProfessores>{
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context).size;
-    return Container(
+    return SingleChildScrollView(
       child:Container(
         child: Padding(
         padding: EdgeInsets.symmetric(horizontal: mediaQuery.width * 0.175),
@@ -36,7 +36,7 @@ class _StateDesktopProfessores extends State<DesktopProfessores>{
                   TitleProfessores(),
                 ],),
                 
-                Professores(),
+                Professores(valor:0.63),
                 SizedBox(
                   height: 17,
                 ),

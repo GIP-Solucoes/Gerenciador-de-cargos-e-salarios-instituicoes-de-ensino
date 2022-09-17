@@ -24,7 +24,7 @@ class _StateDesktopResultados extends State<DesktopResultados>{
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context).size;
     return Center(
-      child:Center(
+      child:SingleChildScrollView(
         child: Padding(
         padding: EdgeInsets.symmetric(horizontal: mediaQuery.width * 0.175),
         child: Column(
@@ -37,7 +37,7 @@ class _StateDesktopResultados extends State<DesktopResultados>{
                   TitleResultado(),
                 ],),
                 
-                Resultados(),
+                Resultados(valor:0.63),
                 SizedBox(
                   height: 20,
                 ),

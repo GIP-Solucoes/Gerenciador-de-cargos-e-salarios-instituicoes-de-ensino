@@ -3,18 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/hero_content.dart';
 
 class EscritaEsqueci extends StatelessWidget {
-  const EscritaEsqueci({
-    Key? key,
-  }) : super(key: key);
+  double tamanho;
+  EscritaEsqueci({Key? key, required this.tamanho})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return AutoSizeText(
-      "Não tem problema! Só precisamos do e-mail fornecido no seu cadastro.",
-      textAlign: TextAlign.start,
-      style: TextStyle(
-        color: Colors.black,
-        fontSize: 18.0,
+    return SizedBox(
+      width: tamanho,
+      child: AutoSizeText(
+        "Não tem problema! Só precisamos do e-mail fornecido no seu cadastro.",
+        textAlign: TextAlign.start,
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: 18.0,
+        ),
       ),
     );
   }

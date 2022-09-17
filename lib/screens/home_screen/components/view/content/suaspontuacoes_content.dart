@@ -8,9 +8,13 @@ import 'package:gip_solucoes/screens/home_screen/components/view/content/sistema
 import 'package:gip_solucoes/screens/home_screen/home_screen.dart';
 //import 'package:my_portfolio/models/name_color.dart';
 
-class _PontuacoesState extends State<Pontuacoes> {
+class _SuaspontuacoesState extends State<Suaspontuacoes> {
   int statusCont = 1;
   double mediaQueryx = 0;
+  double valor = 0.63;
+  _SuaspontuacoesState(double valor) {
+    this.valor = valor;
+  }
   static List<TextEditingController> controllerl1 = [
     TextEditingController(text: "0"),
     TextEditingController(text: "3"),
@@ -111,7 +115,7 @@ class _PontuacoesState extends State<Pontuacoes> {
                       children: [
                         //Column(children: [
                         SizedBox(
-                          width: (mediaQuery.width * 0.63) - 40,
+                          width: (mediaQuery.width * this.valor) - 40,
                           //height: 40,
                           child: SingleChildScrollView(
                             controller: scrollCont,
@@ -2136,14 +2140,13 @@ class _PontuacoesState extends State<Pontuacoes> {
   }
 }
 
-class Pontuacoes extends StatefulWidget {
-  Pontuacoes({
-    Key? key,
-  }) : super(key: key);
+class Suaspontuacoes extends StatefulWidget {
+  double valor;
+  Suaspontuacoes({Key? key, required this.valor}) : super(key: key);
   @override
   @override
   State<StatefulWidget> createState() {
-    return _PontuacoesState();
+    return _SuaspontuacoesState(this.valor);
   }
   /*final whatIDo = [
     NameIconColor(

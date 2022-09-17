@@ -22,9 +22,10 @@ class _StateDesktopSimulador extends State<DesktopSimulador>{
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context).size;
-    return Container(
-      child:Container(
-        child: Padding(
+    return SingleChildScrollView(
+      child:Column(
+        children:[
+          Padding(
         padding: EdgeInsets.symmetric(horizontal: mediaQuery.width * 0.175),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -35,22 +36,30 @@ class _StateDesktopSimulador extends State<DesktopSimulador>{
                   TitleSimulador(),
                 ],),
                 
-                Simulador(),
+                Simulador(valor:0.65),
                 SizedBox(
                   height: 17,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                  BotaoCalcular(),
-                  Resultado(),
-                  BotaoVoltar(),
-                ],)
+                
                 
           ],
+          
         ),
         
       ),
+      Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    //SizedBox(width: 10,),
+                  BotaoCalcular(),
+                  SizedBox(width: mediaQuery.width*0.0285,),
+                  Resultado(),
+                  SizedBox(width: mediaQuery.width*0.0285,),
+                  BotaoVoltar(),
+
+                  //SizedBox(width: 10,),
+                ],)
+        ] 
       )
       
     );

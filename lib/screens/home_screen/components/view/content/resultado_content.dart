@@ -22,8 +22,9 @@ class SearchButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery2 = MediaQuery.of(context).size;
     return SizedBox(
-      width: 300.0,
+      width: mediaQuery2.width * 0.1,
       height: 45.0,
       child: TextField(
         textAlignVertical: TextAlignVertical.bottom,
@@ -56,6 +57,10 @@ class SearchButton extends StatelessWidget {
 }
 
 class _ResultadosState extends State<Resultados> {
+  double valor=0.63;
+  _ResultadosState(double valor) {
+    this.valor = valor;
+  }
   final List<GlobalKey> categorias = [
     GlobalKey(),
     GlobalKey(),
@@ -136,8 +141,9 @@ class _ResultadosState extends State<Resultados> {
                                 width: 2, height: 55, color: Colors.grey[400]),
                           ],
                         ),
-                        SizedBox(
-                          width: 350.0,
+                        Container(
+                          constraints: BoxConstraints(minWidth: 209),
+                          width: mediaQuery.width * 0.25,
                           height: 45.0,
                           child: TextField(
                             textAlignVertical: TextAlignVertical.bottom,
@@ -433,7 +439,7 @@ class _ResultadosState extends State<Resultados> {
                         ),
                         //Column(children: [
                         SizedBox(
-                          width: (mediaQuery.width * 0.63) - 211,
+                          width: (mediaQuery.width * this.valor) - 211,
                           //height: 40,
                           child: SingleChildScrollView(
                             controller: scrollCont,
@@ -5789,46 +5795,12 @@ class _ResultadosState extends State<Resultados> {
 }
 
 class Resultados extends StatefulWidget {
-  Resultados({
-    Key? key,
-  }) : super(key: key);
+  double valor;
+  Resultados({Key? key, required this.valor}) : super(key: key);
   @override
   State<StatefulWidget> createState() {
-    return _ResultadosState();
+    return _ResultadosState(this.valor);
   }
-
-  /*final whatIDo = [
-    NameIconColor(
-      title: "Meu cargo",
-      iconData: Icons.business_center, //assigment_indbusiness center
-      color: Colors.blue[600]!,
-    ),
-    NameIconColor(
-      title: "Resultado",
-      iconData: Icons.trending_up,
-      color: Colors.blue[600]!,
-    ),
-    NameIconColor(
-      title: "Dados dos cargos",
-      iconData: Icons.assignment_outlined,
-      color: Colors.blue[600]!,
-    ),
-    NameIconColor(
-      title: "Dados dos funcionários",
-      iconData: Icons.file_copy, //file copy
-      color: Colors.blue[600]!,
-    ),
-    NameIconColor(
-      title: "Pontuação",
-      iconData: Icons.insert_chart,
-      color: Colors.blue[600]!,
-    ),
-    NameIconColor(
-      title: "Simulador",
-      iconData: Icons.play_circle,
-      color: Colors.blue[600]!,
-    ),
-  ];*/
 }
 
 class TitleResultado extends StatelessWidget {

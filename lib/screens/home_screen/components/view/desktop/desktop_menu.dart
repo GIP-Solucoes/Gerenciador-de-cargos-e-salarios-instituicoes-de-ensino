@@ -13,40 +13,42 @@ class DesktopMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context).size;
-    return Center(
-      child:Center(
-        child: Padding(
-        padding: EdgeInsets.symmetric(
-            vertical: 20.0, horizontal: mediaQuery.width * 0.21),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-              
-              children: [
-                //SizedBox(width: 50,),
-                Items(),
+    return SingleChildScrollView(
+      child: Center(
+        child:Center(
+          child: Padding(
+          padding: EdgeInsets.symmetric(
+              vertical: 20.0, horizontal: mediaQuery.width * 0.18),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
                 
-               //SizedBox(width: 50,),
-            
-            //const SizedBox(height: 75.0),
-            //Row(
-              //mainAxisSize: MainAxisSize.min,
-              //children: const [
-                //Expanded(
-                //  child: HeroText(),
-                //),
-                //Expanded(
-                //  flex: 2,
-                //  child: HeroImage(),
-                //),
-              //],
-            //),
-          ],
+                children: [
+                  //SizedBox(width: 50,),
+                  Items(),
+                  
+                 //SizedBox(width: 50,),
+              
+              //const SizedBox(height: 75.0),
+              //Row(
+                //mainAxisSize: MainAxisSize.min,
+                //children: const [
+                  //Expanded(
+                  //  child: HeroText(),
+                  //),
+                  //Expanded(
+                  //  flex: 2,
+                  //  child: HeroImage(),
+                  //),
+                //],
+              //),
+            ],
+          ),
+          
         ),
+        )
         
       ),
-      )
-      
     );
   }
 }

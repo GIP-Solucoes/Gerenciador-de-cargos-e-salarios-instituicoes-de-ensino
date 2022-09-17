@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gip_solucoes/components/app_bar/components/app_drawer_sistema.dart';
 import 'package:gip_solucoes/components/app_bar/custom_navbar_sistema.dart';
 import 'package:gip_solucoes/components/components.dart';
 import 'package:gip_solucoes/constants.dart';
@@ -20,7 +21,7 @@ class _StateSistemaScreen extends State<SistemaScreen> {
   Widget build(BuildContext context) {
     // final mediaQuery = MediaQuery.of(context).size;
     return Scaffold(
-      drawer: const AppDrawer(),
+      drawer: const AppDrawerSistema(),
       body: Container(
         height: double.infinity,
         width: double.infinity,

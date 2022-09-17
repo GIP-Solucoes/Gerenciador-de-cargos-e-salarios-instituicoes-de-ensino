@@ -16,11 +16,13 @@ class MenuText extends StatelessWidget {
   }
 }
 
-class Resultados extends StatefulWidget {
+class Status extends StatefulWidget {
+  double valor;
+  Status({Key? key, required this.valor}) : super(key: key);
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return _StateResultados();
+    return _StateStatus(this.valor);
   }
 }
 
@@ -150,7 +152,11 @@ class BotaoNovostatus extends StatelessWidget {
   }
 }
 
-class _StateResultados extends State<Resultados> {
+class _StateStatus extends State<Status> {
+  double valor = 0.63;
+  _StateStatus(double valor) {
+    this.valor = valor;
+  }
   int ind = 0;
   late ScrollController scrollCont;
   BuildContext? tabContext;
@@ -171,10 +177,6 @@ class _StateResultados extends State<Resultados> {
     'Considera',
     'Não considera',
   ];
-
-  _StateResultados({
-    Key? key,
-  });
 
   @override
   Widget build(BuildContext context) {
@@ -205,8 +207,9 @@ class _StateResultados extends State<Resultados> {
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(
-                            width: (mediaQuery.width * 0.63) / 1.75,
+                          Container(
+                            constraints: BoxConstraints(maxWidth: 570),
+                            width: (mediaQuery.width * valor) - 40,
                             child: SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
                               child: Row(
@@ -279,11 +282,10 @@ class _StateResultados extends State<Resultados> {
                                           SizedBox(
                                             width: 2,
                                           ),
-                                          Container(
-                                            alignment: Alignment.center,
-                                            width: 40,
+                                          SizedBox(
                                             height: 40,
-                                          ),
+                                            width: 40,
+                                          )
                                         ],
                                       ),
                                       SizedBox(

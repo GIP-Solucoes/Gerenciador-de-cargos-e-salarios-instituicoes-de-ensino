@@ -197,6 +197,10 @@ class SearchButton extends StatelessWidget {
 }
 
 class _ProfessoresState extends State<Professores> {
+  double valor = 0.63;
+  _ProfessoresState(double valor) {
+    this.valor = valor;
+  }
   int statusCont = 1;
   static List<TextEditingController> controllerl1 = [
     TextEditingController(text: "6876875"),
@@ -371,8 +375,9 @@ class _ProfessoresState extends State<Professores> {
                         Row(
                           children: [],
                         ),
-                        SizedBox(
-                          width: 350.0,
+                        Container(
+                          constraints: BoxConstraints(minWidth: 175),
+                          width: mediaQuery.width * 0.25,
                           height: 45.0,
                           child: TextField(
                             textAlignVertical: TextAlignVertical.bottom,
@@ -543,7 +548,7 @@ class _ProfessoresState extends State<Professores> {
                         ),
                         //Column(children: [
                         SizedBox(
-                          width: (mediaQuery.width * 0.63) - 40,
+                          width: (mediaQuery.width * this.valor) - 40,
                           //height: 40,
                           child: SingleChildScrollView(
                             controller: scrollCont,
@@ -6584,25 +6589,28 @@ class _ProfessoresState extends State<Professores> {
                     const SizedBox(
                       height: 9,
                     ),
-                    Row(
-                      children: [
-                        const SizedBox(
-                          width: 22,
-                        ),
-                        BotaoNovofuncionario(),
-                        const SizedBox(
-                          width: 18,
-                        ),
-                        BotaoPlanilha(),
-                        const SizedBox(
-                          width: 18,
-                        ),
-                        BotaoStatus(),
-                        const SizedBox(
-                          width: 18,
-                        ),
-                        BotaoSalvar()
-                      ],
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          const SizedBox(
+                            width: 22,
+                          ),
+                          BotaoNovofuncionario(),
+                          const SizedBox(
+                            width: 18,
+                          ),
+                          BotaoPlanilha(),
+                          const SizedBox(
+                            width: 18,
+                          ),
+                          BotaoStatus(),
+                          const SizedBox(
+                            width: 18,
+                          ),
+                          BotaoSalvar()
+                        ],
+                      ),
                     ),
                     const SizedBox(
                       height: 18,
@@ -6697,13 +6705,12 @@ class _ProfessoresState extends State<Professores> {
 }
 
 class Professores extends StatefulWidget {
-  Professores({
-    Key? key,
-  }) : super(key: key);
+  double valor;
+  Professores({Key? key, required this.valor}) : super(key: key);
   @override
   @override
   State<StatefulWidget> createState() {
-    return _ProfessoresState();
+    return _ProfessoresState(this.valor);
   }
 }
 

@@ -45,8 +45,8 @@ class TitleConfiguracoes extends StatelessWidget {
   }
 }
 
-class Dadosgerais extends StatelessWidget {
-  Dadosgerais({
+class Primeironome extends StatelessWidget {
+  Primeironome({
     Key? key,
   }) : super(key: key);
 
@@ -78,6 +78,21 @@ class Dadosgerais extends StatelessWidget {
             ),
           ),
         ),
+      ],
+    );
+  }
+}
+class Dadosgerais extends StatelessWidget {
+  Dadosgerais({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        
         const AutoSizeText(
           "E-mail",
           textAlign: TextAlign.start,
@@ -147,9 +162,6 @@ class Dadosgerais extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(
-          height: 40,
-        ),
       ],
     );
   }
@@ -188,6 +200,7 @@ class Segundonome extends StatelessWidget {
             ),
           ),
         ),
+        
       ],
     );
   }
@@ -217,7 +230,9 @@ class Alterarimagem extends StatelessWidget {
         Image.asset(
           'assets/images/image_config.png',height: 125,
         ),
-        
+        SizedBox(
+          height: 40,
+        ),
       ],
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/content/hero_content.dart';
 
 import '../../../constants.dart';
 import '../../components.dart';
@@ -24,25 +25,35 @@ class AppDrawer extends StatelessWidget {
               const SizedBox(height: 30.0),
 
               // const Divider(thickness: 2.0),
-              ListView.separated(
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  return Container(
-                    alignment: Alignment.center,
-                    height: 40.0,
-                    child: Text(
-                      navbarItems[index],
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 20.0,
+              SingleChildScrollView(
+                child: ListView.separated(
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      alignment: Alignment.center,
+                      height: 40.0,
+                      child: TextButton(
+                        onPressed: () {
+                          if(index!=1){
+                            pagina = index;
+                          Navigator.popAndPushNamed(context, '/');
+                          }
+                        },
+                        child: Text(
+                          navbarItems[index],
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 20.0,
+                          ),
+                        ),
                       ),
-                    ),
-                  );
-                },
-                separatorBuilder: (context, index) {
-                  return const Divider(thickness: 1.0);
-                },
-                itemCount: navbarItems.length,
+                    );
+                  },
+                  separatorBuilder: (context, index) {
+                    return const Divider(thickness: 1.0);
+                  },
+                  itemCount: navbarItems.length,
+                ),
               ),
               const Divider(),
             ],

@@ -31,7 +31,7 @@ class TabletFaq extends StatelessWidget {
                     Base(),
                   ],),
                   
-                  Perguntas(tamanhoimagem: 150, tamanhoitem: 350,),
+                  Perguntas(tamanhoimagem: mediaQuery.width*0.25, tamanhoitem: mediaQuery.width*0.45),
                   //Perguntas(),
                 //],)
                 //Perguntas(),

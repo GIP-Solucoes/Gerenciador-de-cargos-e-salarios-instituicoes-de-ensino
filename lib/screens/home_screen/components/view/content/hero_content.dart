@@ -17,9 +17,11 @@ import 'package:gip_solucoes/screens/home_screen/components/view/desktop/desktop
 import 'package:gip_solucoes/screens/home_screen/components/view/desktop/desktop_tabela.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/mobile/mobile_hero.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/tablet/tablet_aempresa.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/tablet/tablet_esqueci.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/tablet/tablet_faq.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/tablet/tablet_hero.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/desktop/desktop_simulador.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/tablet/tablet_login.dart';
 
 int pagina = 4;
 
@@ -51,6 +53,7 @@ class _StateHeroContent extends State<HeroContent> {
               break;
             case 3:
               return const DesktopEsqueci();
+              break;
           }
           return const DesktopLogin();
         } else if (constraints.maxWidth >= 600) {
@@ -58,19 +61,17 @@ class _StateHeroContent extends State<HeroContent> {
             case 4:
               return const TabletHero();
               break;
-              case 0:
+            case 0:
               return const TabletAempresa();
               break;
-              case 2:
+            case 2:
               return const TabletFaq();
               break;
+            case 3:
+              return const TabletEsqueci();
+              break;
           }
-          return Container(
-            height: 50,
-            width: 50,
-            color: Colors.red,
-            child: Text('Em desenvolvimento!'),
-          ); //const TabletHero();
+          return const TabletLogin();
         }
         return Container(
           height: 50,

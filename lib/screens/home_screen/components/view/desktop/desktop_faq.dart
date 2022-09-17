@@ -31,7 +31,7 @@ class DesktopFaq extends StatelessWidget {
                     Base(),
                   ],),
                   
-                  Perguntas(tamanhoimagem: 300, tamanhoitem: 700,),
+                  Perguntas(tamanhoimagem: mediaQuery.width*0.25, tamanhoitem: mediaQuery.width*0.5,),
                   //Perguntas(),
                 //],)
                 //Perguntas(),

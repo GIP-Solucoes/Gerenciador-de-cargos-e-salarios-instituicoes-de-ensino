@@ -9,8 +9,8 @@ import 'package:gip_solucoes/screens/home_screen/components/view/content/hero_te
 import 'package:gip_solucoes/screens/home_screen/components/view/content/serving_items_list.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
-class DesktopMeucargo extends StatelessWidget {
-  const DesktopMeucargo({Key? key}) : super(key: key);
+class TabletMeucargo extends StatelessWidget {
+  const TabletMeucargo({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,11 +19,11 @@ class DesktopMeucargo extends StatelessWidget {
       child:SingleChildScrollView(
         child: Padding(
         padding: EdgeInsets.symmetric(
-            vertical: 20.0, horizontal: mediaQuery.width * 0.07),
+            vertical: 20.0),
         child: 
             Container(
         //height: (mediaQuery.height*2.3)-(mediaQuery.width*0.65),
-        width: mediaQuery.width*0.75,
+        width: mediaQuery.width*0.85,
         child:
             Padding(
               padding: EdgeInsets.symmetric(
@@ -40,7 +40,7 @@ class DesktopMeucargo extends StatelessWidget {
                          // Flexible(
                           /*  child:*/ Container(
                               //height: mediaQuery.height*0.45,
-                              width: mediaQuery.width*0.25,
+                              width: mediaQuery.width*0.35,
                               child: Column(
                                 //crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -51,7 +51,7 @@ class DesktopMeucargo extends StatelessWidget {
                           //),
                           Container(
                             //height: mediaQuery.height*0.45,
-                            width: mediaQuery.width*0.20,
+                            width: mediaQuery.width*0.30,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,11 +59,19 @@ class DesktopMeucargo extends StatelessWidget {
                               DadosText(),
                             ],),
                           ),
+                    
+                        ],),
+                      ),
+                      SizedBox(height: 22,),
+                      Container(
+                        child:Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
                           Container(
                             padding: EdgeInsets.symmetric(
                                       vertical: mediaQuery.height * 0.005,
                                       horizontal: mediaQuery.width * 0.005),
-                                          width: mediaQuery.width*0.20,
+                                          width: mediaQuery.width*0.35,
                                           /*height:mediaQuery.height*0.45,*/
                                           decoration: BoxDecoration(
                                             color: Colors.blue,
@@ -72,7 +80,7 @@ class DesktopMeucargo extends StatelessWidget {
                                           ),
                                           child: ProximoCargoText(),
                                         ),
-                    
+                                        Faixassalariais(),
                         ],),
                       ),
                     //),
@@ -83,18 +91,12 @@ class DesktopMeucargo extends StatelessWidget {
                           children: [
                             SizedBox(height: 22,),
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                              Faixassalariais(),
                               
-                              Pontuacaolayout(tamanho: 190),
                               BotaoPontuacoes(),
-                              SizedBox(
-                                width: mediaQuery.width*0.0025,
-                              ),
-                              SizedBox(
-                                width: mediaQuery.width*0.0025,
-                              ),
+                              Pontuacaolayout(tamanho: 190),
+                              
                             ],),
                           ],
                         ),

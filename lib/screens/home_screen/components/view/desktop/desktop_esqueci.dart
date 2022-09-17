@@ -29,7 +29,7 @@ class DesktopEsqueci extends StatelessWidget {
                 ],),
                 SizedBox(height: 10,),
                   Row(children: [
-                  EscritaEsqueci(),
+                  EscritaEsqueci(tamanho:mediaQuery.width*0.85),
                 ],),
                 SizedBox(height: 10,),
                 Row(children: [
@@ -41,20 +41,6 @@ class DesktopEsqueci extends StatelessWidget {
                   VoltarBotao(),
                 ],),
               
-            
-            //const SizedBox(height: 75.0),
-            //Row(
-              //mainAxisSize: MainAxisSize.min,
-              //children: const [
-                //Expanded(
-                //  child: HeroText(),
-                //),
-                //Expanded(
-                //  flex: 2,
-                //  child: HeroImage(),
-                //),
-              //],
-            //),
           ],
         ),
         

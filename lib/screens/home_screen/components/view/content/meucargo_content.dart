@@ -2,6 +2,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/sistema_content.dart';
 
+final double tam = 0;
+
 class CargoText extends StatelessWidget {
   const CargoText({Key? key}) : super(key: key);
 
@@ -54,7 +56,52 @@ class CargoText extends StatelessWidget {
     );
   }
 }
+class BotaoPontuacoes extends StatelessWidget {
+  const BotaoPontuacoes({Key? key}) : super(key: key);
 
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        SizedBox(height: 50,),
+        TextButton(
+              onPressed: () {
+                paginaS = 8;
+                Navigator.pushNamed(context, '/sistema');
+              },
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                alignment: Alignment.center,
+                width: 190,
+                height: 60.0,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15.0),
+                    border: Border.all(color: Colors.black)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    AutoSizeText(
+                      "Sistema de\npontuação",
+                      style: TextStyle(
+                          color: Colors.blue,
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Icon(
+                      Icons.arrow_circle_right,
+                      color: Colors.blue,
+                      size: 40,
+                    )
+                  ],
+                ),
+              ),
+            ),
+      ],
+    );
+  }
+}
 class DadosText extends StatelessWidget {
   const DadosText({Key? key}) : super(key: key);
 
@@ -408,11 +455,8 @@ class _PontuacaolayoutState extends State<Pontuacaolayout> {
                 fontWeight: FontWeight.bold),
           ),
         ),
-        Row(
-          children: [
-            SizedBox(
-              width: 5,
-            ),
+       // Row(
+     //     children: [
             Container(
               alignment: Alignment.center,
               width: sizeLargura.width,
@@ -435,52 +479,17 @@ class _PontuacaolayoutState extends State<Pontuacaolayout> {
                 ],
               ),
             ),
-            SizedBox(
-              width: 70,
-            ),
-            TextButton(
-              onPressed: () {
-                paginaS = 8;
-                Navigator.pushNamed(context, '/sistema');
-              },
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                alignment: Alignment.center,
-                width: 210,
-                height: 60.0,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15.0),
-                    border: Border.all(color: Colors.black)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    AutoSizeText(
-                      "Sistema de\npontuação",
-                      style: TextStyle(
-                          color: Colors.blue,
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    Icon(
-                      Icons.arrow_circle_right,
-                      color: Colors.blue,
-                      size: 40,
-                    )
-                  ],
-                ),
-              ),
-            ),
-          ],
-        )
+            
+         // ],
+       // )
       ],
     );
   }
 }
 
 class Pontuacaolayout extends StatefulWidget {
-  Pontuacaolayout({
-    Key? key,
-  }) : super(key: key);
+  double tamanho;
+  Pontuacaolayout({Key? key, required this.tamanho}) : super(key: key);
   @override
   @override
   State<StatefulWidget> createState() {
