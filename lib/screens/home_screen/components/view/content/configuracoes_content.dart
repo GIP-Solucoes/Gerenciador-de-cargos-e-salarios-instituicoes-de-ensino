@@ -1,7 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:gip_solucoes/screens/home_screen/components/view/content/name_color.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/sistema_content.dart';
 
 class MenuText extends StatelessWidget {
@@ -19,13 +17,12 @@ class MenuText extends StatelessWidget {
 class Resultados extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return _StateResultados();
   }
 }
 
 class TitleConfiguracoes extends StatelessWidget {
-  TitleConfiguracoes({
+  const TitleConfiguracoes({
     Key? key,
   }) : super(key: key);
 
@@ -267,7 +264,6 @@ class BotaoVoltar extends StatelessWidget {
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 16.0,
-                // fontWeight: FontWeight.bold,
               ),
             ),
           ],
@@ -320,17 +316,7 @@ class _StateResultados extends State<Resultados> {
   void initState() {
     super.initState();
   }
-
-  static List<TextEditingController> controllercoluna1 = [
-    TextEditingController(text: "Ativo"),
-    TextEditingController(text: "Inativo"),
-    TextEditingController(text: "Afastado"),
-  ];
   final dropValue = ValueNotifier('');
-  final dropOpcoes = [
-    'Considera',
-    'Não considera',
-  ];
 
   _StateResultados({
     Key? key,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:gip_solucoes/screens/home_screen/components/view/content/aempresa_text.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/content/aempresa_content.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/esqueci_content.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/cargos_content.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/youtube.dart';
@@ -25,7 +25,7 @@ class DesktopCargos extends StatelessWidget {
               children: [
                 Row(children: [
                   SizedBox(width: 5),
-                  TitleCargos(),
+                  TitleCargos(tamanho:mediaQuery.width*0.86),
                 ],),
                 
                 Cargos(valor:0.63),

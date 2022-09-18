@@ -1,11 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:gip_solucoes/main.dart';
-import 'package:gip_solucoes/screens/home_screen/components/view/content/hero_content.dart';
-import 'package:gip_solucoes/screens/home_screen/components/view/content/name_color.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/sistema_content.dart';
-import 'package:gip_solucoes/screens/home_screen/home_screen.dart';
 //import 'package:my_portfolio/models/name_color.dart';
 
 class MenuText extends StatelessWidget {
@@ -44,7 +39,6 @@ class BotaoNovofuncionario extends StatelessWidget {
             style: TextStyle(
               color: Colors.white,
               fontSize: 16.0,
-              // fontWeight: FontWeight.bold,
             ),
           ),
         ],
@@ -77,7 +71,6 @@ class BotaoPlanilha extends StatelessWidget {
             style: TextStyle(
               color: Colors.white,
               fontSize: 16.0,
-              // fontWeight: FontWeight.bold,
             ),
           ),
         ],
@@ -115,7 +108,6 @@ class BotaoStatus extends StatelessWidget {
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 16.0,
-                // fontWeight: FontWeight.bold,
               ),
             ),
           ],
@@ -149,48 +141,9 @@ class BotaoSalvar extends StatelessWidget {
             style: TextStyle(
               color: Colors.white,
               fontSize: 16.0,
-              // fontWeight: FontWeight.bold,
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class SearchButton extends StatelessWidget {
-  const SearchButton({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: 300.0,
-      height: 45.0,
-      child: TextField(
-        textAlignVertical: TextAlignVertical.bottom,
-        decoration: InputDecoration(
-          enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(
-              style: BorderStyle.none,
-            ),
-            borderRadius: BorderRadius.circular(30.0),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(
-              style: BorderStyle.none,
-            ),
-            borderRadius: BorderRadius.circular(30.0),
-          ),
-          filled: true,
-          fillColor: Colors.white,
-          prefixIcon: const Icon(Icons.search, color: Colors.black, size: 20.0),
-          hintText: 'Pesquisar...',
-          alignLabelWithHint: true,
-          hintStyle: const TextStyle(
-            color: Colors.black87,
-            fontSize: 18.0,
-          ),
-        ),
       ),
     );
   }
@@ -294,14 +247,10 @@ class _ProfessoresState extends State<Professores> {
     _scrollControllerOne = ScrollController();
     _scrollControllerTwo = ScrollController();
     _scrollControllerTwo.addListener(() {
-      //_scrollControllerOne.removeListener(scrollTwo);
       scrollOne();
-      //_scrollControllerOne.addListener(scrollTwo);
     });
     _scrollControllerOne.addListener(() {
-      //_scrollControllerTwo.removeListener(scrollOne);
       scrollTwo();
-      //_scrollControllerTwo.addListener(scrollOne);
     });
   }
 
@@ -351,7 +300,6 @@ class _ProfessoresState extends State<Professores> {
       return Container(
         height: 430,
         width: 1000,
-        //margin: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           color: Colors.grey[200],
           borderRadius: BorderRadius.circular(10),
@@ -367,7 +315,6 @@ class _ProfessoresState extends State<Professores> {
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.end,
-                  //crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -413,12 +360,9 @@ class _ProfessoresState extends State<Professores> {
                       height: 2,
                     ),
                     Row(
-                      //mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Column(
-                          //mainAxisAlignment: MainAxisAlignment.start,
-                          //crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
                               alignment: Alignment.center,
@@ -549,11 +493,8 @@ class _ProfessoresState extends State<Professores> {
                         //Column(children: [
                         SizedBox(
                           width: (mediaQuery.width * this.valor) - 40,
-                          //height: 40,
                           child: SingleChildScrollView(
                             controller: scrollCont,
-                            //padding: EdgeInsets.symmetric(
-                            //vertical: 10.0, horizontal: mediaQuery.width * 0.1),
                             scrollDirection: Axis.horizontal,
                             child: Column(
                               children: [
@@ -586,7 +527,6 @@ class _ProfessoresState extends State<Professores> {
                                               color: Colors.black,
                                               fontSize: 16.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -614,7 +554,6 @@ class _ProfessoresState extends State<Professores> {
                                               color: Colors.black,
                                               fontSize: 16.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -642,7 +581,6 @@ class _ProfessoresState extends State<Professores> {
                                               color: Colors.black,
                                               fontSize: 16.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -670,7 +608,6 @@ class _ProfessoresState extends State<Professores> {
                                               color: Colors.black,
                                               fontSize: 16.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -700,8 +637,6 @@ class _ProfessoresState extends State<Professores> {
                                               color: Colors.black,
                                               fontSize: 16.0,
                                               fontWeight: FontWeight.bold,
-
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -730,7 +665,6 @@ class _ProfessoresState extends State<Professores> {
                                               color: Colors.black,
                                               fontSize: 16.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -759,7 +693,6 @@ class _ProfessoresState extends State<Professores> {
                                               color: Colors.black,
                                               fontSize: 8.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -788,7 +721,6 @@ class _ProfessoresState extends State<Professores> {
                                               color: Colors.black,
                                               fontSize: 8.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -817,7 +749,6 @@ class _ProfessoresState extends State<Professores> {
                                               color: Colors.black,
                                               fontSize: 8.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -846,7 +777,6 @@ class _ProfessoresState extends State<Professores> {
                                               color: Colors.black,
                                               fontSize: 8.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -876,7 +806,6 @@ class _ProfessoresState extends State<Professores> {
                                               color: Colors.black,
                                               fontSize: 8.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -905,7 +834,6 @@ class _ProfessoresState extends State<Professores> {
                                               color: Colors.black,
                                               fontSize: 16.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -934,7 +862,6 @@ class _ProfessoresState extends State<Professores> {
                                               color: Colors.black,
                                               fontSize: 8.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -963,7 +890,6 @@ class _ProfessoresState extends State<Professores> {
                                               color: Colors.black,
                                               fontSize: 8.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -993,7 +919,6 @@ class _ProfessoresState extends State<Professores> {
                                               color: Colors.black,
                                               fontSize: 8.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -1022,7 +947,6 @@ class _ProfessoresState extends State<Professores> {
                                               color: Colors.black,
                                               fontSize: 8.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -1051,7 +975,6 @@ class _ProfessoresState extends State<Professores> {
                                               color: Colors.black,
                                               fontSize: 8.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -1080,7 +1003,6 @@ class _ProfessoresState extends State<Professores> {
                                               color: Colors.black,
                                               fontSize: 8.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -1110,7 +1032,6 @@ class _ProfessoresState extends State<Professores> {
                                               color: Colors.black,
                                               fontSize: 16.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -1139,7 +1060,6 @@ class _ProfessoresState extends State<Professores> {
                                               color: Colors.black,
                                               fontSize: 8.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -1168,7 +1088,6 @@ class _ProfessoresState extends State<Professores> {
                                               color: Colors.black,
                                               fontSize: 16.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -1197,7 +1116,6 @@ class _ProfessoresState extends State<Professores> {
                                               color: Colors.black,
                                               fontSize: 16.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -6572,18 +6490,7 @@ class _ProfessoresState extends State<Professores> {
                               ],
                             ),
                           ),
-                          //height: double.infinity,
                         ),
-                        //  ],)
-                        //Row(children: [
-                        //Row(
-                        //mainAxisAlignment: MainAxisAlignment.start,
-                        //crossAxisAlignment: CrossAxisAlignment.start,
-                        //children: [
-
-                        //],//)
-
-                        //],)
                       ],
                     ),
                     const SizedBox(
@@ -6715,21 +6622,24 @@ class Professores extends StatefulWidget {
 }
 
 class TitleProfessores extends StatelessWidget {
+  double tamanho;
   TitleProfessores({
-    Key? key,
+    Key? key,required this.tamanho
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const AutoSizeText(
-      "Dados dos funcionários",
-      textAlign: TextAlign.start,
-      maxLines: 2,
-      style: TextStyle(
-        color: Colors.blue,
-        fontSize: 30.0,
-        fontWeight: FontWeight.w900,
-        fontFamily: 'Santana',
+    return SizedBox(
+      width:tamanho,
+      child: const AutoSizeText(
+        "Dados dos funcionários",
+        textAlign: TextAlign.start,
+        style: TextStyle(
+          color: Colors.blue,
+          fontSize: 30.0,
+          fontWeight: FontWeight.w900,
+          fontFamily: 'Santana',
+        ),
       ),
     );
   }
@@ -6764,7 +6674,6 @@ class BotaoVoltar extends StatelessWidget {
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 16.0,
-                // fontWeight: FontWeight.bold,
               ),
             ),
           ],
@@ -6773,5 +6682,3 @@ class BotaoVoltar extends StatelessWidget {
     );
   }
 }
-
-/**/

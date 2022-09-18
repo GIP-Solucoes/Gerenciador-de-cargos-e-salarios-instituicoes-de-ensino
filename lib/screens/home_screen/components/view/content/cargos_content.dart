@@ -1,7 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:gip_solucoes/screens/home_screen/components/view/content/name_color.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/sistema_content.dart';
 //import 'package:my_portfolio/models/name_color.dart';
 
@@ -19,9 +17,7 @@ class MenuText extends StatelessWidget {
 
 class Cargos extends StatefulWidget {
   double valor;
-  Cargos({
-    Key? key,required this.valor
-  }) : super(key: key);
+  Cargos({Key? key, required this.valor}) : super(key: key);
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -30,21 +26,25 @@ class Cargos extends StatefulWidget {
 }
 
 class TitleCargos extends StatelessWidget {
+  double tamanho;
   TitleCargos({
-    Key? key,
+    Key? key,required this.tamanho
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const AutoSizeText(
-      "Dados dos Cargos",
-      textAlign: TextAlign.start,
-      maxLines: 2,
-      style: TextStyle(
-        color: Colors.blue,
-        fontSize: 30.0,
-        fontWeight: FontWeight.w900,
-        fontFamily: 'Santana',
+    return SizedBox(
+      width: tamanho,
+      child: const AutoSizeText(
+        "Dados dos Cargos",
+        textAlign: TextAlign.start,
+        maxLines: 2,
+        style: TextStyle(
+          color: Colors.blue,
+          fontSize: 30.0,
+          fontWeight: FontWeight.w900,
+          fontFamily: 'Santana',
+        ),
       ),
     );
   }
@@ -73,13 +73,12 @@ class BotaoVoltar extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.arrow_back_ios, color: Colors.white, size: 30.0),
+            const Icon(Icons.arrow_back_ios, color: Colors.white, size: 30.0),
             Text(
               "VOLTAR",
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 16.0,
-                // fontWeight: FontWeight.bold,
               ),
             ),
           ],
@@ -107,13 +106,12 @@ class BotaoSalvar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.arrow_back_ios, color: Colors.white, size: 30.0),
-          Text(
+          const Icon(Icons.arrow_back_ios, color: Colors.white, size: 30.0),
+          const Text(
             "SALVAR",
             style: TextStyle(
               color: Colors.white,
               fontSize: 16.0,
-              // fontWeight: FontWeight.bold,
             ),
           ),
         ],
@@ -162,7 +160,7 @@ class BotaoTabelasalarial extends StatelessWidget {
 }
 
 class _StateCargos extends State<Cargos> {
-  double valor=0.63;
+  double valor = 0.63;
   _StateCargos(double valor) {
     this.valor = valor;
   }
@@ -1454,42 +1452,49 @@ class _StateCargos extends State<Cargos> {
                           //Row(
                           //mainAxisAlignment: MainAxisAlignment.center,
                           //children: [
-                          SizedBox(
-                            width: (mediaQuery.width * 0.3) - 160,
+                          /*SizedBox(
+                            width: (mediaQuery.width * 0.3),
+                          ),*/
+                          Expanded(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                    width: ind == 0 ? 10 : 5,
+                                    height: ind == 0 ? 10 : 5,
+                                    margin: EdgeInsets.symmetric(
+                                        horizontal: mediaQuery.width * 0.01),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(30),
+                                        color: ind == 0
+                                            ? Colors.blue
+                                            : Colors.grey[300]),
+                                    child: OutlinedButton(
+                                      onPressed: () {
+                                        scrollTo(0);
+                                      },
+                                      child: Text("teste"),
+                                    )),
+                                Container(
+                                    width: ind == 1 ? 10 : 5,
+                                    height: ind == 1 ? 10 : 5,
+                                    margin: EdgeInsets.symmetric(
+                                        horizontal: mediaQuery.width * 0.01),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(30),
+                                        color: ind == 1
+                                            ? Colors.blue
+                                            : Colors.grey[300]),
+                                    child: OutlinedButton(
+                                      onPressed: () {
+                                        scrollTo(1);
+                                      },
+                                      child: Text("teste"),
+                                    )),
+                              ],
+                            ),
                           ),
-                          Container(
-                              width: ind == 0 ? 10 : 5,
-                              height: ind == 0 ? 10 : 5,
-                              margin: EdgeInsets.symmetric(
-                                  horizontal: mediaQuery.width * 0.01),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(30),
-                                  color: ind == 0
-                                      ? Colors.blue
-                                      : Colors.grey[300]),
-                              child: OutlinedButton(
-                                onPressed: () {
-                                  scrollTo(0);
-                                },
-                                child: Text("teste"),
-                              )),
                           //],),
-                          Container(
-                              width: ind == 1 ? 10 : 5,
-                              height: ind == 1 ? 10 : 5,
-                              margin: EdgeInsets.symmetric(
-                                  horizontal: mediaQuery.width * 0.01),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(30),
-                                  color: ind == 1
-                                      ? Colors.blue
-                                      : Colors.grey[300]),
-                              child: OutlinedButton(
-                                onPressed: () {
-                                  scrollTo(1);
-                                },
-                                child: Text("teste"),
-                              )),
                         ],
                       )
                       //],)

@@ -4,7 +4,6 @@ import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:gip_solucoes/screens/home_screen/sistema_screen.dart';
 
 import './screens/screens.dart';
-
 class MyCustomScrollBehavior extends MaterialScrollBehavior {
   @override
   Set<PointerDeviceKind> get dragDevices => {
@@ -25,7 +24,6 @@ class MyApp extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return _StateMyApp();
   }
 }

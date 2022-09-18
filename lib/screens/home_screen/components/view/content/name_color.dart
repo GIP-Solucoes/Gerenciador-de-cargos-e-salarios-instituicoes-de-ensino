@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+//estrutura items do menu (sistema)
 class NameIconColor {
   final String title;
   final IconData iconData;

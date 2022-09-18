@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gip_solucoes/components/app_bar/components/header_sistema.dart';
-import 'package:gip_solucoes/components/app_bar/components/navbar_menu_content.dart';
-
-import '../../components.dart';
-
+//layout parte de cima mobile (sistema)
 class MobileNavbarSistema extends StatelessWidget {
   const MobileNavbarSistema({Key? key}) : super(key: key);
 
@@ -17,7 +14,7 @@ class MobileNavbarSistema extends StatelessWidget {
         children: [
           const HeaderSistema(),
           Positioned(
-            left: 10.0,
+            left: 5.0,
             child: IconButton(
               icon: const Icon(Icons.menu),
               onPressed: () => Scaffold.of(context).openDrawer(),

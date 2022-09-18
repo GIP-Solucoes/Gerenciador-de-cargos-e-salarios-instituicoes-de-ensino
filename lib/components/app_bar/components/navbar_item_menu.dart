@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
-// navbar_items
-//final navbarItems = ["A empresa", "Suporte", "Icone", "FAQ"];
-
+//imagem layout menu esquerda (sistema)
 class NavbarItemMenu extends StatelessWidget {
   const NavbarItemMenu({
     Key? key,
@@ -12,26 +10,19 @@ class NavbarItemMenu extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
         children:[
-          SizedBox(
-          child:CircleAvatar(
+          const SizedBox(
+          child: CircleAvatar(
             
   backgroundImage: AssetImage('assets/images/pedro.png'),
 ),),
           
-         Text(
+         const Text(
           ' Pedro',
-          style: const TextStyle(
+          style: TextStyle(
             color: Colors.black,
             fontSize: 20.0,
           ),
         )
         ] );
-    //Text(
-    //'Pedro',
-    //style: const TextStyle(
-    //  color: Colors.black,
-    //  fontSize: 20.0,
-    //),
-    //);
   }
 }

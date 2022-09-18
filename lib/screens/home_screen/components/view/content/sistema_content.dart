@@ -1,13 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gip_solucoes/components/app_bar/components/mobile_appbar.dart';
-import 'package:gip_solucoes/constants.dart';
-import 'package:gip_solucoes/screens/home_screen/components/view/desktop/desktop_aempresa.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/desktop/desktop_cargos.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/desktop/desktop_configuracoes.dart';
-import 'package:gip_solucoes/screens/home_screen/components/view/desktop/desktop_esqueci.dart';
-import 'package:gip_solucoes/screens/home_screen/components/view/desktop/desktop_faq.dart';
-import 'package:gip_solucoes/screens/home_screen/components/view/desktop/desktop_hero.dart';
-import 'package:gip_solucoes/screens/home_screen/components/view/desktop/desktop_login.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/desktop/desktop_menu.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/desktop/desktop_meucargo.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/desktop/desktop_pontuacoes.dart';
@@ -16,10 +9,19 @@ import 'package:gip_solucoes/screens/home_screen/components/view/desktop/desktop
 import 'package:gip_solucoes/screens/home_screen/components/view/desktop/desktop_status.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/desktop/desktop_suaspontuacoes.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/desktop/desktop_tabela.dart';
-import 'package:gip_solucoes/screens/home_screen/components/view/mobile/mobile_hero.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/mobile/mobile_cargos.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/mobile/mobile_configuracoes.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/mobile/mobile_menu.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/mobile/mobile_meucargo.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/mobile/mobile_pontuacoes.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/mobile/mobile_professores.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/mobile/mobile_resultados.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/mobile/mobile_simulador.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/mobile/mobile_status.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/mobile/mobile_suaspontuacoes.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/mobile/mobile_tabela.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/tablet/tablet_cargos.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/tablet/tablet_configuracoes.dart';
-import 'package:gip_solucoes/screens/home_screen/components/view/tablet/tablet_hero.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/desktop/desktop_simulador.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/tablet/tablet_menu.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/tablet/tablet_meucargo.dart';
@@ -38,7 +40,6 @@ class SistemaContent extends StatefulWidget {
 
   @override
   State<SistemaContent> createState() {
-    // TODO: implement createState
     return _StateSistemaContent();
   }
 }
@@ -120,20 +121,40 @@ class _StateSistemaContent extends State<SistemaContent> {
               return const TabletStatus();
               break;
           }
-
-          return Container(
-            height: 50,
-            width: 50,
-            color: Colors.red,
-            child: Text('Em desenvolvimento!'),
-          ); 
         }
-        return Container(
-            height: 50,
-            width: 50,
-            color: Colors.red,
-            child: Text('Em desenvolvimento!'),
-          ); //const MobileHero();
+        switch (paginaS) {
+            case 0:
+              return const MobileMenu();
+              break;
+              case 1:
+              return const MobileConfiguracoes();
+              break;
+              case 2:
+              return const MobileMeucargo();
+              break;
+              case 3:
+              return const MobileResultados();
+              break;
+              case 4:
+              return const MobileCargos();
+              break;
+              case 5:
+              return const MobileProfessores();
+              break;
+              case 6:
+              return const MobilePontuacoes();
+              break;
+              case 7:
+              return const MobileSimulador();
+              break;
+              case 8:
+              return const MobileSuaspontuacoes();
+              break;
+              case 9:
+              return const MobileTabela();
+              break;        
+          }
+          return const MobileStatus();
       }),
     );
   }

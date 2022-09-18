@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:gip_solucoes/screens/home_screen/components/view/content/aempresa_text.dart';
-import 'package:gip_solucoes/screens/home_screen/components/view/content/youtube.dart';
-import 'package:gip_solucoes/screens/home_screen/components/view/content/hero_text.dart';
-import 'package:gip_solucoes/screens/home_screen/components/view/content/serving_items_list.dart';
-import 'package:youtube_player_iframe/youtube_player_iframe.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/content/aempresa_content.dart';
 
 class TabletAempresa extends StatelessWidget {
   const TabletAempresa({Key? key}) : super(key: key);
@@ -24,50 +20,16 @@ class TabletAempresa extends StatelessWidget {
             Row(children: [
               TitleEmpresa(),
               SizedBox(width: 20,),
-              Logo(),
+              Logo(tamanhologo: 2,),
             ],),
             SizedBox(height: 30,),
             Paragrafo(),
-            
-            //const SizedBox(height: 75.0),
-            //Row(
-              //mainAxisSize: MainAxisSize.min,
-              //children: const [
-                //Expanded(
-                //  child: HeroText(),
-                //),
-                //Expanded(
-                //  flex: 2,
-                //  child: HeroImage(),
-                //),
-              //],
-            //),
           ],
         ),
         
       ),
       )
       
-    );
-  }
-}
-
-class _ServingItems extends StatelessWidget {
-  const _ServingItems({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView.separated(
-        itemBuilder: (context, index) {
-          return servingItems[index];
-        },
-        separatorBuilder: (context, _) {
-          return const SizedBox(height: 40.0);
-        },
-        itemCount: servingItems.length,
-        shrinkWrap: true,
-      ),
     );
   }
 }

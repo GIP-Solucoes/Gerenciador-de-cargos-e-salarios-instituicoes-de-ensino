@@ -1,6 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-
+//texto página que a aplicação é iniciada
 class HeroText extends StatelessWidget {
   const HeroText({Key? key}) : super(key: key);
 
@@ -10,19 +10,15 @@ class HeroText extends StatelessWidget {
 
       crossAxisAlignment: CrossAxisAlignment.center,
       children: const [
-        CappucinoTitle(),
+        InicioTitle(),
         SizedBox(height: 40.0),
-        AboutCappucino(),
+        InicioParagrafo(),
         SizedBox(height: 20.0),
-
-        //CappucinoPrice(),
-        //SizedBox(height: 10.0),
-        //BuyNowButton(),
       ],
     );
   }
 }
-
+/*
 class BuyNowButton extends StatelessWidget {
   const BuyNowButton({
     Key? key,
@@ -46,7 +42,6 @@ class BuyNowButton extends StatelessWidget {
             style: TextStyle(
               color: Colors.white,
               fontSize: 16.0,
-              // fontWeight: FontWeight.bold,
             ),
           ),
           Icon(Icons.navigate_next_rounded,
@@ -75,9 +70,9 @@ class CappucinoPrice extends StatelessWidget {
     );
   }
 }
-
-class AboutCappucino extends StatelessWidget {
-  const AboutCappucino({
+*/
+class InicioParagrafo extends StatelessWidget {
+  const InicioParagrafo({
     Key? key,
   }) : super(key: key);
 
@@ -94,8 +89,8 @@ class AboutCappucino extends StatelessWidget {
   }
 }
 
-class CappucinoTitle extends StatelessWidget {
-  const CappucinoTitle({
+class InicioTitle extends StatelessWidget {
+  const InicioTitle({
     Key? key,
   }) : super(key: key);
 

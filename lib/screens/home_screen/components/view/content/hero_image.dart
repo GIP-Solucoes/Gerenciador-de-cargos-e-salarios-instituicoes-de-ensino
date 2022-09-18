@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-
+//imagem página que a aplicação é iniciada
 class HeroImage extends StatelessWidget {
   const HeroImage({
     Key? key,
@@ -20,18 +19,11 @@ class HeroImage extends StatelessWidget {
       clipBehavior: Clip.none,
       alignment: Alignment.center,
       children: [
-        //CircleAvatar(
-        //  radius: circleRadius,
-        //  backgroundColor: Colors.deepOrange.shade400,
-        //),
-        //Positioned(
-          //bottom: bottom,
           Image.asset(
             'assets/images/inicio.png',
             height: imageHeight,
             width: imageWidth,
           ),
-        //),
       ],
     );
   }

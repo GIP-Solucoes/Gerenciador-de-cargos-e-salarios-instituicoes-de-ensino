@@ -4,8 +4,7 @@ import 'package:gip_solucoes/screens/home_screen/components/view/content/hero_co
 
 class EscritaEsqueci extends StatelessWidget {
   double tamanho;
-  EscritaEsqueci({Key? key, required this.tamanho})
-      : super(key: key);
+  EscritaEsqueci({Key? key, required this.tamanho}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,35 +23,36 @@ class EscritaEsqueci extends StatelessWidget {
 }
 
 class TitleEsqueci extends StatelessWidget {
-  const TitleEsqueci({
-    Key? key,
-  }) : super(key: key);
+  double tamanho;
+  TitleEsqueci({Key? key, required this.tamanho}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const AutoSizeText(
-      "Esqueceu a senha?",
-      textAlign: TextAlign.start,
-      maxLines: 2,
-      style: TextStyle(
-        color: Colors.blue,
-        fontSize: 30.0,
-        fontWeight: FontWeight.w900,
-        fontFamily: 'Santana',
+    return SizedBox(
+      width: tamanho,
+      child: const AutoSizeText(
+        "Esqueceu a senha?",
+        textAlign: TextAlign.start,
+        maxLines: 2,
+        style: TextStyle(
+          color: Colors.blue,
+          fontSize: 30.0,
+          fontWeight: FontWeight.w900,
+          fontFamily: 'Santana',
+        ),
       ),
     );
   }
 }
 
 class EsqueciCampo extends StatelessWidget {
-  const EsqueciCampo({
-    Key? key,
-  }) : super(key: key);
+  double tamanho2;
+  EsqueciCampo({Key? key, required this.tamanho2}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 350,
+      width: 350 * tamanho2,
       child: TextField(
         style: TextStyle(color: Colors.grey),
         decoration: InputDecoration(
@@ -94,7 +94,6 @@ class EsqueciBotao extends StatelessWidget {
             style: TextStyle(
               color: Colors.white,
               fontSize: 16.0,
-              // fontWeight: FontWeight.bold,
             ),
           ),
         ],
@@ -104,15 +103,16 @@ class EsqueciBotao extends StatelessWidget {
 }
 
 class VoltarBotao extends StatelessWidget {
-  const VoltarBotao({
-    Key? key,
+  double tamanhovoltar;
+  VoltarBotao({
+    Key? key,required this.tamanhovoltar
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      width: 150.0,
+      width: 150.0 * tamanhovoltar,
       height: 40.0,
       decoration: BoxDecoration(
         color: Colors.white,
@@ -130,7 +130,6 @@ class VoltarBotao extends StatelessWidget {
               style: TextStyle(
                 color: Colors.grey,
                 fontSize: 16.0,
-                // fontWeight: FontWeight.bold,
               ),
             ),
           ),

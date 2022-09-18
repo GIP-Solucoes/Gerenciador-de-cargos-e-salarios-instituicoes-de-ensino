@@ -1,12 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'package:gip_solucoes/screens/home_screen/components/view/content/aempresa_text.dart';
-import 'package:gip_solucoes/screens/home_screen/components/view/content/esqueci_content.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/status_content.dart';
-import 'package:gip_solucoes/screens/home_screen/components/view/content/youtube.dart';
-import 'package:gip_solucoes/screens/home_screen/components/view/content/menu_content.dart';
-import 'package:gip_solucoes/screens/home_screen/components/view/content/serving_items_list.dart';
-import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 class DesktopStatus extends StatelessWidget {
   const DesktopStatus({Key? key}) : super(key: key);
@@ -28,7 +21,7 @@ class DesktopStatus extends StatelessWidget {
                   TitleStatus(),
                 ],),
                 
-                Status(valor:0.63),
+                Status(valor:530),
                 SizedBox(
                   height: 20,
                 ),

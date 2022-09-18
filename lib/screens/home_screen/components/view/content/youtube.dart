@@ -1,14 +1,10 @@
-// Copyright 2020 Sarbagya Dhaubanjar. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
 import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
-
+//configurações para o video do youtube na página inicial
 class YoutubeAppDemo extends StatefulWidget {
   @override
   _YoutubeAppDemoState createState() => _YoutubeAppDemoState();
@@ -24,15 +20,6 @@ class _YoutubeAppDemoState extends State<YoutubeAppDemo> {
       initialVideoId: 'tcodrIK2P_I',
       params: const YoutubePlayerParams(
         playlist: [
-          /*'nPt8bK2gbaU',
-          'K18cpp_-gP8',
-          'iLnmTe5Q2Qw',
-          '_WoCV4c6XOE',
-          'KmzdUe0RSJo',
-          '6jZDSSZZxjQ',
-          'p2lYr3vM_1w',
-          '7QUtEmBT_-w',
-          '34_PXCzGw1M',*/
         ],
         startAt: const Duration(minutes: 1, seconds: 36),
         showControls: true,
@@ -58,7 +45,6 @@ class _YoutubeAppDemoState extends State<YoutubeAppDemo> {
   Widget build(BuildContext context) {
     const player = YoutubePlayerIFrame();
     return YoutubePlayerControllerProvider(
-      // Passing controller to widgets below.
       controller: _controller,
       child: Scaffold(
         body: LayoutBuilder(
@@ -133,7 +119,6 @@ class _YoutubeAppDemoState extends State<YoutubeAppDemo> {
   }
 }
 class Controls extends StatelessWidget {
-  ///
   const Controls();
 
   @override
@@ -143,16 +128,6 @@ class Controls extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          /*_space,
-          MetaDataSection(),
-          _space,
-          SourceInputSection(),
-          _space,
-          PlayPauseButtonBar(),
-          _space,
-          VolumeSlider(),
-          _space,
-          PlayerStateSection(),*/
         ],
       ),
     );

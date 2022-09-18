@@ -1,47 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:gip_solucoes/screens/home_screen/components/view/content/hero_content.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/sistema_content.dart';
 
-// navbar_items
+// navbar_items_sistema
 final navbarItemsSistema = ["Configurações", "Sair"];
 
-class NavbarItemsSistema extends StatelessWidget {
-  const NavbarItemsSistema({
-    Key? key,
-    this.isMobile = false,
-  }) : super(key: key);
-  final bool isMobile;
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.separated(
-      scrollDirection: isMobile ? Axis.vertical : Axis.horizontal,
-      itemBuilder: (context, index) {
-        if (index == 1)
-          return Row(
-            children: [
-              NavbarItemSistema(title: navbarItemsSistema[index], index: index),
-              Icon(Icons.input),
-            ],
-          );
-        return NavbarItemSistema(
-          title: navbarItemsSistema[index],
-          index: index,
-        );
-      },
-      separatorBuilder: (context, index) {
-        if (index == 1) return const SizedBox(width: 5.0);
-        return const SizedBox(width: 30.0);
-      },
-      shrinkWrap: true,
-      itemCount: navbarItemsSistema.length,
-    );
-  }
-}
-
+//items layout (sistema)
 class _StateNavbarItemSistema extends State<NavbarItemSistema> {
   _StateNavbarItemSistema({
-    Key? key,
+    // ignore: unused_element
+    key,
     required this.title,
     required this.index,
   });
@@ -64,13 +31,13 @@ class _StateNavbarItemSistema extends State<NavbarItemSistema> {
             mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  title + ' ',
+                  '$title ',
                   style: const TextStyle(
                     color: Colors.blue,
                     fontSize: 20.0,
                   ),
                 ),
-                Icon(
+                const Icon(
                   Icons.input,
                   color: Colors.blue,
                 )
@@ -88,7 +55,7 @@ class _StateNavbarItemSistema extends State<NavbarItemSistema> {
 }
 
 class NavbarItemSistema extends StatefulWidget {
-  NavbarItemSistema({
+  const NavbarItemSistema({
     Key? key,
     required this.title,
     required this.index,
@@ -98,6 +65,7 @@ class NavbarItemSistema extends StatefulWidget {
   @override
   @override
   State<StatefulWidget> createState() {
+    // ignore: no_logic_in_create_state
     return _StateNavbarItemSistema(index: index, title: title);
   }
 }

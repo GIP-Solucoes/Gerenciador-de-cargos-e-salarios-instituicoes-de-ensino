@@ -1,6 +1,6 @@
 {
-    "name": "starbucks_landing_page",
-    "short_name": "starbucks_landing_page",
+    "name": "gip_solucoes",
+    "short_name": "gip_solucoes",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

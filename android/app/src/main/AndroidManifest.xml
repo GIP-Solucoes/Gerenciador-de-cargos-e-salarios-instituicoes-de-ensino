@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.starbucks_landing_page">
+    package="com.example.gip_solucoes">
    <application
-        android:label="starbucks_landing_page"
+        android:label="gip_solucoes"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

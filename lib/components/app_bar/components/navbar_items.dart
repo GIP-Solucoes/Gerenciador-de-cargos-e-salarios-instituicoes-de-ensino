@@ -4,6 +4,7 @@ import 'package:gip_solucoes/screens/home_screen/components/view/content/hero_co
 // navbar_items
 final navbarItems = ["A empresa", "Suporte", "FAQ"];
 
+//items layout (inicio)
 class NavbarItems extends StatelessWidget {
   const NavbarItems({
     Key? key,
@@ -14,14 +15,8 @@ class NavbarItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-      scrollDirection: /*isMobile ? Axis.vertical :*/ Axis.horizontal,
+      scrollDirection: isMobile ? Axis.vertical : Axis.horizontal,
       itemBuilder: (context, index) {
-        /*if (index == 1) return Row(
-          children: [
-            NavbarItem(title: navbarItems[index], index: index),
-            //Icon(Icons.whatsapp),
-          ],
-        );*/
         return NavbarItem(
           title: navbarItems[index],
           index: index,
@@ -66,7 +61,7 @@ class _StateNavbarItem extends State<NavbarItem>{
           fontSize: 20.0,
         ),
       ),
-      Icon(Icons.whatsapp,color: Colors.black,)],):Text(
+      const Icon(Icons.whatsapp,color: Colors.black,)],):Text(
         title,
         style: const TextStyle(
           color: Colors.black,
@@ -77,7 +72,7 @@ class _StateNavbarItem extends State<NavbarItem>{
   }
 }
 class NavbarItem extends StatefulWidget {
-  NavbarItem({
+  const NavbarItem({
     Key? key,
     required this.title,
     required this.index,
@@ -87,6 +82,7 @@ class NavbarItem extends StatefulWidget {
   @override
   @override
   State<StatefulWidget> createState() {
+    // ignore: no_logic_in_create_state
     return _StateNavbarItem(index: index, title: title);
   }
 }

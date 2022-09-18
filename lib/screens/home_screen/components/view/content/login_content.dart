@@ -4,9 +4,8 @@ import 'package:gip_solucoes/screens/home_screen/components/view/content/hero_co
 import 'package:gip_solucoes/screens/home_screen/components/view/content/sistema_content.dart';
 
 class Login extends StatelessWidget {
-  const Login({
-    Key? key,
-  }) : super(key: key);
+  double tamanho;
+  Login({Key? key, required this.tamanho}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +27,7 @@ class Login extends StatelessWidget {
           height: 15,
         ),
         SizedBox(
-          width: 300,
+          width: 300*tamanho,
           child: TextField(
             decoration: InputDecoration(
               hintText: 'E-mail',
@@ -46,7 +45,7 @@ class Login extends StatelessWidget {
           height: 15,
         ),
         SizedBox(
-          width: 300,
+          width: 300*tamanho,
           child: TextField(
             decoration: InputDecoration(
               hintText: 'Password',
@@ -65,7 +64,7 @@ class Login extends StatelessWidget {
         SizedBox(height: 5),
         Container(
             alignment: Alignment.centerRight,
-            width: 300,
+            width: 300*tamanho,
             child: TextButton(
                 onPressed: () {
                   pagina = 3;
@@ -82,12 +81,11 @@ class Login extends StatelessWidget {
         TextButton(
           style: ButtonStyle(
               minimumSize:
-                  MaterialStateProperty.resolveWith((states) => Size(300, 45)),
+                  MaterialStateProperty.resolveWith((states) => Size(300*tamanho, 45)),
               textStyle: MaterialStateProperty.resolveWith(
                 (states) => TextStyle(
                   color: Colors.black,
                   fontSize: 16.0,
-                  // fontWeight: FontWeight.bold,
                 ),
               ),
               backgroundColor:
@@ -106,7 +104,6 @@ class Login extends StatelessWidget {
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 16.0,
-                  // fontWeight: FontWeight.bold,
                 ),
               ),
               Icon(Icons.navigate_next_rounded,
@@ -114,30 +111,6 @@ class Login extends StatelessWidget {
             ],
           ),
         ),
-        /*Container(
-      alignment: Alignment.center,
-      width: 300.0,
-      height: 40.0,
-      decoration: BoxDecoration(
-        color: Colors.blue,
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            "Login",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16.0,
-              // fontWeight: FontWeight.bold,
-            ),
-          ),
-          Icon(Icons.navigate_next_rounded,
-              color: Colors.black, size: 30.0),
-        ],
-      ),
-    ),*/
       ],
     );
   }

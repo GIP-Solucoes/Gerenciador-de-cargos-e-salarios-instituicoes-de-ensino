@@ -1,9 +1,7 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/name_color.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/sistema_content.dart';
-//import 'package:my_portfolio/models/name_color.dart';
 
 class MenuText extends StatelessWidget {
   const MenuText({Key? key}) : super(key: key);
@@ -24,7 +22,7 @@ class Items extends StatelessWidget {
   final whatIDo = [
     NameIconColor(
       title: "Meu cargo",
-      iconData: Icons.business_center, //assigment_indbusiness center
+      iconData: Icons.business_center,
       color: Colors.blue[600]!,
       index: 2,
     ),
@@ -42,7 +40,7 @@ class Items extends StatelessWidget {
     ),
     NameIconColor(
       title: "Dados dos funcionários",
-      iconData: Icons.file_copy, //file copy
+      iconData: Icons.file_copy,
       color: Colors.blue[600]!,
       index: 5,
     ),
@@ -113,104 +111,5 @@ class Items extends StatelessWidget {
                   ),
                 ))
             .toList());
-
-    /*Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Row(children:[
-          //Column(children: [
-            Container(
-                                width: 80,
-                                height: 80,
-                                decoration: BoxDecoration(
-                                  color: Colors.grey[400],
-                                  borderRadius: BorderRadius.circular(80),
-                                ),
-                                child: NameIconColor(
-                                  title: "Mobile App Development",
-      iconData: Icons.mobile_friendly,
-      color: Colors.green[400]!,
-                                ),
-                              ),
-                              SizedBox(height: 10,),
-                              Container(
-                                width: 80,
-                                height: 80,
-                                decoration: BoxDecoration(
-                                  color: Colors.grey[400],
-                                  borderRadius: BorderRadius.circular(80),
-                                ),
-                                child: NameIconColor(
-                                  title: "Mobile App Development",
-      iconData: Icons.mobile_friendly,
-      color: Colors.green[400]!,
-                                ),
-                              ),
-                              SizedBox(height: 10,),
-                              Container(
-                                width: 80,
-                                height: 80,
-                                decoration: BoxDecoration(
-                                  color: Colors.grey[400],
-                                  borderRadius: BorderRadius.circular(80),
-                                ),
-                                child: NameIconColor(
-                                  title: "Mobile App Development",
-      iconData: Icons.mobile_friendly,
-      color: Colors.green[400]!,
-                                ),
-                              ),
-
-          //],),
-          ],),
-                              Row(
-                              children:[
-                                Container(
-                                width: 80,
-                                height: 80,
-                                decoration: BoxDecoration(
-                                  color: Colors.grey[400],
-                                  borderRadius: BorderRadius.circular(80),
-                                ),
-                                child: NameIconColor(
-                                  title: "Mobile App Development",
-      iconData: Icons.mobile_friendly,
-      color: Colors.green[400]!,
-                                ),
-                              ),
-
-                              SizedBox(height: 10,),
-                              Container(
-                                width: 80,
-                                height: 80,
-                                decoration: BoxDecoration(
-                                  color: Colors.grey[400],
-                                  borderRadius: BorderRadius.circular(80),
-                                ),
-                                child: NameIconColor(
-                                  title: "Mobile App Development",
-      iconData: Icons.mobile_friendly,
-      color: Colors.green[400]!,
-                                ),
-                              ),
-                              SizedBox(height: 10,),
-                              Container(
-                                width: 80,
-                                height: 80,
-                                decoration: BoxDecoration(
-                                  color: Colors.grey[400],
-                                  borderRadius: BorderRadius.circular(80),
-                                ),
-                                child: NameIconColor(
-                                  title: "Mobile App Development",
-      iconData: Icons.mobile_friendly,
-      color: Colors.green[400]!,
-                                ),
-                              ),
-                              ],),
-        
-        
-      ],
-    );*/
   }
 }

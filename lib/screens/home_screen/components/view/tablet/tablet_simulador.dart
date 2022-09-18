@@ -1,11 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'package:gip_solucoes/screens/home_screen/components/view/content/aempresa_text.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/simulador_content.dart';
-import 'package:gip_solucoes/screens/home_screen/components/view/content/youtube.dart';
-import 'package:gip_solucoes/screens/home_screen/components/view/content/menu_content.dart';
-import 'package:gip_solucoes/screens/home_screen/components/view/content/serving_items_list.dart';
-import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 class TabletSimulador extends StatefulWidget {
   const TabletSimulador({Key? key}) : super(key: key);
@@ -14,7 +8,6 @@ class TabletSimulador extends StatefulWidget {
   
   @override
   State<TabletSimulador> createState() {
-    // TODO: implement createState
     return _StateTabletSimulador();
   }
 }
@@ -46,7 +39,7 @@ class _StateTabletSimulador extends State<TabletSimulador>{
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     
-                  Resultado(),
+                  Resultado(tamanho: 1,),
                     SizedBox(height: 5,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -56,9 +49,6 @@ class _StateTabletSimulador extends State<TabletSimulador>{
                       BotaoVoltar(),
                     ],
                   ),
-                  
-
-                  //SizedBox(width: 10,),
                 ],),
           ],
           
@@ -69,26 +59,6 @@ class _StateTabletSimulador extends State<TabletSimulador>{
         ] 
       )
       
-    );
-  }
-}
-
-class _ServingItems extends StatelessWidget {
-  const _ServingItems({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView.separated(
-        itemBuilder: (context, index) {
-          return servingItems[index];
-        },
-        separatorBuilder: (context, _) {
-          return const SizedBox(height: 40.0);
-        },
-        itemCount: servingItems.length,
-        shrinkWrap: true,
-      ),
     );
   }
 }

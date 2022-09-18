@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/hero_content.dart';
-
+//imagem empresa (inicio)
 class Header extends StatelessWidget {
   const Header({
     Key? key,
@@ -17,9 +17,7 @@ class Header extends StatelessWidget {
               Navigator.pushNamed(context, '/');
             },
             child: Image.asset('assets/images/logo.png', height: 30.0)),
-            
-        //const SizedBox(width: 10.0),
-        //Image.asset('assets/images/title.png', height: 35.0),
+
       ],
     );
   }

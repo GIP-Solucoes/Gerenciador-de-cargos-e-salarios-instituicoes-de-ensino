@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gip_solucoes/components/app_bar/components/navbar_menu_content.dart';
 
 import '../../components.dart';
-
+//layout parte de cima mobile (inicio)
 class MobileNavbar extends StatelessWidget {
   const MobileNavbar({Key? key}) : super(key: key);
 
@@ -16,7 +15,7 @@ class MobileNavbar extends StatelessWidget {
         children: [
           const Header(),
           Positioned(
-            left: 10.0,
+            left: 5.0,
             child: IconButton(
               icon: const Icon(Icons.menu),
               onPressed: () => Scaffold.of(context).openDrawer(),
@@ -25,5 +24,6 @@ class MobileNavbar extends StatelessWidget {
         ],
       ),
     );
+    //);
   }
 }

@@ -1,13 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:gip_solucoes/main.dart';
-import 'package:gip_solucoes/screens/home_screen/components/view/content/hero_content.dart';
-import 'package:gip_solucoes/screens/home_screen/components/view/content/name_color.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/sistema_content.dart';
-import 'package:gip_solucoes/screens/home_screen/home_screen.dart';
-//import 'package:my_portfolio/models/name_color.dart';
-
 class MenuText extends StatelessWidget {
   const MenuText({Key? key}) : super(key: key);
 
@@ -44,7 +37,6 @@ class BotaoSalvar extends StatelessWidget {
             style: TextStyle(
               color: Colors.white,
               fontSize: 16.0,
-              // fontWeight: FontWeight.bold,
             ),
           ),
         ],
@@ -126,7 +118,6 @@ class _PontuacoesState extends State<Pontuacoes> {
       return Container(
         height: 430,
         width: 1000,
-        //margin: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           color: Colors.grey[200],
           borderRadius: BorderRadius.circular(10),
@@ -142,7 +133,6 @@ class _PontuacoesState extends State<Pontuacoes> {
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.end,
-                  //crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -158,14 +148,11 @@ class _PontuacoesState extends State<Pontuacoes> {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        //Column(children: [
                         SizedBox(
                           width: (mediaQuery.width * valor) - 40,
                           //height: 40,
                           child: SingleChildScrollView(
                             controller: scrollCont,
-                            //padding: EdgeInsets.symmetric(
-                            //vertical: 10.0, horizontal: mediaQuery.width * 0.1),
                             scrollDirection: Axis.horizontal,
                             child: Column(
                               children: [
@@ -191,7 +178,6 @@ class _PontuacoesState extends State<Pontuacoes> {
                                               color: Colors.black,
                                               fontSize: 16.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -219,7 +205,6 @@ class _PontuacoesState extends State<Pontuacoes> {
                                               color: Colors.black,
                                               fontSize: 16.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -247,7 +232,6 @@ class _PontuacoesState extends State<Pontuacoes> {
                                               color: Colors.black,
                                               fontSize: 16.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                           Text(
@@ -256,7 +240,6 @@ class _PontuacoesState extends State<Pontuacoes> {
                                               color: Colors.black,
                                               fontSize: 8.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -284,7 +267,6 @@ class _PontuacoesState extends State<Pontuacoes> {
                                               color: Colors.black,
                                               fontSize: 16.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                           Text(
@@ -293,7 +275,6 @@ class _PontuacoesState extends State<Pontuacoes> {
                                               color: Colors.black,
                                               fontSize: 8.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -323,8 +304,6 @@ class _PontuacoesState extends State<Pontuacoes> {
                                               color: Colors.black,
                                               fontSize: 16.0,
                                               fontWeight: FontWeight.bold,
-
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -352,7 +331,6 @@ class _PontuacoesState extends State<Pontuacoes> {
                                               color: Colors.black,
                                               fontSize: 16.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                           Text(
@@ -361,7 +339,6 @@ class _PontuacoesState extends State<Pontuacoes> {
                                               color: Colors.black,
                                               fontSize: 8.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -389,7 +366,6 @@ class _PontuacoesState extends State<Pontuacoes> {
                                               color: Colors.black,
                                               fontSize: 16.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                           Text(
@@ -398,7 +374,6 @@ class _PontuacoesState extends State<Pontuacoes> {
                                               color: Colors.black,
                                               fontSize: 8.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -427,7 +402,6 @@ class _PontuacoesState extends State<Pontuacoes> {
                                               color: Colors.black,
                                               fontSize: 8.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -456,7 +430,6 @@ class _PontuacoesState extends State<Pontuacoes> {
                                               color: Colors.black,
                                               fontSize: 8.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -1966,18 +1939,7 @@ class _PontuacoesState extends State<Pontuacoes> {
                               ],
                             ),
                           ),
-                          //height: double.infinity,
                         ),
-                        //  ],)
-                        //Row(children: [
-                        //Row(
-                        //mainAxisAlignment: MainAxisAlignment.start,
-                        //crossAxisAlignment: CrossAxisAlignment.start,
-                        //children: [
-
-                        //],//)
-
-                        //],)
                       ],
                     ),
                     const SizedBox(
@@ -2037,38 +1999,6 @@ class Pontuacoes extends StatefulWidget {
   State<StatefulWidget> createState() {
     return _PontuacoesState(this.valor);
   }
-  /*final whatIDo = [
-    NameIconColor(
-      title: "Meu cargo",
-      iconData: Icons.business_center, //assigment_indbusiness center
-      color: Colors.blue[600]!,
-    ),
-    NameIconColor(
-      title: "Resultado",
-      iconData: Icons.trending_up,
-      color: Colors.blue[600]!,
-    ),
-    NameIconColor(
-      title: "Dados dos cargos",
-      iconData: Icons.assignment_outlined,
-      color: Colors.blue[600]!,
-    ),
-    NameIconColor(
-      title: "Dados dos funcionários",
-      iconData: Icons.file_copy, //file copy
-      color: Colors.blue[600]!,
-    ),
-    NameIconColor(
-      title: "Pontuação",
-      iconData: Icons.insert_chart,
-      color: Colors.blue[600]!,
-    ),
-    NameIconColor(
-      title: "Simulador",
-      iconData: Icons.play_circle,
-      color: Colors.blue[600]!,
-    ),
-  ];*/
 }
 
 class TitlePontuacoes extends StatelessWidget {
@@ -2121,7 +2051,6 @@ class BotaoVoltar extends StatelessWidget {
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 16.0,
-                // fontWeight: FontWeight.bold,
               ),
             ),
           ],
@@ -2130,5 +2059,3 @@ class BotaoVoltar extends StatelessWidget {
     );
   }
 }
-
-/**/

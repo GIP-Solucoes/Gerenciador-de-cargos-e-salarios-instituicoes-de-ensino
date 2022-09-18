@@ -1,11 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'package:gip_solucoes/screens/home_screen/components/view/content/aempresa_text.dart';
-import 'package:gip_solucoes/screens/home_screen/components/view/content/youtube.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/login_content.dart';
-import 'package:gip_solucoes/screens/home_screen/components/view/content/serving_items_list.dart';
-import 'package:youtube_player_iframe/youtube_player_iframe.dart';
-
 class DesktopLogin extends StatelessWidget {
   const DesktopLogin({Key? key}) : super(key: key);
 
@@ -21,21 +15,7 @@ class DesktopLogin extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Login(),
-            
-            //const SizedBox(height: 75.0),
-            //Rorw(
-              //mainAxisSize: MainAxisSize.min,
-              //children: const [
-                //Expanded(
-                //  child: HeroText(),
-                //),
-                //Expanded(
-                //  flex: 2,
-                //  child: HeroImage(),
-                //),
-              //],
-            //),
+            Login(tamanho:1),
           ],
         ),
         

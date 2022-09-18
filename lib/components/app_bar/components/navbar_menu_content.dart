@@ -1,18 +1,8 @@
-/*
-Text(
-                                e.title,
-                                textAlign: TextAlign.center,
-                                style: GoogleFonts.josefinSans(
-                                  color: Colors.blue[600],
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w800,
-                                ),
-                              )*/
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/hero_content.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/sistema_content.dart';
-
+//conteudo layout cima (sistema)
 class HeaderMenu extends StatelessWidget {
   const HeaderMenu({
     Key? key,
@@ -70,16 +60,13 @@ class Sair extends StatelessWidget {
                   fontWeight: FontWeight.w800,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 5.0,
               ),
               Icon(Icons.input, color: Colors.blue[600], size: 20.0),
             ],
           ),
         ),
-
-        //const SizedBox(width: 10.0),
-        //Image.asset('assets/images/title.png', height: 35.0),
       ],
     );
   }

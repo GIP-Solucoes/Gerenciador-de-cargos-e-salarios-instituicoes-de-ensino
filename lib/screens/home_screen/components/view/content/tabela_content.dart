@@ -1,11 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:gip_solucoes/screens/home_screen/components/view/content/name_color.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/sistema_content.dart';
-//import 'package:my_portfolio/models/name_color.dart';
-
 class MenuText extends StatelessWidget {
   const MenuText({Key? key}) : super(key: key);
 
@@ -25,7 +20,6 @@ class Tabela extends StatefulWidget {
   }) : super(key: key);
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return _StateTabela(this.valor);
   }
 }
@@ -80,7 +74,6 @@ class BotaoVoltar extends StatelessWidget {
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 16.0,
-                // fontWeight: FontWeight.bold,
               ),
             ),
           ],
@@ -114,7 +107,6 @@ class BotaoSalvar extends StatelessWidget {
             style: TextStyle(
               color: Colors.white,
               fontSize: 16.0,
-              // fontWeight: FontWeight.bold,
             ),
           ),
         ],
@@ -152,7 +144,6 @@ class BotaoCargos extends StatelessWidget {
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 16.0,
-                // fontWeight: FontWeight.bold,
               ),
             ),
           ],
@@ -186,7 +177,6 @@ class BotaoNovafaixasalarial extends StatelessWidget {
             style: TextStyle(
               color: Colors.white,
               fontSize: 16.0,
-              // fontWeight: FontWeight.bold,
             ),
           ),
         ],
@@ -349,38 +339,6 @@ class _StateTabela extends State<Tabela> {
     TextEditingController(text: "98,24"),
     TextEditingController(text: "102,07"),
   ];
-  /*final whatIDo = [
-    NameIconColor(
-      title: "Meu cargo",
-      iconData: Icons.business_center, //assigment_indbusiness center
-      color: Colors.blue[600]!,
-    ),
-    NameIconColor(
-      title: "Resultado",
-      iconData: Icons.trending_up,
-      color: Colors.blue[600]!,
-    ),
-    NameIconColor(
-      title: "Dados dos cargos",
-      iconData: Icons.assignment_outlined,
-      color: Colors.blue[600]!,
-    ),
-    NameIconColor(
-      title: "Dados dos funcionários",
-      iconData: Icons.file_copy, //file copy
-      color: Colors.blue[600]!,
-    ),
-    NameIconColor(
-      title: "Pontuação",
-      iconData: Icons.insert_chart,
-      color: Colors.blue[600]!,
-    ),
-    NameIconColor(
-      title: "Simulador",
-      iconData: Icons.play_circle,
-      color: Colors.blue[600]!,
-    ),
-  ];*/
   @override
   Widget build(BuildContext context) {
     int quantidadel = 2;
@@ -391,7 +349,6 @@ class _StateTabela extends State<Tabela> {
       return Container(
         height: 400,
         width: 1000,
-        //margin: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           color: Colors.grey[200],
           borderRadius: BorderRadius.circular(10),
@@ -407,20 +364,14 @@ class _StateTabela extends State<Tabela> {
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    //crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
-                        //mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          //Column(children: [
                           SizedBox(
                             width: (mediaQuery.width * valor),
-                            //height: 40,
                             child: SingleChildScrollView(
                               controller: scrollCont,
-                              //padding: EdgeInsets.symmetric(
-                              //vertical: 10.0, horizontal: mediaQuery.width * 0.1),
                               scrollDirection: Axis.horizontal,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -441,20 +392,14 @@ class _StateTabela extends State<Tabela> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            //Row(
-
-                                            //children: [
                                             Text(
                                               "Nome do cargo",
                                               style: TextStyle(
                                                 color: Colors.black,
                                                 fontSize: 16.0,
                                                 fontWeight: FontWeight.bold,
-                                                // fontWeight: FontWeight.bold,
                                               ),
                                             ),
-                                            //],
-                                            //),
                                           ],
                                         ),
                                       ),
@@ -485,7 +430,6 @@ class _StateTabela extends State<Tabela> {
                                                     color: Colors.black,
                                                     fontSize: 16.0,
                                                     fontWeight: FontWeight.bold,
-                                                    // fontWeight: FontWeight.bold,
                                                   ),
                                                 ),
                                               ],
@@ -518,7 +462,6 @@ class _StateTabela extends State<Tabela> {
                                                         fontSize: 16.0,
                                                         fontWeight:
                                                             FontWeight.bold,
-                                                        // fontWeight: FontWeight.bold,
                                                       ),
                                                     ),
                                                   ],
@@ -548,7 +491,6 @@ class _StateTabela extends State<Tabela> {
                                                         fontSize: 16.0,
                                                         fontWeight:
                                                             FontWeight.bold,
-                                                        // fontWeight: FontWeight.bold,
                                                       ),
                                                     ),
                                                   ],
@@ -578,7 +520,6 @@ class _StateTabela extends State<Tabela> {
                                                         fontSize: 16.0,
                                                         fontWeight:
                                                             FontWeight.bold,
-                                                        // fontWeight: FontWeight.bold,
                                                       ),
                                                     ),
                                                   ],
@@ -610,8 +551,6 @@ class _StateTabela extends State<Tabela> {
                                                         fontSize: 16.0,
                                                         fontWeight:
                                                             FontWeight.bold,
-
-                                                        // fontWeight: FontWeight.bold,
                                                       ),
                                                     ),
                                                   ],
@@ -643,8 +582,6 @@ class _StateTabela extends State<Tabela> {
                                                         fontSize: 16.0,
                                                         fontWeight:
                                                             FontWeight.bold,
-
-                                                        // fontWeight: FontWeight.bold,
                                                       ),
                                                     ),
                                                   ],
@@ -654,10 +591,6 @@ class _StateTabela extends State<Tabela> {
                                           )
                                         ],
                                       ),
-
-                                      /*SizedBox(
-                                        width: 2,
-                                      ),*/
                                     ],
                                   ),
                                   SizedBox(
@@ -667,20 +600,13 @@ class _StateTabela extends State<Tabela> {
                                       height: 250,
                                       child: SingleChildScrollView(
                                           child: Column(
-                                        children: [
-                                          //Container(
-                                          //height: 100,
-                                          //key: _key1,
-                                          /*child: */ IntrinsicHeight(
+                                        children: [ IntrinsicHeight(
                                             child: Row(
-                                              //mainAxisAlignment: MainAxisAlignment.center,
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.stretch,
                                               children: [
                                                 Container(
                                                   alignment: Alignment.center,
-                                                  //width: 209.0,
-                                                  //height: 40.0,
                                                   constraints: BoxConstraints(
                                                       maxHeight: 95),
                                                   width: 209.0,
@@ -691,9 +617,6 @@ class _StateTabela extends State<Tabela> {
                                                             5.0),
                                                   ),
                                                   child:
-                                                      //Row(
-
-                                                      //children: [
                                                       TextField(
                                                     maxLines: null,
                                                     controller: controller[0],
@@ -701,28 +624,20 @@ class _StateTabela extends State<Tabela> {
                                                       color: Colors.black,
                                                       fontSize: 16.0,
 
-                                                      //fontWeight: FontWeight.bold,
-                                                      // fontWeight: FontWeight.bold,
                                                     ),
                                                   ),
-                                                  //],
-                                                  //),
                                                 ),
                                                 Container(
                                                   width: 2,
                                                 ),
-                                                //Column(children: [
                                                 Container(
                                                   child: Column(
                                                     children: [
                                                       Container(
-                                                        //constraints: BoxConstraints(maxHeight: 50),
                                                         child: Container(
                                                             alignment: Alignment
                                                                 .center,
                                                             width: 130,
-                                                            //height: _key1.currentContext.size!.height,
-                                                            // constraints: BoxConstraints(maxHeight: 50),
                                                             decoration:
                                                                 BoxDecoration(
                                                               color: Colors
@@ -817,9 +732,6 @@ class _StateTabela extends State<Tabela> {
                                                             Alignment.center,
 
                                                         width: 130,
-                                                        //height: 300,
-                                                        //height: _key1.currentContext.size!.height,
-                                                        //constraints: BoxConstraints(maxHeight: 50),
                                                         decoration:
                                                             BoxDecoration(
                                                           color: Colors.white,
@@ -862,15 +774,10 @@ class _StateTabela extends State<Tabela> {
                                                     ],
                                                   ),
                                                 ),
-                                                //)
-
-                                                //],),
-
                                                 SizedBox(
                                                   width: 2,
                                                 ),
                                                 Container(
-                                                  //constraints: BoxConstraints(maxHeight: 100),
                                                   child: Column(
                                                     children: [
                                                       Container(
@@ -878,8 +785,6 @@ class _StateTabela extends State<Tabela> {
                                                             alignment: Alignment
                                                                 .center,
                                                             width: 130,
-                                                            //height: _key1.currentContext.size!.height,
-                                                            // constraints: BoxConstraints(maxHeight: 50),
                                                             decoration:
                                                                 BoxDecoration(
                                                               color: Colors
@@ -933,7 +838,6 @@ class _StateTabela extends State<Tabela> {
                                                                     },
                                                                   ),
                                                                 )
-                                                                /**/
                                                               ],
                                                             )),
                                                       ),
@@ -942,9 +846,6 @@ class _StateTabela extends State<Tabela> {
                                                             Alignment.center,
 
                                                         width: 130,
-                                                        //height: 300,
-                                                        //height: _key1.currentContext.size!.height,
-                                                        //constraints: BoxConstraints(maxHeight: 50),
                                                         decoration:
                                                             BoxDecoration(
                                                           color: Colors.white,
@@ -1052,7 +953,6 @@ class _StateTabela extends State<Tabela> {
                                                                     },
                                                                   ),
                                                                 )
-                                                                /**/
                                                               ],
                                                             )),
                                                       ),
@@ -1061,9 +961,6 @@ class _StateTabela extends State<Tabela> {
                                                             Alignment.center,
 
                                                         width: 130,
-                                                        //height: 300,
-                                                        //height: _key1.currentContext.size!.height,
-                                                        //constraints: BoxConstraints(maxHeight: 50),
                                                         decoration:
                                                             BoxDecoration(
                                                           color: Colors.white,
@@ -1110,17 +1007,13 @@ class _StateTabela extends State<Tabela> {
                                                   width: 2,
                                                 ),
                                                 Container(
-                                                  //constraints: BoxConstraints(maxHeight: 100),
                                                   child: Column(
                                                     children: [
                                                       Container(
-                                                        //constraints: BoxConstraints(maxHeight: 50),
                                                         child: Container(
                                                             alignment: Alignment
                                                                 .center,
                                                             width: 130,
-                                                            //height: _key1.currentContext.size!.height,
-                                                            // constraints: BoxConstraints(maxHeight: 50),
                                                             decoration:
                                                                 BoxDecoration(
                                                               color: Colors
@@ -1174,7 +1067,6 @@ class _StateTabela extends State<Tabela> {
                                                                     },
                                                                   ),
                                                                 )
-                                                                /**/
                                                               ],
                                                             )),
                                                       ),
@@ -1183,9 +1075,6 @@ class _StateTabela extends State<Tabela> {
                                                             Alignment.center,
 
                                                         width: 130,
-                                                        //height: 300,
-                                                        //height: _key1.currentContext.size!.height,
-                                                        //constraints: BoxConstraints(maxHeight: 50),
                                                         decoration:
                                                             BoxDecoration(
                                                           color: Colors.white,
@@ -1232,17 +1121,13 @@ class _StateTabela extends State<Tabela> {
                                                   width: 2,
                                                 ),
                                                 Container(
-                                                  //constraints: BoxConstraints(maxHeight: 100),
                                                   child: Column(
                                                     children: [
                                                       Container(
-                                                        //constraints: BoxConstraints(maxHeight: 50),
                                                         child: Container(
                                                             alignment: Alignment
                                                                 .center,
                                                             width: 130,
-                                                            //height: _key1.currentContext.size!.height,
-                                                            // constraints: BoxConstraints(maxHeight: 50),
                                                             decoration:
                                                                 BoxDecoration(
                                                               color: Colors
@@ -1286,7 +1171,6 @@ class _StateTabela extends State<Tabela> {
                                                                     ),
                                                                   ),
                                                                 )
-                                                                /**/
                                                               ],
                                                             )),
                                                       ),
@@ -1295,9 +1179,6 @@ class _StateTabela extends State<Tabela> {
                                                             Alignment.center,
 
                                                         width: 130,
-                                                        //height: 300,
-                                                        //height: _key1.currentContext.size!.height,
-                                                        //constraints: BoxConstraints(maxHeight: 50),
                                                         decoration:
                                                             BoxDecoration(
                                                           color: Colors.white,
@@ -1324,7 +1205,6 @@ class _StateTabela extends State<Tabela> {
                                                                 controller:
                                                                     controllerlinha11[
                                                                         4],
-                                                                //maxLines: 3,
                                                                 maxLines: 1,
                                                                 style:
                                                                     TextStyle(
@@ -1348,17 +1228,13 @@ class _StateTabela extends State<Tabela> {
                                           Container(
                                             constraints:
                                                 BoxConstraints(maxHeight: 100),
-                                            //key: _key1,
                                             child: IntrinsicHeight(
                                               child: Row(
-                                                //mainAxisAlignment: MainAxisAlignment.center,
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.stretch,
                                                 children: [
                                                   Container(
                                                     alignment: Alignment.center,
-                                                    //width: 209.0,
-                                                    //height: 40.0,
                                                     constraints: BoxConstraints(
                                                         maxHeight: 95),
                                                     width: 209.0,
@@ -1378,30 +1254,21 @@ class _StateTabela extends State<Tabela> {
                                                       style: TextStyle(
                                                         color: Colors.black,
                                                         fontSize: 16.0,
-
-                                                        //fontWeight: FontWeight.bold,
-                                                        // fontWeight: FontWeight.bold,
                                                       ),
                                                     ),
-                                                    //],
-                                                    //),
                                                   ),
                                                   Container(
                                                     width: 2,
                                                   ),
-                                                  //Column(children: [
                                                   Container(
                                                     child: Column(
                                                       children: [
                                                         Container(
-                                                          //constraints: BoxConstraints(maxHeight: 50),
                                                           child: Container(
                                                               alignment:
                                                                   Alignment
                                                                       .center,
                                                               width: 130,
-                                                              //height: _key1.currentContext.size!.height,
-                                                              // constraints: BoxConstraints(maxHeight: 50),
                                                               decoration:
                                                                   BoxDecoration(
                                                                 color: Colors
@@ -1432,7 +1299,6 @@ class _StateTabela extends State<Tabela> {
                                                                       controller:
                                                                           controllerlinha2[
                                                                               0],
-                                                                      //maxLines: 3,
                                                                       maxLines:
                                                                           1,
                                                                       style:
@@ -1488,7 +1354,6 @@ class _StateTabela extends State<Tabela> {
                                                                       },
                                                                     ),
                                                                   )
-                                                                  /**/
                                                                 ],
                                                               )),
                                                         ),
@@ -1497,9 +1362,6 @@ class _StateTabela extends State<Tabela> {
                                                               Alignment.center,
 
                                                           width: 130,
-                                                          //height: 300,
-                                                          //height: _key1.currentContext.size!.height,
-                                                          //constraints: BoxConstraints(maxHeight: 50),
                                                           decoration:
                                                               BoxDecoration(
                                                             color: Colors.white,
@@ -1529,7 +1391,6 @@ class _StateTabela extends State<Tabela> {
                                                                   controller:
                                                                       controllerlinha22[
                                                                           0],
-                                                                  //maxLines: 3,
                                                                   maxLines: 1,
                                                                   style:
                                                                       TextStyle(
@@ -1546,26 +1407,19 @@ class _StateTabela extends State<Tabela> {
                                                       ],
                                                     ),
                                                   ),
-                                                  //)
-
-                                                  //],),
 
                                                   SizedBox(
                                                     width: 2,
                                                   ),
                                                   Container(
-                                                    //constraints: BoxConstraints(maxHeight: 100),
                                                     child: Column(
                                                       children: [
                                                         Container(
-                                                          //constraints: BoxConstraints(maxHeight: 50),
                                                           child: Container(
                                                               alignment:
                                                                   Alignment
                                                                       .center,
                                                               width: 130,
-                                                              //height: _key1.currentContext.size!.height,
-                                                              // constraints: BoxConstraints(maxHeight: 50),
                                                               decoration:
                                                                   BoxDecoration(
                                                                 color: Colors
@@ -1596,7 +1450,6 @@ class _StateTabela extends State<Tabela> {
                                                                       controller:
                                                                           controllerlinha2[
                                                                               2],
-                                                                      //maxLines: 3,
                                                                       maxLines:
                                                                           1,
                                                                       style:
@@ -1620,7 +1473,6 @@ class _StateTabela extends State<Tabela> {
                                                                       },
                                                                     ),
                                                                   )
-                                                                  /**/
                                                                 ],
                                                               )),
                                                         ),
@@ -1629,9 +1481,6 @@ class _StateTabela extends State<Tabela> {
                                                               Alignment.center,
 
                                                           width: 130,
-                                                          //height: 300,
-                                                          //height: _key1.currentContext.size!.height,
-                                                          //constraints: BoxConstraints(maxHeight: 50),
                                                           decoration:
                                                               BoxDecoration(
                                                             color: Colors.white,
@@ -1661,7 +1510,6 @@ class _StateTabela extends State<Tabela> {
                                                                   controller:
                                                                       controllerlinha22[
                                                                           1],
-                                                                  //maxLines: 3,
                                                                   maxLines: 1,
                                                                   style:
                                                                       TextStyle(
@@ -1683,18 +1531,14 @@ class _StateTabela extends State<Tabela> {
                                                     width: 2,
                                                   ),
                                                   Container(
-                                                    //constraints: BoxConstraints(maxHeight: 100),
                                                     child: Column(
                                                       children: [
                                                         Container(
-                                                          //constraints: BoxConstraints(maxHeight: 50),
                                                           child: Container(
                                                               alignment:
                                                                   Alignment
                                                                       .center,
                                                               width: 130,
-                                                              //height: _key1.currentContext.size!.height,
-                                                              // constraints: BoxConstraints(maxHeight: 50),
                                                               decoration:
                                                                   BoxDecoration(
                                                                 color: Colors
@@ -1725,7 +1569,6 @@ class _StateTabela extends State<Tabela> {
                                                                       controller:
                                                                           controllerlinha2[
                                                                               3],
-                                                                      //maxLines: 3,
                                                                       maxLines:
                                                                           1,
                                                                       style:
@@ -1749,7 +1592,6 @@ class _StateTabela extends State<Tabela> {
                                                                       },
                                                                     ),
                                                                   )
-                                                                  /**/
                                                                 ],
                                                               )),
                                                         ),
@@ -1758,9 +1600,6 @@ class _StateTabela extends State<Tabela> {
                                                               Alignment.center,
 
                                                           width: 130,
-                                                          //height: 300,
-                                                          //height: _key1.currentContext.size!.height,
-                                                          //constraints: BoxConstraints(maxHeight: 50),
                                                           decoration:
                                                               BoxDecoration(
                                                             color: Colors.white,
@@ -1790,7 +1629,6 @@ class _StateTabela extends State<Tabela> {
                                                                   controller:
                                                                       controllerlinha22[
                                                                           2],
-                                                                  //maxLines: 3,
                                                                   maxLines: 1,
                                                                   style:
                                                                       TextStyle(
@@ -1811,18 +1649,14 @@ class _StateTabela extends State<Tabela> {
                                                     width: 2,
                                                   ),
                                                   Container(
-                                                    //constraints: BoxConstraints(maxHeight: 100),
                                                     child: Column(
                                                       children: [
                                                         Container(
-                                                          //constraints: BoxConstraints(maxHeight: 50),
                                                           child: Container(
                                                               alignment:
                                                                   Alignment
                                                                       .center,
                                                               width: 130,
-                                                              //height: _key1.currentContext.size!.height,
-                                                              // constraints: BoxConstraints(maxHeight: 50),
                                                               decoration:
                                                                   BoxDecoration(
                                                                 color: Colors
@@ -1853,7 +1687,6 @@ class _StateTabela extends State<Tabela> {
                                                                       controller:
                                                                           controllerlinha2[
                                                                               4],
-                                                                      //maxLines: 3,
                                                                       maxLines:
                                                                           1,
                                                                       style:
@@ -1877,7 +1710,6 @@ class _StateTabela extends State<Tabela> {
                                                                       },
                                                                     ),
                                                                   )
-                                                                  /**/
                                                                 ],
                                                               )),
                                                         ),
@@ -1886,9 +1718,6 @@ class _StateTabela extends State<Tabela> {
                                                               Alignment.center,
 
                                                           width: 130,
-                                                          //height: 300,
-                                                          //height: _key1.currentContext.size!.height,
-                                                          //constraints: BoxConstraints(maxHeight: 50),
                                                           decoration:
                                                               BoxDecoration(
                                                             color: Colors.white,
@@ -1918,7 +1747,6 @@ class _StateTabela extends State<Tabela> {
                                                                   controller:
                                                                       controllerlinha22[
                                                                           3],
-                                                                  //maxLines: 3,
                                                                   maxLines: 1,
                                                                   style:
                                                                       TextStyle(
@@ -1939,18 +1767,14 @@ class _StateTabela extends State<Tabela> {
                                                     width: 2,
                                                   ),
                                                   Container(
-                                                    //constraints: BoxConstraints(maxHeight: 100),
                                                     child: Column(
                                                       children: [
                                                         Container(
-                                                          //constraints: BoxConstraints(maxHeight: 50),
                                                           child: Container(
                                                               alignment:
                                                                   Alignment
                                                                       .center,
                                                               width: 130,
-                                                              //height: _key1.currentContext.size!.height,
-                                                              // constraints: BoxConstraints(maxHeight: 50),
                                                               decoration:
                                                                   BoxDecoration(
                                                                 color: Colors
@@ -1995,7 +1819,6 @@ class _StateTabela extends State<Tabela> {
                                                                       ),
                                                                     ),
                                                                   )
-                                                                  /**/
                                                                 ],
                                                               )),
                                                         ),
@@ -2004,9 +1827,6 @@ class _StateTabela extends State<Tabela> {
                                                               Alignment.center,
 
                                                           width: 130,
-                                                          //height: 300,
-                                                          //height: _key1.currentContext.size!.height,
-                                                          //constraints: BoxConstraints(maxHeight: 50),
                                                           decoration:
                                                               BoxDecoration(
                                                             color: Colors.white,
@@ -2036,7 +1856,6 @@ class _StateTabela extends State<Tabela> {
                                                                   controller:
                                                                       controllerlinha22[
                                                                           4],
-                                                                  //maxLines: 3,
                                                                   maxLines: 1,
                                                                   style:
                                                                       TextStyle(
@@ -2061,17 +1880,13 @@ class _StateTabela extends State<Tabela> {
                                           Container(
                                             constraints:
                                                 BoxConstraints(maxHeight: 100),
-                                            //key: _key1,
                                             child: IntrinsicHeight(
                                               child: Row(
-                                                //mainAxisAlignment: MainAxisAlignment.center,
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.stretch,
                                                 children: [
                                                   Container(
                                                     alignment: Alignment.center,
-                                                    //width: 209.0,
-                                                    //height: 40.0,
                                                     constraints: BoxConstraints(
                                                         maxHeight: 95),
                                                     width: 209.0,
@@ -2082,39 +1897,27 @@ class _StateTabela extends State<Tabela> {
                                                               5.0),
                                                     ),
                                                     child:
-                                                        //Row(
-
-                                                        //children: [
                                                         TextField(
                                                       maxLines: null,
                                                       controller: controller[2],
                                                       style: TextStyle(
                                                         color: Colors.black,
                                                         fontSize: 16.0,
-
-                                                        //fontWeight: FontWeight.bold,
-                                                        // fontWeight: FontWeight.bold,
                                                       ),
                                                     ),
-                                                    //],
-                                                    //),
                                                   ),
                                                   Container(
                                                     width: 2,
                                                   ),
-                                                  //Column(children: [
                                                   Container(
                                                     child: Column(
                                                       children: [
                                                         Container(
-                                                          //constraints: BoxConstraints(maxHeight: 50),
                                                           child: Container(
                                                               alignment:
                                                                   Alignment
                                                                       .center,
                                                               width: 130,
-                                                              //height: _key1.currentContext.size!.height,
-                                                              // constraints: BoxConstraints(maxHeight: 50),
                                                               decoration:
                                                                   BoxDecoration(
                                                                 color: Colors
@@ -2145,7 +1948,6 @@ class _StateTabela extends State<Tabela> {
                                                                       controller:
                                                                           controllerlinha3[
                                                                               0],
-                                                                      //maxLines: 3,
                                                                       maxLines:
                                                                           1,
                                                                       style:
@@ -2178,7 +1980,6 @@ class _StateTabela extends State<Tabela> {
                                                                       controller:
                                                                           controllerlinha3[
                                                                               1],
-                                                                      //maxLines: 3,
                                                                       maxLines:
                                                                           1,
                                                                       style:
@@ -2202,7 +2003,6 @@ class _StateTabela extends State<Tabela> {
                                                                       },
                                                                     ),
                                                                   )
-                                                                  /**/
                                                                 ],
                                                               )),
                                                         ),
@@ -2211,9 +2011,6 @@ class _StateTabela extends State<Tabela> {
                                                               Alignment.center,
 
                                                           width: 130,
-                                                          //height: 300,
-                                                          //height: _key1.currentContext.size!.height,
-                                                          //constraints: BoxConstraints(maxHeight: 50),
                                                           decoration:
                                                               BoxDecoration(
                                                             color: Colors.white,
@@ -2243,7 +2040,6 @@ class _StateTabela extends State<Tabela> {
                                                                   controller:
                                                                       controllerlinha33[
                                                                           0],
-                                                                  //maxLines: 3,
                                                                   maxLines: 1,
                                                                   style:
                                                                       TextStyle(
@@ -2260,26 +2056,19 @@ class _StateTabela extends State<Tabela> {
                                                       ],
                                                     ),
                                                   ),
-                                                  //)
-
-                                                  //],),
 
                                                   SizedBox(
                                                     width: 2,
                                                   ),
                                                   Container(
-                                                    //constraints: BoxConstraints(maxHeight: 100),
                                                     child: Column(
                                                       children: [
                                                         Container(
-                                                          //constraints: BoxConstraints(maxHeight: 50),
                                                           child: Container(
                                                               alignment:
                                                                   Alignment
                                                                       .center,
                                                               width: 130,
-                                                              //height: _key1.currentContext.size!.height,
-                                                              // constraints: BoxConstraints(maxHeight: 50),
                                                               decoration:
                                                                   BoxDecoration(
                                                                 color: Colors
@@ -2310,7 +2099,6 @@ class _StateTabela extends State<Tabela> {
                                                                       controller:
                                                                           controllerlinha3[
                                                                               2],
-                                                                      //maxLines: 3,
                                                                       maxLines:
                                                                           1,
                                                                       style:
@@ -2334,7 +2122,6 @@ class _StateTabela extends State<Tabela> {
                                                                       },
                                                                     ),
                                                                   )
-                                                                  /**/
                                                                 ],
                                                               )),
                                                         ),
@@ -2343,9 +2130,6 @@ class _StateTabela extends State<Tabela> {
                                                               Alignment.center,
 
                                                           width: 130,
-                                                          //height: 300,
-                                                          //height: _key1.currentContext.size!.height,
-                                                          //constraints: BoxConstraints(maxHeight: 50),
                                                           decoration:
                                                               BoxDecoration(
                                                             color: Colors.white,
@@ -2375,7 +2159,6 @@ class _StateTabela extends State<Tabela> {
                                                                   controller:
                                                                       controllerlinha33[
                                                                           1],
-                                                                  //maxLines: 3,
                                                                   maxLines: 1,
                                                                   style:
                                                                       TextStyle(
@@ -2397,18 +2180,14 @@ class _StateTabela extends State<Tabela> {
                                                     width: 2,
                                                   ),
                                                   Container(
-                                                    //constraints: BoxConstraints(maxHeight: 100),
                                                     child: Column(
                                                       children: [
                                                         Container(
-                                                          //constraints: BoxConstraints(maxHeight: 50),
                                                           child: Container(
                                                               alignment:
                                                                   Alignment
                                                                       .center,
                                                               width: 130,
-                                                              //height: _key1.currentContext.size!.height,
-                                                              // constraints: BoxConstraints(maxHeight: 50),
                                                               decoration:
                                                                   BoxDecoration(
                                                                 color: Colors
@@ -2439,7 +2218,6 @@ class _StateTabela extends State<Tabela> {
                                                                       controller:
                                                                           controllerlinha3[
                                                                               3],
-                                                                      //maxLines: 3,
                                                                       maxLines:
                                                                           1,
                                                                       style:
@@ -2463,7 +2241,6 @@ class _StateTabela extends State<Tabela> {
                                                                       },
                                                                     ),
                                                                   )
-                                                                  /**/
                                                                 ],
                                                               )),
                                                         ),
@@ -2472,9 +2249,6 @@ class _StateTabela extends State<Tabela> {
                                                               Alignment.center,
 
                                                           width: 130,
-                                                          //height: 300,
-                                                          //height: _key1.currentContext.size!.height,
-                                                          //constraints: BoxConstraints(maxHeight: 50),
                                                           decoration:
                                                               BoxDecoration(
                                                             color: Colors.white,
@@ -2524,18 +2298,14 @@ class _StateTabela extends State<Tabela> {
                                                     width: 2,
                                                   ),
                                                   Container(
-                                                    //constraints: BoxConstraints(maxHeight: 100),
                                                     child: Column(
                                                       children: [
                                                         Container(
-                                                          //constraints: BoxConstraints(maxHeight: 50),
                                                           child: Container(
                                                               alignment:
                                                                   Alignment
                                                                       .center,
                                                               width: 130,
-                                                              //height: _key1.currentContext.size!.height,
-                                                              // constraints: BoxConstraints(maxHeight: 50),
                                                               decoration:
                                                                   BoxDecoration(
                                                                 color: Colors
@@ -2589,7 +2359,6 @@ class _StateTabela extends State<Tabela> {
                                                                       },
                                                                     ),
                                                                   )
-                                                                  /**/
                                                                 ],
                                                               )),
                                                         ),
@@ -2598,9 +2367,6 @@ class _StateTabela extends State<Tabela> {
                                                               Alignment.center,
 
                                                           width: 130,
-                                                          //height: 300,
-                                                          //height: _key1.currentContext.size!.height,
-                                                          //constraints: BoxConstraints(maxHeight: 50),
                                                           decoration:
                                                               BoxDecoration(
                                                             color: Colors.white,
@@ -2650,18 +2416,14 @@ class _StateTabela extends State<Tabela> {
                                                     width: 2,
                                                   ),
                                                   Container(
-                                                    //constraints: BoxConstraints(maxHeight: 100),
                                                     child: Column(
                                                       children: [
                                                         Container(
-                                                          //constraints: BoxConstraints(maxHeight: 50),
                                                           child: Container(
                                                               alignment:
                                                                   Alignment
                                                                       .center,
                                                               width: 130,
-                                                              //height: _key1.currentContext.size!.height,
-                                                              // constraints: BoxConstraints(maxHeight: 50),
                                                               decoration:
                                                                   BoxDecoration(
                                                                 color: Colors
@@ -2705,7 +2467,6 @@ class _StateTabela extends State<Tabela> {
                                                                       ),
                                                                     ),
                                                                   )
-                                                                  /**/
                                                                 ],
                                                               )),
                                                         ),
@@ -2714,9 +2475,6 @@ class _StateTabela extends State<Tabela> {
                                                               Alignment.center,
 
                                                           width: 130,
-                                                          //height: 300,
-                                                          //height: _key1.currentContext.size!.height,
-                                                          //constraints: BoxConstraints(maxHeight: 50),
                                                           decoration:
                                                               BoxDecoration(
                                                             color: Colors.white,
@@ -2770,17 +2528,13 @@ class _StateTabela extends State<Tabela> {
                                           Container(
                                             constraints:
                                                 BoxConstraints(maxHeight: 100),
-                                            //key: _key1,
                                             child: IntrinsicHeight(
                                               child: Row(
-                                                //mainAxisAlignment: MainAxisAlignment.center,
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.stretch,
                                                 children: [
                                                   Container(
                                                     alignment: Alignment.center,
-                                                    //width: 209.0,
-                                                    //height: 40.0,
                                                     constraints: BoxConstraints(
                                                         maxHeight: 95),
                                                     width: 209.0,
@@ -2802,19 +2556,15 @@ class _StateTabela extends State<Tabela> {
                                                   Container(
                                                     width: 2,
                                                   ),
-                                                  //Column(children: [
                                                   Container(
                                                     child: Column(
                                                       children: [
                                                         Container(
-                                                          //constraints: BoxConstraints(maxHeight: 50),
                                                           child: Container(
                                                               alignment:
                                                                   Alignment
                                                                       .center,
                                                               width: 130,
-                                                              //height: _key1.currentContext.size!.height,
-                                                              // constraints: BoxConstraints(maxHeight: 50),
                                                               decoration:
                                                                   BoxDecoration(
                                                                 color: Colors
@@ -2900,7 +2650,6 @@ class _StateTabela extends State<Tabela> {
                                                                       },
                                                                     ),
                                                                   )
-                                                                  /**/
                                                                 ],
                                                               )),
                                                         ),
@@ -2909,9 +2658,6 @@ class _StateTabela extends State<Tabela> {
                                                               Alignment.center,
 
                                                           width: 130,
-                                                          //height: 300,
-                                                          //height: _key1.currentContext.size!.height,
-                                                          //constraints: BoxConstraints(maxHeight: 50),
                                                           decoration:
                                                               BoxDecoration(
                                                             color: Colors.white,
@@ -2957,26 +2703,19 @@ class _StateTabela extends State<Tabela> {
                                                       ],
                                                     ),
                                                   ),
-                                                  //)
-
-                                                  //],),
 
                                                   SizedBox(
                                                     width: 2,
                                                   ),
                                                   Container(
-                                                    //constraints: BoxConstraints(maxHeight: 100),
                                                     child: Column(
                                                       children: [
                                                         Container(
-                                                          //constraints: BoxConstraints(maxHeight: 50),
                                                           child: Container(
                                                               alignment:
                                                                   Alignment
                                                                       .center,
                                                               width: 130,
-                                                              //height: _key1.currentContext.size!.height,
-                                                              // constraints: BoxConstraints(maxHeight: 50),
                                                               decoration:
                                                                   BoxDecoration(
                                                                 color: Colors
@@ -3030,7 +2769,6 @@ class _StateTabela extends State<Tabela> {
                                                                       },
                                                                     ),
                                                                   )
-                                                                  /**/
                                                                 ],
                                                               )),
                                                         ),
@@ -3039,9 +2777,6 @@ class _StateTabela extends State<Tabela> {
                                                               Alignment.center,
 
                                                           width: 130,
-                                                          //height: 300,
-                                                          //height: _key1.currentContext.size!.height,
-                                                          //constraints: BoxConstraints(maxHeight: 50),
                                                           decoration:
                                                               BoxDecoration(
                                                             color: Colors.white,
@@ -3092,18 +2827,14 @@ class _StateTabela extends State<Tabela> {
                                                     width: 2,
                                                   ),
                                                   Container(
-                                                    //constraints: BoxConstraints(maxHeight: 100),
                                                     child: Column(
                                                       children: [
                                                         Container(
-                                                          //constraints: BoxConstraints(maxHeight: 50),
                                                           child: Container(
                                                               alignment:
                                                                   Alignment
                                                                       .center,
                                                               width: 130,
-                                                              //height: _key1.currentContext.size!.height,
-                                                              // constraints: BoxConstraints(maxHeight: 50),
                                                               decoration:
                                                                   BoxDecoration(
                                                                 color: Colors
@@ -3157,7 +2888,6 @@ class _StateTabela extends State<Tabela> {
                                                                       },
                                                                     ),
                                                                   )
-                                                                  /**/
                                                                 ],
                                                               )),
                                                         ),
@@ -3166,9 +2896,6 @@ class _StateTabela extends State<Tabela> {
                                                               Alignment.center,
 
                                                           width: 130,
-                                                          //height: 300,
-                                                          //height: _key1.currentContext.size!.height,
-                                                          //constraints: BoxConstraints(maxHeight: 50),
                                                           decoration:
                                                               BoxDecoration(
                                                             color: Colors.white,
@@ -3218,18 +2945,14 @@ class _StateTabela extends State<Tabela> {
                                                     width: 2,
                                                   ),
                                                   Container(
-                                                    //constraints: BoxConstraints(maxHeight: 100),
                                                     child: Column(
                                                       children: [
                                                         Container(
-                                                          //constraints: BoxConstraints(maxHeight: 50),
                                                           child: Container(
                                                               alignment:
                                                                   Alignment
                                                                       .center,
                                                               width: 130,
-                                                              //height: _key1.currentContext.size!.height,
-                                                              // constraints: BoxConstraints(maxHeight: 50),
                                                               decoration:
                                                                   BoxDecoration(
                                                                 color: Colors
@@ -3283,7 +3006,6 @@ class _StateTabela extends State<Tabela> {
                                                                       },
                                                                     ),
                                                                   )
-                                                                  /**/
                                                                 ],
                                                               )),
                                                         ),
@@ -3292,9 +3014,6 @@ class _StateTabela extends State<Tabela> {
                                                               Alignment.center,
 
                                                           width: 130,
-                                                          //height: 300,
-                                                          //height: _key1.currentContext.size!.height,
-                                                          //constraints: BoxConstraints(maxHeight: 50),
                                                           decoration:
                                                               BoxDecoration(
                                                             color: Colors.white,
@@ -3344,18 +3063,14 @@ class _StateTabela extends State<Tabela> {
                                                     width: 2,
                                                   ),
                                                   Container(
-                                                    //constraints: BoxConstraints(maxHeight: 100),
                                                     child: Column(
                                                       children: [
                                                         Container(
-                                                          //constraints: BoxConstraints(maxHeight: 50),
                                                           child: Container(
                                                               alignment:
                                                                   Alignment
                                                                       .center,
                                                               width: 130,
-                                                              //height: _key1.currentContext.size!.height,
-                                                              // constraints: BoxConstraints(maxHeight: 50),
                                                               decoration:
                                                                   BoxDecoration(
                                                                 color: Colors
@@ -3399,7 +3114,6 @@ class _StateTabela extends State<Tabela> {
                                                                       ),
                                                                     ),
                                                                   )
-                                                                  /**/
                                                                 ],
                                                               )),
                                                         ),
@@ -3408,9 +3122,6 @@ class _StateTabela extends State<Tabela> {
                                                               Alignment.center,
 
                                                           width: 130,
-                                                          //height: 300,
-                                                          //height: _key1.currentContext.size!.height,
-                                                          //constraints: BoxConstraints(maxHeight: 50),
                                                           decoration:
                                                               BoxDecoration(
                                                             color: Colors.white,
@@ -3464,17 +3175,13 @@ class _StateTabela extends State<Tabela> {
                                           Container(
                                             constraints:
                                                 BoxConstraints(maxHeight: 100),
-                                            //key: _key1,
                                             child: IntrinsicHeight(
                                               child: Row(
-                                                //mainAxisAlignment: MainAxisAlignment.center,
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.stretch,
                                                 children: [
                                                   Container(
                                                     alignment: Alignment.center,
-                                                    //width: 209.0,
-                                                    //height: 40.0,
                                                     constraints: BoxConstraints(
                                                         maxHeight: 95),
                                                     width: 209.0,
@@ -3485,39 +3192,27 @@ class _StateTabela extends State<Tabela> {
                                                               5.0),
                                                     ),
                                                     child:
-                                                        //Row(
-
-                                                        //children: [
                                                         TextField(
                                                       maxLines: null,
                                                       controller: controller[4],
                                                       style: TextStyle(
                                                         color: Colors.black,
                                                         fontSize: 16.0,
-
-                                                        //fontWeight: FontWeight.bold,
-                                                        // fontWeight: FontWeight.bold,
                                                       ),
                                                     ),
-                                                    //],
-                                                    //),
                                                   ),
                                                   Container(
                                                     width: 2,
                                                   ),
-                                                  //Column(children: [
                                                   Container(
                                                     child: Column(
                                                       children: [
                                                         Container(
-                                                          //constraints: BoxConstraints(maxHeight: 50),
                                                           child: Container(
                                                               alignment:
                                                                   Alignment
                                                                       .center,
                                                               width: 130,
-                                                              //height: _key1.currentContext.size!.height,
-                                                              // constraints: BoxConstraints(maxHeight: 50),
                                                               decoration:
                                                                   BoxDecoration(
                                                                 color: Colors
@@ -3603,7 +3298,6 @@ class _StateTabela extends State<Tabela> {
                                                                       },
                                                                     ),
                                                                   )
-                                                                  /**/
                                                                 ],
                                                               )),
                                                         ),
@@ -3612,9 +3306,6 @@ class _StateTabela extends State<Tabela> {
                                                               Alignment.center,
 
                                                           width: 130,
-                                                          //height: 300,
-                                                          //height: _key1.currentContext.size!.height,
-                                                          //constraints: BoxConstraints(maxHeight: 50),
                                                           decoration:
                                                               BoxDecoration(
                                                             color: Colors.white,
@@ -3660,26 +3351,19 @@ class _StateTabela extends State<Tabela> {
                                                       ],
                                                     ),
                                                   ),
-                                                  //)
-
-                                                  //],),
 
                                                   SizedBox(
                                                     width: 2,
                                                   ),
                                                   Container(
-                                                    //constraints: BoxConstraints(maxHeight: 100),
                                                     child: Column(
                                                       children: [
                                                         Container(
-                                                          //constraints: BoxConstraints(maxHeight: 50),
                                                           child: Container(
                                                               alignment:
                                                                   Alignment
                                                                       .center,
                                                               width: 130,
-                                                              //height: _key1.currentContext.size!.height,
-                                                              // constraints: BoxConstraints(maxHeight: 50),
                                                               decoration:
                                                                   BoxDecoration(
                                                                 color: Colors
@@ -3733,7 +3417,6 @@ class _StateTabela extends State<Tabela> {
                                                                       },
                                                                     ),
                                                                   )
-                                                                  /**/
                                                                 ],
                                                               )),
                                                         ),
@@ -3742,9 +3425,6 @@ class _StateTabela extends State<Tabela> {
                                                               Alignment.center,
 
                                                           width: 130,
-                                                          //height: 300,
-                                                          //height: _key1.currentContext.size!.height,
-                                                          //constraints: BoxConstraints(maxHeight: 50),
                                                           decoration:
                                                               BoxDecoration(
                                                             color: Colors.white,
@@ -3795,18 +3475,14 @@ class _StateTabela extends State<Tabela> {
                                                     width: 2,
                                                   ),
                                                   Container(
-                                                    //constraints: BoxConstraints(maxHeight: 100),
                                                     child: Column(
                                                       children: [
                                                         Container(
-                                                          //constraints: BoxConstraints(maxHeight: 50),
                                                           child: Container(
                                                               alignment:
                                                                   Alignment
                                                                       .center,
                                                               width: 130,
-                                                              //height: _key1.currentContext.size!.height,
-                                                              // constraints: BoxConstraints(maxHeight: 50),
                                                               decoration:
                                                                   BoxDecoration(
                                                                 color: Colors
@@ -3860,7 +3536,6 @@ class _StateTabela extends State<Tabela> {
                                                                       },
                                                                     ),
                                                                   )
-                                                                  /**/
                                                                 ],
                                                               )),
                                                         ),
@@ -3869,9 +3544,6 @@ class _StateTabela extends State<Tabela> {
                                                               Alignment.center,
 
                                                           width: 130,
-                                                          //height: 300,
-                                                          //height: _key1.currentContext.size!.height,
-                                                          //constraints: BoxConstraints(maxHeight: 50),
                                                           decoration:
                                                               BoxDecoration(
                                                             color: Colors.white,
@@ -3921,18 +3593,14 @@ class _StateTabela extends State<Tabela> {
                                                     width: 2,
                                                   ),
                                                   Container(
-                                                    //constraints: BoxConstraints(maxHeight: 100),
                                                     child: Column(
                                                       children: [
                                                         Container(
-                                                          //constraints: BoxConstraints(maxHeight: 50),
                                                           child: Container(
                                                               alignment:
                                                                   Alignment
                                                                       .center,
                                                               width: 130,
-                                                              //height: _key1.currentContext.size!.height,
-                                                              // constraints: BoxConstraints(maxHeight: 50),
                                                               decoration:
                                                                   BoxDecoration(
                                                                 color: Colors
@@ -3986,7 +3654,6 @@ class _StateTabela extends State<Tabela> {
                                                                       },
                                                                     ),
                                                                   )
-                                                                  /**/
                                                                 ],
                                                               )),
                                                         ),
@@ -3995,9 +3662,6 @@ class _StateTabela extends State<Tabela> {
                                                               Alignment.center,
 
                                                           width: 130,
-                                                          //height: 300,
-                                                          //height: _key1.currentContext.size!.height,
-                                                          //constraints: BoxConstraints(maxHeight: 50),
                                                           decoration:
                                                               BoxDecoration(
                                                             color: Colors.white,
@@ -4047,18 +3711,14 @@ class _StateTabela extends State<Tabela> {
                                                     width: 2,
                                                   ),
                                                   Container(
-                                                    //constraints: BoxConstraints(maxHeight: 100),
                                                     child: Column(
                                                       children: [
                                                         Container(
-                                                          //constraints: BoxConstraints(maxHeight: 50),
                                                           child: Container(
                                                               alignment:
                                                                   Alignment
                                                                       .center,
                                                               width: 130,
-                                                              //height: _key1.currentContext.size!.height,
-                                                              // constraints: BoxConstraints(maxHeight: 50),
                                                               decoration:
                                                                   BoxDecoration(
                                                                 color: Colors
@@ -4102,7 +3762,6 @@ class _StateTabela extends State<Tabela> {
                                                                       ),
                                                                     ),
                                                                   )
-                                                                  /**/
                                                                 ],
                                                               )),
                                                         ),
@@ -4111,9 +3770,6 @@ class _StateTabela extends State<Tabela> {
                                                               Alignment.center,
 
                                                           width: 130,
-                                                          //height: 300,
-                                                          //height: _key1.currentContext.size!.height,
-                                                          //constraints: BoxConstraints(maxHeight: 50),
                                                           decoration:
                                                               BoxDecoration(
                                                             color: Colors.white,
@@ -4248,21 +3904,10 @@ class _StateTabela extends State<Tabela> {
                               width: 5,
                             ),
                             BotaoNovafaixasalarial(),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SizedBox(
-                                  width: (mediaQuery.width * 0.3) - 160,
-                                ),
-                              ],
-                            )
                           ],
                         ),
                       )
                     ])),
-            /*const SizedBox(
-                height: 20,
-              ),*/
           ],
         ),
       );

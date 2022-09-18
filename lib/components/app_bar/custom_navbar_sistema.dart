@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gip_solucoes/components/app_bar/components/desktop_navbar_menu.dart';
 import 'package:gip_solucoes/components/app_bar/components/mobile_appbar_sistema.dart';
-import 'package:gip_solucoes/constants.dart';
-import '../components.dart';
-
+//escolhedor de layout (em cima ou do lado) (sistema)
 class CustomNavbarSistema extends StatelessWidget {
   const CustomNavbarSistema({Key? key}) : super(key: key);
 
@@ -14,9 +12,6 @@ class CustomNavbarSistema extends StatelessWidget {
         if (constraints.maxWidth >= 750) {
           return const DesktopNavbarMenu();
         }
-        //else if (constraints.maxWidth >= kTabletWidth) {
-        //   return const Des();
-        // }
         return const MobileNavbarSistema();
       }),
     );

@@ -1,11 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'package:gip_solucoes/screens/home_screen/components/view/content/aempresa_text.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/simulador_content.dart';
-import 'package:gip_solucoes/screens/home_screen/components/view/content/youtube.dart';
-import 'package:gip_solucoes/screens/home_screen/components/view/content/menu_content.dart';
-import 'package:gip_solucoes/screens/home_screen/components/view/content/serving_items_list.dart';
-import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 class DesktopSimulador extends StatefulWidget {
   const DesktopSimulador({Key? key}) : super(key: key);
@@ -14,7 +8,6 @@ class DesktopSimulador extends StatefulWidget {
   
   @override
   State<DesktopSimulador> createState() {
-    // TODO: implement createState
     return _StateDesktopSimulador();
   }
 }
@@ -50,38 +43,15 @@ class _StateDesktopSimulador extends State<DesktopSimulador>{
       Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    //SizedBox(width: 10,),
                   BotaoCalcular(),
                   SizedBox(width: mediaQuery.width*0.0285,),
-                  Resultado(),
+                  Resultado(tamanho: 1,),
                   SizedBox(width: mediaQuery.width*0.0285,),
                   BotaoVoltar(),
-
-                  //SizedBox(width: 10,),
                 ],)
         ] 
       )
       
-    );
-  }
-}
-
-class _ServingItems extends StatelessWidget {
-  const _ServingItems({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView.separated(
-        itemBuilder: (context, index) {
-          return servingItems[index];
-        },
-        separatorBuilder: (context, _) {
-          return const SizedBox(height: 40.0);
-        },
-        itemCount: servingItems.length,
-        shrinkWrap: true,
-      ),
     );
   }
 }

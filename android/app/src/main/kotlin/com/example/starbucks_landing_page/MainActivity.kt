@@ -1,4 +1,4 @@
-package com.example.starbucks_landing_page
+package com.example.gip_solucoes
 
 import io.flutter.embedding.android.FlutterActivity
 

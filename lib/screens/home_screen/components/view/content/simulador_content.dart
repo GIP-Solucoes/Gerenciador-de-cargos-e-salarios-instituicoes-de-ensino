@@ -1,12 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:gip_solucoes/main.dart';
-import 'package:gip_solucoes/screens/home_screen/components/view/content/hero_content.dart';
-import 'package:gip_solucoes/screens/home_screen/components/view/content/name_color.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/sistema_content.dart';
-import 'package:gip_solucoes/screens/home_screen/home_screen.dart';
-//import 'package:my_portfolio/models/name_color.dart';
 
 class MenuText extends StatelessWidget {
   const MenuText({Key? key}) : super(key: key);
@@ -44,7 +38,6 @@ class BotaoCalcular extends StatelessWidget {
             style: TextStyle(
               color: Colors.white,
               fontSize: 16.0,
-              // fontWeight: FontWeight.bold,
             ),
           ),
         ],
@@ -54,14 +47,15 @@ class BotaoCalcular extends StatelessWidget {
 }
 
 class Resultado extends StatelessWidget {
+  double tamanho;
   Resultado({
-    Key? key,
+    Key? key,required this.tamanho
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 500.0,
+      width: 500.0*tamanho,
       height: 40.0,
       decoration: BoxDecoration(
         color: Colors.orange[200],
@@ -72,7 +66,7 @@ class Resultado extends StatelessWidget {
         children: [
           Container(
             alignment: Alignment.center,
-            width: 175.0,
+            width: 175.0*tamanho,
             height: 40.0,
             decoration: BoxDecoration(
               color: Colors.orange[400],
@@ -83,8 +77,7 @@ class Resultado extends StatelessWidget {
               "RESULTADO:",
               style: TextStyle(
                 color: Colors.black,
-                fontSize: 16.0,
-                // fontWeight: FontWeight.bold,
+                fontSize: 16.0*tamanho,
               ),
             ),
           ),
@@ -93,8 +86,7 @@ class Resultado extends StatelessWidget {
             " FAIXA SALARIAL XX | VALOR R\$ XXX,XX",
             style: TextStyle(
               color: Colors.black,
-              fontSize: 16.0,
-              // fontWeight: FontWeight.bold,
+              fontSize: 16.0*tamanho,
             ),
           ),
         ],
@@ -127,7 +119,6 @@ class BotaoStatus extends StatelessWidget {
             style: TextStyle(
               color: Colors.white,
               fontSize: 16.0,
-              // fontWeight: FontWeight.bold,
             ),
           ),
         ],
@@ -219,7 +210,6 @@ class _SimuladorState extends State<Simulador> {
       return Container(
         height: 430,
         width: 1000,
-        //margin: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           color: Colors.grey[200],
           borderRadius: BorderRadius.circular(10),
@@ -235,7 +225,6 @@ class _SimuladorState extends State<Simulador> {
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.end,
-                  //crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -254,11 +243,7 @@ class _SimuladorState extends State<Simulador> {
                         //Column(children: [
                         SizedBox(
                           width: (mediaQuery.width * valor) - 40,
-                          //height: 40,
                           child: SingleChildScrollView(
-                            controller: scrollCont,
-                            //padding: EdgeInsets.symmetric(
-                            //vertical: 10.0, horizontal: mediaQuery.width * 0.1),
                             scrollDirection: Axis.horizontal,
                             child: Column(
                               children: [
@@ -290,7 +275,6 @@ class _SimuladorState extends State<Simulador> {
                                                       fontSize: 16.0,
                                                       fontWeight:
                                                           FontWeight.bold,
-                                                      // fontWeight: FontWeight.bold,
                                                     ),
                                                   ),
                                                 ],
@@ -320,7 +304,6 @@ class _SimuladorState extends State<Simulador> {
                                                       fontSize: 16.0,
                                                       fontWeight:
                                                           FontWeight.bold,
-                                                      // fontWeight: FontWeight.bold,
                                                     ),
                                                   ),
                                                 ],
@@ -349,7 +332,6 @@ class _SimuladorState extends State<Simulador> {
                                                       fontSize: 16.0,
                                                       fontWeight:
                                                           FontWeight.bold,
-                                                      // fontWeight: FontWeight.bold,
                                                     ),
                                                   ),
                                                 ],
@@ -379,8 +361,6 @@ class _SimuladorState extends State<Simulador> {
                                                       fontSize: 16.0,
                                                       fontWeight:
                                                           FontWeight.bold,
-
-                                                      // fontWeight: FontWeight.bold,
                                                     ),
                                                   ),
                                                 ],
@@ -404,7 +384,6 @@ class _SimuladorState extends State<Simulador> {
                                                   color: Colors.black,
                                                   fontSize: 16.0,
                                                   fontWeight: FontWeight.bold,
-                                                  // fontWeight: FontWeight.bold,
                                                 ),
                                               ),
                                             ),
@@ -1767,18 +1746,7 @@ class _SimuladorState extends State<Simulador> {
                               ],
                             ),
                           ),
-                          //height: double.infinity,
                         ),
-                        //  ],)
-                        //Row(children: [
-                        //Row(
-                        //mainAxisAlignment: MainAxisAlignment.start,
-                        //crossAxisAlignment: CrossAxisAlignment.start,
-                        //children: [
-
-                        //],//)
-
-                        //],)
                       ],
                     ),
                     const SizedBox(
@@ -1830,9 +1798,7 @@ class _SimuladorState extends State<Simulador> {
 
 class Simulador extends StatefulWidget {
   double valor;
-  Simulador({
-    Key? key,required this.valor
-  }) : super(key: key);
+  Simulador({Key? key, required this.valor}) : super(key: key);
   @override
   @override
   State<StatefulWidget> createState() {
@@ -1890,7 +1856,6 @@ class BotaoVoltar extends StatelessWidget {
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 16.0,
-                // fontWeight: FontWeight.bold,
               ),
             ),
           ],
@@ -1899,5 +1864,3 @@ class BotaoVoltar extends StatelessWidget {
     );
   }
 }
-
-/**/

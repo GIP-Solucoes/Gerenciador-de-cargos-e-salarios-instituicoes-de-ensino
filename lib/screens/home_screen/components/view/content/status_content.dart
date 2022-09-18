@@ -1,7 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:gip_solucoes/screens/home_screen/components/view/content/name_color.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/sistema_content.dart';
 
 class MenuText extends StatelessWidget {
@@ -21,7 +19,6 @@ class Status extends StatefulWidget {
   Status({Key? key, required this.valor}) : super(key: key);
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return _StateStatus(this.valor);
   }
 }
@@ -76,7 +73,6 @@ class BotaoVoltar extends StatelessWidget {
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 16.0,
-                // fontWeight: FontWeight.bold,
               ),
             ),
           ],
@@ -110,7 +106,6 @@ class BotaoSalvar extends StatelessWidget {
             style: TextStyle(
               color: Colors.white,
               fontSize: 16.0,
-              // fontWeight: FontWeight.bold,
             ),
           ),
         ],
@@ -143,7 +138,6 @@ class BotaoNovostatus extends StatelessWidget {
             style: TextStyle(
               color: Colors.white,
               fontSize: 16.0,
-              // fontWeight: FontWeight.bold,
             ),
           ),
         ],
@@ -188,7 +182,6 @@ class _StateStatus extends State<Status> {
       return Container(
         height: 400,
         width: 600,
-        //margin: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           color: Colors.grey[200],
           borderRadius: BorderRadius.circular(10),
@@ -209,7 +202,7 @@ class _StateStatus extends State<Status> {
                         children: [
                           Container(
                             constraints: BoxConstraints(maxWidth: 570),
-                            width: (mediaQuery.width * valor) - 40,
+                            width: valor,
                             child: SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
                               child: Row(
@@ -234,20 +227,14 @@ class _StateStatus extends State<Status> {
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
                                               children: [
-                                                //Row(
-
-                                                //children: [
                                                 Text(
                                                   "Nome",
                                                   style: TextStyle(
                                                     color: Colors.black,
                                                     fontSize: 16.0,
                                                     fontWeight: FontWeight.bold,
-                                                    // fontWeight: FontWeight.bold,
                                                   ),
                                                 ),
-                                                //],
-                                                //),
                                               ],
                                             ),
                                           ),
@@ -273,7 +260,6 @@ class _StateStatus extends State<Status> {
                                                     color: Colors.black,
                                                     fontSize: 16.0,
                                                     fontWeight: FontWeight.bold,
-                                                    // fontWeight: FontWeight.bold,
                                                   ),
                                                 ),
                                               ],
@@ -302,7 +288,6 @@ class _StateStatus extends State<Status> {
                                                   //key: _key1,
                                                   child: IntrinsicHeight(
                                                     child: Row(
-                                                      //mainAxisAlignment: MainAxisAlignment.center,
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
                                                               .stretch,
@@ -310,8 +295,6 @@ class _StateStatus extends State<Status> {
                                                         Container(
                                                           alignment:
                                                               Alignment.center,
-                                                          //width: 209.0,
-                                                          //height: 40.0,
                                                           width: 209.0,
                                                           decoration:
                                                               BoxDecoration(
@@ -322,9 +305,6 @@ class _StateStatus extends State<Status> {
                                                                         5.0),
                                                           ),
                                                           child:
-                                                              //Row(
-
-                                                              //children: [
                                                               TextField(
                                                             maxLines: null,
                                                             controller:
@@ -334,26 +314,17 @@ class _StateStatus extends State<Status> {
                                                               color:
                                                                   Colors.black,
                                                               fontSize: 16.0,
-
-                                                              //fontWeight: FontWeight.bold,
-                                                              // fontWeight: FontWeight.bold,
                                                             ),
                                                           ),
-                                                          //],
-                                                          //),
                                                         ),
 
                                                         Container(
                                                           width: 2,
                                                         ),
-                                                        //Column(children: [
-                                                        /*Expanded(child:*/ Container(
+                                                        Container(
                                                             alignment: Alignment
                                                                 .center,
                                                             width: 150,
-                                                            //height: 300,
-                                                            //height: _key1.currentContext.size!.height,
-                                                            //constraints: BoxConstraints(maxHeight: 50),
                                                             decoration:
                                                                 BoxDecoration(
                                                               color:
@@ -402,9 +373,7 @@ class _StateStatus extends State<Status> {
                                                                       );
                                                                     }),
                                                               ],
-                                                            )), //)
-
-                                                        //],),
+                                                            )),
 
                                                         SizedBox(
                                                           width: 2,
@@ -427,10 +396,8 @@ class _StateStatus extends State<Status> {
                                               Container(
                                                   constraints: BoxConstraints(
                                                       maxHeight: 100),
-                                                  //key: _key1,
                                                   child: IntrinsicHeight(
                                                     child: Row(
-                                                      //mainAxisAlignment: MainAxisAlignment.center,
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
                                                               .stretch,
@@ -438,8 +405,6 @@ class _StateStatus extends State<Status> {
                                                         Container(
                                                           alignment:
                                                               Alignment.center,
-                                                          //width: 209.0,
-                                                          //height: 40.0,
                                                           width: 209.0,
                                                           decoration:
                                                               BoxDecoration(
@@ -450,9 +415,6 @@ class _StateStatus extends State<Status> {
                                                                         5.0),
                                                           ),
                                                           child:
-                                                              //Row(
-
-                                                              //children: [
                                                               TextField(
                                                             maxLines: null,
                                                             controller:
@@ -462,27 +424,17 @@ class _StateStatus extends State<Status> {
                                                               color:
                                                                   Colors.black,
                                                               fontSize: 16.0,
-
-                                                              //fontWeight: FontWeight.bold,
-                                                              // fontWeight: FontWeight.bold,
                                                             ),
                                                           ),
-                                                          //],
-                                                          //),
                                                         ),
 
                                                         Container(
                                                           width: 2,
-                                                        ),
-                                                        //Column(children: [
-                                                        /*Expanded(child:*/ Container(
+                                                        ), Container(
                                                           alignment:
                                                               Alignment.center,
 
                                                           width: 150,
-                                                          //height: 300,
-                                                          //height: _key1.currentContext.size!.height,
-                                                          //constraints: BoxConstraints(maxHeight: 50),
                                                           decoration:
                                                               BoxDecoration(
                                                             color: Colors.white,
@@ -528,9 +480,7 @@ class _StateStatus extends State<Status> {
                                                                           .toList(),
                                                                     );
                                                                   }),
-                                                        ), //)
-
-                                                        //],),
+                                                        ),
 
                                                         SizedBox(
                                                           width: 2,
@@ -555,10 +505,8 @@ class _StateStatus extends State<Status> {
                                               Container(
                                                   constraints: BoxConstraints(
                                                       maxHeight: 100),
-                                                  //key: _key1,
                                                   child: IntrinsicHeight(
                                                     child: Row(
-                                                      //mainAxisAlignment: MainAxisAlignment.center,
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
                                                               .stretch,
@@ -566,8 +514,6 @@ class _StateStatus extends State<Status> {
                                                         Container(
                                                           alignment:
                                                               Alignment.center,
-                                                          //width: 209.0,
-                                                          //height: 40.0,
                                                           width: 209.0,
                                                           decoration:
                                                               BoxDecoration(
@@ -578,9 +524,6 @@ class _StateStatus extends State<Status> {
                                                                         5.0),
                                                           ),
                                                           child:
-                                                              //Row(
-
-                                                              //children: [
                                                               TextField(
                                                             maxLines: null,
                                                             controller:
@@ -590,27 +533,17 @@ class _StateStatus extends State<Status> {
                                                               color:
                                                                   Colors.black,
                                                               fontSize: 16.0,
-
-                                                              //fontWeight: FontWeight.bold,
-                                                              // fontWeight: FontWeight.bold,
                                                             ),
                                                           ),
-                                                          //],
-                                                          //),
                                                         ),
 
                                                         Container(
                                                           width: 2,
-                                                        ),
-                                                        //Column(children: [
-                                                        /*Expanded(child:*/ Container(
+                                                        ),Container(
                                                           alignment:
                                                               Alignment.center,
 
                                                           width: 150,
-                                                          //height: 300,
-                                                          //height: _key1.currentContext.size!.height,
-                                                          //constraints: BoxConstraints(maxHeight: 50),
                                                           decoration:
                                                               BoxDecoration(
                                                             color: Colors.white,
@@ -656,9 +589,7 @@ class _StateStatus extends State<Status> {
                                                                           .toList(),
                                                                     );
                                                                   }),
-                                                        ), //)
-
-                                                        //],),
+                                                        ),
 
                                                         SizedBox(
                                                           width: 2,
@@ -684,41 +615,29 @@ class _StateStatus extends State<Status> {
                                 ],
                               ),
                             ),
-                            //height: double.infinity,
                           ),
-                          //  ],)
-                          //Row(children: [
-                          //Row(
-                          //mainAxisAlignment: MainAxisAlignment.start,
-                          //crossAxisAlignment: CrossAxisAlignment.start,
-                          //children: [
-
-                          //],//)
-
-                          //],)
                         ],
                       ),
-                      //Row(
-                      // mainAxisAlignment:MainAxisAlignment.start,
-                      //children: [
                       SizedBox(
                         height: 20,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          BotaoNovostatus(),
-                          //Row(
-                          //mainAxisAlignment: MainAxisAlignment.center,
-                          //children: [
-                          BotaoSalvar(),
-                        ],
+                      SizedBox(
+                        width: valor,
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Container(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                BotaoNovostatus(),
+                                SizedBox(width: valor*0.2,),
+                                BotaoSalvar(),
+                              ],
+                            ),
+                          ),
+                        ),
                       )
-                      //],)
                     ])),
-            /*const SizedBox(
-                height: 20,
-              ),*/
           ],
         ),
       );

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gip_solucoes/components/app_bar/components/navbar_item_menu.dart';
 import 'package:gip_solucoes/components/app_bar/components/navbar_menu_content.dart';
-import 'package:gip_solucoes/constants.dart';
 
-import '../../components.dart';
-
+//layout parte de cima (sistema)
 class DesktopNavbarMenu extends StatelessWidget {
   const DesktopNavbarMenu({Key? key}) : super(key: key);
 
@@ -19,26 +17,22 @@ class DesktopNavbarMenu extends StatelessWidget {
           horizontal: width > 850 ? (width * 0.07) : (width * 0.05)),
       height: height,
       child: Container(
-        //mainAxisAlignment: MainAxisAlignment.center,
         child:
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
-               //mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                //logo
           const HeaderMenu(),
-          //navbar_items
-          SizedBox(width: 15,),
+          const SizedBox(width: 15,),
           const SizedBox(
             height: 30,
-            child: NavbarItemMenu(),
+            child: const NavbarItemMenu(),
           ),
               ]),
               Row(
                 children: [
-                  Sair(),
+                  const Sair(),
 
               ],)
               
@@ -66,12 +60,11 @@ class BuyNowButton extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
+          const Text(
             "Login",
             style: TextStyle(
               color: Colors.black,
               fontSize: 16.0,
-              // fontWeight: FontWeight.bold,
             ),
           ),
           Icon(Icons.navigate_next_rounded,

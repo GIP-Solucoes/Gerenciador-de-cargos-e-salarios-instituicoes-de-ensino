@@ -1,9 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/name_color.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/sistema_content.dart';
-//import 'package:my_portfolio/models/name_color.dart';
 
 class MenuText extends StatelessWidget {
   const MenuText({Key? key}) : super(key: key);
@@ -13,45 +11,6 @@ class MenuText extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: const [],
-    );
-  }
-}
-
-class SearchButton extends StatelessWidget {
-  const SearchButton({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final mediaQuery2 = MediaQuery.of(context).size;
-    return SizedBox(
-      width: mediaQuery2.width * 0.1,
-      height: 45.0,
-      child: TextField(
-        textAlignVertical: TextAlignVertical.bottom,
-        decoration: InputDecoration(
-          enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(
-              style: BorderStyle.none,
-            ),
-            borderRadius: BorderRadius.circular(30.0),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(
-              style: BorderStyle.none,
-            ),
-            borderRadius: BorderRadius.circular(30.0),
-          ),
-          filled: true,
-          fillColor: Colors.white,
-          prefixIcon: const Icon(Icons.search, color: Colors.black, size: 20.0),
-          hintText: 'Pesquisar...',
-          alignLabelWithHint: true,
-          hintStyle: const TextStyle(
-            color: Colors.black87,
-            fontSize: 18.0,
-          ),
-        ),
-      ),
     );
   }
 }
@@ -111,7 +70,6 @@ class _ResultadosState extends State<Resultados> {
       return Container(
         height: 400,
         width: 1000,
-        //margin: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           color: Colors.grey[200],
           borderRadius: BorderRadius.circular(10),
@@ -126,7 +84,6 @@ class _ResultadosState extends State<Resultados> {
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.end,
-                  //crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -135,74 +92,73 @@ class _ResultadosState extends State<Resultados> {
                           children: [
                             SizedBox(
                               width: 209,
-                              //height: 300,
                             ),
                             Container(
                                 width: 2, height: 55, color: Colors.grey[400]),
                           ],
                         ),
-                        Container(
-                          constraints: BoxConstraints(minWidth: 209),
-                          width: mediaQuery.width * 0.25,
-                          height: 45.0,
-                          child: TextField(
-                            textAlignVertical: TextAlignVertical.bottom,
-                            decoration: InputDecoration(
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                  style: BorderStyle.none,
+                        SizedBox(
+                          width: 35,
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: [
+                                Container(
+                                  constraints: BoxConstraints(minWidth: 209),
+                                  width: mediaQuery.width * 0.25,
+                                  height: 45.0,
+                                  child: TextField(
+                                    textAlignVertical: TextAlignVertical.bottom,
+                                    decoration: InputDecoration(
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                          style: BorderStyle.none,
+                                        ),
+                                        borderRadius: BorderRadius.circular(5.0),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                          style: BorderStyle.none,
+                                        ),
+                                        borderRadius: BorderRadius.circular(30.0),
+                                      ),
+                                      filled: true,
+                                      fillColor: Colors.white,
+                                      prefixIcon: const Icon(Icons.search,
+                                          color: Colors.black, size: 20.0),
+                                      hintText: 'Pesquisar...',
+                                      alignLabelWithHint: true,
+                                      hintStyle: const TextStyle(
+                                        color: Colors.black87,
+                                        fontSize: 18.0,
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                                borderRadius: BorderRadius.circular(5.0),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                  style: BorderStyle.none,
-                                ),
-                                borderRadius: BorderRadius.circular(30.0),
-                              ),
-                              filled: true,
-                              fillColor: Colors.white,
-                              prefixIcon: const Icon(Icons.search,
-                                  color: Colors.black, size: 20.0),
-                              hintText: 'Pesquisar...',
-                              alignLabelWithHint: true,
-                              hintStyle: const TextStyle(
-                                color: Colors.black87,
-                                fontSize: 18.0,
-                              ),
+                              ],
                             ),
                           ),
                         ),
                       ],
                     ),
                     Row(
-                      //mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Column(
-                          //mainAxisAlignment: MainAxisAlignment.start,
-                          //crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Row(
                               children: [
                                 Container(
                                   alignment: Alignment.center,
                                   width: 209.0,
-                                  //height: 40.0,
                                   constraints: BoxConstraints(
                                     minHeight: 40,
-                                    //maxHeight:100
                                   ),
                                   decoration: BoxDecoration(
                                     color: Colors.blue[200],
                                     borderRadius: BorderRadius.circular(5.0),
                                   ),
-                                  child: //Row(
-                                      //mainAxisAlignment: MainAxisAlignment.center,
-                                      //children: [
-                                      //Row(
-
-                                      //children: [
+                                  child:
                                       Text(
                                     "Salario Total - Atual",
                                     maxLines: 3,
@@ -210,13 +166,8 @@ class _ResultadosState extends State<Resultados> {
                                       color: Colors.black,
                                       fontSize: 16.0,
                                       fontWeight: FontWeight.bold,
-                                      // fontWeight: FontWeight.bold,
                                     ),
                                   ),
-
-                                  //],
-                                  //),
-                                  //],),
                                 ),
                                 Container(
                                     width: 2,
@@ -237,20 +188,13 @@ class _ResultadosState extends State<Resultados> {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      //Row(
-
-                                      //children: [
                                       Text(
                                         "R\$ XXXXX,XX",
                                         style: TextStyle(
                                           color: Colors.black,
                                           fontSize: 16.0,
-                                          //fontWeight: FontWeight.bold,
-                                          // fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                      //],
-                                      //),
                                     ],
                                   ),
                                 ),
@@ -273,20 +217,14 @@ class _ResultadosState extends State<Resultados> {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      //Row(
-
-                                      //children: [
                                       Text(
                                         "Salario Total - Ideal",
                                         style: TextStyle(
                                           color: Colors.black,
                                           fontSize: 16.0,
                                           fontWeight: FontWeight.bold,
-                                          // fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                      //],
-                                      //),
                                     ],
                                   ),
                                 ),
@@ -309,16 +247,11 @@ class _ResultadosState extends State<Resultados> {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      //Row(
-
-                                      //children: [
                                       Text(
                                         "R\$ XXXXX,XX",
                                         style: TextStyle(
                                           color: Colors.black,
                                           fontSize: 16.0,
-                                          //fontWeight: FontWeight.bold,
-                                          // fontWeight: FontWeight.bold,
                                         ),
                                       ),
                                       //],
@@ -345,20 +278,14 @@ class _ResultadosState extends State<Resultados> {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      //Row(
-
-                                      //children: [
                                       Text(
                                         "% - Impacto",
                                         style: TextStyle(
                                           color: Colors.black,
                                           fontSize: 16.0,
                                           fontWeight: FontWeight.bold,
-                                          // fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                      //],
-                                      //),
                                     ],
                                   ),
                                 ),
@@ -381,20 +308,13 @@ class _ResultadosState extends State<Resultados> {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      //Row(
-
-                                      //children: [
                                       Text(
                                         "XX,XX%",
                                         style: TextStyle(
                                           color: Colors.black,
                                           fontSize: 16.0,
-                                          //fontWeight: FontWeight.bold,
-                                          // fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                      //],
-                                      //),
                                     ],
                                   ),
                                 ),
@@ -412,20 +332,13 @@ class _ResultadosState extends State<Resultados> {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      //Row(
-
-                                      //children: [
                                       Text(
                                         "R\$ XXXX,XX",
                                         style: TextStyle(
                                           color: Colors.black,
                                           fontSize: 16.0,
-                                          //fontWeight: FontWeight.bold,
-                                          // fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                      //],
-                                      //),
                                     ],
                                   ),
                                 ),
@@ -437,14 +350,10 @@ class _ResultadosState extends State<Resultados> {
                             ),
                           ],
                         ),
-                        //Column(children: [
                         SizedBox(
                           width: (mediaQuery.width * this.valor) - 211,
-                          //height: 40,
                           child: SingleChildScrollView(
                             controller: scrollCont,
-                            //padding: EdgeInsets.symmetric(
-                            //vertical: 10.0, horizontal: mediaQuery.width * 0.1),
                             scrollDirection: Axis.horizontal,
                             child: Column(
                               children: [
@@ -477,7 +386,6 @@ class _ResultadosState extends State<Resultados> {
                                               color: Colors.black,
                                               fontSize: 16.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -505,7 +413,6 @@ class _ResultadosState extends State<Resultados> {
                                               color: Colors.black,
                                               fontSize: 16.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -533,7 +440,6 @@ class _ResultadosState extends State<Resultados> {
                                               color: Colors.black,
                                               fontSize: 16.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -561,7 +467,6 @@ class _ResultadosState extends State<Resultados> {
                                               color: Colors.black,
                                               fontSize: 16.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -592,7 +497,6 @@ class _ResultadosState extends State<Resultados> {
                                               fontSize: 8.0,
                                               fontWeight: FontWeight.bold,
 
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -621,7 +525,6 @@ class _ResultadosState extends State<Resultados> {
                                               color: Colors.black,
                                               fontSize: 8.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -650,7 +553,6 @@ class _ResultadosState extends State<Resultados> {
                                               color: Colors.black,
                                               fontSize: 8.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -679,7 +581,6 @@ class _ResultadosState extends State<Resultados> {
                                               color: Colors.black,
                                               fontSize: 8.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -708,7 +609,6 @@ class _ResultadosState extends State<Resultados> {
                                               color: Colors.black,
                                               fontSize: 8.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -737,7 +637,6 @@ class _ResultadosState extends State<Resultados> {
                                               color: Colors.black,
                                               fontSize: 16.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -767,7 +666,6 @@ class _ResultadosState extends State<Resultados> {
                                               color: Colors.black,
                                               fontSize: 8.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -796,7 +694,6 @@ class _ResultadosState extends State<Resultados> {
                                               color: Colors.black,
                                               fontSize: 8.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -825,7 +722,6 @@ class _ResultadosState extends State<Resultados> {
                                               color: Colors.black,
                                               fontSize: 8.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -854,7 +750,6 @@ class _ResultadosState extends State<Resultados> {
                                               color: Colors.black,
                                               fontSize: 8.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -883,7 +778,6 @@ class _ResultadosState extends State<Resultados> {
                                               color: Colors.black,
                                               fontSize: 16.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -912,7 +806,6 @@ class _ResultadosState extends State<Resultados> {
                                               color: Colors.black,
                                               fontSize: 8.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -942,7 +835,6 @@ class _ResultadosState extends State<Resultados> {
                                               color: Colors.black,
                                               fontSize: 16.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -971,7 +863,6 @@ class _ResultadosState extends State<Resultados> {
                                               color: Colors.black,
                                               fontSize: 16.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -1001,7 +892,6 @@ class _ResultadosState extends State<Resultados> {
                                               color: Colors.black,
                                               fontSize: 8.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -1030,7 +920,6 @@ class _ResultadosState extends State<Resultados> {
                                               color: Colors.black,
                                               fontSize: 8.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -1059,7 +948,6 @@ class _ResultadosState extends State<Resultados> {
                                               color: Colors.black,
                                               fontSize: 16.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -1088,7 +976,6 @@ class _ResultadosState extends State<Resultados> {
                                               color: Colors.black,
                                               fontSize: 16.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -1117,7 +1004,6 @@ class _ResultadosState extends State<Resultados> {
                                               color: Colors.black,
                                               fontSize: 8.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -1146,7 +1032,6 @@ class _ResultadosState extends State<Resultados> {
                                               color: Colors.black,
                                               fontSize: 8.0,
                                               fontWeight: FontWeight.bold,
-                                              // fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -5688,18 +5573,7 @@ class _ResultadosState extends State<Resultados> {
                               ],
                             ),
                           ),
-                          //height: double.infinity,
                         ),
-                        //  ],)
-                        //Row(children: [
-                        //Row(
-                        //mainAxisAlignment: MainAxisAlignment.start,
-                        //crossAxisAlignment: CrossAxisAlignment.start,
-                        //children: [
-
-                        //],//)
-
-                        //],)
                       ],
                     ),
                     const SizedBox(
@@ -5853,7 +5727,6 @@ class BotaoVoltar extends StatelessWidget {
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 16.0,
-                // fontWeight: FontWeight.bold,
               ),
             ),
           ],

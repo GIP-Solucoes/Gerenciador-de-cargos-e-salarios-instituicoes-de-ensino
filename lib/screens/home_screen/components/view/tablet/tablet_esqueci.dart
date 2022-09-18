@@ -1,11 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'package:gip_solucoes/screens/home_screen/components/view/content/aempresa_text.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/esqueci_content.dart';
-import 'package:gip_solucoes/screens/home_screen/components/view/content/youtube.dart';
-import 'package:gip_solucoes/screens/home_screen/components/view/content/faq_content.dart';
-import 'package:gip_solucoes/screens/home_screen/components/view/content/serving_items_list.dart';
-import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 class TabletEsqueci extends StatelessWidget {
   const TabletEsqueci({Key? key}) : super(key: key);
@@ -25,7 +19,7 @@ class TabletEsqueci extends StatelessWidget {
               children: [
                   SizedBox(height: 60),
                 Row(children: [
-                  TitleEsqueci(),
+                  TitleEsqueci(tamanho:mediaQuery.width*0.85),
                 ],),
                 SizedBox(height: 10,),
                   Row(children: [
@@ -33,12 +27,12 @@ class TabletEsqueci extends StatelessWidget {
                 ],),
                 SizedBox(height: 10,),
                 Row(children: [
-                  EsqueciCampo(),
+                  EsqueciCampo(tamanho2: 1,),
                 ],),
                 SizedBox(height: 10,),
                 Row(children: [
                   EsqueciBotao(),
-                  VoltarBotao(),
+                  VoltarBotao(tamanhovoltar: 1,),
                 ],),
               
           ],
@@ -47,26 +41,6 @@ class TabletEsqueci extends StatelessWidget {
       ),
       )
       
-    );
-  }
-}
-
-class _ServingItems extends StatelessWidget {
-  const _ServingItems({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView.separated(
-        itemBuilder: (context, index) {
-          return servingItems[index];
-        },
-        separatorBuilder: (context, _) {
-          return const SizedBox(height: 40.0);
-        },
-        itemCount: servingItems.length,
-        shrinkWrap: true,
-      ),
     );
   }
 }

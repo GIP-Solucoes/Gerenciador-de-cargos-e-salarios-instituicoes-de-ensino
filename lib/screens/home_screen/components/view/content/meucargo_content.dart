@@ -2,8 +2,6 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/sistema_content.dart';
 
-final double tam = 0;
-
 class CargoText extends StatelessWidget {
   const CargoText({Key? key}) : super(key: key);
 
@@ -56,6 +54,7 @@ class CargoText extends StatelessWidget {
     );
   }
 }
+
 class BotaoPontuacoes extends StatelessWidget {
   const BotaoPontuacoes({Key? key}) : super(key: key);
 
@@ -65,43 +64,46 @@ class BotaoPontuacoes extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        SizedBox(height: 50,),
+        SizedBox(
+          height: 50,
+        ),
         TextButton(
-              onPressed: () {
-                paginaS = 8;
-                Navigator.pushNamed(context, '/sistema');
-              },
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                alignment: Alignment.center,
-                width: 190,
-                height: 60.0,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15.0),
-                    border: Border.all(color: Colors.black)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    AutoSizeText(
-                      "Sistema de\npontuação",
-                      style: TextStyle(
-                          color: Colors.blue,
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    Icon(
-                      Icons.arrow_circle_right,
+          onPressed: () {
+            paginaS = 8;
+            Navigator.pushNamed(context, '/sistema');
+          },
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            alignment: Alignment.center,
+            width: 190,
+            height: 60.0,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15.0),
+                border: Border.all(color: Colors.black)),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                AutoSizeText(
+                  "Sistema de\npontuação",
+                  style: TextStyle(
                       color: Colors.blue,
-                      size: 40,
-                    )
-                  ],
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.bold),
                 ),
-              ),
+                Icon(
+                  Icons.arrow_circle_right,
+                  color: Colors.blue,
+                  size: 40,
+                )
+              ],
             ),
+          ),
+        ),
       ],
     );
   }
 }
+
 class DadosText extends StatelessWidget {
   const DadosText({Key? key}) : super(key: key);
 
@@ -228,8 +230,9 @@ class ProximoCargoText extends StatelessWidget {
 }
 
 class Faixassalariais extends StatelessWidget {
-  const Faixassalariais({
-    Key? key,
+  double tamanho=1;
+  Faixassalariais({
+    Key? key,required this.tamanho
   }) : super(key: key);
 
   @override
@@ -253,7 +256,6 @@ class Faixassalariais extends StatelessWidget {
                   color: Colors.black,
                   fontSize: 16.0,
                   fontWeight: FontWeight.bold,
-                  // fontWeight: FontWeight.bold,
                 ),
               ),
             ],
@@ -263,6 +265,7 @@ class Faixassalariais extends StatelessWidget {
           height: 5,
         ),
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Column(
               children: [
@@ -271,12 +274,12 @@ class Faixassalariais extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       color: Colors.blue,
-                      fontSize: 14.0,
+                      fontSize: 14.0*tamanho,
                       fontWeight: FontWeight.bold),
                 ),
                 Container(
                   alignment: Alignment.center,
-                  width: 130,
+                  width: 130*tamanho,
                   height: 50.0,
                   decoration: BoxDecoration(
                     color: Colors.grey[200],
@@ -289,8 +292,7 @@ class Faixassalariais extends StatelessWidget {
                         "R\$ 49,34",
                         style: TextStyle(
                           color: Colors.black,
-                          fontSize: 16.0,
-                          // fontWeight: FontWeight.bold,
+                          fontSize: 16.0*tamanho,
                         ),
                       ),
                     ],
@@ -299,7 +301,7 @@ class Faixassalariais extends StatelessWidget {
               ],
             ),
             SizedBox(
-              width: 19,
+              width: 5*tamanho,
             ),
             Column(
               children: [
@@ -308,12 +310,12 @@ class Faixassalariais extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       color: Colors.blue,
-                      fontSize: 14.0,
+                      fontSize: 14.0*tamanho,
                       fontWeight: FontWeight.bold),
                 ),
                 Container(
                   alignment: Alignment.center,
-                  width: 130,
+                  width: 130*tamanho,
                   height: 50.0,
                   decoration: BoxDecoration(
                     color: Colors.grey[200],
@@ -326,8 +328,7 @@ class Faixassalariais extends StatelessWidget {
                         "R\$ 57,50",
                         style: TextStyle(
                           color: Colors.black,
-                          fontSize: 16.0,
-                          // fontWeight: FontWeight.bold,
+                          fontSize: 16.0*tamanho,
                         ),
                       ),
                     ],
@@ -357,7 +358,6 @@ class Faixassalariais extends StatelessWidget {
                   color: Colors.white,
                   fontSize: 8.0,
                   fontWeight: FontWeight.bold,
-                  // fontWeight: FontWeight.bold,
                 ),
               ),
             ],
@@ -367,10 +367,11 @@ class Faixassalariais extends StatelessWidget {
           height: 5,
         ),
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
               alignment: Alignment.center,
-              width: 130,
+              width: 130*tamanho,
               height: 30.0,
               decoration: BoxDecoration(
                 color: Colors.grey[200],
@@ -383,19 +384,18 @@ class Faixassalariais extends StatelessWidget {
                     "21 à 30 pontos",
                     style: TextStyle(
                       color: Colors.black,
-                      fontSize: 12.0,
-                      // fontWeight: FontWeight.bold,
+                      fontSize: 12.0*(tamanho),
                     ),
                   ),
                 ],
               ),
             ),
             SizedBox(
-              width: 19,
+              width: 5*tamanho,
             ),
             Container(
               alignment: Alignment.center,
-              width: 130,
+              width: 130*tamanho,
               height: 30.0,
               decoration: BoxDecoration(
                 color: Colors.grey[200],
@@ -408,8 +408,7 @@ class Faixassalariais extends StatelessWidget {
                     "71 à 80 pontos",
                     style: TextStyle(
                       color: Colors.black,
-                      fontSize: 12.0,
-                      // fontWeight: FontWeight.bold,
+                      fontSize: 12.0*tamanho,
                     ),
                   ),
                 ],
@@ -455,33 +454,31 @@ class _PontuacaolayoutState extends State<Pontuacaolayout> {
                 fontWeight: FontWeight.bold),
           ),
         ),
-       // Row(
-     //     children: [
-            Container(
-              alignment: Alignment.center,
-              width: sizeLargura.width,
-              height: 90,
-              decoration: BoxDecoration(
-                color: Colors.black,
-                shape: BoxShape.circle,
+        Container(
+          alignment: Alignment.center,
+          width: sizeLargura.width,
+          height: 90,
+          decoration: BoxDecoration(
+            color: Colors.black,
+            shape: BoxShape.circle,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "25",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 32.0,
+                    fontStyle: FontStyle.italic,
+                    fontWeight: FontWeight.bold),
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "25",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 32.0,
-                        fontStyle: FontStyle.italic,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-            ),
-            
-         // ],
-       // )
+            ],
+          ),
+        ),
+
+        // ],
+        // )
       ],
     );
   }
