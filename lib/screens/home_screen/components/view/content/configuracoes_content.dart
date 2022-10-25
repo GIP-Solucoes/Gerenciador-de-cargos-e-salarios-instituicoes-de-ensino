@@ -224,8 +224,8 @@ class Alterarimagem extends StatelessWidget {
         SizedBox(
           height: 15,
         ),
-        Image.asset(
-          'assets/images/image_config.png',height: 125,
+        Image.network(
+          'https://firebasestorage.googleapis.com/v0/b/implementacaotcc.appspot.com/o/fixos%2Fimage_config.png?alt=media&token=3020296d-fdb0-4290-bdbd-1fad2325370a',height: 125,
         ),
         SizedBox(
           height: 40,

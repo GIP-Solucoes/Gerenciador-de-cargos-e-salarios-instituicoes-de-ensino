@@ -11,8 +11,8 @@ class Logo extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Image.asset(
-          'assets/images/logo.png',
+        Image.network(
+          'https://firebasestorage.googleapis.com/v0/b/implementacaotcc.appspot.com/o/fixos%2Flogo.png?alt=media&token=43f5d90c-84b3-43fc-8cd9-77a91b9db188',
           height: 27.5*this.tamanhologo,
         ),
       ],

@@ -159,7 +159,7 @@ class Perguntas extends StatelessWidget {
             Container(
               height: tamanhoimagem,
               width: tamanhoimagem,
-              child: Image.asset('assets/images/faq.png'),
+              child: Image.network('https://firebasestorage.googleapis.com/v0/b/implementacaotcc.appspot.com/o/fixos%2Ffaq.png?alt=media&token=59b1ddc5-458b-46bd-b7d3-9b31e564040b'),
             ),
           ],
         )

@@ -16,7 +16,7 @@ class Header extends StatelessWidget {
               pagina = 4;
               Navigator.pushNamed(context, '/');
             },
-            child: Image.asset('assets/images/logo.png', height: 30.0)),
+            child: Image.network('https://firebasestorage.googleapis.com/v0/b/implementacaotcc.appspot.com/o/fixos%2Flogo.png?alt=media&token=43f5d90c-84b3-43fc-8cd9-77a91b9db188', height: 30.0)),
 
       ],
     );
