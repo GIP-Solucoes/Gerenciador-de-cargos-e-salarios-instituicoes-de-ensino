@@ -39,9 +39,11 @@ dependencies:
   cupertino_icons: ^1.0.2
   auto_size_text: ^3.0.0
   youtube_player_iframe: ^2.3.0
-  cloud_firestore: ^3.4.7
-  firebase_core: ^1.22.0
-  firebase_auth: ^3.8.0
+  cloud_firestore: ^4.0.1
+  firebase_core: ^2.0.0
+  firebase_auth: ^4.0.1
+  firebase_storage: ^11.0.1
+  file_picker: ^4.0.3
 
 dev_dependencies:
   flutter_test:

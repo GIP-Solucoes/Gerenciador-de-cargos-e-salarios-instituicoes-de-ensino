@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/sistema_content.dart';
 
@@ -20,15 +21,15 @@ class _StateNavbarItemSistema extends State<NavbarItemSistema> {
       onPressed: () {
         if (index == 1) {
           Navigator.popAndPushNamed(context, '/');
-        }else{
+          FirebaseAuth.instance.signOut();
+        } else {
           paginaS = 1;
           Navigator.popAndPushNamed(context, '/sistema');
         }
-        
       },
       child: index == 1
           ? Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   '$title ',

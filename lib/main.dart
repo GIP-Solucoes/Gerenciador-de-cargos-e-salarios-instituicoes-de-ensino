@@ -2,8 +2,11 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:gip_solucoes/screens/home_screen/sistema_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 import './screens/screens.dart';
+
 class MyCustomScrollBehavior extends MaterialScrollBehavior {
   @override
   Set<PointerDeviceKind> get dragDevices => {
@@ -12,8 +15,12 @@ class MyCustomScrollBehavior extends MaterialScrollBehavior {
       };
 }
 
-void main() {
+Future<void> main() async {
   setUrlStrategy(PathUrlStrategy());
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(
     const MyApp(),
   );
@@ -40,7 +47,7 @@ class _StateMyApp extends State<MyApp> {
       ),
       routes: {
         '/': (_) => const HomeScreen(),
-        '/sistema':(_)=>const SistemaScreen(),
+        '/sistema': (_) => const SistemaScreen(),
       },
     );
   }

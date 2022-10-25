@@ -1,6 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gip_solucoes/screens/home_screen/components/model/Usuario.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/hero_content.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/desktop/desktop_esqueci.dart';
+
+
 
 class EscritaEsqueci extends StatelessWidget {
   double tamanho;
@@ -47,7 +52,10 @@ class TitleEsqueci extends StatelessWidget {
 
 class EsqueciCampo extends StatelessWidget {
   double tamanho2;
-  EsqueciCampo({Key? key, required this.tamanho2}) : super(key: key);
+  TextEditingController controllerEmail = new TextEditingController();
+  EsqueciCampo(
+      {Key? key, required this.tamanho2, required this.controllerEmail})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -72,31 +80,36 @@ class EsqueciCampo extends StatelessWidget {
 }
 
 class EsqueciBotao extends StatelessWidget {
-  const EsqueciBotao({
-    Key? key,
-  }) : super(key: key);
+  String email;
+  EsqueciBotao({Key? key, required this.email}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      width: 150.0,
-      height: 40.0,
-      decoration: BoxDecoration(
-        color: Colors.blue,
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            "Redefinir senha",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16.0,
+    return TextButton(
+      onPressed: () {
+        Usuario usuario = new Usuario(email, 'senha');
+        usuario.realizar_esqueci(context, this.email);
+      },
+      child: Container(
+        alignment: Alignment.center,
+        width: 150.0,
+        height: 40.0,
+        decoration: BoxDecoration(
+          color: Colors.blue,
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Redefinir senha",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16.0,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -104,9 +117,7 @@ class EsqueciBotao extends StatelessWidget {
 
 class VoltarBotao extends StatelessWidget {
   double tamanhovoltar;
-  VoltarBotao({
-    Key? key,required this.tamanhovoltar
-  }) : super(key: key);
+  VoltarBotao({Key? key, required this.tamanhovoltar}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

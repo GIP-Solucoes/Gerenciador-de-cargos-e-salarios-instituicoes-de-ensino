@@ -4,7 +4,8 @@ import 'package:gip_solucoes/components/app_bar/components/navbar_menu_content.d
 
 //layout parte de cima (sistema)
 class DesktopNavbarMenu extends StatelessWidget {
-  const DesktopNavbarMenu({Key? key}) : super(key: key);
+  String email;
+  DesktopNavbarMenu({Key? key,required this.email}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,31 +18,31 @@ class DesktopNavbarMenu extends StatelessWidget {
           horizontal: width > 850 ? (width * 0.07) : (width * 0.05)),
       height: height,
       child: Container(
-        child:
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-          const HeaderMenu(),
-          const SizedBox(width: 15,),
-          const SizedBox(
-            height: 30,
-            child: const NavbarItemMenu(),
-          ),
-              ]),
-              Row(
-                children: [
-                  const Sair(),
-
-              ],)
-              
-          ],),
-
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(children: [
+              HeaderMenu(email:this.email),
+              const SizedBox(
+                width: 15,
+              ),
+              SizedBox(
+                height: 30,
+                child: NavbarItemMenu(email: this.email),
+              ),
+            ]),
+            Row(
+              children: [
+                const Sair(),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
 }
+
 class BuyNowButton extends StatelessWidget {
   const BuyNowButton({
     Key? key,
@@ -67,8 +68,7 @@ class BuyNowButton extends StatelessWidget {
               fontSize: 16.0,
             ),
           ),
-          Icon(Icons.navigate_next_rounded,
-              color: Colors.grey, size: 30.0),
+          Icon(Icons.navigate_next_rounded, color: Colors.grey, size: 30.0),
         ],
       ),
     );

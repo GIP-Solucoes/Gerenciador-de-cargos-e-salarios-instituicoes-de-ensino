@@ -43,7 +43,7 @@ class _StateHeroContent extends State<HeroContent> {
               return const DesktopFaq();
               break;
             case 3:
-              return const DesktopEsqueci();
+              return DesktopEsqueci();
               break;
           }
           return const DesktopLogin();
@@ -59,7 +59,7 @@ class _StateHeroContent extends State<HeroContent> {
               return const TabletFaq();
               break;
             case 3:
-              return const TabletEsqueci();
+              return TabletEsqueci();
               break;
           }
           return const TabletLogin();
@@ -75,7 +75,7 @@ class _StateHeroContent extends State<HeroContent> {
               return const MobileFaq();
               break;
             case 3:
-              return const MobileEsqueci();
+              return MobileEsqueci();
               break;
           }
           return const MobileLogin();

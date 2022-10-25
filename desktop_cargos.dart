@@ -5,7 +5,7 @@ import 'package:gip_solucoes/screens/home_screen/components/view/content/esqueci
 import 'package:gip_solucoes/screens/home_screen/components/view/content/cargos_content.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/youtube.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/menu_content.dart';
-import 'package:gip_solucoes/screens/home_screen/components/view/content/serving_items_list.dart';
+//import 'package:gip_solucoes/screens/home_screen/components/view/content/serving_items_list.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 class DesktopCargos extends StatelessWidget {
@@ -48,7 +48,7 @@ class DesktopCargos extends StatelessWidget {
     );
   }
 }
-
+/*
 class _ServingItems extends StatelessWidget {
   const _ServingItems({Key? key}) : super(key: key);
 
@@ -68,3 +68,4 @@ class _ServingItems extends StatelessWidget {
     );
   }
 }
+*/

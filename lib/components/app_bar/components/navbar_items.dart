@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gip_solucoes/screens/home_screen/components/controller/controller_suporte.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/hero_content.dart';
 
 // navbar_items
@@ -32,8 +33,8 @@ class NavbarItems extends StatelessWidget {
   }
 }
 
-class _StateNavbarItem extends State<NavbarItem>{
-   _StateNavbarItem({
+class _StateNavbarItem extends State<NavbarItem> {
+  _StateNavbarItem({
     Key? key,
     required this.title,
     required this.index,
@@ -44,33 +45,43 @@ class _StateNavbarItem extends State<NavbarItem>{
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: () {
-        
-        if(index!=1){
-            pagina = index;
+        if (index != 1) {
+          pagina = index;
 
-        Navigator.pushNamed(context, '/');
+          Navigator.pushNamed(context, '/');
+        } else {
+          SuporteController suporteController = new SuporteController();
+          suporteController.redireciona_whatsapp();
         }
-        
       },
-      child: index==1?Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [Text(
-        title+' ',
-        style: const TextStyle(
-          color: Colors.black,
-          fontSize: 20.0,
-        ),
-      ),
-      const Icon(Icons.whatsapp,color: Colors.black,)],):Text(
-        title,
-        style: const TextStyle(
-          color: Colors.black,
-          fontSize: 20.0,
-        ),
-      ),
+      child: index == 1
+          ? Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  title + ' ',
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 20.0,
+                  ),
+                ),
+                const Icon(
+                  Icons.whatsapp,
+                  color: Colors.black,
+                )
+              ],
+            )
+          : Text(
+              title,
+              style: const TextStyle(
+                color: Colors.black,
+                fontSize: 20.0,
+              ),
+            ),
     );
   }
 }
+
 class NavbarItem extends StatefulWidget {
   const NavbarItem({
     Key? key,

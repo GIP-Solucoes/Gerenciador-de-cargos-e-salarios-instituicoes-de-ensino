@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:gip_solucoes/components/app_bar/components/header_sistema.dart';
+
 //layout parte de cima mobile (sistema)
 class MobileNavbarSistema extends StatelessWidget {
-  const MobileNavbarSistema({Key? key}) : super(key: key);
+  String email;
+  MobileNavbarSistema({Key? key,required this.email}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -1,11 +1,24 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:gip_solucoes/screens/home_screen/components/model/Usuario.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/hero_content.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/sistema_content.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
   double tamanho;
+
   Login({Key? key, required this.tamanho}) : super(key: key);
+
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  bool showPassword = false;
+
+  TextEditingController controllerEmail = new TextEditingController();
+
+  TextEditingController controllerSenha = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +40,9 @@ class Login extends StatelessWidget {
           height: 15,
         ),
         SizedBox(
-          width: 300*tamanho,
+          width: 300 * widget.tamanho,
           child: TextField(
+            controller: controllerEmail,
             decoration: InputDecoration(
               hintText: 'E-mail',
               fillColor: Colors.grey.shade200,
@@ -45,12 +59,26 @@ class Login extends StatelessWidget {
           height: 15,
         ),
         SizedBox(
-          width: 300*tamanho,
+          width: 300 * widget.tamanho,
           child: TextField(
+            obscureText: showPassword==false?true:false,
+            controller: controllerSenha,
             decoration: InputDecoration(
               hintText: 'Password',
-              suffixIcon:
-                  Icon(Icons.visibility_off_outlined, color: Colors.grey),
+              suffixIcon: GestureDetector(
+                child: Icon(
+                    showPassword == false
+                        ? Icons.visibility_off_outlined
+                        : Icons.visibility_outlined,
+                    color: Colors.grey),
+                onTap: () {
+                  setState(
+                    () {
+                      showPassword = !showPassword;
+                    },
+                  );
+                },
+              ),
               fillColor: Colors.grey.shade200,
               filled: true,
               labelStyle: TextStyle(fontSize: 12),
@@ -64,7 +92,7 @@ class Login extends StatelessWidget {
         SizedBox(height: 5),
         Container(
             alignment: Alignment.centerRight,
-            width: 300*tamanho,
+            width: 300 * widget.tamanho,
             child: TextButton(
                 onPressed: () {
                   pagina = 3;
@@ -80,8 +108,8 @@ class Login extends StatelessWidget {
         ),
         TextButton(
           style: ButtonStyle(
-              minimumSize:
-                  MaterialStateProperty.resolveWith((states) => Size(300*tamanho, 45)),
+              minimumSize: MaterialStateProperty.resolveWith(
+                  (states) => Size(300 * widget.tamanho, 45)),
               textStyle: MaterialStateProperty.resolveWith(
                 (states) => TextStyle(
                   color: Colors.black,
@@ -94,7 +122,8 @@ class Login extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10)))),
           onPressed: () {
             paginaS = 0;
-            Navigator.pushNamed(context, '/sistema');
+            Usuario usuario = Usuario.getInformacoes();
+            usuario.realizar_login(context,controllerEmail.text, controllerSenha.text);
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
