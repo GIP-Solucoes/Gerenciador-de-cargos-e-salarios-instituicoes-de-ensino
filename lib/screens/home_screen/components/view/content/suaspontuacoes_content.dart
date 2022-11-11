@@ -1,6 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:gip_solucoes/screens/home_screen/components/model/Cargo.dart';
+import 'package:gip_solucoes/screens/home_screen/components/model/Pontuacao.dart';
+import 'package:gip_solucoes/screens/home_screen/components/model/Usuario.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/sistema_content.dart';
+import 'package:intl/intl.dart';
 
 class _SuaspontuacoesState extends State<Suaspontuacoes> {
   int statusCont = 1;
@@ -156,7 +160,7 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                            "Pontuação de Formação Acadêmica",
+                                            (this.widget.pontuacoes.asMap().containsKey(2))?widget.pontuacoes[2].nome:"Carregando...",
                                             style: TextStyle(
                                               color: Colors.black,
                                               fontSize: 16.0,
@@ -240,7 +244,7 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                            "Experiência",
+                                            (this.widget.pontuacoes.asMap().containsKey(1))?widget.pontuacoes[1].nome:"Carregando...",
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               color: Colors.black,
@@ -390,7 +394,7 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
                                                                 .circular(5.0),
                                                       ),
                                                       child: Text(
-                                                        "Aprovação em Concurso Público",
+                                                        (this.widget.pontuacoes.asMap().containsKey(2) && this.widget.pontuacoes[2].pontuacaoAtributo.asMap().containsKey(0))?widget.pontuacoes[2].pontuacaoAtributo[0].nome:"Carregando...",
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyle(
@@ -418,7 +422,7 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
                                                       child: Text(
                                                         textAlign:
                                                             TextAlign.center,
-                                                        '0',
+                                                        (this.widget.pontuacoes.asMap().containsKey(2) && this.widget.pontuacoes[2].pontuacaoAtributo.asMap().containsKey(0))?widget.pontuacoes[2].pontuacaoAtributo[0].valor.toString().replaceAll('.', ','):"...",
                                                         style: TextStyle(
                                                           color: Colors.black,
                                                           fontSize: 16.0,
@@ -460,7 +464,7 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
                                                                             "Máximo de pontos:",
                                                                           ),
                                                                           content:
-                                                                              Text("O máximo de pontos para este atributo é 5."),
+                                                                              Text((this.widget.pontuacoes.asMap().containsKey(2) && this.widget.pontuacoes[2].pontuacaoAtributo.asMap().containsKey(0))?"O máximo de pontos para este atributo é "+widget.pontuacoes[2].pontuacaoAtributo[0].quantidade_maxima.toString().replaceAll('.', ',')+".":"Carregando..."),
                                                                           actions: [
                                                                             TextButton(
                                                                                 onPressed: () {
@@ -481,7 +485,7 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
                                                           Text(
                                                             textAlign: TextAlign
                                                                 .center,
-                                                            '0',
+                                                            this.widget.usuario.quantidade_aprovacao_concurso.toString().replaceAll('.', ','),
                                                             style: TextStyle(
                                                               color:
                                                                   Colors.black,
@@ -505,7 +509,7 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
                                                                 .circular(5.0),
                                                       ),
                                                       child: Text(
-                                                        "Livros publicados",
+                                                        (this.widget.pontuacoes.asMap().containsKey(1) && this.widget.pontuacoes[1].pontuacaoAtributo.asMap().containsKey(0))?widget.pontuacoes[1].pontuacaoAtributo[0].nome:"Carregando...",
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyle(
@@ -533,7 +537,7 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
                                                       child: Text(
                                                         textAlign:
                                                             TextAlign.center,
-                                                        '0',
+                                                        (this.widget.pontuacoes.asMap().containsKey(1) && this.widget.pontuacoes[1].pontuacaoAtributo.asMap().containsKey(0))?widget.pontuacoes[1].pontuacaoAtributo[0].valor.toString().replaceAll('.', ','):"...",
                                                         style: TextStyle(
                                                           color: Colors.black,
                                                           fontSize: 16.0,
@@ -575,7 +579,8 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
                                                                             "Máximo de pontos:",
                                                                           ),
                                                                           content:
-                                                                              Text("O máximo de pontos para este atributo é 5."),
+                                                                              Text(
+                                                                                (this.widget.pontuacoes.asMap().containsKey(1) && this.widget.pontuacoes[1].pontuacaoAtributo.asMap().containsKey(0))?"O máximo de pontos para este atributo é "+widget.pontuacoes[1].pontuacaoAtributo[0].quantidade_maxima.toString().replaceAll('.', ',')+".":"Carregando..."),
                                                                           actions: [
                                                                             TextButton(
                                                                                 onPressed: () {
@@ -596,7 +601,7 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
                                                           Text(
                                                             textAlign: TextAlign
                                                                 .center,
-                                                            '0',
+                                                            this.widget.usuario.quantidade_livros.toString().replaceAll('.', ','),
                                                             style: TextStyle(
                                                               color:
                                                                   Colors.black,
@@ -620,7 +625,8 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
                                                                 .circular(5.0),
                                                       ),
                                                       child: Text(
-                                                        "XX/XX/XXXX",
+                                                        DateFormat("dd/MM/yyyy").format(this.widget.usuario.data_admissao)
+                                                        ,
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyle(
@@ -658,7 +664,7 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
                                                                 .circular(5.0),
                                                       ),
                                                       child: Text(
-                                                        "ESPECIALISTA",
+                                                        this.widget.cargo.titulo,
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyle(
@@ -686,7 +692,7 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
                                                       child: Text(
                                                         textAlign:
                                                             TextAlign.center,
-                                                        '3',
+                                                        this.widget.cargo.valor_pontuacao.toString().replaceAll('.', ','),
                                                         style: TextStyle(
                                                           color: Colors.black,
                                                           fontSize: 16.0,
@@ -707,7 +713,7 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
                                                                 .circular(5.0),
                                                       ),
                                                       child: Text(
-                                                        "Créditos de Pós-Graduação \"Stricto Sensu\" por disciplina",
+                                                        (this.widget.pontuacoes.asMap().containsKey(2) && this.widget.pontuacoes[2].pontuacaoAtributo.asMap().containsKey(1))?widget.pontuacoes[2].pontuacaoAtributo[1].nome:"Carregando...",
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyle(
@@ -735,7 +741,7 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
                                                       child: Text(
                                                         textAlign:
                                                             TextAlign.center,
-                                                        '0',
+                                                        (this.widget.pontuacoes.asMap().containsKey(2) && this.widget.pontuacoes[2].pontuacaoAtributo.asMap().containsKey(1))?widget.pontuacoes[2].pontuacaoAtributo[1].valor.toString().replaceAll('.', ','):"...",
                                                         style: TextStyle(
                                                           color: Colors.black,
                                                           fontSize: 16.0,
@@ -777,7 +783,9 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
                                                                             "Máximo de pontos:",
                                                                           ),
                                                                           content:
-                                                                              Text("O máximo de pontos para este atributo é 5."),
+                                                                              Text(
+                                                                                (
+                                                                                  this.widget.pontuacoes.asMap().containsKey(2) && this.widget.pontuacoes[2].pontuacaoAtributo.asMap().containsKey(1))?"O máximo de pontos para este atributo é "+widget.pontuacoes[2].pontuacaoAtributo[1].valor.toString().replaceAll('.', ',')+".":"Carregando..."),
                                                                           actions: [
                                                                             TextButton(
                                                                                 onPressed: () {
@@ -798,7 +806,7 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
                                                           Text(
                                                             textAlign: TextAlign
                                                                 .center,
-                                                            '0',
+                                                            this.widget.usuario.quantidade_stricto_sensu.toString().replaceAll('.', ','),
                                                             style: TextStyle(
                                                               color:
                                                                   Colors.black,
@@ -822,7 +830,7 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
                                                                 .circular(5.0),
                                                       ),
                                                       child: Text(
-                                                        "Realização de Pesquisa aprovada pela Instituição (Mínimo 1 ano)",
+                                                        (this.widget.pontuacoes.asMap().containsKey(1) && this.widget.pontuacoes[1].pontuacaoAtributo.asMap().containsKey(1))?widget.pontuacoes[1].pontuacaoAtributo[1].nome.toString().replaceAll('.', ','):"Carregando...",
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyle(
@@ -850,7 +858,7 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
                                                       child: Text(
                                                         textAlign:
                                                             TextAlign.center,
-                                                        '0',
+                                                        (this.widget.pontuacoes.asMap().containsKey(1) && this.widget.pontuacoes[1].pontuacaoAtributo.asMap().containsKey(1))?widget.pontuacoes[1].pontuacaoAtributo[1].valor.toString().replaceAll('.', ','):"...",
                                                         style: TextStyle(
                                                           color: Colors.black,
                                                           fontSize: 16.0,
@@ -892,7 +900,10 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
                                                                             "Máximo de pontos:",
                                                                           ),
                                                                           content:
-                                                                              Text("O máximo de pontos para este atributo é 5."),
+                                                                              Text(
+                                                                                (
+                                                                                  
+                                                                                  this.widget.pontuacoes.asMap().containsKey(1) && this.widget.pontuacoes[1].pontuacaoAtributo.asMap().containsKey(1))?"O máximo de pontos para este atributo é "+widget.pontuacoes[1].pontuacaoAtributo[1].quantidade_maxima.toString().replaceAll('.', ',')+".":"Carregando..."),
                                                                           actions: [
                                                                             TextButton(
                                                                                 onPressed: () {
@@ -913,7 +924,7 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
                                                           Text(
                                                             textAlign: TextAlign
                                                                 .center,
-                                                            '0',
+                                                            this.widget.usuario.quantidade_professor_universidade_publica.toString().replaceAll('.', ','),
                                                             style: TextStyle(
                                                               color:
                                                                   Colors.black,
@@ -998,7 +1009,7 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
                                                                 .circular(5.0),
                                                       ),
                                                       child: Text(
-                                                        "Cursos de Aperfeiçoamento (mínimo 180 Hs)",
+                                                        (this.widget.pontuacoes.asMap().containsKey(2) && this.widget.pontuacoes[2].pontuacaoAtributo.asMap().containsKey(2))?widget.pontuacoes[2].pontuacaoAtributo[2].nome:"Carregando...",
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyle(
@@ -1026,7 +1037,7 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
                                                       child: Text(
                                                         textAlign:
                                                             TextAlign.center,
-                                                        '0',
+                                                        (this.widget.pontuacoes.asMap().containsKey(2) && this.widget.pontuacoes[2].pontuacaoAtributo.asMap().containsKey(2))?widget.pontuacoes[2].pontuacaoAtributo[2].valor.toString().replaceAll('.', ','):"...",
                                                         style: TextStyle(
                                                           color: Colors.black,
                                                           fontSize: 16.0,
@@ -1068,7 +1079,8 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
                                                                             "Máximo de pontos:",
                                                                           ),
                                                                           content:
-                                                                              Text("O máximo de pontos para este atributo é 5."),
+                                                                              Text(
+                                                                                (this.widget.pontuacoes.asMap().containsKey(2) && this.widget.pontuacoes[2].pontuacaoAtributo.asMap().containsKey(2))?"O máximo de pontos para este atributo é "+widget.pontuacoes[2].pontuacaoAtributo[2].quantidade_maxima.toString().replaceAll('.', ',')+".":"Carregando..."),
                                                                           actions: [
                                                                             TextButton(
                                                                                 onPressed: () {
@@ -1089,7 +1101,7 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
                                                           Text(
                                                             textAlign: TextAlign
                                                                 .center,
-                                                            '0',
+                                                            this.widget.usuario.quantidade_cursos_aperfeicoamento.toString().replaceAll('.', ','),
                                                             style: TextStyle(
                                                               color:
                                                                   Colors.black,
@@ -1113,7 +1125,7 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
                                                                 .circular(5.0),
                                                       ),
                                                       child: Text(
-                                                        "Professor de universidade pública (Por ano completo)",
+                                                        (this.widget.pontuacoes.asMap().containsKey(1) && this.widget.pontuacoes[1].pontuacaoAtributo.asMap().containsKey(2))?widget.pontuacoes[1].pontuacaoAtributo[2].nome:"Carregando...",
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyle(
@@ -1141,7 +1153,7 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
                                                       child: Text(
                                                         textAlign:
                                                             TextAlign.center,
-                                                        '0',
+                                                        (this.widget.pontuacoes.asMap().containsKey(1) && this.widget.pontuacoes[1].pontuacaoAtributo.asMap().containsKey(2))?widget.pontuacoes[1].pontuacaoAtributo[2].valor.toString().replaceAll('.', ','):"...",
                                                         style: TextStyle(
                                                           color: Colors.black,
                                                           fontSize: 16.0,
@@ -1183,7 +1195,8 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
                                                                             "Máximo de pontos:",
                                                                           ),
                                                                           content:
-                                                                              Text("O máximo de pontos para este atributo é 5."),
+                                                                              Text(
+                                                                                (this.widget.pontuacoes.asMap().containsKey(1) && this.widget.pontuacoes[1].pontuacaoAtributo.asMap().containsKey(2))?"O máximo de pontos para este atributo é "+widget.pontuacoes[1].pontuacaoAtributo[2].quantidade_maxima.toString().replaceAll('.', ',')+".":"Carregando..."),
                                                                           actions: [
                                                                             TextButton(
                                                                                 onPressed: () {
@@ -1204,7 +1217,7 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
                                                           Text(
                                                             textAlign: TextAlign
                                                                 .center,
-                                                            '0',
+                                                            this.widget.usuario.quantidade_pesquisas_aprovadas.toString().replaceAll('.', ','),
                                                             style: TextStyle(
                                                               color:
                                                                   Colors.black,
@@ -1228,7 +1241,7 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
                                                                 .circular(5.0),
                                                       ),
                                                       child: Text(
-                                                        "XX ano(s) e XX mes(es)",
+                                                        this.widget.quantidade_anos.toString()+" ano(s) e "+this.widget.quantidade_meses.toString()+" mes(es)",
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyle(
@@ -1266,7 +1279,7 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
                                                                 .circular(5.0),
                                                       ),
                                                       child: Text(
-                                                        "MESTRADO",
+                                                        this.widget.titulo_cargo,
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyle(
@@ -1294,7 +1307,7 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
                                                       child: Text(
                                                         textAlign:
                                                             TextAlign.center,
-                                                        '20',
+                                                        this.widget.valor_cargo.toString().replaceAll('.', ','),
                                                         style: TextStyle(
                                                           color: Colors.black,
                                                           fontSize: 16.0,
@@ -1315,7 +1328,7 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
                                                                 .circular(5.0),
                                                       ),
                                                       child: Text(
-                                                        "Outros Cursos de Graduação",
+                                                        (this.widget.pontuacoes.asMap().containsKey(2) && this.widget.pontuacoes[2].pontuacaoAtributo.asMap().containsKey(3))?widget.pontuacoes[2].pontuacaoAtributo[3].nome:"Carregando...",
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyle(
@@ -1343,7 +1356,7 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
                                                       child: Text(
                                                         textAlign:
                                                             TextAlign.center,
-                                                        '0',
+                                                        (this.widget.pontuacoes.asMap().containsKey(2) && this.widget.pontuacoes[2].pontuacaoAtributo.asMap().containsKey(3))?widget.pontuacoes[2].pontuacaoAtributo[3].valor.toString().replaceAll('.', ','):"...",
                                                         style: TextStyle(
                                                           color: Colors.black,
                                                           fontSize: 16.0,
@@ -1385,7 +1398,8 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
                                                                             "Máximo de pontos:",
                                                                           ),
                                                                           content:
-                                                                              Text("O máximo de pontos para este atributo é 5."),
+                                                                              Text(
+                                                                                (this.widget.pontuacoes.asMap().containsKey(2) && this.widget.pontuacoes[2].pontuacaoAtributo.asMap().containsKey(3))?"O máximo de pontos para este atributo é "+widget.pontuacoes[2].pontuacaoAtributo[3].quantidade_maxima.toString().replaceAll('.', ',')+".":"Carregando..."),
                                                                           actions: [
                                                                             TextButton(
                                                                                 onPressed: () {
@@ -1406,7 +1420,7 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
                                                           Text(
                                                             textAlign: TextAlign
                                                                 .center,
-                                                            '0',
+                                                            this.widget.usuario.quantidade_cursos_extensao_cultural.toString().replaceAll('.', ','),
                                                             style: TextStyle(
                                                               color:
                                                                   Colors.black,
@@ -1430,7 +1444,7 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
                                                                 .circular(5.0),
                                                       ),
                                                       child: Text(
-                                                        "Trabalhos científicos publicado em revista especializada",
+                                                        (this.widget.pontuacoes.asMap().containsKey(1) && this.widget.pontuacoes[1].pontuacaoAtributo.asMap().containsKey(3))?widget.pontuacoes[1].pontuacaoAtributo[3].nome:"Carregando...",
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyle(
@@ -1458,7 +1472,7 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
                                                       child: Text(
                                                         textAlign:
                                                             TextAlign.center,
-                                                        '0',
+                                                        (this.widget.pontuacoes.asMap().containsKey(1) && this.widget.pontuacoes[1].pontuacaoAtributo.asMap().containsKey(3))?widget.pontuacoes[1].pontuacaoAtributo[3].valor.toString().replaceAll('.', ','):"...",
                                                         style: TextStyle(
                                                           color: Colors.black,
                                                           fontSize: 16.0,
@@ -1500,7 +1514,8 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
                                                                             "Máximo de pontos:",
                                                                           ),
                                                                           content:
-                                                                              Text("O máximo de pontos para este atributo é 5."),
+                                                                              Text(
+                                                                                (this.widget.pontuacoes.asMap().containsKey(1) && this.widget.pontuacoes[1].pontuacaoAtributo.asMap().containsKey(3))?"O máximo de pontos para este atributo é "+widget.pontuacoes[1].pontuacaoAtributo[3].quantidade_maxima.toString().replaceAll('.', ',')+".":"Carregando..."),
                                                                           actions: [
                                                                             TextButton(
                                                                                 onPressed: () {
@@ -1521,7 +1536,7 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
                                                           Text(
                                                             textAlign: TextAlign
                                                                 .center,
-                                                            '0',
+                                                            this.widget.usuario.quantidade_trabalhos_cientificos_revista.toString().replaceAll('.', ','),
                                                             style: TextStyle(
                                                               color:
                                                                   Colors.black,
@@ -1583,7 +1598,7 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
                                                                 .circular(5.0),
                                                       ),
                                                       child: Text(
-                                                        "Assiduidade",
+                                                        (this.widget.pontuacoes.asMap().containsKey(0))?widget.pontuacoes[0].nome:"Carregando...",
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyle(
@@ -1608,7 +1623,7 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
                                                                 .circular(5.0),
                                                       ),
                                                       child: Text(
-                                                        "Cursos de Extensão Cultural (mínimo 30 Hs)",
+                                                        (this.widget.pontuacoes.asMap().containsKey(2) && this.widget.pontuacoes[2].pontuacaoAtributo.asMap().containsKey(4))?widget.pontuacoes[2].pontuacaoAtributo[4].nome:"Carregando...",
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyle(
@@ -1636,7 +1651,7 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
                                                       child: Text(
                                                         textAlign:
                                                             TextAlign.center,
-                                                        '0',
+                                                        (this.widget.pontuacoes.asMap().containsKey(2) && this.widget.pontuacoes[2].pontuacaoAtributo.asMap().containsKey(4))?widget.pontuacoes[2].pontuacaoAtributo[4].valor.toString().replaceAll('.', ','):"...",
                                                         style: TextStyle(
                                                           color: Colors.black,
                                                           fontSize: 16.0,
@@ -1678,7 +1693,8 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
                                                                             "Máximo de pontos:",
                                                                           ),
                                                                           content:
-                                                                              Text("O máximo de pontos para este atributo é 5."),
+                                                                              Text(
+                                                                                (this.widget.pontuacoes.asMap().containsKey(2) && this.widget.pontuacoes[2].pontuacaoAtributo.asMap().containsKey(4))?"O máximo de pontos para este atributo é "+widget.pontuacoes[2].pontuacaoAtributo[4].quantidade_maxima.toString().replaceAll('.', ',')+".":"Carregando..."),
                                                                           actions: [
                                                                             TextButton(
                                                                                 onPressed: () {
@@ -1699,7 +1715,7 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
                                                           Text(
                                                             textAlign: TextAlign
                                                                 .center,
-                                                            '0',
+                                                            this.widget.usuario.quantidade_outros_cursos_realizados.toString().replaceAll('.', ','),
                                                             style: TextStyle(
                                                               color:
                                                                   Colors.black,
@@ -1723,7 +1739,7 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
                                                                 .circular(5.0),
                                                       ),
                                                       child: Text(
-                                                        "XX",
+                                                        this.widget.soma.toString().replaceAll('.', ','),
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyle(
@@ -1797,7 +1813,7 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
                                                           child: Text(
                                                             textAlign: TextAlign
                                                                 .center,
-                                                            '0',
+                                                            this.widget.usuario.quantidade_faltas.toString().replaceAll('.', ','),
                                                             style: TextStyle(
                                                               color:
                                                                   Colors.black,
@@ -1857,7 +1873,7 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
                                                           child: Text(
                                                             textAlign: TextAlign
                                                                 .center,
-                                                            '6',
+                                                            (this.widget.pontuacoes.asMap().containsKey(0) && this.widget.pontuacoes[0].pontuacaoAtributo.asMap().containsKey(0))?widget.pontuacoes[0].pontuacaoAtributo[0].quantidade_maxima.toString().replaceAll('.', ','):"...",
                                                             style: TextStyle(
                                                               color:
                                                                   Colors.black,
@@ -1917,7 +1933,7 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
                                                           child: Text(
                                                             textAlign: TextAlign
                                                                 .center,
-                                                            '1',
+                                                            (this.widget.pontuacoes.asMap().containsKey(0) && this.widget.pontuacoes[0].pontuacaoAtributo.asMap().containsKey(0))?widget.pontuacoes[0].pontuacaoAtributo[0].valor.toString().replaceAll('.', ','):"...",
                                                             style: TextStyle(
                                                               color:
                                                                   Colors.black,
@@ -1941,7 +1957,7 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
                                                                 .circular(5.0),
                                                       ),
                                                       child: Text(
-                                                        "Variáveis",
+                                                        (this.widget.pontuacoes.asMap().containsKey(2) && this.widget.pontuacoes[2].pontuacaoAtributo.asMap().containsKey(5))?widget.pontuacoes[2].pontuacaoAtributo[5].nome:"Carregando...",
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyle(
@@ -1969,7 +1985,7 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
                                                       child: Text(
                                                         textAlign:
                                                             TextAlign.center,
-                                                        '0',
+                                                        (this.widget.pontuacoes.asMap().containsKey(2) && this.widget.pontuacoes[2].pontuacaoAtributo.asMap().containsKey(5))?widget.pontuacoes[2].pontuacaoAtributo[5].valor.toString().replaceAll('.', ','):"...",
                                                         style: TextStyle(
                                                           color: Colors.black,
                                                           fontSize: 16.0,
@@ -2011,7 +2027,8 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
                                                                             "Máximo de pontos:",
                                                                           ),
                                                                           content:
-                                                                              Text("O máximo de pontos para este atributo é 5."),
+                                                                              Text(
+                                                                                (this.widget.pontuacoes.asMap().containsKey(2) && this.widget.pontuacoes[2].pontuacaoAtributo.asMap().containsKey(5))?"O máximo de pontos para este atributo é "+widget.pontuacoes[2].pontuacaoAtributo[5].quantidade_maxima.toString().replaceAll('.', ',')+".":"Carregando..."),
                                                                           actions: [
                                                                             TextButton(
                                                                                 onPressed: () {
@@ -2032,7 +2049,7 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
                                                           Text(
                                                             textAlign: TextAlign
                                                                 .center,
-                                                            '0',
+                                                            this.widget.usuario.quantidade_variaveis.toString().replaceAll('.', ','),
                                                             style: TextStyle(
                                                               color:
                                                                   Colors.black,
@@ -2108,7 +2125,15 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
 
 class Suaspontuacoes extends StatefulWidget {
   double valor;
-  Suaspontuacoes({Key? key, required this.valor}) : super(key: key);
+  Cargo cargo;
+  double valor_cargo;
+  String titulo_cargo;
+  Usuario usuario;
+  double quantidade_anos;
+  double quantidade_meses;
+  double soma;
+  List<Pontuacao> pontuacoes;
+  Suaspontuacoes({Key? key, required this.valor,required this.cargo,required this.valor_cargo,required this.titulo_cargo,required this.usuario,required this.quantidade_anos,required this.quantidade_meses,required this.pontuacoes,required this.soma}) : super(key: key);
   @override
   @override
   State<StatefulWidget> createState() {
@@ -2118,9 +2143,7 @@ class Suaspontuacoes extends StatefulWidget {
 
 class TitleSuaspontuacoes extends StatelessWidget {
   double tamanho;
-  TitleSuaspontuacoes({
-    Key? key,required this.tamanho
-  }) : super(key: key);
+  TitleSuaspontuacoes({Key? key, required this.tamanho}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

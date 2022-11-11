@@ -1,9 +1,19 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:gip_solucoes/screens/home_screen/components/model/Cargo.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/sistema_content.dart';
 
 class CargoText extends StatelessWidget {
-  const CargoText({Key? key}) : super(key: key);
+  String nome;
+  String competencias;
+  String descricao;
+  CargoText(
+      {Key? key,
+      required this.nome,
+      required this.descricao,
+      required this.competencias})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +21,7 @@ class CargoText extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         AutoSizeText(
-          "Professor Graduado",
+          this.nome,
           maxLines: 2,
           style: TextStyle(
             color: Colors.black,
@@ -24,7 +34,7 @@ class CargoText extends StatelessWidget {
           height: 12,
         ),
         AutoSizeText(
-          "Executam serviços de apoio nas áreas de recursos humanos, administração, finanças e logística; atendem fornecedores e clientes, fornecendo e recebendo informações sobre produtos e serviços; tratam de documentos variados, cumprindo todo o procedimento necessário referente aos mesmos.",
+          this.descricao,
           textAlign: TextAlign.justify,
           style: TextStyle(
             color: Colors.black,
@@ -45,7 +55,7 @@ class CargoText extends StatelessWidget {
           height: 5,
         ),
         AutoSizeText(
-          "Executam serviços de apoio nas áreas de recursos humanos, administração, finanças e logística; atendem fornecedores e clientes, fornecendo e recebendo informações sobre produtos e serviços; tratam de documentos variados, cumprindo todo o procedimento necessário referente aos mesmos.",
+          this.competencias,
           textAlign: TextAlign.justify,
           style:
               TextStyle(color: Colors.black, fontSize: 8.0, letterSpacing: -1),
@@ -105,7 +115,15 @@ class BotaoPontuacoes extends StatelessWidget {
 }
 
 class DadosText extends StatelessWidget {
-  const DadosText({Key? key}) : super(key: key);
+  String titulo;
+  int tempo_experiencia;
+  int tempo_empresa;
+  DadosText(
+      {Key? key,
+      required this.titulo,
+      required this.tempo_experiencia,
+      required this.tempo_empresa})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -123,7 +141,7 @@ class DadosText extends StatelessWidget {
           height: 5,
         ),
         AutoSizeText(
-          "Graduação",
+          this.titulo,
           textAlign: TextAlign.justify,
           style: TextStyle(
             color: Colors.black,
@@ -143,7 +161,9 @@ class DadosText extends StatelessWidget {
           height: 5,
         ),
         AutoSizeText(
-          "1 ano",
+          tempo_experiencia <= 1
+              ? "${this.tempo_experiencia} ano"
+              : "${this.tempo_experiencia} anos",
           textAlign: TextAlign.justify,
           style: TextStyle(
             color: Colors.black,
@@ -163,7 +183,9 @@ class DadosText extends StatelessWidget {
           height: 5,
         ),
         AutoSizeText(
-          "1 ano",
+          tempo_empresa <= 1
+              ? "${this.tempo_empresa} ano"
+              : "${this.tempo_empresa} anos",
           textAlign: TextAlign.justify,
           style: TextStyle(
             color: Colors.black,
@@ -175,8 +197,34 @@ class DadosText extends StatelessWidget {
   }
 }
 
-class ProximoCargoText extends StatelessWidget {
-  const ProximoCargoText({Key? key}) : super(key: key);
+class ProximoCargoText extends StatefulWidget {
+  String instituicao;
+  int grau;
+  String nome_cargo;
+  String competencias_cargo;
+  String titulo_cargo;
+  ProximoCargoText(
+      {Key? key,
+      required this.instituicao,
+      required this.grau,
+      required this.nome_cargo,
+      required this.competencias_cargo,
+      required this.titulo_cargo})
+      : super(key: key);
+
+  @override
+  State<ProximoCargoText> createState() => _ProximoCargoTextState();
+}
+
+class _ProximoCargoTextState extends State<ProximoCargoText> {
+  _ProximoCargoTextState({
+    Key? key,
+  });
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -185,7 +233,7 @@ class ProximoCargoText extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         AutoSizeText(
-          "Próximo cargo",
+          this.widget.nome_cargo,
           textAlign: TextAlign.justify,
           style: TextStyle(
             color: Colors.white,
@@ -196,7 +244,7 @@ class ProximoCargoText extends StatelessWidget {
           height: 5,
         ),
         AutoSizeText(
-          "Especialização",
+          this.widget.titulo_cargo,
           textAlign: TextAlign.justify,
           style: TextStyle(
               color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.bold),
@@ -216,7 +264,7 @@ class ProximoCargoText extends StatelessWidget {
           height: 22,
         ),
         AutoSizeText(
-          "Executam serviços de apoio nas áreas de recursos humanos, administração, finanças e logística; atendem fornecedores e clientes, fornecendo e recebendo informações sobre produtos e serviços; tratam de documentos variados, cumprindo todo o procedimento necessário referente aos mesmos.",
+          this.widget.competencias_cargo,
           textAlign: TextAlign.justify,
           style: TextStyle(
               color: Colors.white,
@@ -229,12 +277,21 @@ class ProximoCargoText extends StatelessWidget {
   }
 }
 
-class Faixassalariais extends StatelessWidget {
-  double tamanho=1;
-  Faixassalariais({
-    Key? key,required this.tamanho
-  }) : super(key: key);
+class Faixassalariais extends StatefulWidget {
+  double tamanho = 1;
+  double valor_atual;
+  double proximo_valor;
+  double intervalo_atual_inicio;
+  double intervalo_atual_fim;
+  double intervalo_proximo_inicio;
+  double intervalo_proximo_fim;
+  Faixassalariais({Key? key, required this.tamanho, required this.valor_atual, required this.proximo_valor, required this.intervalo_atual_inicio, required this.intervalo_atual_fim, required this.intervalo_proximo_inicio, required this.intervalo_proximo_fim}) : super(key: key);
 
+  @override
+  State<Faixassalariais> createState() => _FaixassalariaisState();
+}
+
+class _FaixassalariaisState extends State<Faixassalariais> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -274,12 +331,12 @@ class Faixassalariais extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       color: Colors.blue,
-                      fontSize: 14.0*tamanho,
+                      fontSize: 14.0 * widget.tamanho,
                       fontWeight: FontWeight.bold),
                 ),
                 Container(
                   alignment: Alignment.center,
-                  width: 130*tamanho,
+                  width: 130 * widget.tamanho,
                   height: 50.0,
                   decoration: BoxDecoration(
                     color: Colors.grey[200],
@@ -289,10 +346,10 @@ class Faixassalariais extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "R\$ 49,34",
+                        "R\$ "+ this.widget.valor_atual.toString().replaceAll('.', ','),
                         style: TextStyle(
                           color: Colors.black,
-                          fontSize: 16.0*tamanho,
+                          fontSize: 16.0 * widget.tamanho,
                         ),
                       ),
                     ],
@@ -301,7 +358,7 @@ class Faixassalariais extends StatelessWidget {
               ],
             ),
             SizedBox(
-              width: 5*tamanho,
+              width: 5 * widget.tamanho,
             ),
             Column(
               children: [
@@ -310,12 +367,12 @@ class Faixassalariais extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       color: Colors.blue,
-                      fontSize: 14.0*tamanho,
+                      fontSize: 14.0 * widget.tamanho,
                       fontWeight: FontWeight.bold),
                 ),
                 Container(
                   alignment: Alignment.center,
-                  width: 130*tamanho,
+                  width: 130 * widget.tamanho,
                   height: 50.0,
                   decoration: BoxDecoration(
                     color: Colors.grey[200],
@@ -325,10 +382,10 @@ class Faixassalariais extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "R\$ 57,50",
+                        this.widget.proximo_valor==0?"R\$ --,--":"R\$ "+this.widget.proximo_valor.toString().replaceAll('.', ','),
                         style: TextStyle(
                           color: Colors.black,
-                          fontSize: 16.0*tamanho,
+                          fontSize: 16.0 * widget.tamanho,
                         ),
                       ),
                     ],
@@ -371,7 +428,7 @@ class Faixassalariais extends StatelessWidget {
           children: [
             Container(
               alignment: Alignment.center,
-              width: 130*tamanho,
+              width: 130 * widget.tamanho,
               height: 30.0,
               decoration: BoxDecoration(
                 color: Colors.grey[200],
@@ -381,21 +438,21 @@ class Faixassalariais extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "21 à 30 pontos",
+                    this.widget.intervalo_atual_inicio.toString().replaceAll('.', ',')+" à "+this.widget.intervalo_atual_fim.toString().replaceAll('.', ',')+" pontos",
                     style: TextStyle(
                       color: Colors.black,
-                      fontSize: 12.0*(tamanho),
+                      fontSize: 12.0 * (widget.tamanho),
                     ),
                   ),
                 ],
               ),
             ),
             SizedBox(
-              width: 5*tamanho,
+              width: 5 * widget.tamanho,
             ),
             Container(
               alignment: Alignment.center,
-              width: 130*tamanho,
+              width: 130 * widget.tamanho,
               height: 30.0,
               decoration: BoxDecoration(
                 color: Colors.grey[200],
@@ -405,10 +462,10 @@ class Faixassalariais extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "71 à 80 pontos",
+                    this.widget.proximo_valor==0?"-- à -- pontos":(this.widget.intervalo_atual_fim+1).toString().replaceAll('.', ',')+" à "+this.widget.intervalo_proximo_fim.toString()+" pontos",
                     style: TextStyle(
                       color: Colors.black,
-                      fontSize: 12.0*tamanho,
+                      fontSize: 12.0 * widget.tamanho,
                     ),
                   ),
                 ],
@@ -424,7 +481,7 @@ class Faixassalariais extends StatelessWidget {
 class _PontuacaolayoutState extends State<Pontuacaolayout> {
   final GlobalKey key = GlobalKey();
   Size sizeLargura = Size(0, 0);
-
+  _PontuacaolayoutState({Key? key});
   @override
   void initState() {
     super.initState;
@@ -466,10 +523,10 @@ class _PontuacaolayoutState extends State<Pontuacaolayout> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "25",
+                this.widget.soma.toString().replaceAll('.', ','),
                 style: TextStyle(
                     color: Colors.white,
-                    fontSize: 32.0,
+                    fontSize: 16.0,
                     fontStyle: FontStyle.italic,
                     fontWeight: FontWeight.bold),
               ),
@@ -486,7 +543,9 @@ class _PontuacaolayoutState extends State<Pontuacaolayout> {
 
 class Pontuacaolayout extends StatefulWidget {
   double tamanho;
-  Pontuacaolayout({Key? key, required this.tamanho}) : super(key: key);
+  double soma;
+  Pontuacaolayout({Key? key, required this.tamanho, required this.soma})
+      : super(key: key);
   @override
   @override
   State<StatefulWidget> createState() {

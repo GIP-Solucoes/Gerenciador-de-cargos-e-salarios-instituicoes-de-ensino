@@ -64,7 +64,7 @@ class _LoginState extends State<Login> {
             obscureText: showPassword==false?true:false,
             controller: controllerSenha,
             decoration: InputDecoration(
-              hintText: 'Password',
+              hintText: 'Senha',
               suffixIcon: GestureDetector(
                 child: Icon(
                     showPassword == false

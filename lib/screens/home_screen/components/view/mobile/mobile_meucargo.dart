@@ -22,9 +22,9 @@ class MobileMeucargo extends StatelessWidget {
                   horizontal: mediaQuery.width * 0.015),
               child: Column(
                   children: [
-                    CargoText(),
+                    CargoText(competencias: '', descricao: '', nome: '',),
                     SizedBox(height: 22,),
-                    DadosText(),
+                    DadosText(tempo_empresa: 1, tempo_experiencia: 1, titulo: '',),
                     SizedBox(height: 22,),
                     Container(
                             padding: EdgeInsets.symmetric(
@@ -35,13 +35,13 @@ class MobileMeucargo extends StatelessWidget {
                                             borderRadius:
                                                 BorderRadius.circular(5.0),
                                           ),
-                                          child: ProximoCargoText(),
+                                          child: ProximoCargoText(grau: 5, instituicao: '', competencias_cargo: '', nome_cargo: '', titulo_cargo: '',),
                                         ),
                     SizedBox(height: 22,),
-                    Faixassalariais(tamanho: mediaQuery.width*0.003,),
+                    Faixassalariais(tamanho: mediaQuery.width*0.003, intervalo_atual_fim: 0, intervalo_atual_inicio: 0, intervalo_proximo_fim: 0, intervalo_proximo_inicio: 0, proximo_valor: 0, valor_atual: 0,),
                     SizedBox(height: 22,),
                     
-                              Pontuacaolayout(tamanho: 190),
+                              Pontuacaolayout(tamanho: 190, soma: 0,),
                               SizedBox(height: 22,),
                               BotaoPontuacoes(),
                   ]),

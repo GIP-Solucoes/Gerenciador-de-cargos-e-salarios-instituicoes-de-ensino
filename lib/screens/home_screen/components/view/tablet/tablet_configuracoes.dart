@@ -7,6 +7,7 @@ class TabletConfiguracoes extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context).size;
+    TextEditingController controller = new TextEditingController();
     return SingleChildScrollView(
       child:Center(
         child: Padding(
@@ -39,13 +40,13 @@ class TabletConfiguracoes extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Primeironome(),
-                          Segundonome(),
-                          Dadosgerais(),
+                          Primeironome(controller:controller),
+                          Segundonome(controller: controller,),
+                          Dadosgerais(controllerEmail: controller, controllerTelefone: controller,senha: controller,),
                           
                           SizedBox(height: 30,),
-                        Alterarimagem(),
-                        BotaoSalvar(),
+                        Alterarimagem(foto: '',),
+                        BotaoSalvar(imagem: '',email: controller, primeiro_nome: controller, segundo_nome: controller, senha: controller, telefone: controller,),
                         ],
                       ),
                     ])),

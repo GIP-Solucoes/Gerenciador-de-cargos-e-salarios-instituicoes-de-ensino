@@ -31,7 +31,7 @@ class TabletMeucargo extends StatelessWidget {
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                CargoText(),
+                                CargoText(competencias: '', descricao: '', nome: '',),
                               ],),
                             ),
                           Container(
@@ -40,7 +40,7 @@ class TabletMeucargo extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                              DadosText(),
+                              DadosText(tempo_empresa: 1, tempo_experiencia: 1, titulo: '',),
                             ],),
                           ),
                     
@@ -61,9 +61,9 @@ class TabletMeucargo extends StatelessWidget {
                                             borderRadius:
                                                 BorderRadius.circular(5.0),
                                           ),
-                                          child: ProximoCargoText(),
+                                          child: ProximoCargoText(grau: 5, instituicao: '', competencias_cargo: '', nome_cargo: '', titulo_cargo: '',),
                                         ),
-                                        Faixassalariais(tamanho: 1,),
+                                        Faixassalariais(tamanho: 1, intervalo_atual_fim: 0, intervalo_atual_inicio: 0, intervalo_proximo_fim: 0, intervalo_proximo_inicio: 0, proximo_valor: 0, valor_atual: 0,),
                         ],),
                       ),
                       Container(
@@ -76,7 +76,7 @@ class TabletMeucargo extends StatelessWidget {
                               children: [
                               
                               BotaoPontuacoes(),
-                              Pontuacaolayout(tamanho: 190),
+                              Pontuacaolayout(tamanho: 190, soma: 0,),
                               
                             ],),
                           ],

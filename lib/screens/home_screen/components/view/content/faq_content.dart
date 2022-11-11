@@ -58,14 +58,14 @@ class Perguntas extends StatelessWidget {
               ),
               child: ExpansionTile(
                 title:
-                    Text('1. Pergunta 1 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'),
+                    Text('1. O que é a GIP Soluções?'),
                 backgroundColor: Colors.grey[200],
                 iconColor: Colors.blue[600],
                 collapsedIconColor: Colors.blue[600],
                 children: [
                   ListTile(
                       title: Text(
-                          '1. Resposta 1 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')),
+                          'A GIP Soluções é um projeto com objetivo de disponibilizar um aplicativo web para gerenciar cargos e salários de instituições educacionais, através de planos de assinatura.\nÉ disponibilizado um acesso administrador que tem o poder de manusear e dar manutenção em cargos, salários, descrições, etc. O administrador pode conceder acesso aos demais usuários, que poderão através do web-app, visualizar informações a respeito de seu cargo.\nAtravés do GIP, a instituição poderá ter maior controle sobre os cargos, sobre os funcionários e também sobre os resultados financeiros.')),
                 ],
               ),
             ),
@@ -78,14 +78,14 @@ class Perguntas extends StatelessWidget {
               ),
               child: ExpansionTile(
                 title:
-                    Text('2. Pergunta 2 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'),
+                    Text('2. Não consigo redefinir a senha.'),
                 backgroundColor: Colors.grey[200],
                 iconColor: Colors.blue[600],
                 collapsedIconColor: Colors.blue[600],
                 children: [
                   ListTile(
                       title: Text(
-                          '2. Resposta 2 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')),
+                          'Você precisa ter acesso ao endereço de e-mail cadastrado para abrir o link de redefinição de senha que nós enviamos.\n\nNão recebeu o e-mail de redefinição de senha?\nVerifique as pastas de spam/lixo eletrônico ou qualquer outra pasta filtrada.\n\nO link para redefinição de senha não funciona?\nRedefina a senha novamente, mas desta vez abra o link do e-mail em uma janela anônima/privada do navegador.\n\nMuitas solicitações?\nTente de novo mais tarde ou use um dispositivo diferente.')),
                 ],
               ),
             ),
@@ -98,14 +98,14 @@ class Perguntas extends StatelessWidget {
               ),
               child: ExpansionTile(
                 title:
-                    Text('3. Pergunta 3 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'),
+                    Text('3. Não lembro minhas informações de login.'),
                 backgroundColor: Colors.grey[200],
                 iconColor: Colors.blue[600],
                 collapsedIconColor: Colors.blue[600],
                 children: [
                   ListTile(
                       title: Text(
-                          '3. Resposta 3 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')),
+                          'Se você não se lembrar da sua senha, use a página de redefinição de senha.\n\nSe não se lembrar do seu e-mail ou nome de usuário, procure pelo administrador da instituição para que ele possa lhe fornecer o e-mail ou usuário cadastrado.')),
                 ],
               ),
             ),
@@ -118,14 +118,14 @@ class Perguntas extends StatelessWidget {
               ),
               child: ExpansionTile(
                 title:
-                    Text('4. Pergunta 4 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'),
+                    Text('4. Quais são os planos e preços?'),
                 backgroundColor: Colors.grey[200],
                 iconColor: Colors.blue[600],
                 collapsedIconColor: Colors.blue[600],
                 children: [
                   ListTile(
                       title: Text(
-                          '4. Resposta 4 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')),
+                          'A GIP Soluções possui 3 planos de assinatura disponíveis. Sendo eles:\nTrimestral - R\$ 849,99\nSemestral - R\$ 1.685,00\nAnual - R\$ 3.369,99')),
                 ],
               ),
             ),
@@ -138,14 +138,14 @@ class Perguntas extends StatelessWidget {
               ),
               child: ExpansionTile(
                 title:
-                    Text('5. Pergunta 5 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'),
+                    Text('5. Quais são as formas de pagamento?'),
                 backgroundColor: Colors.grey[200],
                 iconColor: Colors.blue[600],
                 collapsedIconColor: Colors.blue[600],
                 children: [
                   ListTile(
                       title: Text(
-                          '5. Resposta 5 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')),
+                          'Utilizamos pagamento via PagSeguro, por ser mais rápido e também por serem métodos seguros para realizar operações através do seu cartão de crédito e outros meios.')),
                 ],
               ),
             ),

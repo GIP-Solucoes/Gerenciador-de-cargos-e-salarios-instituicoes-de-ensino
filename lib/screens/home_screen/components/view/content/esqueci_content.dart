@@ -87,7 +87,7 @@ class EsqueciBotao extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: () {
-        Usuario usuario = new Usuario(email, 'senha');
+        Usuario usuario = new Usuario(DateTime.now(), 1,1,1,1,1,1,1,1,1,1,1,0,'', '', '', '', '', '');
         usuario.realizar_esqueci(context, this.email);
       },
       child: Container(
