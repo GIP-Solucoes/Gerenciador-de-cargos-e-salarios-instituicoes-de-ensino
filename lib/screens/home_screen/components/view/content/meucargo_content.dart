@@ -285,7 +285,16 @@ class Faixassalariais extends StatefulWidget {
   double intervalo_atual_fim;
   double intervalo_proximo_inicio;
   double intervalo_proximo_fim;
-  Faixassalariais({Key? key, required this.tamanho, required this.valor_atual, required this.proximo_valor, required this.intervalo_atual_inicio, required this.intervalo_atual_fim, required this.intervalo_proximo_inicio, required this.intervalo_proximo_fim}) : super(key: key);
+  Faixassalariais(
+      {Key? key,
+      required this.tamanho,
+      required this.valor_atual,
+      required this.proximo_valor,
+      required this.intervalo_atual_inicio,
+      required this.intervalo_atual_fim,
+      required this.intervalo_proximo_inicio,
+      required this.intervalo_proximo_fim})
+      : super(key: key);
 
   @override
   State<Faixassalariais> createState() => _FaixassalariaisState();
@@ -346,7 +355,12 @@ class _FaixassalariaisState extends State<Faixassalariais> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "R\$ "+ this.widget.valor_atual.toString().replaceAll('.', ','),
+                        "R\$ " +
+                            this
+                                .widget
+                                .valor_atual
+                                .toString()
+                                .replaceAll('.', ','),
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 16.0 * widget.tamanho,
@@ -382,7 +396,14 @@ class _FaixassalariaisState extends State<Faixassalariais> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        this.widget.proximo_valor==0?"R\$ --,--":"R\$ "+this.widget.proximo_valor.toString().replaceAll('.', ','),
+                        this.widget.proximo_valor == 0
+                            ? "R\$ --,--"
+                            : "R\$ " +
+                                this
+                                    .widget
+                                    .proximo_valor
+                                    .toString()
+                                    .replaceAll('.', ','),
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 16.0 * widget.tamanho,
@@ -438,7 +459,18 @@ class _FaixassalariaisState extends State<Faixassalariais> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    this.widget.intervalo_atual_inicio.toString().replaceAll('.', ',')+" à "+this.widget.intervalo_atual_fim.toString().replaceAll('.', ',')+" pontos",
+                    this
+                            .widget
+                            .intervalo_atual_inicio
+                            .toString()
+                            .replaceAll('.', ',') +
+                        " à " +
+                        this
+                            .widget
+                            .intervalo_atual_fim
+                            .toString()
+                            .replaceAll('.', ',') +
+                        " pontos",
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 12.0 * (widget.tamanho),
@@ -462,7 +494,14 @@ class _FaixassalariaisState extends State<Faixassalariais> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    this.widget.proximo_valor==0?"-- à -- pontos":(this.widget.intervalo_atual_fim+1).toString().replaceAll('.', ',')+" à "+this.widget.intervalo_proximo_fim.toString()+" pontos",
+                    this.widget.proximo_valor == 0
+                        ? "-- à -- pontos"
+                        : (this.widget.intervalo_atual_fim + 1)
+                                .toString()
+                                .replaceAll('.', ',') +
+                            " à " +
+                            this.widget.intervalo_proximo_fim.toString() +
+                            " pontos",
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 12.0 * widget.tamanho,

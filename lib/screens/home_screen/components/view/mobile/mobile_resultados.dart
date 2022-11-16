@@ -29,7 +29,7 @@ class _StateMobileResultados extends State<MobileResultados>{
                   TitleResultado(),
                 ],),
                 
-                Resultados(valor:0.877),
+                Resultados(valor:0.877,usuarios: [], total_atual: 1, total_ideal: 1, cargos: [], situacoes: [],),
                 SizedBox(
                   height: 20,
                 ),

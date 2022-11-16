@@ -15,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:gip_solucoes/screens/home_screen/components/model/Usuario.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/sistema_content.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:image_picker_web/image_picker_web.dart';
 import 'dart:html';
 
 Usuario usuario = new Usuario(
@@ -313,14 +314,15 @@ class _AlterarimagemState extends State<Alterarimagem> {
 
   Future<void> _pickImage() async {
     if (kIsWeb) {
-      final ImagePicker _picker = ImagePicker();
-      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-      if (image != null) {
-        var f = await image.readAsBytes();
+      final imag = await ImagePickerWeb.getImageAsBytes();
+      if (imag != null) {
         setState(() {
-          webImage = f;
-          file = dart.File('a');
-          imagee = webImage;
+          imagee = imag;
+        });
+      }
+      if (imag != null) {
+        setState(() {
+          filee = dart.File('a');
         });
       }
     }
@@ -352,12 +354,12 @@ class _AlterarimagemState extends State<Alterarimagem> {
                 child: Stack(
                   children: [
                     Center(
-                      child: file != null
+                      child: imagee != null
                           ? SizedBox(
                               height: 125,
                               width: 125,
                               child: CircleAvatar(
-                                backgroundImage: MemoryImage(webImage),
+                                backgroundImage: MemoryImage(imagee),
                               ),
                             )
                           : SizedBox(
@@ -458,172 +460,174 @@ class _BotaoSalvarState extends State<BotaoSalvar> {
     return TextButton(
         onPressed: () async {
           String downloadUrl = "";
-          if (imagee != null) {
-            FirebaseStorage storage = FirebaseStorage.instance;
-            var snapshot = await storage
-                .ref('usuarios/img-${DateTime.now().toString()}.jpg')
-                .putData(imagee);
-            downloadUrl = await snapshot.ref.getDownloadURL();
-            storage.refFromURL(widget.imagem).delete();
-          }
-          CollectionReference usuarios =
-              FirebaseFirestore.instance.collection('Usuario');
-          usuarios
-              .where('foto', isEqualTo: widget.imagem)
-              .get()
-              .then((QuerySnapshot q) {
-            q.docs.forEach((element) {
-              var e = element.reference;
-              if (downloadUrl != "") {
-                e.update({"foto": downloadUrl});
-              }
-              if (verificadores[0])
-                e.update({"primeiro_nome": widget.primeiro_nome.text});
-              if (verificadores[1]) {
-                if (widget.email.text.isEmpty ||
-                    !widget.email.text.contains('@')) {
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    backgroundColor: Colors.red,
-                    content: Text('Email inválido!'),
-                    duration: Duration(seconds: 5),
-                  ));
-                } else {
-                  FirebaseAuth aut = FirebaseAuth.instance;
-                  User? use = aut.currentUser;
-                  if (use != null) {
-                    use!.email!;
-                    use.updateEmail(widget.email.text);
-                  }
-                  e.update({"email": widget.email.text});
-                }
-              }
-              if (verificadores[2])
-                e.update({"telefone": widget.telefone.text});
-              if (verificadores[3])
-                e.update({"segundo_nome": widget.segundo_nome.text});
-            });
-          });
-          if (widget.senha.text.isNotEmpty) {
-            if (widget.senha.text.length < 6) {
-              //falar para colocar senha maior q 6
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                backgroundColor: Colors.red,
-                content: Text('A senha deve ter pelo menos 6 caracteres!'),
-                duration: Duration(seconds: 5),
-              ));
-            } else {
-              TextEditingController senha_atual = new TextEditingController();
-              TextEditingController nova_senha = new TextEditingController();
-              showDialog(
-                  context: context,
-                  builder: (_) => AlertDialog(
-                        title: Text(
-                          "Alterar senha",
-                        ),
-                        content: Column(
-                          children: [
-                            Text(
-                                "Para alterar a senha, insira a senha atual e confirme a senha inserida."),
-                            Text("Senha atual:"),
-                            TextField(
-                              controller: senha_atual,
-                              obscureText: true,
-                            ),
-                            Text("Nova senha:"),
-                            TextField(
-                              obscureText: true,
-                              controller: nova_senha,
-                            ),
-                          ],
-                        ),
-                        actions: [
-                          TextButton(
-                              onPressed: () {
-                                if (nova_senha.text != widget.senha.text) {
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(SnackBar(
-                                    backgroundColor: Colors.red,
-                                    content: Text(
-                                        'A senha informada anteriormente não é igual a informada agora!'),
-                                    duration: Duration(seconds: 5),
-                                  ));
-                                } else {
-                                  User? use = FirebaseAuth.instance.currentUser;
-                                  if (use != null) {
-                                    AuthCredential credential =
-                                        EmailAuthProvider.credential(
-                                            email: use.email!,
-                                            password: senha_atual.text);
-                                    use
-                                        .reauthenticateWithCredential(
-                                            credential)
-                                        .then((value) {
-                                      use.updatePassword(nova_senha.text);
-                                      showDialog(
-                                          context: context,
-                                          builder: (_) => AlertDialog(
-                                                title: Text(
-                                                  "Dados salvos!",
-                                                ),
-                                                content: Text(
-                                                    "Os dados foram salvos com sucesso."),
-                                                actions: [
-                                                  TextButton(
-                                                      onPressed: () {
-                                                        paginaS = pagina_backup;
-                                                        Navigator
-                                                            .popAndPushNamed(
-                                                                context,
-                                                                '/sistema');
-                                                      },
-                                                      child: Text('Ok')),
-                                                ],
-                                              ));
-                                    }).catchError((e) {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(SnackBar(
-                                        backgroundColor: Colors.red,
-                                        content: Text(
-                                            'A senha informada não condiz com a atual ou houve algum problema na autenticação.'),
-                                        duration: Duration(seconds: 5),
-                                      ));
-                                    });
-                                  }
-                                }
-                              },
-                              child: Text('Ok')),
-                        ],
-                      ));
-            }
-          } else if (verificadores[0] == true ||
-              verificadores[2] == true ||
-              verificadores[3] == true ||
-              verificadores[1] == true ||
-              imagee != null) {
-            if (widget.email.text.isNotEmpty && widget.email.text.contains('@'))
-              showDialog(
-                  context: context,
-                  builder: (_) => AlertDialog(
-                        title: Text(
-                          "Dados salvos!",
-                        ),
-                        content: Text("Os dados foram salvos com sucesso."),
-                        actions: [
-                          TextButton(
-                              onPressed: () {
-                                paginaS = pagina_backup;
-                                Navigator.popAndPushNamed(context, '/sistema');
-                              },
-                              child: Text('Ok')),
-                        ],
-                      ));
-          } else {
+    if (imagee != null) {
+      var storage = FirebaseStorage.instance;
+      var snapshot = await storage
+          .ref('usuarios/img-${DateTime.now().toString()}.jpg')
+          .putData(imagee)
+          .catchError((e) => print(e));
+
+      downloadUrl = await snapshot.ref.getDownloadURL();
+      storage.refFromURL(widget.imagem).delete();
+    }
+    CollectionReference usuarios =
+        FirebaseFirestore.instance.collection('Usuario');
+    usuarios
+        .where('foto', isEqualTo: widget.imagem)
+        .get()
+        .then((QuerySnapshot q) {
+      q.docs.forEach((element) {
+        var e = element.reference;
+        if (downloadUrl != "") {
+          e.update({"foto": downloadUrl});
+        }
+        if (verificadores[0])
+          e.update({"primeiro_nome": widget.primeiro_nome.text});
+        if (verificadores[1]) {
+          if (widget.email.text.isEmpty || !widget.email.text.contains('@')) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               backgroundColor: Colors.red,
-              content: Text('Nenhum dado foi alterado para ser salvo!'),
+              content: Text('Email inválido!'),
               duration: Duration(seconds: 5),
             ));
+          } else {
+            FirebaseAuth aut = FirebaseAuth.instance;
+            User? use = aut.currentUser;
+            if (use != null) {
+              use!.email!;
+              use.updateEmail(widget.email.text);
+            }
+            e.update({"email": widget.email.text});
           }
+        }
+        if (verificadores[2]) e.update({"telefone": widget.telefone.text});
+        if (verificadores[3])
+          e.update({"segundo_nome": widget.segundo_nome.text});
+      });
+    }).catchError((e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        backgroundColor: Colors.red,
+        content: Text(e),
+        duration: Duration(seconds: 5),
+      ));
+    });
+    if (widget.senha.text.isNotEmpty) {
+      if (widget.senha.text.length < 6) {
+        //falar para colocar senha maior q 6
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          backgroundColor: Colors.red,
+          content: Text('A senha deve ter pelo menos 6 caracteres!'),
+          duration: Duration(seconds: 5),
+        ));
+      } else {
+        TextEditingController senha_atual = new TextEditingController();
+        TextEditingController nova_senha = new TextEditingController();
+        showDialog(
+            context: context,
+            builder: (_) => AlertDialog(
+                  title: Text(
+                    "Alterar senha",
+                  ),
+                  content: Column(
+                    children: [
+                      Text(
+                          "Para alterar a senha, insira a senha atual e confirme a senha inserida."),
+                      Text("Senha atual:"),
+                      TextField(
+                        controller: senha_atual,
+                        obscureText: true,
+                      ),
+                      Text("Nova senha:"),
+                      TextField(
+                        obscureText: true,
+                        controller: nova_senha,
+                      ),
+                    ],
+                  ),
+                  actions: [
+                    TextButton(
+                        onPressed: () {
+                          if (nova_senha.text != widget.senha.text) {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              backgroundColor: Colors.red,
+                              content: Text(
+                                  'A senha informada anteriormente não é igual a informada agora!'),
+                              duration: Duration(seconds: 5),
+                            ));
+                          } else {
+                            User? use = FirebaseAuth.instance.currentUser;
+                            if (use != null) {
+                              AuthCredential credential =
+                                  EmailAuthProvider.credential(
+                                      email: use.email!,
+                                      password: senha_atual.text);
+                              use
+                                  .reauthenticateWithCredential(credential)
+                                  .then((value) {
+                                use.updatePassword(nova_senha.text);
+                                showDialog(
+                                    context: context,
+                                    builder: (_) => AlertDialog(
+                                          title: Text(
+                                            "Dados salvos!",
+                                          ),
+                                          content: Text(
+                                              "Os dados foram salvos com sucesso."),
+                                          actions: [
+                                            TextButton(
+                                                onPressed: () {
+                                                  paginaS = pagina_backup;
+                                                  Navigator.popAndPushNamed(
+                                                      context, '/sistema');
+                                                },
+                                                child: Text('Ok')),
+                                          ],
+                                        ));
+                              }).catchError((e) {
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(SnackBar(
+                                  backgroundColor: Colors.red,
+                                  content: Text(
+                                      'A senha informada não condiz com a atual ou houve algum problema na autenticação.'),
+                                  duration: Duration(seconds: 5),
+                                ));
+                              });
+                            }
+                          }
+                        },
+                        child: Text('Ok')),
+                  ],
+                ));
+      }
+    } else if (verificadores[0] == true ||
+        verificadores[2] == true ||
+        verificadores[3] == true ||
+        verificadores[1] == true ||
+        imagee != null) {
+      if (widget.email.text.isNotEmpty && widget.email.text.contains('@'))
+        showDialog(
+            context: context,
+            builder: (_) => AlertDialog(
+                  title: Text(
+                    "Dados salvos!",
+                  ),
+                  content: Text("Os dados foram salvos com sucesso."),
+                  actions: [
+                    TextButton(
+                        onPressed: () {
+                          paginaS = pagina_backup;
+                          Navigator.popAndPushNamed(context, '/sistema');
+                        },
+                        child: Text('Ok')),
+                  ],
+                ));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        backgroundColor: Colors.red,
+        content: Text('Nenhum dado foi alterado para ser salvo!'),
+        duration: Duration(seconds: 5),
+      ));
+    }
         },
         child: Container(
           alignment: Alignment.center,

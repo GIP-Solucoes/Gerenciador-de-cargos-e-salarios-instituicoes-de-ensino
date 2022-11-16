@@ -29,7 +29,7 @@ class _StateTabletResultados extends State<TabletResultados>{
                   TitleResultado(),
                 ],),
                 
-                Resultados(valor:0.877),
+                Resultados(valor:0.877,usuarios: [], total_atual: 0, total_ideal: 0, cargos: [], situacoes: [],),
                 SizedBox(
                   height: 20,
                 ),

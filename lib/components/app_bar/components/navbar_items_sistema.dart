@@ -20,8 +20,12 @@ class _StateNavbarItemSistema extends State<NavbarItemSistema> {
     return TextButton(
       onPressed: () {
         if (index == 1) {
-          Navigator.popAndPushNamed(context, '/');
+            paginaU = 0;
+          
           FirebaseAuth.instance.signOut();
+          Navigator.popAndPushNamed(context, '/');
+          
+          
         } else {
           paginaS = 1;
           Navigator.popAndPushNamed(context, '/sistema');

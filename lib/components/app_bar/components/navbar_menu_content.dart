@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/hero_content.dart';
@@ -94,6 +95,9 @@ class Sair extends StatelessWidget {
         SizedBox(width: 50.0),
         TextButton(
           onPressed: () {
+            paginaU = 0;
+          
+          FirebaseAuth.instance.signOut();
             pagina = 1;
             Navigator.pushNamed(context, '/');
           },

@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gip_solucoes/screens/home_screen/components/model/Cargo.dart';
+import 'package:gip_solucoes/screens/home_screen/components/model/SituacaoAdmissional.dart';
 
 class Usuario {
   final DateTime data_admissao;
@@ -18,12 +20,18 @@ class Usuario {
   final double quantidade_variaveis;
   final double quantidade_faltas;
   final double salario_ideal;
+  late double salario_atual;
   final String instituicao;
   late final String email;
   late final String foto;
   late final String primeiro_nome;
   late final String segundo_nome;
   late final String telefone;
+  String matricula = "...";
+  double pontuacao = 0;
+  double quantidade_anos = 0;
+  String status = "...";
+
   Usuario(
       this.data_admissao,
       this.quantidade_aprovacao_concurso,
@@ -45,10 +53,13 @@ class Usuario {
       this.segundo_nome,
       this.telefone);
   static Usuario getInformacoes() {
-    return Usuario(
-        DateTime.now(), 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, '', '', '', '', '', '');
+    return Usuario(DateTime.now(), 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, '', '',
+        '', '', '', '');
   }
 
+  SituacaoAdmissional situacaoAdmissional =
+      new SituacaoAdmissional(false, '...');
+  Cargo cargo = new Cargo('...', '...', '...', 0, 0, '...', 0, 0, '...');
   // ignore: non_constant_identifier_names
   void realizar_login(context, emailp, senhap) {
     FirebaseAuth.instance
