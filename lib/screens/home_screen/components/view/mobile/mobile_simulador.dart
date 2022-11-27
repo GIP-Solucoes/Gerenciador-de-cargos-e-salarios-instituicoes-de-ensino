@@ -29,7 +29,7 @@ class _StateMobileSimulador extends State<MobileSimulador>{
                   TitleSimulador(),
                 ],),
                 
-                Simulador(valor:0.9),
+                Simulador(valor:0.9, cargos: [], pontuacoes: [], textEditingAssiduidade: [], textEditingExperiencia: [], textEditingFormacao: [], resultado: TextEditingController(), resultadoFaixaSalarial: TextEditingController(), ),
                 SizedBox(
                   height: 17,
                 ),
@@ -39,10 +39,10 @@ class _StateMobileSimulador extends State<MobileSimulador>{
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     
-                  Resultado(tamanho: 0.5,),
+                  Resultado(tamanho: 0.5, faixaSalariall: '', valorr: '', resultado: TextEditingController(), resultadoFaixaSalarial: TextEditingController(),),
                     SizedBox(height: 5,),
 
-                      BotaoCalcular(),
+                      BotaoCalcular(cargos: [], pontuacoes: [], faixaSalariall: '', valorr: '', resultado: TextEditingController(), resultadoFaixaSalarial: TextEditingController(), instituicao: '', textEditingControllerAssiduidade: [], textEditingControllerExperiencia: [], textEditingControllerFormacao: [],),
                       SizedBox(height: 5,),
                       BotaoVoltar(),
 

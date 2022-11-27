@@ -29,7 +29,7 @@ class _StateTabletSimulador extends State<TabletSimulador>{
                   TitleSimulador(),
                 ],),
                 
-                Simulador(valor:0.9),
+                Simulador(valor:0.9, cargos: [], pontuacoes: [], textEditingAssiduidade: [], textEditingExperiencia: [], textEditingFormacao: [], resultado: TextEditingController(), resultadoFaixaSalarial: TextEditingController(),),
                 SizedBox(
                   height: 17,
                 ),
@@ -39,12 +39,12 @@ class _StateTabletSimulador extends State<TabletSimulador>{
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     
-                  Resultado(tamanho: 1,),
+                  Resultado(tamanho: 1, faixaSalariall: '', valorr: '', resultado: TextEditingController(), resultadoFaixaSalarial: TextEditingController(),),
                     SizedBox(height: 5,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      BotaoCalcular(),
+                      BotaoCalcular(cargos: [], pontuacoes: [], faixaSalariall: '', valorr: '', resultado: TextEditingController(), resultadoFaixaSalarial: TextEditingController(), instituicao: '', textEditingControllerAssiduidade: [], textEditingControllerExperiencia: [], textEditingControllerFormacao: [],),
                       
                       BotaoVoltar(),
                     ],

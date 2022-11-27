@@ -479,6 +479,71 @@ class _StateSistemaContent extends State<SistemaContent> {
     }); //.catchError((e) => print(e.toString()));
   }
 
+///////////
+  List<Cargo> cargossss = [];
+  get_cargos() {
+    CollectionReference cargosS =
+        FirebaseFirestore.instance.collection('Cargo');
+    cargosS
+        .where('instituicao', isEqualTo: this.usuario.instituicao).orderBy('grau')
+        .get()
+        .then((QuerySnapshot q) {
+      q.docs.forEach((elementt) {
+        DocumentReference _documentReference = elementt.reference;
+
+        CollectionReference _collectionReference =
+            _documentReference.collection('FaixaSalarial');
+
+        /////////////////////////
+
+        /*Future<void> getData() async {
+          QuerySnapshot querySnapshot = await _collectionReference.get();
+          final allData = querySnapshot.docs.map((e) => e.data()).toList();
+          allData.forEach(((element) {
+            
+            //pontuacoesAtrib.add(new PontuacaoAtributo(element, quantidade_maxima, valor))
+          }));
+
+          setState(() {
+            pontuacoes.add(new Pontuacao(
+                element['instituicao'], element['nome'], pontuacoesAtrib));
+          });
+        }
+
+        getData();*/
+        /*__pontuacAtrib.forEach((element) {
+          print(element.nome);
+        });*/
+        List<FaixaSalarial> faixasSalariais = [];
+        _collectionReference
+            .orderBy('final_intervalo', descending: false)
+            .get()
+            .then((QuerySnapshot q) {
+          q.docs.forEach((element) {
+            faixasSalariais.add(new FaixaSalarial(
+                element['final_intervalo'], element['valor']));
+          });
+        }); //.catchError((e) => print(e.toString()));
+        Cargo passar = new Cargo(
+            elementt['competencias'],
+            elementt['descricao'],
+            elementt['nome'],
+            elementt['tempo_empresa'],
+            elementt['tempo_experiencia'],
+            elementt['titulo'],
+            elementt['valor_pontuacao'],
+            elementt['grau'],
+            elementt['instituicao']);
+            
+        passar.faixas = faixasSalariais;
+        setState(() {
+          cargossss.add(passar);
+        });
+      });
+    }); //.catchError((e) => print(e.toString()));
+  }
+
+////////////
   get_pontuacao() {
     setState(() {
       this.soma = 0;
@@ -708,6 +773,7 @@ class _StateSistemaContent extends State<SistemaContent> {
         });
         retornar_usuarios();
         get_pontuacao();
+        get_cargos();
       });
     }); //.catchError((e) => print(e.toString()));
     CollectionReference cargos = FirebaseFirestore.instance.collection('Cargo');
@@ -785,21 +851,21 @@ class _StateSistemaContent extends State<SistemaContent> {
             if (paginaS == 0 || paginaS == 11) {
               return const DesktopMenu();
             }
-            if (paginaS == 2) {
-              return DesktopMeucargo(
-                cargo: cargo,
-                competencias_cargo: competencias_cargo,
-                titulo_cargo: titulo_cargo,
-                nome_cargo: nome_cargo,
-                soma: soma,
-                intervalo_atual_inicio: intervalo_atual_inicio,
-                intervalo_atual_fim: intervalo_atual_fim,
-                intervalo_proximo_fim: intervalo_proximo_fim,
-                intervalo_proximo_inicio: intervalo_proximo_inicio,
-                proximo_valor: proximo_valor,
-                valor_atual: valor_atual,
-              );
-            }
+          }
+          if (paginaS == 2) {
+            return DesktopMeucargo(
+              cargo: cargo,
+              competencias_cargo: competencias_cargo,
+              titulo_cargo: titulo_cargo,
+              nome_cargo: nome_cargo,
+              soma: soma,
+              intervalo_atual_inicio: intervalo_atual_inicio,
+              intervalo_atual_fim: intervalo_atual_fim,
+              intervalo_proximo_fim: intervalo_proximo_fim,
+              intervalo_proximo_inicio: intervalo_proximo_inicio,
+              proximo_valor: proximo_valor,
+              valor_atual: valor_atual,
+            );
           }
           switch (paginaS) {
             case 1:
@@ -815,16 +881,16 @@ class _StateSistemaContent extends State<SistemaContent> {
               );
               break;
             case 4:
-              return const DesktopCargos();
+              return DesktopCargos(cargos: cargossss, instituicao: usuario.instituicao,);
               break;
             case 5:
               return const DesktopProfessores();
               break;
             case 6:
-              return const DesktopPontuacoes();
+              return DesktopPontuacoes(cargos: cargossss, pontuacoes: pont, instituicao: usuario.instituicao,);
               break;
             case 7:
-              return const DesktopSimulador();
+              return DesktopSimulador(cargos: cargossss, pontuacoes: pont, instituicao: usuario.instituicao,);
               break;
             case 8:
               return DesktopSuaspontuacoes(

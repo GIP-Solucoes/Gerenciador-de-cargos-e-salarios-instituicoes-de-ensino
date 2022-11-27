@@ -1,6 +1,28 @@
+import 'dart:math';
+
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:gip_solucoes/screens/home_screen/components/model/Cargo.dart';
+import 'package:gip_solucoes/screens/home_screen/components/model/Pontuacao.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/sistema_content.dart';
+
+List<bool> verificadoresTitulo = [false, false, false, false, false];
+List<bool> verificadoresAssiduidade = [false, false];
+List<bool> verificadoresFormacao = [false, false, false, false, false, false];
+List<bool> verificadoresExperiencia = [false, false, false, false];
+List<bool> verificadoresFormacaoQtde = [
+  false,
+  false,
+  false,
+  false,
+  false,
+  false
+];
+List<bool> verificadoresExperienciaQtde = [false, false, false, false];
+bool verificadorTempo = false;
+
 class MenuText extends StatelessWidget {
   const MenuText({Key? key}) : super(key: key);
 
@@ -13,33 +35,254 @@ class MenuText extends StatelessWidget {
   }
 }
 
-class BotaoSalvar extends StatelessWidget {
-  BotaoSalvar({
-    Key? key,
-  }) : super(key: key);
+class BotaoSalvar extends StatefulWidget {
+  String instituicao;
+  List<TextEditingController> textEditingTitulo;
+  List<TextEditingController> textEditingAssiduidade;
+  List<TextEditingController> textEditingFormacao;
+  List<TextEditingController> textEditingExperiencia;
+  List<TextEditingController> textEditingFormacaoQtde;
+  List<TextEditingController> textEditingExperienciaQtde;
+  List<TextEditingController> textEditingTempoCasa;
+  BotaoSalvar(
+      {Key? key,
+      required this.instituicao,
+      required this.textEditingTitulo,
+      required this.textEditingAssiduidade,
+      required this.textEditingFormacao,
+      required this.textEditingExperiencia,
+      required this.textEditingTempoCasa,
+      required this.textEditingFormacaoQtde,
+      required this.textEditingExperienciaQtde})
+      : super(key: key);
+
+  @override
+  State<BotaoSalvar> createState() => _BotaoSalvarState();
+}
+
+class _BotaoSalvarState extends State<BotaoSalvar> {
+  alterar_pontuacoes() {
+    int contador = 0;
+    CollectionReference cargos = FirebaseFirestore.instance.collection('Cargo');
+    cargos
+        .where('instituicao', isEqualTo: widget.instituicao)
+        .orderBy('grau')
+        .get()
+        .then((QuerySnapshot q) {
+      q.docs.forEach((element) {
+        var e = element.reference;
+        if (verificadoresTitulo[contador] != false) {
+          if (widget.textEditingTitulo[contador].text.isNotEmpty)
+            e.update({
+              "valor_pontuacao":
+                  double.parse(widget.textEditingTitulo[contador].text.replaceAll(',', '.'))
+            });
+        }
+        contador++;
+      });
+      CollectionReference pontuacos =
+          FirebaseFirestore.instance.collection('Pontuacao');
+      pontuacos
+          .where('instituicao', isEqualTo: widget.instituicao)
+          .get()
+          .then((QuerySnapshot q) {
+        q.docs.forEach((elementt) {
+          DocumentReference _documentReference = elementt.reference;
+          CollectionReference _collectionReference =
+              _documentReference.collection('PontuacaoAtributo');
+          _collectionReference.orderBy('nome').get().then((QuerySnapshot q) {
+            int contador2 = 0;
+            q.docs.forEach((elementtt) {
+              var ee = elementtt.reference;
+              if (elementt["nome"] == "Assiduidade") {
+                if (verificadoresAssiduidade[0] != false) {
+                  if (widget.textEditingAssiduidade[0].text.isNotEmpty)
+                    ee.update({
+                      "quantidade_maxima":
+                          double.parse(widget.textEditingAssiduidade[0].text.replaceAll(',', '.'))
+                    });
+                }
+                if (verificadoresAssiduidade[1] != false) {
+                  if (widget.textEditingAssiduidade[1].text.isNotEmpty)
+                    ee.update({
+                      "valor":
+                          double.parse(widget.textEditingAssiduidade[1].text.replaceAll(',', '.'))
+                    });
+                }
+              } else if (elementt["nome"] == "Experiência") {
+                if (verificadoresExperiencia[contador2] != false) {
+                  if (widget.textEditingExperiencia[contador2].text.isNotEmpty)
+                    ee.update({
+                      "valor": double.parse(
+                          widget.textEditingExperiencia[contador2].text.replaceAll(',', '.'))
+                    });
+                }
+                if (verificadoresExperienciaQtde[contador2] != false) {
+                  if (widget
+                      .textEditingExperienciaQtde[contador2].text.isNotEmpty)
+                    ee.update({
+                      "quantidade_maxima": double.parse(
+                          widget.textEditingExperienciaQtde[contador2].text.replaceAll(',', '.'))
+                    });
+                }
+              } else if (elementt["nome"] ==
+                  "Pontuação de Formação Acadêmica") {
+                if (verificadoresFormacao[contador2] != false) {
+                  if (widget.textEditingFormacao[contador2].text.isNotEmpty)
+                    ee.update({
+                      "valor": double.parse(
+                          widget.textEditingFormacao[contador2].text.replaceAll(',', '.'))
+                    });
+                }
+                if (verificadoresFormacaoQtde[contador2] != false) {
+                  if (widget.textEditingFormacaoQtde[contador2].text.isNotEmpty)
+                    ee.update({
+                      "quantidade_maxima": double.parse(
+                          widget.textEditingFormacaoQtde[contador2].text.replaceAll(',', '.'))
+                    });
+                }
+              } else {
+                if (verificadorTempo != false) {
+                  if (widget.textEditingTempoCasa[0].text.isNotEmpty) {
+                    ee.update({
+                      "valor": double.parse(widget.textEditingTempoCasa[0].text.replaceAll(',', '.'))
+                    });
+                  }
+                }
+              }
+              contador2++;
+            });
+          });
+        });
+      }).catchError((e) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          backgroundColor: Colors.red,
+          content: Text(e),
+          duration: Duration(seconds: 5),
+        ));
+      });
+    }).catchError((e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        backgroundColor: Colors.red,
+        content: Text(e),
+        duration: Duration(seconds: 5),
+      ));
+    });
+    bool verificar_alteracao = false;
+    verificadoresTitulo.forEach((element) {
+      if (element == true) {
+        verificar_alteracao = true;
+      }
+    });
+    verificadoresFormacao.forEach((element) {
+      if (element == true) {
+        verificar_alteracao = true;
+      }
+    });
+    verificadoresFormacaoQtde.forEach((element) {
+      if (element == true) {
+        verificar_alteracao = true;
+      }
+    });
+    verificadoresExperiencia.forEach((element) {
+      if (element == true) {
+        verificar_alteracao = true;
+      }
+    });
+    verificadoresExperienciaQtde.forEach((element) {
+      if (element == true) {
+        verificar_alteracao = true;
+      }
+    });
+    if (verificadorTempo == true) {
+      verificar_alteracao = true;
+    }
+    verificadoresAssiduidade.forEach((element) {
+      if (element == true) {
+        verificar_alteracao = true;
+      }
+    });
+    if (verificar_alteracao != false) {
+      bool verificar_vazios = false;
+      widget.textEditingAssiduidade.forEach((element) {
+        if (element.text.isEmpty) verificar_vazios = true;
+      });
+      widget.textEditingTitulo.forEach((element) {
+        if (element.text.isEmpty) verificar_vazios = true;
+      });
+      widget.textEditingFormacao.forEach((element) {
+        if (element.text.isEmpty) verificar_vazios = true;
+      });
+      widget.textEditingFormacaoQtde.forEach((element) {
+        if (element.text.isEmpty) verificar_vazios = true;
+      });
+      widget.textEditingExperiencia.forEach((element) {
+        if (element.text.isEmpty) verificar_vazios = true;
+      });
+      widget.textEditingExperienciaQtde.forEach((element) {
+        if (element.text.isEmpty) verificar_vazios = true;
+      });
+      widget.textEditingTempoCasa.forEach((element) {
+        if (element.text.isEmpty) verificar_vazios = true;
+      });
+      if (verificar_vazios == false) {
+        showDialog(
+            context: context,
+            builder: (_) => AlertDialog(
+                  title: Text(
+                    "Dados salvos",
+                  ),
+                  content: Text("Os dados foram salvos com sucesso!"),
+                  actions: [
+                    TextButton(
+                        onPressed: () {
+                          paginaS = 0;
+                          Navigator.popAndPushNamed(context, '/sistema');
+                        },
+                        child: Text('Ok')),
+                  ],
+                ));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          backgroundColor: Colors.red,
+          content: Text("Há espaço(s) vazio(s)!"),
+          duration: Duration(seconds: 5),
+        ));
+      }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        backgroundColor: Colors.red,
+        content: Text("Nenhum dado foi alterado!"),
+        duration: Duration(seconds: 5),
+      ));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      width: 110.0,
-      height: 40.0,
-      decoration: BoxDecoration(
-        color: Colors.green,
-        borderRadius: BorderRadius.circular(5.0),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(Icons.arrow_back_ios, color: Colors.white, size: 30.0),
-          Text(
-            "SALVAR",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16.0,
+    return TextButton(
+      onPressed: () => alterar_pontuacoes(),
+      child: Container(
+        alignment: Alignment.center,
+        width: 110.0,
+        height: 40.0,
+        decoration: BoxDecoration(
+          color: Colors.green,
+          borderRadius: BorderRadius.circular(5.0),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.arrow_back_ios, color: Colors.white, size: 30.0),
+            Text(
+              "SALVAR",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16.0,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -52,18 +295,6 @@ class _PontuacoesState extends State<Pontuacoes> {
   _PontuacoesState(double valor) {
     this.valor = valor;
   }
-  static List<TextEditingController> controllerl1 = [
-    TextEditingController(text: "0"),
-    TextEditingController(text: "3"),
-    TextEditingController(text: "20"),
-    TextEditingController(text: "40"),
-    TextEditingController(text: "60"),
-    TextEditingController(text: "6"),
-    TextEditingController(text: "1"),
-    TextEditingController(text: "2"),
-    TextEditingController(text: "3"),
-    TextEditingController(text: "4"),
-  ];
   static TextEditingController text = TextEditingController(text: "5");
   final List<GlobalKey> categorias = [
     GlobalKey(),
@@ -200,7 +431,13 @@ class _PontuacoesState extends State<Pontuacoes> {
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                            "Pontuação de Formação Acadêmica",
+                                            (this
+                                                    .widget
+                                                    .pontuacoes
+                                                    .asMap()
+                                                    .containsKey(2))
+                                                ? this.widget.pontuacoes[2].nome
+                                                : "...",
                                             style: TextStyle(
                                               color: Colors.black,
                                               fontSize: 16.0,
@@ -298,7 +535,13 @@ class _PontuacoesState extends State<Pontuacoes> {
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                            "Experiência",
+                                            (this
+                                                    .widget
+                                                    .pontuacoes
+                                                    .asMap()
+                                                    .containsKey(1))
+                                                ? this.widget.pontuacoes[1].nome
+                                                : "...",
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               color: Colors.black,
@@ -391,20 +634,20 @@ class _PontuacoesState extends State<Pontuacoes> {
                                         borderRadius:
                                             BorderRadius.circular(5.0),
                                       ),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            textAlign: TextAlign.center,
-                                            "Tempo de\ncasa",
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 8.0,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ],
+                                      child: Text(
+                                        textAlign: TextAlign.center,
+                                        (this
+                                                .widget
+                                                .pontuacoes
+                                                .asMap()
+                                                .containsKey(3))
+                                            ? this.widget.pontuacoes[3].nome
+                                            : "...",
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 8.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
                                     ),
                                     SizedBox(
@@ -467,7 +710,10 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                                 .circular(5.0),
                                                       ),
                                                       child: Text(
-                                                        "ESPECIALISTA",
+                                                        widget.cargos.isEmpty
+                                                            ? "..."
+                                                            : widget.cargos[0]
+                                                                .titulo,
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyle(
@@ -493,10 +739,36 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                           BoxConstraints(
                                                               minHeight: 40),
                                                       child: TextField(
+                                                        onChanged: (value) {
+                                                          verificadoresTitulo[
+                                                              0] = true;
+                                                        },
+                                                        inputFormatters: <
+                                                            TextInputFormatter>[
+                                                          FilteringTextInputFormatter
+                                                              .allow(RegExp(
+                                                                  r'[0-9]+[,.]{0,1}[0-9]*')),
+                                                          TextInputFormatter
+                                                              .withFunction(
+                                                            (oldValue,
+                                                                    newValue) =>
+                                                                newValue
+                                                                    .copyWith(
+                                                              text: newValue
+                                                                  .text
+                                                                  .replaceAll(
+                                                                      '.', ','),
+                                                            ),
+                                                          ),
+                                                        ],
                                                         textAlign:
                                                             TextAlign.center,
-                                                        controller:
-                                                            controllerl1[1],
+                                                        controller: widget
+                                                                .pontuacoesTitulo
+                                                                .isEmpty
+                                                            ? null
+                                                            : widget
+                                                                .pontuacoesTitulo[0],
                                                         maxLines: null,
                                                         style: TextStyle(
                                                           color: Colors.black,
@@ -518,7 +790,27 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                                 .circular(5.0),
                                                       ),
                                                       child: Text(
-                                                        "Aprovação em Concurso Público",
+                                                        (this
+                                                                    .widget
+                                                                    .pontuacoes
+                                                                    .asMap()
+                                                                    .containsKey(
+                                                                        2) &&
+                                                                this
+                                                                    .widget
+                                                                    .pontuacoes[
+                                                                        2]
+                                                                    .pontuacaoAtributo
+                                                                    .asMap()
+                                                                    .containsKey(
+                                                                        0))
+                                                            ? this
+                                                                .widget
+                                                                .pontuacoes[2]
+                                                                .pontuacaoAtributo[
+                                                                    0]
+                                                                .nome
+                                                            : "Carregando...",
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyle(
@@ -544,10 +836,36 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                           BoxConstraints(
                                                               minHeight: 40),
                                                       child: TextField(
+                                                        inputFormatters: <
+                                                            TextInputFormatter>[
+                                                          FilteringTextInputFormatter
+                                                              .allow(RegExp(
+                                                                  r'[0-9]+[,.]{0,1}[0-9]*')),
+                                                          TextInputFormatter
+                                                              .withFunction(
+                                                            (oldValue,
+                                                                    newValue) =>
+                                                                newValue
+                                                                    .copyWith(
+                                                              text: newValue
+                                                                  .text
+                                                                  .replaceAll(
+                                                                      '.', ','),
+                                                            ),
+                                                          ),
+                                                        ],
                                                         textAlign:
                                                             TextAlign.center,
-                                                        controller:
-                                                            controllerl1[0],
+                                                        controller: widget
+                                                                .pontuacoesFormacao
+                                                                .isEmpty
+                                                            ? null
+                                                            : widget
+                                                                .pontuacoesFormacao[0],
+                                                        onChanged: (value) {
+                                                          verificadoresFormacao[
+                                                              0] = true;
+                                                        },
                                                         maxLines: null,
                                                         style: TextStyle(
                                                           color: Colors.black,
@@ -572,10 +890,24 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                           BoxConstraints(
                                                               minHeight: 40),
                                                       child: TextField(
+                                                        inputFormatters: <
+                                                            TextInputFormatter>[
+                                                          FilteringTextInputFormatter
+                                                              .allow(RegExp(
+                                                                  r'[0-9]')),
+                                                        ],
                                                         textAlign:
                                                             TextAlign.center,
-                                                        controller:
-                                                            controllerl1[0],
+                                                        controller: widget
+                                                                .pontuacoesFormacaoQtde
+                                                                .isEmpty
+                                                            ? null
+                                                            : widget
+                                                                .pontuacoesFormacaoQtde[0],
+                                                        onChanged: (value) {
+                                                          verificadoresFormacaoQtde[
+                                                              0] = true;
+                                                        },
                                                         maxLines: null,
                                                         style: TextStyle(
                                                           color: Colors.black,
@@ -597,7 +929,27 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                                 .circular(5.0),
                                                       ),
                                                       child: Text(
-                                                        "Livros publicados",
+                                                        (this
+                                                                    .widget
+                                                                    .pontuacoes
+                                                                    .asMap()
+                                                                    .containsKey(
+                                                                        1) &&
+                                                                this
+                                                                    .widget
+                                                                    .pontuacoes[
+                                                                        1]
+                                                                    .pontuacaoAtributo
+                                                                    .asMap()
+                                                                    .containsKey(
+                                                                        0))
+                                                            ? this
+                                                                .widget
+                                                                .pontuacoes[1]
+                                                                .pontuacaoAtributo[
+                                                                    0]
+                                                                .nome
+                                                            : "Carregando...",
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyle(
@@ -623,10 +975,36 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                           BoxConstraints(
                                                               minHeight: 40),
                                                       child: TextField(
+                                                        inputFormatters: <
+                                                            TextInputFormatter>[
+                                                          FilteringTextInputFormatter
+                                                              .allow(RegExp(
+                                                                  r'[0-9]+[,.]{0,1}[0-9]*')),
+                                                          TextInputFormatter
+                                                              .withFunction(
+                                                            (oldValue,
+                                                                    newValue) =>
+                                                                newValue
+                                                                    .copyWith(
+                                                              text: newValue
+                                                                  .text
+                                                                  .replaceAll(
+                                                                      '.', ','),
+                                                            ),
+                                                          ),
+                                                        ],
                                                         textAlign:
                                                             TextAlign.center,
-                                                        controller:
-                                                            controllerl1[0],
+                                                        controller: widget
+                                                                .pontuacoesExperiencia
+                                                                .isEmpty
+                                                            ? null
+                                                            : widget
+                                                                .pontuacoesExperiencia[0],
+                                                        onChanged: (value) {
+                                                          verificadoresExperiencia[
+                                                              0] = true;
+                                                        },
                                                         maxLines: null,
                                                         style: TextStyle(
                                                           color: Colors.black,
@@ -651,10 +1029,24 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                           BoxConstraints(
                                                               minHeight: 40),
                                                       child: TextField(
+                                                        inputFormatters: <
+                                                            TextInputFormatter>[
+                                                          FilteringTextInputFormatter
+                                                              .allow(RegExp(
+                                                                  r'[0-9]')),
+                                                        ],
                                                         textAlign:
                                                             TextAlign.center,
-                                                        controller:
-                                                            controllerl1[0],
+                                                        controller: widget
+                                                                .pontuacoesExperienciaQtde
+                                                                .isEmpty
+                                                            ? null
+                                                            : widget
+                                                                .pontuacoesExperienciaQtde[0],
+                                                        onChanged: (value) {
+                                                          verificadoresExperienciaQtde[
+                                                              0] = true;
+                                                        },
                                                         maxLines: null,
                                                         style: TextStyle(
                                                           color: Colors.black,
@@ -702,10 +1094,72 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                           BoxConstraints(
                                                               minHeight: 40),
                                                       child: TextField(
+                                                        inputFormatters: <
+                                                            TextInputFormatter>[
+                                                          FilteringTextInputFormatter
+                                                              .allow(RegExp(
+                                                                  r'[0-9]+[,.]{0,1}[0-9]*')),
+                                                          TextInputFormatter
+                                                              .withFunction(
+                                                            (oldValue,
+                                                                    newValue) =>
+                                                                newValue
+                                                                    .copyWith(
+                                                              text: newValue
+                                                                  .text
+                                                                  .replaceAll(
+                                                                      '.', ','),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                        onChanged: (value) {
+                                                          verificadorTempo =
+                                                              true;
+                                                          setState(() {
+                                                            if (value.isEmpty) {
+                                                              for (int i = 0;
+                                                                  i <
+                                                                      widget
+                                                                          .pontuacoesTempoCasa
+                                                                          .length;
+                                                                  i++) {
+                                                                if (i != 0) {
+                                                                  widget
+                                                                      .pontuacoesTempoCasa[
+                                                                          i]
+                                                                      .text = "";
+                                                                }
+                                                              }
+                                                            } else {
+                                                              for (int i = 0;
+                                                                  i <
+                                                                      widget
+                                                                          .pontuacoesTempoCasa
+                                                                          .length;
+                                                                  i++) {
+                                                                if (i != 0) {
+                                                                  widget
+                                                                      .pontuacoesTempoCasa[
+                                                                          i]
+                                                                      .text = (double.parse(value.replaceAll(
+                                                                              ',',
+                                                                              '.')) *
+                                                                          (i +
+                                                                              1))
+                                                                      .toString().replaceAll('.', ',');
+                                                                }
+                                                              }
+                                                            }
+                                                          });
+                                                        },
                                                         textAlign:
                                                             TextAlign.center,
-                                                        controller:
-                                                            controllerl1[6],
+                                                        controller: widget
+                                                                .pontuacoesTempoCasa
+                                                                .isEmpty
+                                                            ? null
+                                                            : widget
+                                                                .pontuacoesTempoCasa[0],
                                                         maxLines: null,
                                                         style: TextStyle(
                                                           color: Colors.black,
@@ -742,7 +1196,10 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                                 .circular(5.0),
                                                       ),
                                                       child: Text(
-                                                        "MESTRADO",
+                                                        widget.cargos.isEmpty
+                                                            ? "..."
+                                                            : widget.cargos[1]
+                                                                .titulo,
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyle(
@@ -768,10 +1225,36 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                           BoxConstraints(
                                                               minHeight: 40),
                                                       child: TextField(
+                                                        inputFormatters: <
+                                                            TextInputFormatter>[
+                                                          FilteringTextInputFormatter
+                                                              .allow(RegExp(
+                                                                  r'[0-9]+[,.]{0,1}[0-9]*')),
+                                                          TextInputFormatter
+                                                              .withFunction(
+                                                            (oldValue,
+                                                                    newValue) =>
+                                                                newValue
+                                                                    .copyWith(
+                                                              text: newValue
+                                                                  .text
+                                                                  .replaceAll(
+                                                                      '.', ','),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                        onChanged: (value) {
+                                                          verificadoresTitulo[
+                                                              1] = true;
+                                                        },
                                                         textAlign:
                                                             TextAlign.center,
-                                                        controller:
-                                                            controllerl1[2],
+                                                        controller: widget
+                                                                .pontuacoesTitulo
+                                                                .isEmpty
+                                                            ? null
+                                                            : widget
+                                                                .pontuacoesTitulo[1],
                                                         maxLines: null,
                                                         style: TextStyle(
                                                           color: Colors.black,
@@ -793,7 +1276,27 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                                 .circular(5.0),
                                                       ),
                                                       child: Text(
-                                                        "Créditos de Pós-Graduação \"Stricto Sensu\" por disciplina",
+                                                        (this
+                                                                    .widget
+                                                                    .pontuacoes
+                                                                    .asMap()
+                                                                    .containsKey(
+                                                                        2) &&
+                                                                this
+                                                                    .widget
+                                                                    .pontuacoes[
+                                                                        2]
+                                                                    .pontuacaoAtributo
+                                                                    .asMap()
+                                                                    .containsKey(
+                                                                        1))
+                                                            ? this
+                                                                .widget
+                                                                .pontuacoes[2]
+                                                                .pontuacaoAtributo[
+                                                                    1]
+                                                                .nome
+                                                            : "Carregando...",
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyle(
@@ -819,10 +1322,36 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                           BoxConstraints(
                                                               minHeight: 40),
                                                       child: TextField(
+                                                        inputFormatters: <
+                                                            TextInputFormatter>[
+                                                          FilteringTextInputFormatter
+                                                              .allow(RegExp(
+                                                                  r'[0-9]+[,.]{0,1}[0-9]*')),
+                                                          TextInputFormatter
+                                                              .withFunction(
+                                                            (oldValue,
+                                                                    newValue) =>
+                                                                newValue
+                                                                    .copyWith(
+                                                              text: newValue
+                                                                  .text
+                                                                  .replaceAll(
+                                                                      '.', ','),
+                                                            ),
+                                                          ),
+                                                        ],
                                                         textAlign:
                                                             TextAlign.center,
-                                                        controller:
-                                                            controllerl1[0],
+                                                        controller: widget
+                                                                .pontuacoesFormacao
+                                                                .isEmpty
+                                                            ? null
+                                                            : widget
+                                                                .pontuacoesFormacao[1],
+                                                        onChanged: (value) {
+                                                          verificadoresFormacao[
+                                                              1] = true;
+                                                        },
                                                         maxLines: null,
                                                         style: TextStyle(
                                                           color: Colors.black,
@@ -847,10 +1376,24 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                           BoxConstraints(
                                                               minHeight: 40),
                                                       child: TextField(
+                                                        inputFormatters: <
+                                                            TextInputFormatter>[
+                                                          FilteringTextInputFormatter
+                                                              .allow(RegExp(
+                                                                  r'[0-9]')),
+                                                        ],
                                                         textAlign:
                                                             TextAlign.center,
-                                                        controller:
-                                                            controllerl1[0],
+                                                        controller: widget
+                                                                .pontuacoesFormacaoQtde
+                                                                .isEmpty
+                                                            ? null
+                                                            : widget
+                                                                .pontuacoesFormacaoQtde[1],
+                                                        onChanged: (value) {
+                                                          verificadoresFormacaoQtde[
+                                                              1] = true;
+                                                        },
                                                         maxLines: null,
                                                         style: TextStyle(
                                                           color: Colors.black,
@@ -872,7 +1415,27 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                                 .circular(5.0),
                                                       ),
                                                       child: Text(
-                                                        "Realização de Pesquisa aprovada pela Instituição (Mínimo 1 ano)",
+                                                        (this
+                                                                    .widget
+                                                                    .pontuacoes
+                                                                    .asMap()
+                                                                    .containsKey(
+                                                                        1) &&
+                                                                this
+                                                                    .widget
+                                                                    .pontuacoes[
+                                                                        1]
+                                                                    .pontuacaoAtributo
+                                                                    .asMap()
+                                                                    .containsKey(
+                                                                        1))
+                                                            ? this
+                                                                .widget
+                                                                .pontuacoes[1]
+                                                                .pontuacaoAtributo[
+                                                                    1]
+                                                                .nome
+                                                            : "Carregando...",
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyle(
@@ -898,10 +1461,36 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                           BoxConstraints(
                                                               minHeight: 40),
                                                       child: TextField(
+                                                        inputFormatters: <
+                                                            TextInputFormatter>[
+                                                          FilteringTextInputFormatter
+                                                              .allow(RegExp(
+                                                                  r'[0-9]+[,.]{0,1}[0-9]*')),
+                                                          TextInputFormatter
+                                                              .withFunction(
+                                                            (oldValue,
+                                                                    newValue) =>
+                                                                newValue
+                                                                    .copyWith(
+                                                              text: newValue
+                                                                  .text
+                                                                  .replaceAll(
+                                                                      '.', ','),
+                                                            ),
+                                                          ),
+                                                        ],
                                                         textAlign:
                                                             TextAlign.center,
-                                                        controller:
-                                                            controllerl1[0],
+                                                        controller: widget
+                                                                .pontuacoesExperiencia
+                                                                .isEmpty
+                                                            ? null
+                                                            : widget
+                                                                .pontuacoesExperiencia[1],
+                                                        onChanged: (value) {
+                                                          verificadoresExperiencia[
+                                                              1] = true;
+                                                        },
                                                         maxLines: null,
                                                         style: TextStyle(
                                                           color: Colors.black,
@@ -926,10 +1515,24 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                           BoxConstraints(
                                                               minHeight: 40),
                                                       child: TextField(
+                                                        inputFormatters: <
+                                                            TextInputFormatter>[
+                                                          FilteringTextInputFormatter
+                                                              .allow(RegExp(
+                                                                  r'[0-9]')),
+                                                        ],
                                                         textAlign:
                                                             TextAlign.center,
-                                                        controller:
-                                                            controllerl1[0],
+                                                        controller: widget
+                                                                .pontuacoesExperienciaQtde
+                                                                .isEmpty
+                                                            ? null
+                                                            : widget
+                                                                .pontuacoesExperienciaQtde[1],
+                                                        onChanged: (value) {
+                                                          verificadoresExperienciaQtde[
+                                                              1] = true;
+                                                        },
                                                         maxLines: null,
                                                         style: TextStyle(
                                                           color: Colors.black,
@@ -977,10 +1580,72 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                           BoxConstraints(
                                                               minHeight: 40),
                                                       child: TextField(
+                                                        inputFormatters: <
+                                                            TextInputFormatter>[
+                                                          FilteringTextInputFormatter
+                                                              .allow(RegExp(
+                                                                  r'[0-9]+[,.]{0,1}[0-9]*')),
+                                                          TextInputFormatter
+                                                              .withFunction(
+                                                            (oldValue,
+                                                                    newValue) =>
+                                                                newValue
+                                                                    .copyWith(
+                                                              text: newValue
+                                                                  .text
+                                                                  .replaceAll(
+                                                                      '.', ','),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                        onChanged: (value) {
+                                                          setState(() {
+                                                            verificadorTempo =
+                                                                true;
+                                                            if (value.isEmpty) {
+                                                              for (int i = 0;
+                                                                  i <
+                                                                      widget
+                                                                          .pontuacoesTempoCasa
+                                                                          .length;
+                                                                  i++) {
+                                                                if (i != 1) {
+                                                                  widget
+                                                                      .pontuacoesTempoCasa[
+                                                                          i]
+                                                                      .text = "";
+                                                                }
+                                                              }
+                                                            } else {
+                                                              for (int i = 0;
+                                                                  i <
+                                                                      widget
+                                                                          .pontuacoesTempoCasa
+                                                                          .length;
+                                                                  i++) {
+                                                                if (i != 1) {
+                                                                  widget
+                                                                      .pontuacoesTempoCasa[
+                                                                          i]
+                                                                      .text = (double.parse(value.replaceAll(
+                                                                              ',',
+                                                                              '.')) *
+                                                                          (i +
+                                                                              1))
+                                                                      .toString().replaceAll('.', ',');
+                                                                }
+                                                              }
+                                                            }
+                                                          });
+                                                        },
                                                         textAlign:
                                                             TextAlign.center,
-                                                        controller:
-                                                            controllerl1[7],
+                                                        controller: widget
+                                                                .pontuacoesTempoCasa
+                                                                .isEmpty
+                                                            ? null
+                                                            : widget
+                                                                .pontuacoesTempoCasa[1],
                                                         maxLines: null,
                                                         style: TextStyle(
                                                           color: Colors.black,
@@ -1017,7 +1682,10 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                                 .circular(5.0),
                                                       ),
                                                       child: Text(
-                                                        "DOUTORADO",
+                                                        widget.cargos.isEmpty
+                                                            ? "..."
+                                                            : widget.cargos[2]
+                                                                .titulo,
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyle(
@@ -1043,10 +1711,36 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                           BoxConstraints(
                                                               minHeight: 40),
                                                       child: TextField(
+                                                        inputFormatters: <
+                                                            TextInputFormatter>[
+                                                          FilteringTextInputFormatter
+                                                              .allow(RegExp(
+                                                                  r'[0-9]+[,.]{0,1}[0-9]*')),
+                                                          TextInputFormatter
+                                                              .withFunction(
+                                                            (oldValue,
+                                                                    newValue) =>
+                                                                newValue
+                                                                    .copyWith(
+                                                              text: newValue
+                                                                  .text
+                                                                  .replaceAll(
+                                                                      '.', ','),
+                                                            ),
+                                                          ),
+                                                        ],
                                                         textAlign:
                                                             TextAlign.center,
-                                                        controller:
-                                                            controllerl1[3],
+                                                        controller: widget
+                                                                .pontuacoesTitulo
+                                                                .isEmpty
+                                                            ? null
+                                                            : widget
+                                                                .pontuacoesTitulo[2],
+                                                        onChanged: (value) {
+                                                          verificadoresTitulo[
+                                                              2] = true;
+                                                        },
                                                         maxLines: null,
                                                         style: TextStyle(
                                                           color: Colors.black,
@@ -1068,7 +1762,27 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                                 .circular(5.0),
                                                       ),
                                                       child: Text(
-                                                        "Cursos de Aperfeiçoamento (mínimo 180 Hs)",
+                                                        (this
+                                                                    .widget
+                                                                    .pontuacoes
+                                                                    .asMap()
+                                                                    .containsKey(
+                                                                        2) &&
+                                                                this
+                                                                    .widget
+                                                                    .pontuacoes[
+                                                                        2]
+                                                                    .pontuacaoAtributo
+                                                                    .asMap()
+                                                                    .containsKey(
+                                                                        2))
+                                                            ? this
+                                                                .widget
+                                                                .pontuacoes[2]
+                                                                .pontuacaoAtributo[
+                                                                    2]
+                                                                .nome
+                                                            : "Carregando...",
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyle(
@@ -1094,10 +1808,36 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                           BoxConstraints(
                                                               minHeight: 40),
                                                       child: TextField(
+                                                        inputFormatters: <
+                                                            TextInputFormatter>[
+                                                          FilteringTextInputFormatter
+                                                              .allow(RegExp(
+                                                                  r'[0-9]+[,.]{0,1}[0-9]*')),
+                                                          TextInputFormatter
+                                                              .withFunction(
+                                                            (oldValue,
+                                                                    newValue) =>
+                                                                newValue
+                                                                    .copyWith(
+                                                              text: newValue
+                                                                  .text
+                                                                  .replaceAll(
+                                                                      '.', ','),
+                                                            ),
+                                                          ),
+                                                        ],
                                                         textAlign:
                                                             TextAlign.center,
-                                                        controller:
-                                                            controllerl1[0],
+                                                        controller: widget
+                                                                .pontuacoesFormacao
+                                                                .isEmpty
+                                                            ? null
+                                                            : widget
+                                                                .pontuacoesFormacao[2],
+                                                        onChanged: (value) {
+                                                          verificadoresFormacao[
+                                                              2] = true;
+                                                        },
                                                         maxLines: null,
                                                         style: TextStyle(
                                                           color: Colors.black,
@@ -1122,10 +1862,24 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                           BoxConstraints(
                                                               minHeight: 40),
                                                       child: TextField(
+                                                        inputFormatters: <
+                                                            TextInputFormatter>[
+                                                          FilteringTextInputFormatter
+                                                              .allow(RegExp(
+                                                                  r'[0-9]')),
+                                                        ],
                                                         textAlign:
                                                             TextAlign.center,
-                                                        controller:
-                                                            controllerl1[0],
+                                                        controller: widget
+                                                                .pontuacoesFormacaoQtde
+                                                                .isEmpty
+                                                            ? null
+                                                            : widget
+                                                                .pontuacoesFormacaoQtde[2],
+                                                        onChanged: (value) {
+                                                          verificadoresFormacaoQtde[
+                                                              2] = true;
+                                                        },
                                                         maxLines: null,
                                                         style: TextStyle(
                                                           color: Colors.black,
@@ -1147,7 +1901,27 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                                 .circular(5.0),
                                                       ),
                                                       child: Text(
-                                                        "Professor de universidade pública (Por ano completo)",
+                                                        (this
+                                                                    .widget
+                                                                    .pontuacoes
+                                                                    .asMap()
+                                                                    .containsKey(
+                                                                        1) &&
+                                                                this
+                                                                    .widget
+                                                                    .pontuacoes[
+                                                                        1]
+                                                                    .pontuacaoAtributo
+                                                                    .asMap()
+                                                                    .containsKey(
+                                                                        2))
+                                                            ? this
+                                                                .widget
+                                                                .pontuacoes[1]
+                                                                .pontuacaoAtributo[
+                                                                    2]
+                                                                .nome
+                                                            : "Carregando...",
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyle(
@@ -1173,10 +1947,36 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                           BoxConstraints(
                                                               minHeight: 40),
                                                       child: TextField(
+                                                        inputFormatters: <
+                                                            TextInputFormatter>[
+                                                          FilteringTextInputFormatter
+                                                              .allow(RegExp(
+                                                                  r'[0-9]+[,.]{0,1}[0-9]*')),
+                                                          TextInputFormatter
+                                                              .withFunction(
+                                                            (oldValue,
+                                                                    newValue) =>
+                                                                newValue
+                                                                    .copyWith(
+                                                              text: newValue
+                                                                  .text
+                                                                  .replaceAll(
+                                                                      '.', ','),
+                                                            ),
+                                                          ),
+                                                        ],
                                                         textAlign:
                                                             TextAlign.center,
-                                                        controller:
-                                                            controllerl1[0],
+                                                        controller: widget
+                                                                .pontuacoesExperiencia
+                                                                .isEmpty
+                                                            ? null
+                                                            : widget
+                                                                .pontuacoesExperiencia[2],
+                                                        onChanged: (value) {
+                                                          verificadoresExperiencia[
+                                                              2] = true;
+                                                        },
                                                         maxLines: null,
                                                         style: TextStyle(
                                                           color: Colors.black,
@@ -1201,10 +2001,24 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                           BoxConstraints(
                                                               minHeight: 40),
                                                       child: TextField(
+                                                        inputFormatters: <
+                                                            TextInputFormatter>[
+                                                          FilteringTextInputFormatter
+                                                              .allow(RegExp(
+                                                                  r'[0-9]')),
+                                                        ],
                                                         textAlign:
                                                             TextAlign.center,
-                                                        controller:
-                                                            controllerl1[0],
+                                                        controller: widget
+                                                                .pontuacoesExperienciaQtde
+                                                                .isEmpty
+                                                            ? null
+                                                            : widget
+                                                                .pontuacoesExperienciaQtde[2],
+                                                        onChanged: (value) {
+                                                          verificadoresExperienciaQtde[
+                                                              2] = true;
+                                                        },
                                                         maxLines: null,
                                                         style: TextStyle(
                                                           color: Colors.black,
@@ -1252,10 +2066,72 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                           BoxConstraints(
                                                               minHeight: 40),
                                                       child: TextField(
+                                                        inputFormatters: <
+                                                            TextInputFormatter>[
+                                                          FilteringTextInputFormatter
+                                                              .allow(RegExp(
+                                                                  r'[0-9]+[,.]{0,1}[0-9]*')),
+                                                          TextInputFormatter
+                                                              .withFunction(
+                                                            (oldValue,
+                                                                    newValue) =>
+                                                                newValue
+                                                                    .copyWith(
+                                                              text: newValue
+                                                                  .text
+                                                                  .replaceAll(
+                                                                      '.', ','),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                        onChanged: (value) {
+                                                          setState(() {
+                                                            verificadorTempo =
+                                                                true;
+                                                            if (value.isEmpty) {
+                                                              for (int i = 0;
+                                                                  i <
+                                                                      widget
+                                                                          .pontuacoesTempoCasa
+                                                                          .length;
+                                                                  i++) {
+                                                                if (i != 2) {
+                                                                  widget
+                                                                      .pontuacoesTempoCasa[
+                                                                          i]
+                                                                      .text = "";
+                                                                }
+                                                              }
+                                                            } else {
+                                                              for (int i = 0;
+                                                                  i <
+                                                                      widget
+                                                                          .pontuacoesTempoCasa
+                                                                          .length;
+                                                                  i++) {
+                                                                if (i != 2) {
+                                                                  widget
+                                                                      .pontuacoesTempoCasa[
+                                                                          i]
+                                                                      .text = (double.parse(value.replaceAll(
+                                                                              ',',
+                                                                              '.')) *
+                                                                          (i +
+                                                                              1))
+                                                                      .toString().replaceAll('.', ',');
+                                                                }
+                                                              }
+                                                            }
+                                                          });
+                                                        },
                                                         textAlign:
                                                             TextAlign.center,
-                                                        controller:
-                                                            controllerl1[8],
+                                                        controller: widget
+                                                                .pontuacoesTempoCasa
+                                                                .isEmpty
+                                                            ? null
+                                                            : widget
+                                                                .pontuacoesTempoCasa[2],
                                                         maxLines: null,
                                                         style: TextStyle(
                                                           color: Colors.black,
@@ -1292,7 +2168,10 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                                 .circular(5.0),
                                                       ),
                                                       child: Text(
-                                                        "LIVRE DOCENTE",
+                                                        widget.cargos.isEmpty
+                                                            ? "..."
+                                                            : widget.cargos[3]
+                                                                .titulo,
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyle(
@@ -1318,10 +2197,36 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                           BoxConstraints(
                                                               minHeight: 40),
                                                       child: TextField(
+                                                        inputFormatters: <
+                                                            TextInputFormatter>[
+                                                          FilteringTextInputFormatter
+                                                              .allow(RegExp(
+                                                                  r'[0-9]+[,.]{0,1}[0-9]*')),
+                                                          TextInputFormatter
+                                                              .withFunction(
+                                                            (oldValue,
+                                                                    newValue) =>
+                                                                newValue
+                                                                    .copyWith(
+                                                              text: newValue
+                                                                  .text
+                                                                  .replaceAll(
+                                                                      '.', ','),
+                                                            ),
+                                                          ),
+                                                        ],
                                                         textAlign:
                                                             TextAlign.center,
-                                                        controller:
-                                                            controllerl1[4],
+                                                        controller: widget
+                                                                .pontuacoesTitulo
+                                                                .isEmpty
+                                                            ? null
+                                                            : widget
+                                                                .pontuacoesTitulo[3],
+                                                        onChanged: (value) {
+                                                          verificadoresTitulo[
+                                                              3] = true;
+                                                        },
                                                         maxLines: null,
                                                         style: TextStyle(
                                                           color: Colors.black,
@@ -1343,7 +2248,27 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                                 .circular(5.0),
                                                       ),
                                                       child: Text(
-                                                        "Outros Cursos de Graduação",
+                                                        (this
+                                                                    .widget
+                                                                    .pontuacoes
+                                                                    .asMap()
+                                                                    .containsKey(
+                                                                        2) &&
+                                                                this
+                                                                    .widget
+                                                                    .pontuacoes[
+                                                                        2]
+                                                                    .pontuacaoAtributo
+                                                                    .asMap()
+                                                                    .containsKey(
+                                                                        3))
+                                                            ? this
+                                                                .widget
+                                                                .pontuacoes[2]
+                                                                .pontuacaoAtributo[
+                                                                    3]
+                                                                .nome
+                                                            : "Carregando...",
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyle(
@@ -1369,10 +2294,36 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                           BoxConstraints(
                                                               minHeight: 40),
                                                       child: TextField(
+                                                        inputFormatters: <
+                                                            TextInputFormatter>[
+                                                          FilteringTextInputFormatter
+                                                              .allow(RegExp(
+                                                                  r'[0-9]+[,.]{0,1}[0-9]*')),
+                                                          TextInputFormatter
+                                                              .withFunction(
+                                                            (oldValue,
+                                                                    newValue) =>
+                                                                newValue
+                                                                    .copyWith(
+                                                              text: newValue
+                                                                  .text
+                                                                  .replaceAll(
+                                                                      '.', ','),
+                                                            ),
+                                                          ),
+                                                        ],
                                                         textAlign:
                                                             TextAlign.center,
-                                                        controller:
-                                                            controllerl1[0],
+                                                        controller: widget
+                                                                .pontuacoesFormacao
+                                                                .isEmpty
+                                                            ? null
+                                                            : widget
+                                                                .pontuacoesFormacao[3],
+                                                        onChanged: (value) {
+                                                          verificadoresFormacao[
+                                                              3] = true;
+                                                        },
                                                         maxLines: null,
                                                         style: TextStyle(
                                                           color: Colors.black,
@@ -1397,10 +2348,24 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                           BoxConstraints(
                                                               minHeight: 40),
                                                       child: TextField(
+                                                        inputFormatters: <
+                                                            TextInputFormatter>[
+                                                          FilteringTextInputFormatter
+                                                              .allow(RegExp(
+                                                                  r'[0-9]')),
+                                                        ],
                                                         textAlign:
                                                             TextAlign.center,
-                                                        controller:
-                                                            controllerl1[0],
+                                                        controller: widget
+                                                                .pontuacoesFormacaoQtde
+                                                                .isEmpty
+                                                            ? null
+                                                            : widget
+                                                                .pontuacoesFormacaoQtde[3],
+                                                        onChanged: (value) {
+                                                          verificadoresFormacaoQtde[
+                                                              3] = true;
+                                                        },
                                                         maxLines: null,
                                                         style: TextStyle(
                                                           color: Colors.black,
@@ -1422,7 +2387,27 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                                 .circular(5.0),
                                                       ),
                                                       child: Text(
-                                                        "Trabalhos científicos publicado em revista especializada",
+                                                        (this
+                                                                    .widget
+                                                                    .pontuacoes
+                                                                    .asMap()
+                                                                    .containsKey(
+                                                                        1) &&
+                                                                this
+                                                                    .widget
+                                                                    .pontuacoes[
+                                                                        1]
+                                                                    .pontuacaoAtributo
+                                                                    .asMap()
+                                                                    .containsKey(
+                                                                        3))
+                                                            ? this
+                                                                .widget
+                                                                .pontuacoes[1]
+                                                                .pontuacaoAtributo[
+                                                                    3]
+                                                                .nome
+                                                            : "Carregando...",
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyle(
@@ -1448,10 +2433,36 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                           BoxConstraints(
                                                               minHeight: 40),
                                                       child: TextField(
+                                                        inputFormatters: <
+                                                            TextInputFormatter>[
+                                                          FilteringTextInputFormatter
+                                                              .allow(RegExp(
+                                                                  r'[0-9]+[,.]{0,1}[0-9]*')),
+                                                          TextInputFormatter
+                                                              .withFunction(
+                                                            (oldValue,
+                                                                    newValue) =>
+                                                                newValue
+                                                                    .copyWith(
+                                                              text: newValue
+                                                                  .text
+                                                                  .replaceAll(
+                                                                      '.', ','),
+                                                            ),
+                                                          ),
+                                                        ],
                                                         textAlign:
                                                             TextAlign.center,
-                                                        controller:
-                                                            controllerl1[0],
+                                                        controller: widget
+                                                                .pontuacoesExperiencia
+                                                                .isEmpty
+                                                            ? null
+                                                            : widget
+                                                                .pontuacoesExperiencia[3],
+                                                        onChanged: (value) {
+                                                          verificadoresExperiencia[
+                                                              3] = true;
+                                                        },
                                                         maxLines: null,
                                                         style: TextStyle(
                                                           color: Colors.black,
@@ -1476,10 +2487,24 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                           BoxConstraints(
                                                               minHeight: 40),
                                                       child: TextField(
+                                                        inputFormatters: <
+                                                            TextInputFormatter>[
+                                                          FilteringTextInputFormatter
+                                                              .allow(RegExp(
+                                                                  r'[0-9]')),
+                                                        ],
                                                         textAlign:
                                                             TextAlign.center,
-                                                        controller:
-                                                            controllerl1[0],
+                                                        controller: widget
+                                                                .pontuacoesExperienciaQtde
+                                                                .isEmpty
+                                                            ? null
+                                                            : widget
+                                                                .pontuacoesExperienciaQtde[3],
+                                                        onChanged: (value) {
+                                                          verificadoresExperienciaQtde[
+                                                              3] = true;
+                                                        },
                                                         maxLines: null,
                                                         style: TextStyle(
                                                           color: Colors.black,
@@ -1527,10 +2552,74 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                           BoxConstraints(
                                                               minHeight: 40),
                                                       child: TextField(
+                                                        inputFormatters: <
+                                                            TextInputFormatter>[
+                                                          FilteringTextInputFormatter
+                                                              .allow(RegExp(
+                                                                  r'[0-9]+[,.]{0,1}[0-9]*')),
+                                                          TextInputFormatter
+                                                              .withFunction(
+                                                            (oldValue,
+                                                                    newValue) =>
+                                                                newValue
+                                                                    .copyWith(
+                                                              text: newValue
+                                                                  .text
+                                                                  .replaceAll(
+                                                                      '.', ','),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                        onChanged: (value) {
+                                                          setState(() {
+                                                            verificadorTempo =
+                                                                true;
+                                                            verificadorTempo =
+                                                                true;
+                                                            if (value.isEmpty) {
+                                                              for (int i = 0;
+                                                                  i <
+                                                                      widget
+                                                                          .pontuacoesTempoCasa
+                                                                          .length;
+                                                                  i++) {
+                                                                if (i != 3) {
+                                                                  widget
+                                                                      .pontuacoesTempoCasa[
+                                                                          i]
+                                                                      .text = "";
+                                                                }
+                                                              }
+                                                            } else {
+                                                              for (int i = 0;
+                                                                  i <
+                                                                      widget
+                                                                          .pontuacoesTempoCasa
+                                                                          .length;
+                                                                  i++) {
+                                                                if (i != 3) {
+                                                                  widget
+                                                                      .pontuacoesTempoCasa[
+                                                                          i]
+                                                                      .text = (double.parse(value.replaceAll(
+                                                                              ',',
+                                                                              '.')) *
+                                                                          (i +
+                                                                              1))
+                                                                      .toString().replaceAll('.', ',');
+                                                                }
+                                                              }
+                                                            }
+                                                          });
+                                                        },
                                                         textAlign:
                                                             TextAlign.center,
-                                                        controller:
-                                                            controllerl1[9],
+                                                        controller: widget
+                                                                .pontuacoesTempoCasa
+                                                                .isEmpty
+                                                            ? null
+                                                            : widget
+                                                                .pontuacoesTempoCasa[3],
                                                         maxLines: null,
                                                         style: TextStyle(
                                                           color: Colors.black,
@@ -1559,32 +2648,7 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                     Container(
                                                       alignment:
                                                           Alignment.center,
-                                                      width: 209,
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.blue[200],
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(5.0),
-                                                      ),
-                                                      child: Text(
-                                                        "Assiduidade",
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: TextStyle(
-                                                            color: Colors.black,
-                                                            fontSize: 16.0,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      width: 30,
-                                                    ),
-                                                    Container(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      width: 320,
+                                                      width: 157,
                                                       decoration: BoxDecoration(
                                                         color: Colors.white,
                                                         borderRadius:
@@ -1592,7 +2656,10 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                                 .circular(5.0),
                                                       ),
                                                       child: Text(
-                                                        "Cursos de Extensão Cultural (mínimo 30 Hs)",
+                                                        widget.cargos.isEmpty
+                                                            ? "..."
+                                                            : widget.cargos[4]
+                                                                .titulo,
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyle(
@@ -1618,10 +2685,133 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                           BoxConstraints(
                                                               minHeight: 40),
                                                       child: TextField(
+                                                        inputFormatters: <
+                                                            TextInputFormatter>[
+                                                          FilteringTextInputFormatter
+                                                              .allow(RegExp(
+                                                                  r'[0-9]+[,.]{0,1}[0-9]*')),
+                                                          TextInputFormatter
+                                                              .withFunction(
+                                                            (oldValue,
+                                                                    newValue) =>
+                                                                newValue
+                                                                    .copyWith(
+                                                              text: newValue
+                                                                  .text
+                                                                  .replaceAll(
+                                                                      '.', ','),
+                                                            ),
+                                                          ),
+                                                        ],
                                                         textAlign:
                                                             TextAlign.center,
-                                                        controller:
-                                                            controllerl1[0],
+                                                        controller: widget
+                                                                .pontuacoesTitulo
+                                                                .isEmpty
+                                                            ? null
+                                                            : widget
+                                                                .pontuacoesTitulo[4],
+                                                        onChanged: (value) {
+                                                          verificadoresTitulo[
+                                                              4] = true;
+                                                        },
+                                                        maxLines: null,
+                                                        style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 16.0,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 30,
+                                                    ),
+                                                    Container(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      width: 320,
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(5.0),
+                                                      ),
+                                                      child: Text(
+                                                        (this
+                                                                    .widget
+                                                                    .pontuacoes
+                                                                    .asMap()
+                                                                    .containsKey(
+                                                                        2) &&
+                                                                this
+                                                                    .widget
+                                                                    .pontuacoes[
+                                                                        2]
+                                                                    .pontuacaoAtributo
+                                                                    .asMap()
+                                                                    .containsKey(
+                                                                        4))
+                                                            ? this
+                                                                .widget
+                                                                .pontuacoes[2]
+                                                                .pontuacaoAtributo[
+                                                                    4]
+                                                                .nome
+                                                            : "Carregando...",
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 16.0,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 2,
+                                                    ),
+                                                    Container(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      width: 50,
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(5.0),
+                                                      ),
+                                                      constraints:
+                                                          BoxConstraints(
+                                                              minHeight: 40),
+                                                      child: TextField(
+                                                        inputFormatters: <
+                                                            TextInputFormatter>[
+                                                          FilteringTextInputFormatter
+                                                              .allow(RegExp(
+                                                                  r'[0-9]+[,.]{0,1}[0-9]*')),
+                                                          TextInputFormatter
+                                                              .withFunction(
+                                                            (oldValue,
+                                                                    newValue) =>
+                                                                newValue
+                                                                    .copyWith(
+                                                              text: newValue
+                                                                  .text
+                                                                  .replaceAll(
+                                                                      '.', ','),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        controller: widget
+                                                                .pontuacoesFormacao
+                                                                .isEmpty
+                                                            ? null
+                                                            : widget
+                                                                .pontuacoesFormacao[4],
+                                                        onChanged: (value) {
+                                                          verificadoresFormacao[
+                                                              4] = true;
+                                                        },
                                                         maxLines: null,
                                                         style: TextStyle(
                                                           color: Colors.black,
@@ -1646,10 +2836,24 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                           BoxConstraints(
                                                               minHeight: 40),
                                                       child: TextField(
+                                                        inputFormatters: <
+                                                            TextInputFormatter>[
+                                                          FilteringTextInputFormatter
+                                                              .allow(RegExp(
+                                                                  r'[0-9]')),
+                                                        ],
                                                         textAlign:
                                                             TextAlign.center,
-                                                        controller:
-                                                            controllerl1[0],
+                                                        controller: widget
+                                                                .pontuacoesFormacaoQtde
+                                                                .isEmpty
+                                                            ? null
+                                                            : widget
+                                                                .pontuacoesFormacaoQtde[4],
+                                                        onChanged: (value) {
+                                                          verificadoresFormacaoQtde[
+                                                              4] = true;
+                                                        },
                                                         maxLines: null,
                                                         style: TextStyle(
                                                           color: Colors.black,
@@ -1697,9 +2901,72 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                           BoxConstraints(
                                                               minHeight: 40),
                                                       child: TextField(
+                                                        inputFormatters: <
+                                                            TextInputFormatter>[
+                                                          FilteringTextInputFormatter
+                                                              .allow(RegExp(
+                                                                  r'[0-9]+[,.]{0,1}[0-9]*')),
+                                                          TextInputFormatter
+                                                              .withFunction(
+                                                            (oldValue,
+                                                                    newValue) =>
+                                                                newValue
+                                                                    .copyWith(
+                                                              text: newValue
+                                                                  .text
+                                                                  .replaceAll(
+                                                                      '.', ','),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                        onChanged: (value) {
+                                                          setState(() {
+                                                            verificadorTempo =
+                                                                true;
+                                                            if (value.isEmpty) {
+                                                              for (int i = 0;
+                                                                  i <
+                                                                      widget
+                                                                          .pontuacoesTempoCasa
+                                                                          .length;
+                                                                  i++) {
+                                                                if (i != 4) {
+                                                                  widget
+                                                                      .pontuacoesTempoCasa[
+                                                                          i]
+                                                                      .text = "";
+                                                                }
+                                                              }
+                                                            } else {
+                                                              for (int i = 0;
+                                                                  i <
+                                                                      widget
+                                                                          .pontuacoesTempoCasa
+                                                                          .length;
+                                                                  i++) {
+                                                                if (i != 4) {
+                                                                  widget
+                                                                      .pontuacoesTempoCasa[
+                                                                          i]
+                                                                      .text = (double.parse(value.replaceAll(
+                                                                              ',',
+                                                                              '.')) *
+                                                                          (i +
+                                                                              1))
+                                                                      .toString().replaceAll('.', ',');
+                                                                }
+                                                              }
+                                                            }
+                                                          });
+                                                        },
                                                         textAlign:
                                                             TextAlign.center,
-                                                        controller: text,
+                                                        controller: widget
+                                                                .pontuacoesTempoCasa
+                                                                .isEmpty
+                                                            ? null
+                                                            : widget
+                                                                .pontuacoesTempoCasa[4],
                                                         maxLines: null,
                                                         style: TextStyle(
                                                           color: Colors.black,
@@ -1725,126 +2992,36 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                       CrossAxisAlignment
                                                           .stretch,
                                                   children: [
-                                                    Column(
-                                                      children: [
-                                                        Container(
-                                                          alignment:
-                                                              Alignment.center,
-                                                          width: 103.5,
-                                                          height: 19,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: Colors.blue,
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        5.0),
-                                                          ),
-                                                          child: Text(
-                                                            "Limite",
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .black,
-                                                                fontSize: 8.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold),
-                                                          ),
-                                                        ),
-                                                        SizedBox(
-                                                          height: 2,
-                                                        ),
-                                                        Container(
-                                                          alignment:
-                                                              Alignment.center,
-                                                          width: 103.5,
-                                                          height: 28,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: Colors.white,
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        5.0),
-                                                          ),
-                                                          child: TextField(
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            controller:
-                                                                controllerl1[5],
-                                                            maxLines: null,
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.black,
-                                                              fontSize: 8.0,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    SizedBox(
-                                                      width: 2,
-                                                    ),
-                                                    Column(
-                                                      children: [
-                                                        Container(
-                                                          alignment:
-                                                              Alignment.center,
-                                                          width: 103.5,
-                                                          height: 19,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: Colors.blue,
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        5.0),
-                                                          ),
-                                                          child: Text(
-                                                            "Valor",
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .black,
-                                                                fontSize: 8.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold),
-                                                          ),
-                                                        ),
-                                                        SizedBox(
-                                                          height: 2,
-                                                        ),
-                                                        Container(
-                                                          alignment:
-                                                              Alignment.center,
-                                                          width: 103.5,
-                                                          height: 28,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: Colors.white,
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        5.0),
-                                                          ),
-                                                          child: TextField(
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            controller:
-                                                                controllerl1[6],
-                                                            maxLines: null,
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.black,
-                                                              fontSize: 8.0,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
+                                                    Container(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      width: 209,
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.blue[200],
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(5.0),
+                                                      ),
+                                                      child: Text(
+                                                        (this
+                                                                .widget
+                                                                .pontuacoes
+                                                                .asMap()
+                                                                .containsKey(0))
+                                                            ? this
+                                                                .widget
+                                                                .pontuacoes[0]
+                                                                .nome
+                                                            : "...",
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontSize: 16.0,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
                                                     ),
                                                     SizedBox(
                                                       width: 30,
@@ -1860,7 +3037,27 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                                 .circular(5.0),
                                                       ),
                                                       child: Text(
-                                                        "Variáveis",
+                                                        (this
+                                                                    .widget
+                                                                    .pontuacoes
+                                                                    .asMap()
+                                                                    .containsKey(
+                                                                        2) &&
+                                                                this
+                                                                    .widget
+                                                                    .pontuacoes[
+                                                                        2]
+                                                                    .pontuacaoAtributo
+                                                                    .asMap()
+                                                                    .containsKey(
+                                                                        5))
+                                                            ? this
+                                                                .widget
+                                                                .pontuacoes[2]
+                                                                .pontuacaoAtributo[
+                                                                    5]
+                                                                .nome
+                                                            : "Carregando...",
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyle(
@@ -1886,10 +3083,36 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                           BoxConstraints(
                                                               minHeight: 40),
                                                       child: TextField(
+                                                        inputFormatters: <
+                                                            TextInputFormatter>[
+                                                          FilteringTextInputFormatter
+                                                              .allow(RegExp(
+                                                                  r'[0-9]+[,.]{0,1}[0-9]*')),
+                                                          TextInputFormatter
+                                                              .withFunction(
+                                                            (oldValue,
+                                                                    newValue) =>
+                                                                newValue
+                                                                    .copyWith(
+                                                              text: newValue
+                                                                  .text
+                                                                  .replaceAll(
+                                                                      '.', ','),
+                                                            ),
+                                                          ),
+                                                        ],
                                                         textAlign:
                                                             TextAlign.center,
-                                                        controller:
-                                                            controllerl1[0],
+                                                        controller: widget
+                                                                .pontuacoesFormacao
+                                                                .isEmpty
+                                                            ? null
+                                                            : widget
+                                                                .pontuacoesFormacao[5],
+                                                        onChanged: (value) {
+                                                          verificadoresFormacao[
+                                                              5] = true;
+                                                        },
                                                         maxLines: null,
                                                         style: TextStyle(
                                                           color: Colors.black,
@@ -1914,10 +3137,24 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                           BoxConstraints(
                                                               minHeight: 40),
                                                       child: TextField(
+                                                        inputFormatters: <
+                                                            TextInputFormatter>[
+                                                          FilteringTextInputFormatter
+                                                              .allow(RegExp(
+                                                                  r'[0-9]')),
+                                                        ],
                                                         textAlign:
                                                             TextAlign.center,
-                                                        controller:
-                                                            controllerl1[0],
+                                                        controller: widget
+                                                                .pontuacoesFormacaoQtde
+                                                                .isEmpty
+                                                            ? null
+                                                            : widget
+                                                                .pontuacoesFormacaoQtde[5],
+                                                        onChanged: (value) {
+                                                          verificadoresFormacaoQtde[
+                                                              5] = true;
+                                                        },
                                                         maxLines: null,
                                                         style: TextStyle(
                                                           color: Colors.black,
@@ -1934,6 +3171,152 @@ class _PontuacoesState extends State<Pontuacoes> {
                                             ),
                                           ),
                                         ),
+                                        SizedBox(
+                                          height: 2,
+                                        ),
+                                        Row(
+                                          children: [
+                                            Column(
+                                              children: [
+                                                Container(
+                                                  alignment: Alignment.center,
+                                                  width: 103.5,
+                                                  height: 19,
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.blue,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5.0),
+                                                  ),
+                                                  child: Text(
+                                                    "Limite",
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 8.0,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: 2,
+                                                ),
+                                                Container(
+                                                  alignment: Alignment.center,
+                                                  width: 103.5,
+                                                  height: 28,
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5.0),
+                                                  ),
+                                                  child: TextField(
+                                                    onChanged: (value) {
+                                                      verificadoresAssiduidade[
+                                                          0] = true;
+                                                    },
+                                                    inputFormatters: <
+                                                        TextInputFormatter>[
+                                                      FilteringTextInputFormatter
+                                                          .allow(
+                                                              RegExp(r'[0-9]')),
+                                                    ],
+                                                    textAlign: TextAlign.center,
+                                                    controller: widget
+                                                            .pontuacoesAssiduidade
+                                                            .isEmpty
+                                                        ? null
+                                                        : widget
+                                                            .pontuacoesAssiduidade[0],
+                                                    maxLines: null,
+                                                    style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 8.0,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              width: 2,
+                                            ),
+                                            Column(
+                                              children: [
+                                                Container(
+                                                  alignment: Alignment.center,
+                                                  width: 103.5,
+                                                  height: 19,
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.blue,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5.0),
+                                                  ),
+                                                  child: Text(
+                                                    "Valor",
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 8.0,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: 2,
+                                                ),
+                                                Container(
+                                                  alignment: Alignment.center,
+                                                  width: 103.5,
+                                                  height: 28,
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5.0),
+                                                  ),
+                                                  child: TextField(
+                                                    onChanged: (value) {
+                                                      verificadoresAssiduidade[
+                                                          1] = true;
+                                                    },
+                                                    inputFormatters: <
+                                                        TextInputFormatter>[
+                                                      FilteringTextInputFormatter
+                                                          .allow(RegExp(
+                                                              r'[0-9]+[,.]{0,1}[0-9]*')),
+                                                      TextInputFormatter
+                                                          .withFunction(
+                                                        (oldValue, newValue) =>
+                                                            newValue.copyWith(
+                                                          text: newValue.text
+                                                              .replaceAll(
+                                                                  '.', ','),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                    textAlign: TextAlign.center,
+                                                    controller: widget
+                                                            .pontuacoesAssiduidade
+                                                            .isEmpty
+                                                        ? null
+                                                        : widget
+                                                            .pontuacoesAssiduidade[1],
+                                                    maxLines: null,
+                                                    style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 8.0,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              width: 1149,
+                                            )
+                                          ],
+                                        )
                                       ],
                                     )))
                               ],
@@ -1991,9 +3374,29 @@ class _PontuacoesState extends State<Pontuacoes> {
 
 class Pontuacoes extends StatefulWidget {
   double valor;
-  Pontuacoes({
-    Key? key,required this.valor
-  }) : super(key: key);
+  List<TextEditingController> pontuacoesTitulo;
+  List<TextEditingController> pontuacoesFormacao;
+  List<TextEditingController> pontuacoesExperiencia;
+  List<TextEditingController> pontuacoesAssiduidade;
+  List<TextEditingController> pontuacoesTempoCasa;
+
+  List<TextEditingController> pontuacoesFormacaoQtde;
+  List<TextEditingController> pontuacoesExperienciaQtde;
+  List<Cargo> cargos;
+  List<Pontuacao> pontuacoes;
+  Pontuacoes(
+      {Key? key,
+      required this.valor,
+      required this.pontuacoesTitulo,
+      required this.pontuacoesFormacao,
+      required this.pontuacoesExperiencia,
+      required this.pontuacoesAssiduidade,
+      required this.pontuacoesTempoCasa,
+      required this.cargos,
+      required this.pontuacoes,
+      required this.pontuacoesFormacaoQtde,
+      required this.pontuacoesExperienciaQtde})
+      : super(key: key);
   @override
   @override
   State<StatefulWidget> createState() {

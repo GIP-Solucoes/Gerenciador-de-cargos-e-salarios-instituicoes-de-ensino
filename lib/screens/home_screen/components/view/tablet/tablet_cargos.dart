@@ -21,7 +21,7 @@ class TabletCargos extends StatelessWidget {
                   TitleCargos(tamanho:mediaQuery.width*0.86),
                 ],),
                 
-                Cargos(valor:0.877),
+                Cargos(valor:0.877, editingControllerCompetencias: [], editingControllerDescricoes: [], editingControllerNomes: [], editingControllerTempoMinimo: [], editingControllerTempoExperiencia: [], editingControllerTitulos: [],),
                 SizedBox(
                   height: 20,
                 ),
@@ -29,7 +29,7 @@ class TabletCargos extends StatelessWidget {
                   SizedBox(width: 5,),
                   BotaoVoltar(),
                   SizedBox(width: 5,),
-                  BotaoSalvar(),
+                  BotaoSalvar(casass: [], competenciass: [], descricoess: [], instituicao: '', experienciass: [], nomess: [], tituloss: [],),
                 ],)
                 
           ],

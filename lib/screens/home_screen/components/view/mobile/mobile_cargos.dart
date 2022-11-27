@@ -21,7 +21,7 @@ class MobileCargos extends StatelessWidget {
                   TitleCargos(tamanho:mediaQuery.width*0.86),
                 ],),
                 
-                Cargos(valor:0.877),
+                Cargos(valor:0.877, editingControllerCompetencias: [], editingControllerDescricoes: [], editingControllerNomes: [], editingControllerTempoExperiencia: [], editingControllerTitulos: [], editingControllerTempoMinimo: [],),
                 SizedBox(
                   height: 20,
                 ),
@@ -29,7 +29,7 @@ class MobileCargos extends StatelessWidget {
                   SizedBox(width: 5,),
                   BotaoVoltar(),
                   SizedBox(width: 5,),
-                  BotaoSalvar(),
+                  BotaoSalvar(casass: [], competenciass: [], descricoess: [], experienciass: [], instituicao: '', nomess: [], tituloss: [],),
                 ],)
                 
           ],

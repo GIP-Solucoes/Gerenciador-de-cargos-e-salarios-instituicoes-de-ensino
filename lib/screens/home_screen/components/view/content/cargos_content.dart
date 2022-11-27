@@ -1,7 +1,16 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/sistema_content.dart';
+
 //import 'package:my_portfolio/models/name_color.dart';
+List<bool> nomes = [];
+List<bool> titulos = [];
+List<bool> experiencias = [];
+List<bool> casas = [];
+List<bool> descricoes = [];
+List<bool> competencias = [];
 
 class MenuText extends StatelessWidget {
   const MenuText({Key? key}) : super(key: key);
@@ -17,7 +26,22 @@ class MenuText extends StatelessWidget {
 
 class Cargos extends StatefulWidget {
   double valor;
-  Cargos({Key? key, required this.valor}) : super(key: key);
+  List<TextEditingController> editingControllerNomes;
+  List<TextEditingController> editingControllerTitulos;
+  List<TextEditingController> editingControllerTempoExperiencia;
+  List<TextEditingController> editingControllerTempoMinimo;
+  List<TextEditingController> editingControllerDescricoes;
+  List<TextEditingController> editingControllerCompetencias;
+  Cargos(
+      {Key? key,
+      required this.valor,
+      required this.editingControllerNomes,
+      required this.editingControllerTitulos,
+      required this.editingControllerTempoExperiencia,
+      required this.editingControllerTempoMinimo,
+      required this.editingControllerDescricoes,
+      required this.editingControllerCompetencias})
+      : super(key: key);
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -27,9 +51,7 @@ class Cargos extends StatefulWidget {
 
 class TitleCargos extends StatelessWidget {
   double tamanho;
-  TitleCargos({
-    Key? key,required this.tamanho
-  }) : super(key: key);
+  TitleCargos({Key? key, required this.tamanho}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -88,33 +110,304 @@ class BotaoVoltar extends StatelessWidget {
   }
 }
 
-class BotaoSalvar extends StatelessWidget {
-  BotaoSalvar({
-    Key? key,
-  }) : super(key: key);
+class BotaoSalvar extends StatefulWidget {
+  String instituicao;
+  List<TextEditingController> nomess;
+  List<TextEditingController> tituloss;
+  List<TextEditingController> descricoess;
+  List<TextEditingController> competenciass;
+  List<TextEditingController> experienciass;
+  List<TextEditingController> casass;
+  BotaoSalvar(
+      {Key? key,
+      required this.instituicao,
+      required this.nomess,
+      required this.tituloss,
+      required this.descricoess,
+      required this.competenciass,
+      required this.experienciass,
+      required this.casass})
+      : super(key: key);
+
+  @override
+  State<BotaoSalvar> createState() => _BotaoSalvarState();
+}
+
+class _BotaoSalvarState extends State<BotaoSalvar> {
+  alterar_cargos() {
+    int contador = 0;
+    List<String> titulosss;
+    CollectionReference cargos = FirebaseFirestore.instance.collection('Cargo');
+    cargos
+        .where('instituicao', isEqualTo: widget.instituicao)
+        .orderBy('grau')
+        .get()
+        .then((QuerySnapshot q) {
+      titulosss = [];
+      q.docs.forEach((element) {
+        titulosss.add(element["titulo"]);
+      });
+      CollectionReference cargos2 =
+          FirebaseFirestore.instance.collection('Cargo');
+      cargos2
+          .where('instituicao', isEqualTo: widget.instituicao)
+          .orderBy('grau')
+          .get()
+          .then((QuerySnapshot q) {
+        bool testador = false;
+        q.docs.forEach((elementt) {
+          var eee = elementt.reference;
+          if (nomes[contador] == true &&
+              widget.nomess[contador].text.isNotEmpty) {
+            eee.update({"nome": widget.nomess[contador].text});
+          }
+          if (casas[contador] == true &&
+              widget.casass[contador].text.isNotEmpty) {
+            eee.update(
+                {"tempo_empresa": double.parse(widget.casass[contador].text)});
+          }
+          if (experiencias[contador] == true &&
+              widget.experienciass[contador].text.isNotEmpty) {
+            eee.update({
+              "tempo_experiencia":
+                  double.parse(widget.experienciass[contador].text)
+            });
+          }
+          if (descricoes[contador] == true &&
+              widget.descricoess[contador].text.isNotEmpty) {
+            eee.update({"descricao": widget.descricoess[contador].text});
+          }
+          if (competencias[contador] == true &&
+              widget.competenciass[contador].text.isNotEmpty) {
+            eee.update({"competencias": widget.competenciass[contador].text});
+          }
+          if (titulos[contador] == true &&
+              widget.tituloss[contador].text.isNotEmpty) {
+            titulosss.forEach((element) {
+              if (element == widget.tituloss[contador].text) testador = true;
+            });
+            if (testador == false)
+              eee.update({"titulo": widget.tituloss[contador].text});
+          }
+          contador++;
+        });
+        int count = 0;
+        bool verificar_alteracao = false;
+        bool verificar_vazios = false;
+        casas.forEach((elementk) {
+          if (elementk == true) {
+            verificar_alteracao = true;
+          }
+        });
+        competencias.forEach((elementk) {
+          if (elementk == true) {
+            verificar_alteracao = true;
+          }
+        });
+        experiencias.forEach((elementk) {
+          if (elementk == true) {
+            verificar_alteracao = true;
+          }
+        });
+        descricoes.forEach((elementk) {
+          if (elementk == true) {
+            verificar_alteracao = true;
+          }
+        });
+        nomes.forEach((elementk) {
+          if (elementk == true) {
+            verificar_alteracao = true;
+          }
+        });
+        titulos.forEach((elementk) {
+          if (elementk == true) {
+            verificar_alteracao = true;
+          }
+        });
+        widget.casass.forEach((element) {
+          print(element.text);
+          if (element.text.isEmpty) verificar_vazios = true;
+        });
+        widget.competenciass.forEach((element) {
+          if (element.text.isEmpty) verificar_vazios = true;
+        });
+        widget.descricoess.forEach((element) {
+          if (element.text.isEmpty) verificar_vazios = true;
+        });
+        widget.experienciass.forEach((element) {
+          if (element.text.isEmpty) verificar_vazios = true;
+        });
+        widget.nomess.forEach((element) {
+          if (element.text.isEmpty) verificar_vazios = true;
+        });
+        widget.tituloss.forEach((element) {
+          if (element.text.isEmpty) verificar_vazios = true;
+        });
+        if (verificar_alteracao == false) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            backgroundColor: Colors.red,
+            content: Text("Nenhum campo foi alterado!"),
+            duration: Duration(seconds: 5),
+          ));
+        } else {
+          if (verificar_vazios == true) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              backgroundColor: Colors.red,
+              content: Text("Preencha todos os campos antes de salvar!"),
+              duration: Duration(seconds: 5),
+            ));
+          } else {
+            if (testador == true) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                backgroundColor: Colors.red,
+                content: Text(
+                    "Existem cargos com o mesmo título, por favor, altere para conseguir salvar."),
+                duration: Duration(seconds: 5),
+              ));
+            } else {
+              showDialog(
+                  context: context,
+                  builder: (_) => AlertDialog(
+                        title: Text(
+                          "Dados salvos",
+                        ),
+                        content: Text("Dados salvos com sucesso!"),
+                        actions: [
+                          TextButton(
+                              onPressed: () {
+                                paginaS = 0;
+                                Navigator.popAndPushNamed(context, '/sistema');
+                              },
+                              child: Text('Ok')),
+                        ],
+                      ));
+            }
+          }
+        }
+      });
+    }).catchError((e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        backgroundColor: Colors.red,
+        content: Text(e),
+        duration: Duration(seconds: 5),
+      ));
+    });
+    /*
+    bool verificar_alteracao = false;
+    verificadoresTitulo.forEach((element) {
+      if (element == true) {
+        verificar_alteracao = true;
+      }
+    });
+    verificadoresFormacao.forEach((element) {
+      if (element == true) {
+        verificar_alteracao = true;
+      }
+    });
+    verificadoresFormacaoQtde.forEach((element) {
+      if (element == true) {
+        verificar_alteracao = true;
+      }
+    });
+    verificadoresExperiencia.forEach((element) {
+      if (element == true) {
+        verificar_alteracao = true;
+      }
+    });
+    verificadoresExperienciaQtde.forEach((element) {
+      if (element == true) {
+        verificar_alteracao = true;
+      }
+    });
+    if (verificadorTempo == true) {
+      verificar_alteracao = true;
+    }
+    verificadoresAssiduidade.forEach((element) {
+      if (element == true) {
+        verificar_alteracao = true;
+      }
+    });
+    if (verificar_alteracao != false) {
+      bool verificar_vazios = false;
+      widget.textEditingAssiduidade.forEach((element) {
+        if (element.text.isEmpty) verificar_vazios = true;
+      });
+      widget.textEditingTitulo.forEach((element) {
+        if (element.text.isEmpty) verificar_vazios = true;
+      });
+      widget.textEditingFormacao.forEach((element) {
+        if (element.text.isEmpty) verificar_vazios = true;
+      });
+      widget.textEditingFormacaoQtde.forEach((element) {
+        if (element.text.isEmpty) verificar_vazios = true;
+      });
+      widget.textEditingExperiencia.forEach((element) {
+        if (element.text.isEmpty) verificar_vazios = true;
+      });
+      widget.textEditingExperienciaQtde.forEach((element) {
+        if (element.text.isEmpty) verificar_vazios = true;
+      });
+      widget.textEditingTempoCasa.forEach((element) {
+        if (element.text.isEmpty) verificar_vazios = true;
+      });
+      if (verificar_vazios == false) {
+        showDialog(
+            context: context,
+            builder: (_) => AlertDialog(
+                  title: Text(
+                    "Dados salvos",
+                  ),
+                  content: Text("Os dados foram salvos com sucesso!"),
+                  actions: [
+                    TextButton(
+                        onPressed: () {
+                          paginaS = 0;
+                          Navigator.popAndPushNamed(context, '/sistema');
+                        },
+                        child: Text('Ok')),
+                  ],
+                ));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          backgroundColor: Colors.red,
+          content: Text("Há espaço(s) vazio(s)!"),
+          duration: Duration(seconds: 5),
+        ));
+      }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        backgroundColor: Colors.red,
+        content: Text("Nenhum dado foi alterado!"),
+        duration: Duration(seconds: 5),
+      ));
+    }*/
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      width: 110.0,
-      height: 40.0,
-      decoration: BoxDecoration(
-        color: Colors.green,
-        borderRadius: BorderRadius.circular(5.0),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Icon(Icons.arrow_back_ios, color: Colors.white, size: 30.0),
-          const Text(
-            "SALVAR",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16.0,
+    return TextButton(
+      onPressed: () => alterar_cargos(),
+      child: Container(
+        alignment: Alignment.center,
+        width: 110.0,
+        height: 40.0,
+        decoration: BoxDecoration(
+          color: Colors.green,
+          borderRadius: BorderRadius.circular(5.0),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(Icons.arrow_back_ios, color: Colors.white, size: 30.0),
+            const Text(
+              "SALVAR",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16.0,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -526,6 +819,342 @@ class _StateCargos extends State<Cargos> {
                                   SizedBox(
                                     height: 2,
                                   ),
+                                  widget.editingControllerNomes.length == 0
+                                      ? Container(
+                                          height: 250,
+                                          width:
+                                              (mediaQuery.width * this.valor) -
+                                                  211,
+                                          child: Center(
+                                              child: Text("Carregando...")))
+                                      : Container(
+                                          height: 250,
+                                          width: 1159.5,
+                                          child: ListView.builder(
+                                            itemCount: widget
+                                                .editingControllerNomes.length,
+                                            itemBuilder: (context, index) =>
+                                                Padding(
+                                              padding: EdgeInsets.fromLTRB(
+                                                  0, 0, 0, 2),
+                                              child: Container(
+                                                  constraints: BoxConstraints(
+                                                      maxHeight: 100),
+                                                  //key: _key1,
+                                                  child: IntrinsicHeight(
+                                                    child: Row(
+                                                      //mainAxisAlignment: MainAxisAlignment.center,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .stretch,
+                                                      children: [
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          //width: 209.0,
+                                                          //height: 40.0,
+                                                          width: 209.0,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child:
+                                                              //Row(
+
+                                                              //children: [
+                                                              TextField(
+                                                            onChanged:
+                                                                (value) =>
+                                                                    setState(
+                                                                        () {
+                                                              nomes[index] =
+                                                                  true;
+                                                            }),
+                                                            maxLines: null,
+                                                            controller: widget
+                                                                    .editingControllerNomes[
+                                                                index],
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+
+                                                              //fontWeight: FontWeight.bold,
+                                                              // fontWeight: FontWeight.bold,
+                                                            ),
+                                                          ),
+                                                          //],
+                                                          //),
+                                                        ),
+
+                                                        Container(
+                                                          width: 2,
+                                                        ),
+                                                        //Column(children: [
+                                                        /*Expanded(child:*/ Container(
+                                                          alignment:
+                                                              Alignment.center,
+
+                                                          width: 104.5,
+                                                          //height: 300,
+                                                          //height: _key1.currentContext.size!.height,
+                                                          //constraints: BoxConstraints(maxHeight: 50),
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            onChanged:
+                                                                (value) =>
+                                                                    setState(
+                                                                        () {
+                                                              titulos[index] =
+                                                                  true;
+                                                            }),
+                                                            controller: widget
+                                                                    .editingControllerTitulos[
+                                                                index],
+                                                            maxLines: null,
+                                                            //maxLines: null,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ), //)
+
+                                                        //],),
+
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          //height: 40.0,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: Row(
+                                                            children: [
+                                                              Expanded(
+                                                                child:
+                                                                    TextField(
+                                                                  inputFormatters: <
+                                                                      TextInputFormatter>[
+                                                                    FilteringTextInputFormatter
+                                                                        .allow(RegExp(
+                                                                            r'[0-9]')),
+                                                                  ],
+                                                                  onChanged:
+                                                                      (value) =>
+                                                                          setState(
+                                                                              () {
+                                                                    experiencias[
+                                                                            index] =
+                                                                        true;
+                                                                    widget
+                                                                        .editingControllerTempoExperiencia[
+                                                                            index]
+                                                                        .text;
+                                                                  }),
+                                                                  controller:
+                                                                      widget.editingControllerTempoExperiencia[
+                                                                          index],
+                                                                  maxLines:
+                                                                      null,
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontSize:
+                                                                        16.0,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              Text(widget
+                                                                      .editingControllerTempoExperiencia[
+                                                                          index]
+                                                                      .text
+                                                                      .isNotEmpty
+                                                                  ? double.parse(widget
+                                                                              .editingControllerTempoExperiencia[index]
+                                                                              .text) >
+                                                                          1
+                                                                      ? "anos"
+                                                                      : "ano"
+                                                                  : "ano"),
+                                                            ],
+                                                          ),
+                                                        ),
+
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          height: 40.0,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: Row(
+                                                            children: [
+                                                              Expanded(
+                                                                child:
+                                                                    TextField(
+                                                                  onChanged:
+                                                                      (value) =>
+                                                                          setState(
+                                                                              () {
+                                                                    casas[index] =
+                                                                        true;
+                                                                    widget
+                                                                        .editingControllerTempoMinimo[
+                                                                            index]
+                                                                        .text;
+                                                                  }),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  inputFormatters: <
+                                                                      TextInputFormatter>[
+                                                                    FilteringTextInputFormatter
+                                                                        .allow(RegExp(
+                                                                            r'[0-9]')),
+                                                                  ],
+                                                                  controller:
+                                                                      widget.editingControllerTempoMinimo[
+                                                                          index],
+                                                                  maxLines:
+                                                                      null,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontSize:
+                                                                        16.0,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              Text(widget
+                                                                      .editingControllerTempoMinimo[
+                                                                          index]
+                                                                      .text
+                                                                      .isNotEmpty
+                                                                  ? double.parse(widget
+                                                                              .editingControllerTempoMinimo[index]
+                                                                              .text) >
+                                                                          1
+                                                                      ? "anos"
+                                                                      : "ano"
+                                                                  : "ano"),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 313.5,
+                                                          //height: 40.0,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            onChanged:
+                                                                (value) =>
+                                                                    setState(
+                                                                        () {
+                                                              descricoes[
+                                                                  index] = true;
+                                                            }),
+                                                            controller: widget
+                                                                    .editingControllerDescricoes[
+                                                                index],
+                                                            maxLines: null,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 8.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 313.5,
+                                                          //height: 40.0,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            onChanged:
+                                                                (value) =>
+                                                                    setState(
+                                                                        () {
+                                                              competencias[
+                                                                  index] = true;
+                                                            }),
+                                                            controller: widget
+                                                                    .editingControllerCompetencias[
+                                                                index],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 8.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  )),
+                                            ),
+                                          ),
+                                        ),
+                                  /*
                                   SizedBox(
                                       height: 250,
                                       child: SingleChildScrollView(
@@ -1422,7 +2051,7 @@ class _StateCargos extends State<Cargos> {
                                               )),
                                           SizedBox(height: 2),
                                         ],
-                                      )))
+                                      )))*/
                                 ],
                               ),
                             ),

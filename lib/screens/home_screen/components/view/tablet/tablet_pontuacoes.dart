@@ -28,7 +28,7 @@ class _StateTabletPontuacoes extends State<TabletPontuacoes>{
                   TitlePontuacoes(),
                 ],),
                 
-                Pontuacoes(valor:0.9),
+                Pontuacoes(valor:0.9, cargos: [], pontuacoes: [], pontuacoesAssiduidade: [], pontuacoesExperiencia: [], pontuacoesFormacao: [], pontuacoesTempoCasa: [], pontuacoesTitulo: [], pontuacoesExperienciaQtde: [], pontuacoesFormacaoQtde: [],),
                 SizedBox(
                   height: 17,
                 ),
@@ -36,7 +36,7 @@ class _StateTabletPontuacoes extends State<TabletPontuacoes>{
                   SizedBox(width: 5,),
                   BotaoVoltar(),
                   SizedBox(width: 5,),
-                  BotaoSalvar(),
+                  BotaoSalvar(instituicao: '', textEditingAssiduidade: [], textEditingExperiencia: [], textEditingFormacao: [], textEditingTempoCasa: [], textEditingTitulo: [], textEditingExperienciaQtde: [], textEditingFormacaoQtde: [],),
                 ],)
                 
           ],

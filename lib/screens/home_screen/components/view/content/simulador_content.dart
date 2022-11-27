@@ -1,5 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:gip_solucoes/screens/home_screen/components/model/Cargo.dart';
+import 'package:gip_solucoes/screens/home_screen/components/model/Pontuacao.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/sistema_content.dart';
 
 class MenuText extends StatelessWidget {
@@ -14,48 +18,618 @@ class MenuText extends StatelessWidget {
   }
 }
 
-class BotaoCalcular extends StatelessWidget {
-  BotaoCalcular({
-    Key? key,
-  }) : super(key: key);
+class BotaoCalcular extends StatefulWidget {
+  List<Cargo> cargos;
+  List<Pontuacao> pontuacoes;
+  List<TextEditingController> textEditingControllerFormacao;
+  List<TextEditingController> textEditingControllerExperiencia;
+  List<TextEditingController> textEditingControllerAssiduidade;
+  String valorr;
+  String faixaSalariall;
+  TextEditingController resultado;
+  TextEditingController resultadoFaixaSalarial;
+  String instituicao;
+  BotaoCalcular(
+      {Key? key,
+      required this.cargos,
+      required this.pontuacoes,
+      required this.valorr,
+      required this.faixaSalariall,
+      required this.resultado,
+      required this.resultadoFaixaSalarial,
+      required this.instituicao,
+      required this.textEditingControllerFormacao,
+      required this.textEditingControllerExperiencia,
+      required this.textEditingControllerAssiduidade})
+      : super(key: key);
+
+  @override
+  State<BotaoCalcular> createState() => _BotaoCalcularState();
+}
+
+final keyFaixa = GlobalKey<_ResultadoState>();
+final keySimulador = GlobalKey<_SimuladorState>();
+
+class _BotaoCalcularState extends State<BotaoCalcular> {
+  String conversor(int contador) {
+    if (contador == 0) {
+      return "A";
+    } else if (contador == 1) {
+      return "B";
+    } else if (contador == 2) {
+      return "C";
+    } else if (contador == 3) {
+      return "D";
+    } else if (contador == 4) {
+      return "E";
+    } else if (contador == 5) {
+      return "F";
+    } else if (contador == 6) {
+      return "G";
+    } else if (contador == 7) {
+      return "H";
+    } else if (contador == 8) {
+      return "I";
+    } else if (contador == 9) {
+      return "J";
+    } else if (contador == 10) {
+      return "K";
+    } else if (contador == 11) {
+      return "L";
+    } else if (contador == 12) {
+      return "M";
+    } else if (contador == 13) {
+      return "N";
+    } else if (contador == 14) {
+      return "O";
+    } else if (contador == 15) {
+      return "P";
+    } else if (contador == 16) {
+      return "Q";
+    } else if (contador == 17) {
+      return "R";
+    } else if (contador == 18) {
+      return "S";
+    } else if (contador == 19) {
+      return "T";
+    } else if (contador == 20) {
+      return "U";
+    } else if (contador == 21) {
+      return "V";
+    } else if (contador == 22) {
+      return "W";
+    } else if (contador == 23) {
+      return "X";
+    } else if (contador == 24) {
+      return "Y";
+    } else if (contador == 25) {
+      return "Z";
+    }
+    return "Z" + (contador - 25).toString();
+  }
+
+  Future<void> get_faixas_salariais_simulador(double soma, String cargo) async {
+    int contador = 0;
+    bool verificador = false;
+    CollectionReference cargos = FirebaseFirestore.instance.collection('Cargo');
+    DocumentSnapshot carg = await cargos.doc(cargo).get();
+    CollectionReference faixassalarias =
+        carg.reference.collection('FaixaSalarial');
+
+    faixassalarias
+        .where('final_intervalo', isLessThan: soma)
+        .orderBy('final_intervalo', descending: false)
+        .get()
+        .then((QuerySnapshot q) {
+      if (q.docs.length == 0) {
+        keyFaixa.currentState!.alterarFaixa(conversor(contador));
+      }
+      q.docs.forEach((element) {
+        contador++;
+        keyFaixa.currentState!.alterarFaixa(conversor(contador));
+      });
+    });
+    faixassalarias
+        .where('final_intervalo', isGreaterThanOrEqualTo: soma)
+        .orderBy('final_intervalo', descending: false)
+        .get()
+        .then((QuerySnapshot q) {
+      if (q.docs.length == 0) {
+        //////////////
+        bool verificador3 = false;
+        faixassalarias
+            .orderBy('final_intervalo', descending: true)
+            .get()
+            .then((QuerySnapshot q) {
+          q.docs.forEach((element) {
+            if (verificador3 == false) {
+              keyFaixa.currentState!.alterarValor(
+                  element['valor'].toString().replaceAll('.', ','));
+              verificador3 = true;
+            }
+          });
+        });
+        ////////////
+      }
+      q.docs.forEach((element) {
+        if (verificador == false) {
+          keyFaixa.currentState!
+              .alterarValor(element['valor'].toString().replaceAll('.', ','));
+          verificador = true;
+        }
+      });
+    });
+    /*
+    if (verificador == false) {
+      bool verificador2 = false;
+      faixassalarias
+          .where('final_intervalo', isGreaterThanOrEqualTo: soma)
+          .orderBy('final_intervalo', descending: true)
+          .get()
+          .then((QuerySnapshot q) {
+        q.docs.forEach((element) {
+          if (verificador2 == false) {
+            keyFaixa.currentState!
+                .alterarValor(element['valor'].toString().replaceAll('.', ','));
+            verificador2 = true;
+          }
+        });
+      });
+    }*/
+  }
+
+  get_pontuacao_simulador() {
+    print("fora de tudo");
+    print(this.widget.instituicao);
+    print(keySimulador.currentState!.tituloo);
+    double somaS;
+    CollectionReference cargos = FirebaseFirestore.instance.collection('Cargo');
+    cargos
+        .where('instituicao', isEqualTo: this.widget.instituicao)
+        .where('titulo', isEqualTo: keySimulador.currentState!.tituloo)
+        .get()
+        .then((QuerySnapshot q) {
+      q.docs.forEach((element) {
+        print("dentro cargo");
+        somaS = element['valor_pontuacao'];
+        CollectionReference pontuacoes =
+            FirebaseFirestore.instance.collection('Pontuacao');
+        pontuacoes
+            .where('instituicao', isEqualTo: this.widget.instituicao)
+            .get()
+            .then((QuerySnapshot q) {
+          q.docs.forEach((elementPontuacao) {
+            print("dentro pontuacao");
+            DocumentReference _documentReference = elementPontuacao.reference;
+            CollectionReference _collectionReference =
+                _documentReference.collection('PontuacaoAtributo');
+            ////////////////
+
+            _collectionReference
+                .orderBy('nome', descending: false)
+                .get()
+                .then((QuerySnapshot q) {
+              q.docs.forEach((elementPontuacaoAtributo) {
+                print("dentro pontuacaoAtributo");
+                double valor = 0;
+                if (elementPontuacao['nome'] ==
+                    "Pontuação de Formação Acadêmica") {
+                  if (elementPontuacaoAtributo['nome'] ==
+                      "Cursos de Aperfeiçoamento (mínimo 180 Hs)") {
+                    if (widget
+                        .textEditingControllerFormacao[2].text.isNotEmpty) {
+                      if (double.parse(
+                              widget.textEditingControllerFormacao[2].text) >
+                          elementPontuacaoAtributo['quantidade_maxima']) {
+                        valor = elementPontuacaoAtributo['quantidade_maxima'] *
+                            elementPontuacaoAtributo['valor'];
+                      } else {
+                        valor = double.parse(
+                                widget.textEditingControllerFormacao[2].text) *
+                            elementPontuacaoAtributo['valor'];
+                      }
+                    }
+                  } else if (elementPontuacaoAtributo['nome'] ==
+                      "Cursos de Extensão Cultural (mínimo 30 Hs)") {
+                    if (widget
+                        .textEditingControllerFormacao[3].text.isNotEmpty) {
+                      if (double.parse(
+                              widget.textEditingControllerFormacao[3].text) >
+                          elementPontuacaoAtributo['quantidade_maxima']) {
+                        valor = elementPontuacaoAtributo['quantidade_maxima'] *
+                            elementPontuacaoAtributo['valor'];
+                      } else {
+                        valor = double.parse(
+                                widget.textEditingControllerFormacao[3].text) *
+                            elementPontuacaoAtributo['valor'];
+                      }
+                    }
+                  } else if (elementPontuacaoAtributo['nome'] ==
+                      'Créditos de Pós-Graduação "Stricto Sensu" por disciplina') {
+                    if (widget
+                        .textEditingControllerFormacao[1].text.isNotEmpty) {
+                      if (double.parse(
+                              widget.textEditingControllerFormacao[1].text) >
+                          elementPontuacaoAtributo['quantidade_maxima']) {
+                        valor = elementPontuacaoAtributo['quantidade_maxima'] *
+                            elementPontuacaoAtributo['valor'];
+                      } else {
+                        valor = double.parse(
+                                widget.textEditingControllerFormacao[1].text) *
+                            elementPontuacaoAtributo['valor'];
+                      }
+                    }
+                  } else if (elementPontuacaoAtributo['nome'] == "Variáveis") {
+                    if (widget
+                        .textEditingControllerFormacao[5].text.isNotEmpty) {
+                      if (double.parse(
+                              widget.textEditingControllerFormacao[5].text) >
+                          elementPontuacaoAtributo['quantidade_maxima']) {
+                        valor = elementPontuacaoAtributo['quantidade_maxima'] *
+                            elementPontuacaoAtributo['valor'];
+                      } else {
+                        valor = double.parse(
+                                widget.textEditingControllerFormacao[5].text) *
+                            elementPontuacaoAtributo['valor'];
+                      }
+                    }
+                  } else if (elementPontuacaoAtributo['nome'] ==
+                      "Outros Cursos de Graduação") {
+                    if (widget
+                        .textEditingControllerFormacao[4].text.isNotEmpty) {
+                      if (double.parse(
+                              widget.textEditingControllerFormacao[4].text) >
+                          elementPontuacaoAtributo['quantidade_maxima']) {
+                        valor = elementPontuacaoAtributo['quantidade_maxima'] *
+                            elementPontuacaoAtributo['valor'];
+                      } else {
+                        valor = double.parse(
+                                widget.textEditingControllerFormacao[4].text) *
+                            elementPontuacaoAtributo['valor'];
+                      }
+                    }
+                  } else {
+                    if (widget
+                        .textEditingControllerFormacao[0].text.isNotEmpty) {
+                      if (double.parse(
+                              widget.textEditingControllerFormacao[0].text) >
+                          elementPontuacaoAtributo['quantidade_maxima']) {
+                        valor = elementPontuacaoAtributo['quantidade_maxima'] *
+                            elementPontuacaoAtributo['valor'];
+                      } else {
+                        valor = double.parse(
+                                widget.textEditingControllerFormacao[0].text) *
+                            elementPontuacaoAtributo['valor'];
+                      }
+                    }
+                  }
+                } else if (elementPontuacao['nome'] == "Experiência") {
+                  if (elementPontuacaoAtributo['nome'] ==
+                      "Trabalhos científicos publicados em revista especializada") {
+                    if (widget
+                        .textEditingControllerExperiencia[3].text.isNotEmpty) {
+                      if (double.parse(
+                              widget.textEditingControllerExperiencia[3].text) >
+                          elementPontuacaoAtributo['quantidade_maxima']) {
+                        valor = elementPontuacaoAtributo['quantidade_maxima'] *
+                            elementPontuacaoAtributo['valor'];
+                      } else {
+                        valor = double.parse(widget
+                                .textEditingControllerExperiencia[3].text) *
+                            elementPontuacaoAtributo['valor'];
+                      }
+                    }
+                  } else if (elementPontuacaoAtributo['nome'] ==
+                      "Realização de Pesquisa aprovada pela Instituição (Mínimo 1 ano)") {
+                    if (widget
+                        .textEditingControllerExperiencia[2].text.isNotEmpty) {
+                      if (double.parse(
+                              widget.textEditingControllerExperiencia[2].text) >
+                          elementPontuacaoAtributo['quantidade_maxima']) {
+                        valor = elementPontuacaoAtributo['quantidade_maxima'] *
+                            elementPontuacaoAtributo['valor'];
+                      } else {
+                        valor = double.parse(widget
+                                .textEditingControllerExperiencia[2].text) *
+                            elementPontuacaoAtributo['valor'];
+                      }
+                    }
+                  } else if (elementPontuacaoAtributo['nome'] ==
+                      "Professor de universidade pública (Por ano completo)") {
+                    if (widget
+                        .textEditingControllerExperiencia[1].text.isNotEmpty) {
+                      if (double.parse(
+                              widget.textEditingControllerExperiencia[1].text) >
+                          elementPontuacaoAtributo['quantidade_maxima']) {
+                        valor = elementPontuacaoAtributo['quantidade_maxima'] *
+                            elementPontuacaoAtributo['valor'];
+                      } else {
+                        valor = double.parse(widget
+                                .textEditingControllerExperiencia[1].text) *
+                            elementPontuacaoAtributo['valor'];
+                      }
+                    }
+                  } else {
+                    if (widget
+                        .textEditingControllerExperiencia[0].text.isNotEmpty) {
+                      if (double.parse(
+                              widget.textEditingControllerExperiencia[0].text) >
+                          elementPontuacaoAtributo['quantidade_maxima']) {
+                        valor = elementPontuacaoAtributo['quantidade_maxima'] *
+                            elementPontuacaoAtributo['valor'];
+                      } else {
+                        valor = double.parse(widget
+                                .textEditingControllerExperiencia[0].text) *
+                            elementPontuacaoAtributo['valor'];
+                      }
+                    }
+                  }
+                } else if (elementPontuacao['nome'] == "Assiduidade") {
+                  if (widget
+                      .textEditingControllerAssiduidade[0].text.isNotEmpty) {
+                    if (double.parse(
+                            widget.textEditingControllerAssiduidade[0].text) <=
+                        elementPontuacaoAtributo['quantidade_maxima']) {
+                      valor = elementPontuacaoAtributo['valor'];
+                    } else {
+                      valor = 0;
+                    }
+                  }
+                } else {
+                  print("Tempo casa:" +
+                      keySimulador.currentState!.tempooCasa.toString());
+                  if (keySimulador.currentState!.tempooCasa >
+                      elementPontuacaoAtributo['quantidade_maxima']) {
+                    valor = elementPontuacaoAtributo['quantidade_maxima'] *
+                        elementPontuacaoAtributo['valor'];
+                  } else {
+                    valor = keySimulador.currentState!.tempooCasa *
+                        elementPontuacaoAtributo['valor'];
+                  }
+                }
+                somaS = somaS + valor;
+                print(somaS);
+                get_faixas_salariais_simulador(somaS, element.id);
+              });
+            }); //.catchError((e) => print(e.toString()));
+            //.catchError((e) => print(e.toString()));
+
+////////////////////////////////
+          });
+        });
+      });
+    });
+    /*
+        _collectionReference
+            .orderBy('nome', descending: false)
+            .get()
+            .then((QuerySnapshot q) {
+          q.docs.forEach((element) {
+            double valor = 0;
+            pontuacaoAtrib.add(new PontuacaoAtributo(element['nome'],
+                element['quantidade_maxima'], element['valor']));
+            //setState(() {
+            // pontuacoes.forEach((element) {
+            if (elementt['nome'] == "Pontuação de Formação Acadêmica") {
+              // element.pontuacaoAtributo.forEach((element) {
+              if (element['nome'] ==
+                  "Cursos de Aperfeiçoamento (mínimo 180 Hs)") {
+                if (usuario.quantidade_cursos_aperfeicoamento >
+                    element['quantidade_maxima']) {
+                  valor = element['quantidade_maxima'] * element['valor'];
+                } else {
+                  valor = usuario.quantidade_cursos_aperfeicoamento *
+                      element['valor'];
+                }
+              } else if (element['nome'] ==
+                  "Cursos de Extensão Cultural (mínimo 30 Hs)") {
+                if (usuario.quantidade_cursos_extensao_cultural >
+                    element['quantidade_maxima']) {
+                  valor = element['quantidade_maxima'] * element['valor'];
+                } else {
+                  valor = usuario.quantidade_cursos_extensao_cultural *
+                      element['valor'];
+                }
+              } else if (element['nome'] ==
+                  'Créditos de Pós-Graduação "Stricto Sensu" por disciplina') {
+                if (usuario.quantidade_stricto_sensu >
+                    element['quantidade_maxima']) {
+                  valor = element['quantidade_maxima'] * element['valor'];
+                } else {
+                  valor = usuario.quantidade_stricto_sensu * element['valor'];
+                }
+              } else if (element['nome'] == "Variáveis") {
+                if (usuario.quantidade_variaveis >
+                    element['quantidade_maxima']) {
+                  valor = element['quantidade_maxima'] * element['valor'];
+                } else {
+                  valor = usuario.quantidade_variaveis * element['valor'];
+                }
+              } else if (element['nome'] == "Outros Cursos de Graduação") {
+                if (usuario.quantidade_outros_cursos_realizados >
+                    element['quantidade_maxima']) {
+                  valor = element['quantidade_maxima'] * element['valor'];
+                } else {
+                  valor = usuario.quantidade_outros_cursos_realizados *
+                      element['valor'];
+                }
+              } else {
+                if (usuario.quantidade_aprovacao_concurso >
+                    element['quantidade_maxima']) {
+                  valor = element['quantidade_maxima'] * element['valor'];
+                } else {
+                  valor =
+                      usuario.quantidade_aprovacao_concurso * element['valor'];
+                }
+              }
+            } else if (elementt['nome'] == "Experiência") {
+              if (element['nome'] ==
+                  "Trabalhos científicos publicados em revista especializada") {
+                if (usuario.quantidade_trabalhos_cientificos_revista >
+                    element['quantidade_maxima']) {
+                  valor = element['quantidade_maxima'] * element['valor'];
+                } else {
+                  valor = usuario.quantidade_trabalhos_cientificos_revista *
+                      element['valor'];
+                }
+              } else if (element['nome'] ==
+                  "Realização de Pesquisa aprovada pela Instituição (Mínimo 1 ano)") {
+                if (usuario.quantidade_pesquisas_aprovadas >
+                    element['quantidade_maxima']) {
+                  valor = element['quantidade_maxima'] * element['valor'];
+                } else {
+                  valor =
+                      usuario.quantidade_pesquisas_aprovadas * element['valor'];
+                }
+              } else if (element['nome'] ==
+                  "Professor de universidade pública (Por ano completo)") {
+                if (usuario.quantidade_professor_universidade_publica >
+                    element['quantidade_maxima']) {
+                  valor = element['quantidade_maxima'] * element['valor'];
+                } else {
+                  valor = usuario.quantidade_professor_universidade_publica *
+                      element['valor'];
+                }
+              } else {
+                if (usuario.quantidade_livros > element['quantidade_maxima']) {
+                  valor = element['quantidade_maxima'] * element['valor'];
+                } else {
+                  valor = usuario.quantidade_livros * element['valor'];
+                }
+              }
+            } else if (elementt['nome'] == "Assiduidade") {
+              if (usuario.quantidade_faltas <= element['quantidade_maxima']) {
+                valor = element['valor'];
+              } else {
+                valor = 0;
+              }
+            } else {
+              double yearsBetween(DateTime from, DateTime to) {
+                from = DateTime(from.year, from.month, from.day);
+                to = DateTime(to.year, to.month, to.day);
+                return (to.difference(from).inHours / 24 / 365)
+                    .toInt()
+                    .toDouble();
+              }
+
+              double monthsBetween(DateTime from, DateTime to) {
+                from = DateTime(from.year, from.month, from.day);
+                to = DateTime(to.year, to.month, to.day);
+                return (to.difference(from).inHours / 24 / 365 * 12)
+                    .toInt()
+                    .toDouble();
+              }
+
+              Teste:
+              DateTime date1 = usuario.data_admissao;
+              DateTime date2 = DateTime.now();
+              setState(() {
+                quantidade_anos = yearsBetween(date1, date2);
+                quantidade_meses = monthsBetween(date1, date2) % 12;
+              });
+
+              if (quantidade_anos > element['quantidade_maxima']) {
+                valor = element['quantidade_maxima'] * element['valor'];
+              } else {
+                valor = quantidade_anos * element['valor'];
+              }
+            }
+            //});
+            // });
+            setState(() {
+              this.soma = this.soma + valor;
+            });
+          });
+        }); //.catchError((e) => print(e.toString()));
+        setState(() {
+          pontuacoes.add(new Pontuacao(
+              elementt['instituicao'], elementt['nome'], pontuacaoAtrib));
+        });
+      });
+    }); //.catchError((e) => print(e.toString()));
+    */
+  }
+
+  Future<List<String>> retornar_dados() async {
+    Future<List<String>> teste = ['teste', 'teste1'] as Future<List<String>>;
+    return teste;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      width: 175.0,
-      height: 40.0,
-      decoration: BoxDecoration(
-        color: Colors.red,
-        borderRadius: BorderRadius.circular(5.0),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(Icons.calculate, color: Colors.white, size: 30.0),
-          Text(
-            " CALCULAR",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16.0,
+    return TextButton(
+      onPressed: () {
+        get_pontuacao_simulador();
+      },
+      child: Container(
+        alignment: Alignment.center,
+        width: 175.0,
+        height: 40.0,
+        decoration: BoxDecoration(
+          color: Colors.red,
+          borderRadius: BorderRadius.circular(5.0),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.calculate, color: Colors.white, size: 30.0),
+            Text(
+              " CALCULAR",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16.0,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 }
 
-class Resultado extends StatelessWidget {
+Future<List<String>> dados = [] as Future<List<String>>;
+
+class Resultado extends StatefulWidget {
+  TextEditingController resultado;
+  TextEditingController resultadoFaixaSalarial;
   double tamanho;
-  Resultado({
-    Key? key,required this.tamanho
-  }) : super(key: key);
+  String faixaSalariall;
+  String valorr;
+  Resultado(
+      {Key? key,
+      required this.tamanho,
+      required this.faixaSalariall,
+      required this.valorr,
+      required this.resultado,
+      required this.resultadoFaixaSalarial})
+      : super(key: key);
+
+  @override
+  State<Resultado> createState() => _ResultadoState();
+}
+
+String testekk = "?";
+
+class _ResultadoState extends State<Resultado> {
+  String valorFaixa = "?";
+  String valorRs = "??,??";
+  void alterarFaixa(String valorFP) => setState(() {
+        valorFaixa = valorFP;
+      });
+  void alterarValor(String valorFP) => setState(() {
+        valorRs = valorFP;
+      });
+  Future<List<String>> retornar_dado2() async {
+    Future<List<String>> teste = ['testeg', 'teste1'] as Future<List<String>>;
+    return teste;
+  }
 
   @override
   Widget build(BuildContext context) {
+    widget.faixaSalariall = "?";
+    widget.valorr = "??,??";
     return Container(
-      width: 500.0*tamanho,
+      width: 500.0 * widget.tamanho,
       height: 40.0,
       decoration: BoxDecoration(
         color: Colors.orange[200],
@@ -66,7 +640,7 @@ class Resultado extends StatelessWidget {
         children: [
           Container(
             alignment: Alignment.center,
-            width: 175.0*tamanho,
+            width: 175.0 * widget.tamanho,
             height: 40.0,
             decoration: BoxDecoration(
               color: Colors.orange[400],
@@ -77,16 +651,16 @@ class Resultado extends StatelessWidget {
               "RESULTADO:",
               style: TextStyle(
                 color: Colors.black,
-                fontSize: 16.0*tamanho,
+                fontSize: 16.0 * widget.tamanho,
               ),
             ),
           ),
           Text(
             textAlign: TextAlign.center,
-            " FAIXA SALARIAL XX | VALOR R\$ XXX,XX",
+            " FAIXA SALARIAL $valorFaixa | VALOR R\$ $valorRs",
             style: TextStyle(
               color: Colors.black,
-              fontSize: 16.0*tamanho,
+              fontSize: 16.0 * widget.tamanho,
             ),
           ),
         ],
@@ -131,6 +705,7 @@ class _SimuladorState extends State<Simulador> {
   int statusCont = 1;
   double mediaQueryx = 0;
   double valor = 0.65;
+  String tituloo = "";
   _SimuladorState(double valor) {
     this.valor = valor;
   }
@@ -200,10 +775,28 @@ class _SimuladorState extends State<Simulador> {
     }
   }
 
+  double tempooCasa = 0;
+  List<String> tempo_c = ['0 ano'];
+  List<String> titulo_c = ['Professor Graduado'];
+  bool verifica_tempo_c = false;
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context).size;
     mediaQueryx = mediaQuery.width;
+
+    if (this.widget.cargos.asMap().containsKey(3)) {
+      if (verifica_tempo_c == false) {
+        if (this.widget.cargos.asMap().containsKey(0))
+          tituloo = widget.cargos[0].titulo;
+        for (int i = 1; i <= widget.cargos.length; i++) {
+          if (i == 1)
+            tempo_c.add('$i ano');
+          else
+            tempo_c.add('$i anos');
+        }
+        verifica_tempo_c = true;
+      }
+    }
     return Builder(builder: (BuildContext context) {
       tabContext = context;
 
@@ -298,7 +891,14 @@ class _SimuladorState extends State<Simulador> {
                                                     MainAxisAlignment.center,
                                                 children: [
                                                   Text(
-                                                    "Pontuação de Formação Acadêmica",
+                                                    (this
+                                                            .widget
+                                                            .pontuacoes
+                                                            .asMap()
+                                                            .containsKey(2))
+                                                        ? widget
+                                                            .pontuacoes[2].nome
+                                                        : "Carregando...",
                                                     style: TextStyle(
                                                       color: Colors.black,
                                                       fontSize: 16.0,
@@ -354,7 +954,14 @@ class _SimuladorState extends State<Simulador> {
                                                     MainAxisAlignment.center,
                                                 children: [
                                                   Text(
-                                                    "Experiência",
+                                                    (this
+                                                            .widget
+                                                            .pontuacoes
+                                                            .asMap()
+                                                            .containsKey(1))
+                                                        ? widget
+                                                            .pontuacoes[1].nome
+                                                        : "Carregando...",
                                                     textAlign: TextAlign.center,
                                                     style: TextStyle(
                                                       color: Colors.black,
@@ -389,6 +996,9 @@ class _SimuladorState extends State<Simulador> {
                                             ),
                                           ],
                                         ),
+                                        SizedBox(
+                                          height: 2,
+                                        ),
                                         IntrinsicHeight(
                                           child: Container(
                                             constraints:
@@ -415,7 +1025,8 @@ class _SimuladorState extends State<Simulador> {
                                                         child:
                                                             ValueListenableBuilder(
                                                                 valueListenable:
-                                                                    dropValue,
+                                                                    widget
+                                                                        .valueNotifierTitulo,
                                                                 builder: (BuildContext
                                                                         context,
                                                                     String
@@ -434,18 +1045,25 @@ class _SimuladorState extends State<Simulador> {
                                                                           fontSize:
                                                                               16.0,
                                                                         ),
-                                                                        dropOpcoes[
-                                                                            2]),
+                                                                        (this.widget.cargos.asMap().containsKey(0))
+                                                                            ? widget.cargos[0].titulo
+                                                                            : "..."),
                                                                     value: (value
                                                                             .isEmpty)
                                                                         ? null
                                                                         : value,
                                                                     onChanged:
                                                                         (escolha) {
-                                                                      dropValue
+                                                                      //////////////
+                                                                      widget.valueNotifierTitulo
                                                                               .value =
                                                                           escolha
                                                                               .toString();
+                                                                      setState(
+                                                                          () {
+                                                                        tituloo =
+                                                                            escolha.toString();
+                                                                      });
                                                                       setState(
                                                                           () {
                                                                         for (int i =
@@ -458,11 +1076,14 @@ class _SimuladorState extends State<Simulador> {
                                                                               statusCont = i + 1;
                                                                             });
                                                                       });
+                                                                      ///////////////
                                                                     },
-                                                                    items: dropOpcoes
-                                                                        .map((op) => DropdownMenuItem(
-                                                                              value: op,
-                                                                              child: Text(op),
+                                                                    items: widget
+                                                                        .cargos
+                                                                        .map((op) =>
+                                                                            DropdownMenuItem(
+                                                                              value: op.titulo,
+                                                                              child: Text(op.titulo),
                                                                             ))
                                                                         .toList(),
                                                                   );
@@ -481,7 +1102,26 @@ class _SimuladorState extends State<Simulador> {
                                                                 .circular(5.0),
                                                       ),
                                                       child: Text(
-                                                        "Aprovação em Concurso Público",
+                                                        (this
+                                                                    .widget
+                                                                    .pontuacoes
+                                                                    .asMap()
+                                                                    .containsKey(
+                                                                        2) &&
+                                                                this
+                                                                    .widget
+                                                                    .pontuacoes[
+                                                                        2]
+                                                                    .pontuacaoAtributo
+                                                                    .asMap()
+                                                                    .containsKey(
+                                                                        0))
+                                                            ? widget
+                                                                .pontuacoes[2]
+                                                                .pontuacaoAtributo[
+                                                                    0]
+                                                                .nome
+                                                            : "Carregando...",
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyle(
@@ -524,8 +1164,9 @@ class _SimuladorState extends State<Simulador> {
                                                                               Text(
                                                                             "Máximo de pontos:",
                                                                           ),
-                                                                          content:
-                                                                              Text("O máximo de pontos para este atributo é 5."),
+                                                                          content: Text((this.widget.pontuacoes.asMap().containsKey(2) && this.widget.pontuacoes[2].pontuacaoAtributo.asMap().containsKey(0))
+                                                                              ? "O máximo de pontos para este atributo é ${widget.pontuacoes[2].pontuacaoAtributo[0].quantidade_maxima}."
+                                                                              : "Carregando..."),
                                                                           actions: [
                                                                             TextButton(
                                                                                 onPressed: () {
@@ -544,10 +1185,16 @@ class _SimuladorState extends State<Simulador> {
                                                             ),
                                                           ),
                                                           TextField(
+                                                            inputFormatters: <
+                                                                TextInputFormatter>[
+                                                              FilteringTextInputFormatter
+                                                                  .allow(RegExp(
+                                                                      r'[0-9]')),
+                                                            ],
                                                             textAlign: TextAlign
                                                                 .center,
-                                                            controller:
-                                                                controllerl1[0],
+                                                            controller: widget
+                                                                .textEditingFormacao[0],
                                                             maxLines: null,
                                                             style: TextStyle(
                                                               color:
@@ -572,7 +1219,26 @@ class _SimuladorState extends State<Simulador> {
                                                                 .circular(5.0),
                                                       ),
                                                       child: Text(
-                                                        "Livros publicados",
+                                                        (this
+                                                                    .widget
+                                                                    .pontuacoes
+                                                                    .asMap()
+                                                                    .containsKey(
+                                                                        1) &&
+                                                                this
+                                                                    .widget
+                                                                    .pontuacoes[
+                                                                        1]
+                                                                    .pontuacaoAtributo
+                                                                    .asMap()
+                                                                    .containsKey(
+                                                                        0))
+                                                            ? widget
+                                                                .pontuacoes[1]
+                                                                .pontuacaoAtributo[
+                                                                    0]
+                                                                .nome
+                                                            : "Carregando...",
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyle(
@@ -615,8 +1281,9 @@ class _SimuladorState extends State<Simulador> {
                                                                               Text(
                                                                             "Máximo de pontos:",
                                                                           ),
-                                                                          content:
-                                                                              Text("O máximo de pontos para este atributo é 5."),
+                                                                          content: Text((this.widget.pontuacoes.asMap().containsKey(1) && this.widget.pontuacoes[1].pontuacaoAtributo.asMap().containsKey(0))
+                                                                              ? "O máximo de pontos para este atributo é ${widget.pontuacoes[1].pontuacaoAtributo[0].quantidade_maxima}."
+                                                                              : "Carregando..."),
                                                                           actions: [
                                                                             TextButton(
                                                                                 onPressed: () {
@@ -635,10 +1302,16 @@ class _SimuladorState extends State<Simulador> {
                                                             ),
                                                           ),
                                                           TextField(
+                                                            inputFormatters: <
+                                                                TextInputFormatter>[
+                                                              FilteringTextInputFormatter
+                                                                  .allow(RegExp(
+                                                                      r'[0-9]')),
+                                                            ],
                                                             textAlign: TextAlign
                                                                 .center,
-                                                            controller:
-                                                                controllerl1[0],
+                                                            controller: widget
+                                                                .textEditingExperiencia[0],
                                                             maxLines: null,
                                                             style: TextStyle(
                                                               color:
@@ -698,7 +1371,16 @@ class _SimuladorState extends State<Simulador> {
                                                                         .center,
                                                                 children: [
                                                                   Text(
-                                                                    "Tempo de casa",
+                                                                    (this
+                                                                            .widget
+                                                                            .pontuacoes
+                                                                            .asMap()
+                                                                            .containsKey(
+                                                                                3))
+                                                                        ? widget
+                                                                            .pontuacoes[3]
+                                                                            .nome
+                                                                        : "Carregando...",
                                                                     style:
                                                                         TextStyle(
                                                                       color: Colors
@@ -730,7 +1412,26 @@ class _SimuladorState extends State<Simulador> {
                                                                 .circular(5.0),
                                                       ),
                                                       child: Text(
-                                                        "Créditos de Pós-Graduação \"Stricto Sensu\" por disciplina",
+                                                        (this
+                                                                    .widget
+                                                                    .pontuacoes
+                                                                    .asMap()
+                                                                    .containsKey(
+                                                                        2) &&
+                                                                this
+                                                                    .widget
+                                                                    .pontuacoes[
+                                                                        2]
+                                                                    .pontuacaoAtributo
+                                                                    .asMap()
+                                                                    .containsKey(
+                                                                        1))
+                                                            ? widget
+                                                                .pontuacoes[2]
+                                                                .pontuacaoAtributo[
+                                                                    1]
+                                                                .nome
+                                                            : "Carregando...",
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyle(
@@ -773,8 +1474,9 @@ class _SimuladorState extends State<Simulador> {
                                                                               Text(
                                                                             "Máximo de pontos:",
                                                                           ),
-                                                                          content:
-                                                                              Text("O máximo de pontos para este atributo é 5."),
+                                                                          content: Text((this.widget.pontuacoes.asMap().containsKey(2) && this.widget.pontuacoes[2].pontuacaoAtributo.asMap().containsKey(1))
+                                                                              ? "O máximo de pontos para este atributo é ${widget.pontuacoes[2].pontuacaoAtributo[1].quantidade_maxima}."
+                                                                              : "Carregando..."),
                                                                           actions: [
                                                                             TextButton(
                                                                                 onPressed: () {
@@ -793,10 +1495,16 @@ class _SimuladorState extends State<Simulador> {
                                                             ),
                                                           ),
                                                           TextField(
+                                                            inputFormatters: <
+                                                                TextInputFormatter>[
+                                                              FilteringTextInputFormatter
+                                                                  .allow(RegExp(
+                                                                      r'[0-9]')),
+                                                            ],
                                                             textAlign: TextAlign
                                                                 .center,
-                                                            controller:
-                                                                controllerl1[0],
+                                                            controller: widget
+                                                                .textEditingFormacao[1],
                                                             maxLines: null,
                                                             style: TextStyle(
                                                               color:
@@ -821,7 +1529,26 @@ class _SimuladorState extends State<Simulador> {
                                                                 .circular(5.0),
                                                       ),
                                                       child: Text(
-                                                        "Realização de Pesquisa aprovada pela Instituição (Mínimo 1 ano)",
+                                                        (this
+                                                                    .widget
+                                                                    .pontuacoes
+                                                                    .asMap()
+                                                                    .containsKey(
+                                                                        1) &&
+                                                                this
+                                                                    .widget
+                                                                    .pontuacoes[
+                                                                        1]
+                                                                    .pontuacaoAtributo
+                                                                    .asMap()
+                                                                    .containsKey(
+                                                                        1))
+                                                            ? widget
+                                                                .pontuacoes[1]
+                                                                .pontuacaoAtributo[
+                                                                    1]
+                                                                .nome
+                                                            : "Carregando...",
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyle(
@@ -864,8 +1591,9 @@ class _SimuladorState extends State<Simulador> {
                                                                               Text(
                                                                             "Máximo de pontos:",
                                                                           ),
-                                                                          content:
-                                                                              Text("O máximo de pontos para este atributo é 5."),
+                                                                          content: Text((this.widget.pontuacoes.asMap().containsKey(1) && this.widget.pontuacoes[1].pontuacaoAtributo.asMap().containsKey(1))
+                                                                              ? "O máximo de pontos para este atributo é ${widget.pontuacoes[1].pontuacaoAtributo[1].quantidade_maxima}."
+                                                                              : "Carregando..."),
                                                                           actions: [
                                                                             TextButton(
                                                                                 onPressed: () {
@@ -884,10 +1612,16 @@ class _SimuladorState extends State<Simulador> {
                                                             ),
                                                           ),
                                                           TextField(
+                                                            inputFormatters: <
+                                                                TextInputFormatter>[
+                                                              FilteringTextInputFormatter
+                                                                  .allow(RegExp(
+                                                                      r'[0-9]')),
+                                                            ],
                                                             textAlign: TextAlign
                                                                 .center,
-                                                            controller:
-                                                                controllerl1[0],
+                                                            controller: widget
+                                                                .textEditingExperiencia[1],
                                                             maxLines: null,
                                                             style: TextStyle(
                                                               color:
@@ -931,7 +1665,8 @@ class _SimuladorState extends State<Simulador> {
                                                         child:
                                                             ValueListenableBuilder(
                                                                 valueListenable:
-                                                                    dropValue2,
+                                                                    widget
+                                                                        .valueNotifierTempo,
                                                                 builder: (BuildContext
                                                                         context,
                                                                     String
@@ -950,18 +1685,29 @@ class _SimuladorState extends State<Simulador> {
                                                                           fontSize:
                                                                               16.0,
                                                                         ),
-                                                                        dropOpcoes2[
-                                                                            4]),
+                                                                        tempo_c[
+                                                                            0]),
                                                                     value: (value
                                                                             .isEmpty)
                                                                         ? null
                                                                         : value,
                                                                     onChanged:
                                                                         (escolha) {
-                                                                      dropValue2
+                                                                      widget.valueNotifierTempo
                                                                               .value =
                                                                           escolha
                                                                               .toString();
+                                                                      setState(
+                                                                          () {
+                                                                        String t = escolha
+                                                                            .toString()
+                                                                            .substring(0,
+                                                                                1);
+                                                                        print(
+                                                                            t);
+                                                                        tempooCasa =
+                                                                            double.parse(t);
+                                                                      });
                                                                       setState(
                                                                           () {
                                                                         for (int i =
@@ -975,7 +1721,7 @@ class _SimuladorState extends State<Simulador> {
                                                                             });
                                                                       });
                                                                     },
-                                                                    items: dropOpcoes2
+                                                                    items: tempo_c
                                                                         .map((op) => DropdownMenuItem(
                                                                               value: op,
                                                                               child: Text(op),
@@ -997,7 +1743,26 @@ class _SimuladorState extends State<Simulador> {
                                                                 .circular(5.0),
                                                       ),
                                                       child: Text(
-                                                        "Cursos de Aperfeiçoamento (mínimo 180 Hs)",
+                                                        (this
+                                                                    .widget
+                                                                    .pontuacoes
+                                                                    .asMap()
+                                                                    .containsKey(
+                                                                        2) &&
+                                                                this
+                                                                    .widget
+                                                                    .pontuacoes[
+                                                                        2]
+                                                                    .pontuacaoAtributo
+                                                                    .asMap()
+                                                                    .containsKey(
+                                                                        2))
+                                                            ? widget
+                                                                .pontuacoes[2]
+                                                                .pontuacaoAtributo[
+                                                                    2]
+                                                                .nome
+                                                            : "Carregando...",
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyle(
@@ -1040,8 +1805,9 @@ class _SimuladorState extends State<Simulador> {
                                                                               Text(
                                                                             "Máximo de pontos:",
                                                                           ),
-                                                                          content:
-                                                                              Text("O máximo de pontos para este atributo é 5."),
+                                                                          content: Text((this.widget.pontuacoes.asMap().containsKey(2) && this.widget.pontuacoes[2].pontuacaoAtributo.asMap().containsKey(2))
+                                                                              ? "O máximo de pontos para este atributo é ${widget.pontuacoes[2].pontuacaoAtributo[2].quantidade_maxima}."
+                                                                              : "Carregando..."),
                                                                           actions: [
                                                                             TextButton(
                                                                                 onPressed: () {
@@ -1060,10 +1826,16 @@ class _SimuladorState extends State<Simulador> {
                                                             ),
                                                           ),
                                                           TextField(
+                                                            inputFormatters: <
+                                                                TextInputFormatter>[
+                                                              FilteringTextInputFormatter
+                                                                  .allow(RegExp(
+                                                                      r'[0-9]')),
+                                                            ],
                                                             textAlign: TextAlign
                                                                 .center,
-                                                            controller:
-                                                                controllerl1[0],
+                                                            controller: widget
+                                                                .textEditingFormacao[2],
                                                             maxLines: null,
                                                             style: TextStyle(
                                                               color:
@@ -1088,7 +1860,26 @@ class _SimuladorState extends State<Simulador> {
                                                                 .circular(5.0),
                                                       ),
                                                       child: Text(
-                                                        "Professor de universidade pública (Por ano completo)",
+                                                        (this
+                                                                    .widget
+                                                                    .pontuacoes
+                                                                    .asMap()
+                                                                    .containsKey(
+                                                                        1) &&
+                                                                this
+                                                                    .widget
+                                                                    .pontuacoes[
+                                                                        1]
+                                                                    .pontuacaoAtributo
+                                                                    .asMap()
+                                                                    .containsKey(
+                                                                        2))
+                                                            ? widget
+                                                                .pontuacoes[1]
+                                                                .pontuacaoAtributo[
+                                                                    2]
+                                                                .nome
+                                                            : "Carregando...",
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyle(
@@ -1131,8 +1922,9 @@ class _SimuladorState extends State<Simulador> {
                                                                               Text(
                                                                             "Máximo de pontos:",
                                                                           ),
-                                                                          content:
-                                                                              Text("O máximo de pontos para este atributo é 5."),
+                                                                          content: Text((this.widget.pontuacoes.asMap().containsKey(1) && this.widget.pontuacoes[1].pontuacaoAtributo.asMap().containsKey(2))
+                                                                              ? "O máximo de pontos para este atributo é ${widget.pontuacoes[1].pontuacaoAtributo[2].quantidade_maxima}."
+                                                                              : "Carregando..."),
                                                                           actions: [
                                                                             TextButton(
                                                                                 onPressed: () {
@@ -1151,10 +1943,16 @@ class _SimuladorState extends State<Simulador> {
                                                             ),
                                                           ),
                                                           TextField(
+                                                            inputFormatters: <
+                                                                TextInputFormatter>[
+                                                              FilteringTextInputFormatter
+                                                                  .allow(RegExp(
+                                                                      r'[0-9]')),
+                                                            ],
                                                             textAlign: TextAlign
                                                                 .center,
-                                                            controller:
-                                                                controllerl1[0],
+                                                            controller: widget
+                                                                .textEditingExperiencia[2],
                                                             maxLines: null,
                                                             style: TextStyle(
                                                               color:
@@ -1202,7 +2000,26 @@ class _SimuladorState extends State<Simulador> {
                                                                 .circular(5.0),
                                                       ),
                                                       child: Text(
-                                                        "Outros Cursos de Graduação",
+                                                        (this
+                                                                    .widget
+                                                                    .pontuacoes
+                                                                    .asMap()
+                                                                    .containsKey(
+                                                                        2) &&
+                                                                this
+                                                                    .widget
+                                                                    .pontuacoes[
+                                                                        2]
+                                                                    .pontuacaoAtributo
+                                                                    .asMap()
+                                                                    .containsKey(
+                                                                        3))
+                                                            ? widget
+                                                                .pontuacoes[2]
+                                                                .pontuacaoAtributo[
+                                                                    3]
+                                                                .nome
+                                                            : "Carregando...",
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyle(
@@ -1245,8 +2062,9 @@ class _SimuladorState extends State<Simulador> {
                                                                               Text(
                                                                             "Máximo de pontos:",
                                                                           ),
-                                                                          content:
-                                                                              Text("O máximo de pontos para este atributo é 5."),
+                                                                          content: Text((this.widget.pontuacoes.asMap().containsKey(2) && this.widget.pontuacoes[2].pontuacaoAtributo.asMap().containsKey(3))
+                                                                              ? "O máximo de pontos para este atributo é ${widget.pontuacoes[2].pontuacaoAtributo[3].quantidade_maxima}."
+                                                                              : "Carregando..."),
                                                                           actions: [
                                                                             TextButton(
                                                                                 onPressed: () {
@@ -1265,10 +2083,16 @@ class _SimuladorState extends State<Simulador> {
                                                             ),
                                                           ),
                                                           TextField(
+                                                            inputFormatters: <
+                                                                TextInputFormatter>[
+                                                              FilteringTextInputFormatter
+                                                                  .allow(RegExp(
+                                                                      r'[0-9]')),
+                                                            ],
                                                             textAlign: TextAlign
                                                                 .center,
-                                                            controller:
-                                                                controllerl1[0],
+                                                            controller: widget
+                                                                .textEditingFormacao[3],
                                                             maxLines: null,
                                                             style: TextStyle(
                                                               color:
@@ -1293,7 +2117,26 @@ class _SimuladorState extends State<Simulador> {
                                                                 .circular(5.0),
                                                       ),
                                                       child: Text(
-                                                        "Trabalhos científicos publicado em revista especializada",
+                                                        (this
+                                                                    .widget
+                                                                    .pontuacoes
+                                                                    .asMap()
+                                                                    .containsKey(
+                                                                        1) &&
+                                                                this
+                                                                    .widget
+                                                                    .pontuacoes[
+                                                                        1]
+                                                                    .pontuacaoAtributo
+                                                                    .asMap()
+                                                                    .containsKey(
+                                                                        3))
+                                                            ? widget
+                                                                .pontuacoes[1]
+                                                                .pontuacaoAtributo[
+                                                                    3]
+                                                                .nome
+                                                            : "Carregando...",
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyle(
@@ -1336,8 +2179,9 @@ class _SimuladorState extends State<Simulador> {
                                                                               Text(
                                                                             "Máximo de pontos:",
                                                                           ),
-                                                                          content:
-                                                                              Text("O máximo de pontos para este atributo é 5."),
+                                                                          content: Text((this.widget.pontuacoes.asMap().containsKey(1) && this.widget.pontuacoes[1].pontuacaoAtributo.asMap().containsKey(3))
+                                                                              ? "O máximo de pontos para este atributo é ${widget.pontuacoes[1].pontuacaoAtributo[3].quantidade_maxima}."
+                                                                              : "Carregando..."),
                                                                           actions: [
                                                                             TextButton(
                                                                                 onPressed: () {
@@ -1356,10 +2200,16 @@ class _SimuladorState extends State<Simulador> {
                                                             ),
                                                           ),
                                                           TextField(
+                                                            inputFormatters: <
+                                                                TextInputFormatter>[
+                                                              FilteringTextInputFormatter
+                                                                  .allow(RegExp(
+                                                                      r'[0-9]')),
+                                                            ],
                                                             textAlign: TextAlign
                                                                 .center,
-                                                            controller:
-                                                                controllerl1[0],
+                                                            controller: widget
+                                                                .textEditingExperiencia[3],
                                                             maxLines: null,
                                                             style: TextStyle(
                                                               color:
@@ -1399,7 +2249,15 @@ class _SimuladorState extends State<Simulador> {
                                                                 .circular(5.0),
                                                       ),
                                                       child: Text(
-                                                        "Assiduidade",
+                                                        (this
+                                                                .widget
+                                                                .pontuacoes
+                                                                .asMap()
+                                                                .containsKey(0))
+                                                            ? widget
+                                                                .pontuacoes[0]
+                                                                .nome
+                                                            : "Carregando...",
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyle(
@@ -1424,7 +2282,26 @@ class _SimuladorState extends State<Simulador> {
                                                                 .circular(5.0),
                                                       ),
                                                       child: Text(
-                                                        "Cursos de Extensão Cultural (mínimo 30 Hs)",
+                                                        (this
+                                                                    .widget
+                                                                    .pontuacoes
+                                                                    .asMap()
+                                                                    .containsKey(
+                                                                        2) &&
+                                                                this
+                                                                    .widget
+                                                                    .pontuacoes[
+                                                                        2]
+                                                                    .pontuacaoAtributo
+                                                                    .asMap()
+                                                                    .containsKey(
+                                                                        4))
+                                                            ? widget
+                                                                .pontuacoes[2]
+                                                                .pontuacaoAtributo[
+                                                                    4]
+                                                                .nome
+                                                            : "Carregando...",
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyle(
@@ -1467,8 +2344,9 @@ class _SimuladorState extends State<Simulador> {
                                                                               Text(
                                                                             "Máximo de pontos:",
                                                                           ),
-                                                                          content:
-                                                                              Text("O máximo de pontos para este atributo é 5."),
+                                                                          content: Text((this.widget.pontuacoes.asMap().containsKey(2) && this.widget.pontuacoes[2].pontuacaoAtributo.asMap().containsKey(4))
+                                                                              ? "O máximo de pontos para este atributo é ${widget.pontuacoes[2].pontuacaoAtributo[4].quantidade_maxima}."
+                                                                              : "Carregando..."),
                                                                           actions: [
                                                                             TextButton(
                                                                                 onPressed: () {
@@ -1487,10 +2365,16 @@ class _SimuladorState extends State<Simulador> {
                                                             ),
                                                           ),
                                                           TextField(
+                                                            inputFormatters: <
+                                                                TextInputFormatter>[
+                                                              FilteringTextInputFormatter
+                                                                  .allow(RegExp(
+                                                                      r'[0-9]')),
+                                                            ],
                                                             textAlign: TextAlign
                                                                 .center,
-                                                            controller:
-                                                                controllerl1[0],
+                                                            controller: widget
+                                                                .textEditingFormacao[4],
                                                             maxLines: null,
                                                             style: TextStyle(
                                                               color:
@@ -1567,10 +2451,16 @@ class _SimuladorState extends State<Simulador> {
                                                                         5.0),
                                                           ),
                                                           child: TextField(
+                                                            inputFormatters: <
+                                                                TextInputFormatter>[
+                                                              FilteringTextInputFormatter
+                                                                  .allow(RegExp(
+                                                                      r'[0-9]')),
+                                                            ],
                                                             textAlign: TextAlign
                                                                 .center,
-                                                            controller:
-                                                                controllerl1[0],
+                                                            controller: widget
+                                                                .textEditingAssiduidade[0],
                                                             maxLines: null,
                                                             style: TextStyle(
                                                               color:
@@ -1629,7 +2519,28 @@ class _SimuladorState extends State<Simulador> {
                                                                         5.0),
                                                           ),
                                                           child: Text(
-                                                            "6",
+                                                            (this
+                                                                        .widget
+                                                                        .pontuacoes
+                                                                        .asMap()
+                                                                        .containsKey(
+                                                                            0) &&
+                                                                    this
+                                                                        .widget
+                                                                        .pontuacoes[
+                                                                            0]
+                                                                        .pontuacaoAtributo
+                                                                        .asMap()
+                                                                        .containsKey(
+                                                                            0))
+                                                                ? widget
+                                                                    .pontuacoes[
+                                                                        0]
+                                                                    .pontuacaoAtributo[
+                                                                        0]
+                                                                    .quantidade_maxima
+                                                                    .toString()
+                                                                : "...",
                                                             textAlign: TextAlign
                                                                 .center,
                                                             style: TextStyle(
@@ -1655,7 +2566,26 @@ class _SimuladorState extends State<Simulador> {
                                                                 .circular(5.0),
                                                       ),
                                                       child: Text(
-                                                        "Variáveis",
+                                                        (this
+                                                                    .widget
+                                                                    .pontuacoes
+                                                                    .asMap()
+                                                                    .containsKey(
+                                                                        2) &&
+                                                                this
+                                                                    .widget
+                                                                    .pontuacoes[
+                                                                        2]
+                                                                    .pontuacaoAtributo
+                                                                    .asMap()
+                                                                    .containsKey(
+                                                                        5))
+                                                            ? widget
+                                                                .pontuacoes[2]
+                                                                .pontuacaoAtributo[
+                                                                    5]
+                                                                .nome
+                                                            : "Carregando...",
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyle(
@@ -1698,8 +2628,9 @@ class _SimuladorState extends State<Simulador> {
                                                                               Text(
                                                                             "Máximo de pontos:",
                                                                           ),
-                                                                          content:
-                                                                              Text("O máximo de pontos para este atributo é 5."),
+                                                                          content: Text((this.widget.pontuacoes.asMap().containsKey(2) && this.widget.pontuacoes[2].pontuacaoAtributo.asMap().containsKey(5))
+                                                                              ? "O máximo de pontos para este atributo é ${widget.pontuacoes[2].pontuacaoAtributo[5].quantidade_maxima}"
+                                                                              : "Carregando..."),
                                                                           actions: [
                                                                             TextButton(
                                                                                 onPressed: () {
@@ -1718,10 +2649,16 @@ class _SimuladorState extends State<Simulador> {
                                                             ),
                                                           ),
                                                           TextField(
+                                                            inputFormatters: <
+                                                                TextInputFormatter>[
+                                                              FilteringTextInputFormatter
+                                                                  .allow(RegExp(
+                                                                      r'[0-9]')),
+                                                            ],
                                                             textAlign: TextAlign
                                                                 .center,
-                                                            controller:
-                                                                controllerl1[0],
+                                                            controller: widget
+                                                                .textEditingFormacao[5],
                                                             maxLines: null,
                                                             style: TextStyle(
                                                               color:
@@ -1798,7 +2735,27 @@ class _SimuladorState extends State<Simulador> {
 
 class Simulador extends StatefulWidget {
   double valor;
-  Simulador({Key? key, required this.valor}) : super(key: key);
+  List<Cargo> cargos;
+  List<Pontuacao> pontuacoes;
+  List<TextEditingController> textEditingFormacao;
+  List<TextEditingController> textEditingExperiencia;
+  List<TextEditingController> textEditingAssiduidade;
+
+  var valueNotifierTitulo = ValueNotifier('');
+  var valueNotifierTempo = ValueNotifier('');
+  TextEditingController resultado;
+  TextEditingController resultadoFaixaSalarial;
+  Simulador(
+      {Key? key,
+      required this.valor,
+      required this.cargos,
+      required this.pontuacoes,
+      required this.textEditingFormacao,
+      required this.textEditingExperiencia,
+      required this.textEditingAssiduidade,
+      required this.resultado,
+      required this.resultadoFaixaSalarial})
+      : super(key: key);
   @override
   @override
   State<StatefulWidget> createState() {

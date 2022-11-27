@@ -44,7 +44,7 @@ class _ResultadosState extends State<Resultados> {
                   .contains(value.toLowerCase()) ||
               element.matricula.toLowerCase().contains(value.toLowerCase()))
           .toList();
-          situacao_list = this
+      situacao_list = this
           .widget
           .situacoes
           .where((element) =>
@@ -176,9 +176,7 @@ class _ResultadosState extends State<Resultados> {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context).size;
-    setState(() {
-      mensagem = "Nenhum resultado encontrado!";
-    });
+
     if (this.widget.verificar == false) {
       setState(() {
         this.display_list = List.from(this.widget.usuarios);
@@ -231,7 +229,13 @@ class _ResultadosState extends State<Resultados> {
                                   width: mediaQuery.width * 0.25,
                                   height: 45.0,
                                   child: TextField(
-                                    onChanged: (value) => updateList(value),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        mensagem =
+                                            "Nenhum resultado encontrado!";
+                                      });
+                                      updateList(value);
+                                    },
                                     textAlignVertical: TextAlignVertical.bottom,
                                     decoration: InputDecoration(
                                       enabledBorder: OutlineInputBorder(
@@ -1242,9 +1246,11 @@ class _ResultadosState extends State<Resultados> {
                                                                 .situacao_list
                                                                 .asMap()
                                                                 .containsKey(
-                                                                    index))?
-                                                        situacao_list[index]
-                                                            .nome:"...",
+                                                                    index))
+                                                            ? situacao_list[
+                                                                    index]
+                                                                .nome
+                                                            : "...",
                                                         style: TextStyle(
                                                           color: Colors.black,
                                                           fontSize: 16.0,
