@@ -21,7 +21,7 @@ class TabletStatus extends StatelessWidget {
                   TitleStatus(),
                 ],),
                 
-                Status(valor:(mediaQuery.width * 0.63)),
+                Status(valor:(mediaQuery.width * 0.63), instituicao: '', textEditingNomes: [], textEditingTipos: [],),
                 SizedBox(
                   height: 20,
                 ),

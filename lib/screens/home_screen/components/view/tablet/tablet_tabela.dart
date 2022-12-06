@@ -21,7 +21,7 @@ class TabletTabela extends StatelessWidget {
                   TitleTabela(),
                 ],),
                 
-                Tabela(valor:0.877),
+                Tabela(valor:0.877, quantidadeFaixas: 0, textEditingCargos: [], textEditingIntervalos: [], textEditingValores: [],),
                 SizedBox(
                   height: 20,
                 ),
@@ -29,7 +29,7 @@ class TabletTabela extends StatelessWidget {
                   SizedBox(width: 5,),
                   BotaoVoltar(),
                   SizedBox(width: 5,),
-                  BotaoSalvar(),
+                  BotaoSalvar(instituicao: '',),
                 ],)
                 
           ],

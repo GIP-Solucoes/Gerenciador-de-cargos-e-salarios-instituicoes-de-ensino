@@ -66,11 +66,37 @@ class _StateSistemaContent extends State<SistemaContent> {
   List<Usuario> usuarios = [];
   String email;
   List<Cargo> cargosss = [];
-  cargoo(usuariop, instituition) async {
+  List<Cargo> cargos_antigo = [];
+  cargoo(usuariop, String cargo_antigo, String matricula, String primeiro_nome,
+      String segundo_nome, String instituition) async {
     CollectionReference cargos = FirebaseFirestore.instance.collection('Cargo');
     DocumentSnapshot? carg = await cargos.doc(usuariop['cargo']).get();
-
+    /* if (cargo_antigo == '-') {
+      Cargo cargobase2 =
+          new Cargo('', '', 'Sem registros!', -1, -1, '', -1, -1, '');
+      cargobase2.matricula = matricula;
+      cargobase2.primeiro_nome = primeiro_nome;
+      cargobase2.segundo_nome = segundo_nome;
+      cargos_antigo.add(cargobase2);
+    } else {*/
+    DocumentSnapshot? cargg = await cargos.doc(cargo_antigo).get();
+    Cargo cargobase2 = new Cargo(
+        cargg['competencias'],
+        cargg['descricao'],
+        cargg['nome'],
+        cargg['tempo_empresa'],
+        cargg['tempo_experiencia'],
+        cargg['titulo'],
+        cargg['valor_pontuacao'],
+        cargg['grau'],
+        cargg['instituicao']);
+    cargobase2.matricula = matricula;
+    cargobase2.primeiro_nome = primeiro_nome;
+    cargobase2.segundo_nome = segundo_nome;
+    cargos_antigo.add(cargobase2);
+    // }
     // setState(() {
+
     Cargo cargobase = new Cargo(
         carg['competencias'],
         carg['descricao'],
@@ -129,12 +155,15 @@ class _StateSistemaContent extends State<SistemaContent> {
             .then((QuerySnapshot q) {
           q.docs.forEach((elementt) {
             double valor = 0;
+            bool valor_logico = false;
+            bool valor_logico_experiencia = false;
 
             pontuacaoAtrib.add(new PontuacaoAtributo(elementt['nome'],
                 elementt['quantidade_maxima'], elementt['valor']));
             //setState(() {
             // pontuacoes.forEach((element) {
             if (elementtt['nome'] == "Pontuação de Formação Acadêmica") {
+              valor_logico = true;
               // element.pontuacaoAtributo.forEach((element) {
               if (elementt['nome'] ==
                   "Cursos de Aperfeiçoamento (mínimo 180 Hs)") {
@@ -188,6 +217,7 @@ class _StateSistemaContent extends State<SistemaContent> {
                 }
               }
             } else if (elementtt['nome'] == "Experiência") {
+              valor_logico_experiencia = true;
               if (elementt['nome'] ==
                   "Trabalhos científicos publicados em revista especializada") {
                 if (usuariop['quantidade_trabalhos_cientificos_revista'] >
@@ -262,6 +292,15 @@ class _StateSistemaContent extends State<SistemaContent> {
                 valor = cargobase.quantidade_anos * elementt['valor'];
               }
             }
+            if (valor_logico == true) {
+              cargobase.pontuacaoFormacao = cargobase.pontuacaoFormacao + valor;
+            }
+
+            if (valor_logico_experiencia == true) {
+              cargobase.pontuacaoExperiencia =
+                  cargobase.pontuacaoExperiencia + valor;
+            }
+
             cargobase.pontuacao = cargobase.pontuacao + valor;
             //cargosss.add(cargobase);
           });
@@ -292,12 +331,30 @@ class _StateSistemaContent extends State<SistemaContent> {
     //  });
   }
 
+  List<SituacaoAdmissional> situacoesAllAdm = [];
+  retornar_situacoes() {
+    CollectionReference situacoes =
+        FirebaseFirestore.instance.collection('SituacaoAdmissional');
+    situacoes
+        .where('instituicao', isEqualTo: usuario.instituicao)
+        .get()
+        .then((QuerySnapshot q) {
+      q.docs.forEach((elementS) {
+        setState(() {
+          situacoesAllAdm.add(new SituacaoAdmissional(
+              elementS['calcula_valor'], elementS['nome']));
+        });
+      });
+    });
+  }
+
   retornar_usuarios() {
     int indice = 0;
+    String inst = this.usuario.instituicao;
     CollectionReference usuarioss =
         FirebaseFirestore.instance.collection('Usuario');
     usuarioss
-        .where('instituicao', isEqualTo: this.usuario.instituicao)
+        .where('instituicao', isEqualTo: inst)
         .get()
         .then((QuerySnapshot q) {
       q.docs.forEach((element) {
@@ -325,12 +382,15 @@ class _StateSistemaContent extends State<SistemaContent> {
               element['segundo_nome'],
               element['telefone']));
           usuarios[usuarios.length - 1].matricula = element['matricula'];
+          usuarios[usuarios.length - 1].obs = element['obs'];
           usuarios[usuarios.length - 1].salario_atual =
               element['salario_atual'];
           usuarios[usuarios.length - 1].status = element['status'];
+          usuarios[usuarios.length - 1].id_cargo = element['cargo'];
           //////////////////
 
-          cargoo(element, this.usuario.instituicao);
+          cargoo(element, element['cargo_antigo'], element['matricula'],
+              element['primeiro_nome'], element['segundo_nome'], inst);
           situacaoAdmissional(element['status'], element['matricula'],
               element['primeiro_nome'], element['segundo_nome']);
         });
@@ -436,13 +496,20 @@ class _StateSistemaContent extends State<SistemaContent> {
     CollectionReference faixassalarias =
         carg.reference.collection('FaixaSalarial');
     faixassalarias
-        .where('final_intervalo', isGreaterThanOrEqualTo: soma)
+        .where('final_intervalo', isGreaterThanOrEqualTo: this.soma)
         .orderBy('final_intervalo', descending: true)
         .get()
         .then((QuerySnapshot q) {
       q.docs.forEach((element) {
-        if (intervalo_atual_fim == 0 ||
-            intervalo_atual_fim > element['final_intervalo']) {
+        if (intervalo_atual_fim == 0) {
+          setState(() {
+            intervalo_proximo_fim = intervalo_atual_fim;
+            proximo_valor = valor_atual;
+            intervalo_atual_fim = element['final_intervalo'];
+            valor_atual = element['valor'];
+          });
+        } else if (intervalo_atual_fim > element['final_intervalo'] &&
+            element['final_intervalo'] >= soma) {
           setState(() {
             intervalo_proximo_fim = intervalo_atual_fim;
             proximo_valor = valor_atual;
@@ -451,17 +518,17 @@ class _StateSistemaContent extends State<SistemaContent> {
           });
         }
       });
-    });
-    faixassalarias
-        .where('final_intervalo', isLessThan: soma)
-        .get()
-        .then((QuerySnapshot q) {
-      q.docs.forEach((element) {
-        if (intervalo_atual_inicio < element['final_intervalo']) {
-          setState(() {
-            intervalo_atual_inicio = element['final_intervalo'];
-          });
-        }
+      faixassalarias
+          .where('final_intervalo', isLessThan: this.soma)
+          .get()
+          .then((QuerySnapshot q) {
+        q.docs.forEach((element) {
+          if (intervalo_atual_inicio < element['final_intervalo']) {
+            setState(() {
+              intervalo_atual_inicio = element['final_intervalo'];
+            });
+          }
+        });
       });
     });
   }
@@ -485,7 +552,8 @@ class _StateSistemaContent extends State<SistemaContent> {
     CollectionReference cargosS =
         FirebaseFirestore.instance.collection('Cargo');
     cargosS
-        .where('instituicao', isEqualTo: this.usuario.instituicao).orderBy('grau')
+        .where('instituicao', isEqualTo: this.usuario.instituicao)
+        .orderBy('grau')
         .get()
         .then((QuerySnapshot q) {
       q.docs.forEach((elementt) {
@@ -534,7 +602,7 @@ class _StateSistemaContent extends State<SistemaContent> {
             elementt['valor_pontuacao'],
             elementt['grau'],
             elementt['instituicao']);
-            
+
         passar.faixas = faixasSalariais;
         setState(() {
           cargossss.add(passar);
@@ -724,6 +792,7 @@ class _StateSistemaContent extends State<SistemaContent> {
             setState(() {
               this.soma = this.soma + valor;
             });
+            get_cargo_faixas(soma);
           });
         }); //.catchError((e) => print(e.toString()));
         setState(() {
@@ -774,6 +843,7 @@ class _StateSistemaContent extends State<SistemaContent> {
         retornar_usuarios();
         get_pontuacao();
         get_cargos();
+        retornar_situacoes();
       });
     }); //.catchError((e) => print(e.toString()));
     CollectionReference cargos = FirebaseFirestore.instance.collection('Cargo');
@@ -813,8 +883,6 @@ class _StateSistemaContent extends State<SistemaContent> {
 
   @override
   Widget build(BuildContext context) {
-    get_cargo_faixas(soma);
-
     if (pontuacoes.isNotEmpty) {
       pont = pontuacoes;
     }
@@ -881,16 +949,35 @@ class _StateSistemaContent extends State<SistemaContent> {
               );
               break;
             case 4:
-              return DesktopCargos(cargos: cargossss, instituicao: usuario.instituicao,);
+              return DesktopCargos(
+                cargos: cargossss,
+                instituicao: usuario.instituicao,
+              );
               break;
             case 5:
-              return const DesktopProfessores();
+              return DesktopProfessores(
+                usuarios: usuarios,
+                cargos: cargossss,
+                cargos_usuarios: cargosss,
+                situacoes: situacoesAllAdm,
+                situacoes_usuarios: this.situacoesAdm,
+                cargos_antigo: cargos_antigo,
+                instituicao: usuario.instituicao,
+              );
               break;
             case 6:
-              return DesktopPontuacoes(cargos: cargossss, pontuacoes: pont, instituicao: usuario.instituicao,);
+              return DesktopPontuacoes(
+                cargos: cargossss,
+                pontuacoes: pont,
+                instituicao: usuario.instituicao,
+              );
               break;
             case 7:
-              return DesktopSimulador(cargos: cargossss, pontuacoes: pont, instituicao: usuario.instituicao,);
+              return DesktopSimulador(
+                cargos: cargossss,
+                pontuacoes: pont,
+                instituicao: usuario.instituicao,
+              );
               break;
             case 8:
               return DesktopSuaspontuacoes(
@@ -904,10 +991,16 @@ class _StateSistemaContent extends State<SistemaContent> {
                   soma: soma);
               break;
             case 9:
-              return const DesktopTabela();
+              return DesktopTabela(
+                cargos: cargossss,
+                instituicao: usuario.instituicao,
+              );
               break;
             case 10:
-              return const DesktopStatus();
+              return DesktopStatus(
+                instituicao: usuario.instituicao,
+                situacoesAdmissional: situacoesAllAdm,
+              );
               break;
           }
         } else if (constraints.maxWidth >= 600) {

@@ -496,7 +496,7 @@ class _FaixassalariaisState extends State<Faixassalariais> {
                   Text(
                     this.widget.proximo_valor == 0
                         ? "-- à -- pontos"
-                        : (this.widget.intervalo_atual_fim + 1)
+                        : (this.widget.intervalo_atual_fim)
                                 .toString()
                                 .replaceAll('.', ',') +
                             " à " +

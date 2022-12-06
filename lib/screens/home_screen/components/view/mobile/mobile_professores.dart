@@ -31,7 +31,7 @@ class _StateMobileProfessores extends State<MobileProfessores>{
                       TitleProfessores(tamanho:mediaQuery.width*0.86),
                     ],),
                     
-                    Professores(valor:0.877),
+                    Professores(valor:0.877, usuarios: [], textEditingAprovacaoConcursoPublico: [], textEditingAssiduidade: [], textEditingCreditosPosGraduacao: [], textEditingCursosAperfeicoamento: [], textEditingCursosExtensaoCultural: [], textEditingData: [], textEditingLivros: [], textEditingMatriculas: [], textEditingNomes: [], textEditingObservacoes: [], textEditingOutrosCursos: [], textEditingPesquisasRealizadas: [], textEditingProfessorUniversidadePublica: [], textEditingTrabalhosCientificosPublicados: [], textEditingVariaveis: [], cargos: [], cargos_usuarios: [], situacoes: [], situacoes_usuarios: [], cargos_antigo: [], keysAltura: [], keysAlturaX: [], sizeAlturas: [], instituicao: '',),
                     SizedBox(
                       height: 17,
                     ),

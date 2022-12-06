@@ -20,7 +20,7 @@ class MobileStatus extends StatelessWidget {
                   TitleStatus(),
                 ],),
                 
-                Status(valor:(mediaQuery.width * 0.75)),
+                Status(valor:(mediaQuery.width * 0.75), instituicao: '', textEditingNomes: [], textEditingTipos: [],),
                 SizedBox(
                   height: 20,
                 ),

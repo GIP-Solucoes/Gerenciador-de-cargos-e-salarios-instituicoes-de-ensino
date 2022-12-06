@@ -7,31 +7,34 @@ import 'package:gip_solucoes/screens/home_screen/components/model/Cargo.dart';
 import 'package:gip_solucoes/screens/home_screen/components/model/SituacaoAdmissional.dart';
 
 class Usuario {
-  final DateTime data_admissao;
-  final double quantidade_aprovacao_concurso;
-  final double quantidade_cursos_aperfeicoamento;
-  final double quantidade_cursos_extensao_cultural;
-  final double quantidade_livros;
-  final double quantidade_outros_cursos_realizados;
-  final double quantidade_pesquisas_aprovadas;
-  final double quantidade_professor_universidade_publica;
-  final double quantidade_stricto_sensu;
-  final double quantidade_trabalhos_cientificos_revista;
-  final double quantidade_variaveis;
-  final double quantidade_faltas;
-  final double salario_ideal;
+  DateTime data_admissao;
+  double quantidade_aprovacao_concurso;
+  double quantidade_cursos_aperfeicoamento;
+  double quantidade_cursos_extensao_cultural;
+  double quantidade_livros;
+  double quantidade_outros_cursos_realizados;
+  double quantidade_pesquisas_aprovadas;
+  double quantidade_professor_universidade_publica;
+  double quantidade_stricto_sensu;
+  double quantidade_trabalhos_cientificos_revista;
+  double quantidade_variaveis;
+  double quantidade_faltas;
+  double salario_ideal;
   late double salario_atual;
   final String instituicao;
   late final String email;
   late final String foto;
-  late final String primeiro_nome;
-  late final String segundo_nome;
-  late final String telefone;
+  late String primeiro_nome;
+  late String segundo_nome;
+  late String telefone;
   String matricula = "...";
   double pontuacao = 0;
   double quantidade_anos = 0;
   String status = "...";
-
+  String obs = "...";
+  String pass = "123456";
+  String id_cargo = "";
+  String cargo_antigo = "FzdK008ea6QlbrKww8Za";
   Usuario(
       this.data_admissao,
       this.quantidade_aprovacao_concurso,

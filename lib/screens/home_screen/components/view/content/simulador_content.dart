@@ -1083,7 +1083,7 @@ class _SimuladorState extends State<Simulador> {
                                                                         .map((op) =>
                                                                             DropdownMenuItem(
                                                                               value: op.titulo,
-                                                                              child: Text(op.titulo),
+                                                                              child: Text (op.titulo),
                                                                             ))
                                                                         .toList(),
                                                                   );

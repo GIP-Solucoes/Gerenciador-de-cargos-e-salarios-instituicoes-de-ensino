@@ -14,6 +14,8 @@ class Cargo {
   String segundo_nome = "...";
   String matricula = "...";
   double pontuacao = 0;
+  double pontuacaoFormacao = 0;
+  double pontuacaoExperiencia = 0;
   double salario_ideal = 0;
   double quantidade_anos = 0;
   List<FaixaSalarial> faixas = [];
