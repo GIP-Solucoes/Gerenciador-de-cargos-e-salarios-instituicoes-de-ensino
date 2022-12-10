@@ -10,6 +10,8 @@ class DesktopResultados extends StatefulWidget {
   double total_ideal;
   List<Cargo> cargos;
   List<SituacaoAdmissional> situacoes;
+  List<Cargo> cargos_usuarios_final=[];
+  List<SituacaoAdmissional> situacoes_usuarios_final = [];
   DesktopResultados(
       {Key? key,
       required this.usuarios,
@@ -28,6 +30,23 @@ class DesktopResultados extends StatefulWidget {
 class _StateDesktopResultados extends State<DesktopResultados> {
   @override
   Widget build(BuildContext context) {
+    widget.usuarios.forEach((element) {
+      widget.cargos.forEach((elementt) {
+        if (element.id_usuario == elementt.usuario_id) {
+          setState(() {
+            widget.cargos_usuarios_final.add(elementt);
+          });
+        }
+      });
+      widget.situacoes.forEach((elementt) {
+        if (element.id_usuario == elementt.id_usuario) {
+          setState(() {
+            widget.situacoes_usuarios_final.add(elementt);
+          });
+        }
+      });
+    });
+
     final mediaQuery = MediaQuery.of(context).size;
     return Center(
         child: SingleChildScrollView(
@@ -44,13 +63,12 @@ class _StateDesktopResultados extends State<DesktopResultados> {
               ],
             ),
             Resultados(
-              valor: 0.63,
-              usuarios: this.widget.usuarios,
-              total_atual: this.widget.total_atual,
-              total_ideal: this.widget.total_ideal,
-              situacoes: this.widget.situacoes,
-              cargos:this.widget.cargos
-            ),
+                valor: 0.63,
+                usuarios: this.widget.usuarios,
+                total_atual: this.widget.total_atual,
+                total_ideal: this.widget.total_ideal,
+                situacoes: this.widget.situacoes_usuarios_final,
+                cargos: this.widget.cargos_usuarios_final),
             SizedBox(
               height: 20,
             ),

@@ -6,11 +6,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:excel/excel.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gip_solucoes/screens/home_screen/components/model/Cargo.dart';
 import 'package:gip_solucoes/screens/home_screen/components/model/SituacaoAdmissional.dart';
 import 'package:gip_solucoes/screens/home_screen/components/model/Usuario.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/content/configuracoes_content.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/content/login_content.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/sistema_content.dart';
 //import 'package:my_portfolio/models/name_color.dart';
 import 'package:intl/intl.dart';
@@ -589,18 +592,21 @@ class _BotaoNovofuncionarioState extends State<BotaoNovofuncionario> {
                               keyProfessores.currentState!
                                   .adicionar_assiduidade(assiduidade.text);
                               keyProfessores.currentState!
+                                  .adicionar_salarios(salario.text);
+                              keyProfessores.currentState!
                                   .adicionar_data(data.text);
                               keyProfessores.currentState!
                                   .adicionar_observacoes(observacoes.text);
                               keyProfessores.currentState!.pegar_id_cargo(
                                   (keyProfessores
                                           .currentState!.display_list.length -
+                                      1),
+                                  false);
+                              keyProfessores.currentState!.pegar_id_status(
+                                  (keyProfessores
+                                          .currentState!.display_list.length -
                                       1));
                               keyProfessores.currentState!.retornar_pontuacoes(
-                                  keyProfessores
-                                          .currentState!.display_list.length -
-                                      1);
-                              keyProfessores.currentState!.get_salario_ideal(
                                   keyProfessores
                                           .currentState!.display_list.length -
                                       1);
@@ -689,7 +695,7 @@ class _BotaoPlanilhaState extends State<BotaoPlanilha> {
                       "Uma remoção por vez!",
                     ),
                     content: Text(
-                        "Você já removeu uma faixa. Por favor, salve as alterações para adicionar uma faixa."),
+                        "Você já removeu um professor. Por favor, salve as alterações para adicionar um novo professor."),
                     actions: [
                       TextButton(
                           onPressed: () {
@@ -787,6 +793,7 @@ class _BotaoPlanilhaState extends State<BotaoPlanilha> {
                 usuarioo.obs = row[16]!.value.toString();
                 usuarioo.salario_atual =
                     double.parse(row[17]!.value.toString());
+
                 keyProfessores.currentState!.adicionar_usuario(usuarioo);
 
                 Cargo cargobase2 =
@@ -825,15 +832,18 @@ class _BotaoPlanilhaState extends State<BotaoPlanilha> {
                     .adicionar_trabalhos(row[13]!.value.toString());
                 keyProfessores.currentState!
                     .adicionar_assiduidade(row[14]!.value.toString());
+                keyProfessores.currentState!.adicionar_salarios(
+                    row[17]!.value.toString().replaceAll('.', ','));
                 keyProfessores.currentState!.adicionar_data(
                     DateFormat("dd/MM/yyyy").format(usuarioo.data_admissao));
                 keyProfessores.currentState!
                     .adicionar_observacoes(row[16]!.value.toString());
                 keyProfessores.currentState!.pegar_id_cargo(
+                    (keyProfessores.currentState!.display_list.length - 1),
+                    false);
+                keyProfessores.currentState!.pegar_id_status(
                     (keyProfessores.currentState!.display_list.length - 1));
                 keyProfessores.currentState!.retornar_pontuacoes(
-                    keyProfessores.currentState!.display_list.length - 1);
-                keyProfessores.currentState!.get_salario_ideal(
                     keyProfessores.currentState!.display_list.length - 1);
                 keyProfessores.currentState!.adicionar_professores(
                     keyProfessores.currentState!.widget.usuarios.length - 1);
@@ -929,18 +939,18 @@ class _BotaoSalvarState extends State<BotaoSalvar> {
       q.docs.forEach((elementtt) {
         if (contador == contador2) {
           var eee = elementtt.reference;
-          if(keyProfessores.currentState!.widget.adicionados.isNotEmpty)
-          if(contador2<keyProfessores.currentState!.widget.adicionados[0]){
+          if (keyProfessores.currentState!.widget.adicionados.isNotEmpty) if (contador2 <
+              keyProfessores.currentState!.widget.adicionados[0]) {
             eee.update({"cargo_antigo": elementtt['cargo'], "cargo": id});
-          }else{
-eee.update({"cargo": id});
+          } else {
+            eee.update({"cargo": id});
           }
-          
         }
         contador2++;
       });
     });
   }
+
   trazer_status(int contador, String id) {
     CollectionReference statuss =
         FirebaseFirestore.instance.collection('Usuario');
@@ -959,6 +969,7 @@ eee.update({"cargo": id});
       });
     });
   }
+
   trazer_cargosssss(int contador, String id) {
     CollectionReference cargoss =
         FirebaseFirestore.instance.collection('Usuario');
@@ -994,38 +1005,62 @@ eee.update({"cargo": id});
     return verificador;
   }
 
-  criar_usuario(index) {
-    FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: keyProfessores.currentState!.widget.usuarios[index].email,
-        password: keyProfessores.currentState!.widget.usuarios[index].pass);
+  criar_usuario(index) async {
+    
+    
+  }
+  List<FirebaseApp> tempApp = [];
+  adicionar_firebase_app() async {
+    tempApp.add(await Firebase.initializeApp(
+        name: 'temporaryregister', options: Firebase.app().options));
   }
 
   @override
   Widget build(BuildContext context) {
+    adicionar_firebase_app();
     return TextButton(
       onPressed: () {
+        String verifica_email = "";
         bool verifica_vazios = false;
         keyProfessores.currentState!.widget.usuarios.forEach((element) {
           if (element.matricula.isEmpty || element.primeiro_nome.isEmpty)
             verifica_vazios = true;
         });
         if (verifica_vazios == false) {
-
-
-
-          CollectionReference usuarioss =
-              FirebaseFirestore.instance.collection('Usuario');
           
+          CollectionReference professores =
+              FirebaseFirestore.instance.collection('Usuario');
+
           if (keyProfessores.currentState!.widget.adicionados.isNotEmpty) {
+            FirebaseAuth auth = FirebaseAuth.instance;
             keyProfessores.currentState!.widget.adicionados
                 .forEach((element) async {
-                  bool verificador = verificar_email_usuario(keyProfessores
-                    .currentState!.widget.usuarios[element].email);
-                    if(verificador==false){
-                      
-                      await usuarioss.add({
-                        "foto":"",
-                        "telefone":"",
+                  UserCredential result =
+                  await FirebaseAuth.instanceFor(app: tempApp[0])
+                      .createUserWithEmailAndPassword(
+                          email: keyProfessores
+                              .currentState!.widget.usuarios[element].email,
+                          password: keyProfessores
+                              .currentState!.widget.usuarios[element].pass);
+
+              
+              /*configure(
+        name: 'Secondary', options: FirebaseApp.instance.options);
+    FirebaseAuth.fromApp(app)
+        .createUserWithEmailAndPassword(email: email, password: password);*/
+
+              /*auth
+                  .createUserWithEmailAndPassword(
+                      email: keyProfessores
+                          .currentState!.widget.usuarios[element].email,
+                      password: keyProfessores
+                          .currentState!.widget.usuarios[element].pass)
+                  .then((value) =>*/
+              professores.add({
+                "status": keyProfessores
+                    .currentState!.widget.usuarios[element].id_status,
+                "foto": "",
+                "telefone": "",
                 "instituicao": keyProfessores.currentState!.widget.instituicao,
                 "matricula": keyProfessores
                     .currentState!.widget.usuarios[element].matricula,
@@ -1035,8 +1070,8 @@ eee.update({"cargo": id});
                     .currentState!.widget.usuarios[element].primeiro_nome,
                 "segundo_nome": keyProfessores
                     .currentState!.widget.usuarios[element].segundo_nome,
-              //  "cargo": keyProfessores
-              //      .currentState!.widget.usuarios[element].cargo_antigo,
+                "cargo": keyProfessores
+                    .currentState!.widget.usuarios[element].id_cargo,
                 "quantidade_aprovacao_concurso": keyProfessores.currentState!
                     .widget.usuarios[element].quantidade_aprovacao_concurso,
                 "quantidade_stricto_sensu": keyProfessores.currentState!.widget
@@ -1085,14 +1120,16 @@ eee.update({"cargo": id});
                 "email":
                     keyProfessores.currentState!.widget.usuarios[element].email,
                 "direitos_administrador": false
-              });
-
-              criar_usuario(element);
-                    }
-              
+              }); /*)
+                  .catchError((e) {
+                setState(() {
+                  verifica_email =
+                      "Email de usuário(s) inserido(s) já foi cadastrado!";
+                });
+              });*/
             });
           }
-          usuarioss
+          professores
               .where('instituicao',
                   isEqualTo: keyProfessores.currentState!.widget.instituicao)
               .get()
@@ -1116,9 +1153,22 @@ eee.update({"cargo": id});
                     .currentState!.widget.adicionados.isNotEmpty) {
                   if (contador4 <
                       keyProfessores.currentState!.widget
-                          .adicionados[0]) if (contador3 == contador4) {
+                          .adicionados[0]) if (element.id_usuario ==
+                      elementtt.id) {
                     var eee = elementtt.reference;
+                    ///////////////
+                    ////////////////
+                    ///
+
+                    ///
+                    ///
+                    ///
+                    ///
+                    ///
                     eee.update({
+                      "cargo_antigo": element.cargo_antigo,
+                      "status": element.id_status,
+                      "cargo": element.id_cargo,
                       "matricula": element.matricula,
                       "primeiro_nome": element.primeiro_nome,
                       "segundo_nome": element.segundo_nome,
@@ -1147,6 +1197,9 @@ eee.update({"cargo": id});
                       "salario_ideal": element.salario_ideal,
                       "salario_atual": element.salario_atual,
                     });
+                    //////////////////
+
+                    //////////////////
                   }
                 }
 
@@ -1154,6 +1207,8 @@ eee.update({"cargo": id});
                     .isEmpty) if (contador3 == contador4) {
                   var eee = elementtt.reference;
                   eee.update({
+                    "status": element.id_status,
+                    "cargo_antigo": element.cargo_antigo,
                     "matricula": element.matricula,
                     "primeiro_nome": element.primeiro_nome,
                     "segundo_nome": element.segundo_nome,
@@ -1180,6 +1235,7 @@ eee.update({"cargo": id});
                     "obs": element.obs,
                     "salario_ideal": element.salario_ideal,
                     "salario_atual": element.salario_atual,
+                    "cargo": element.id_cargo
                   });
                 }
                 contador4++;
@@ -1188,99 +1244,25 @@ eee.update({"cargo": id});
             });
           });
 
-          CollectionReference cargos =
-              FirebaseFirestore.instance.collection('Cargo');
-          cargos
-              .where('instituicao',
-                  isEqualTo: keyProfessores.currentState!.widget.instituicao)
-              .orderBy('grau')
-              .get()
-              .then((QuerySnapshot q) {
-            int contador = 0;
-            keyProfessores.currentState!.widget.cargos_usuarios
-                .forEach((elementt) {
-              q.docs.forEach((element) {
-                if (element['titulo'] == elementt.titulo) {
-                  var ee = element.reference;
-                  if (ee.id !=
-                      keyProfessores
-                          .currentState!.widget.usuarios[contador].id_cargo) {
-                    trazer_cargo(contador, ee.id);
-                  }
-                }
-              });
-              contador++;
-            });
-          }).catchError((e) {
+          /*
+          
+          */
+          if (verifica_email.isEmpty) {
+            paginaS = 0;
+            Navigator.pushNamed(context, '/sistema');
+
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              backgroundColor: Colors.red,
-              content: Text(e),
+              backgroundColor: Colors.green,
+              content: Text("Dados salvos com sucesso!"),
               duration: Duration(seconds: 5),
             ));
-          });
-          ////////////////////////
-          ///
-          ///CARGOOOOOO
-          CollectionReference cargosssss =
-              FirebaseFirestore.instance.collection('Cargo');
-          cargosssss
-              .where('instituicao',
-                  isEqualTo: keyProfessores.currentState!.widget.instituicao)
-              .get()
-              .then((QuerySnapshot q) {
-            int contador22 = 0;
-            keyProfessores.currentState!.widget.cargos_usuarios
-                .forEach((elementt) {
-              q.docs.forEach((element) {
-                if (element['titulo'] == elementt.titulo) {
-                  var ee = element.reference;
-                  trazer_cargosssss(contador22, ee.id);
-                }
-              });
-              contador22++;
-            });
-          }).catchError((e) {
+          } else {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               backgroundColor: Colors.red,
-              content: Text(e),
+              content: Text(verifica_email),
               duration: Duration(seconds: 5),
             ));
-          });
-          ///CARGOOOOOO
-          ///
-          ///
-          CollectionReference status =
-              FirebaseFirestore.instance.collection('SituacaoAdmissional');
-          status
-              .where('instituicao',
-                  isEqualTo: keyProfessores.currentState!.widget.instituicao)
-              .get()
-              .then((QuerySnapshot q) {
-            int contador = 0;
-            keyProfessores.currentState!.widget.situacoes_usuarios
-                .forEach((elementt) {
-              q.docs.forEach((element) {
-                if (element['nome'] == elementt.nome) {
-                  var ee = element.reference;
-                  trazer_status(contador, ee.id);
-                }
-              });
-              contador++;
-            });
-          }).catchError((e) {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              backgroundColor: Colors.red,
-              content: Text(e),
-              duration: Duration(seconds: 5),
-            ));
-          });
-          paginaS = 0;
-          Navigator.pushNamed(context, '/sistema');
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            backgroundColor: Colors.green,
-            content: Text("Dados salvos com sucesso!"),
-            duration: Duration(seconds: 5),
-          ));
+          }
         } else {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             backgroundColor: Colors.red,
@@ -1317,7 +1299,7 @@ eee.update({"cargo": id});
 }
 
 class _ProfessoresState extends State<Professores> {
-  pegar_id_cargo(int index) {
+  pegar_id_cargo(int index, bool verifica) {
     CollectionReference cargosS =
         FirebaseFirestore.instance.collection('Cargo');
     cargosS
@@ -1329,16 +1311,47 @@ class _ProfessoresState extends State<Professores> {
         if (keyProfessores.currentState!.display_list_cargos[index].titulo ==
             elementt['titulo']) {
           DocumentReference _documentReference = elementt.reference;
-          keyProfessores.currentState!
-              .retornar_id_cargo(index, _documentReference.id);
+          if (verifica == true)
+            retornar_id_cargo_antigo(index, display_list[index].id_cargo);
+          retornar_id_cargo(index, _documentReference.id);
+          get_salario_ideal(index, _documentReference.id);
         }
       });
+    });
+  }
+
+  pegar_id_status(int index) {
+    CollectionReference cargosS =
+        FirebaseFirestore.instance.collection('SituacaoAdmissional');
+    cargosS
+        .where('instituicao', isEqualTo: widget.instituicao)
+        .get()
+        .then((QuerySnapshot q) {
+      q.docs.forEach((elementt) {
+        if (keyProfessores.currentState!.display_list_status[index].nome ==
+            elementt['nome']) {
+          DocumentReference _documentReference = elementt.reference;
+          retornar_id_status(index, _documentReference.id);
+        }
+      });
+    });
+  }
+
+  retornar_id_status(int index, String id) {
+    setState(() {
+      display_list[index].id_status = id;
     });
   }
 
   retornar_id_cargo(int index, String id) {
     setState(() {
       display_list[index].id_cargo = id;
+    });
+  }
+
+  retornar_id_cargo_antigo(int index, String id) {
+    setState(() {
+      display_list[index].cargo_antigo = id;
     });
   }
 
@@ -1545,28 +1558,33 @@ class _ProfessoresState extends State<Professores> {
     });
   }
 
-  Future<void> get_salario_ideal(int index) async {
+  Future<void> get_salario_ideal(int index, String cargoP) async {
     CollectionReference cargos = FirebaseFirestore.instance.collection('Cargo');
-    DocumentSnapshot carg =
-        await cargos.doc(display_list[index].id_cargo).get();
+    String string_cargo = "";
+    if (cargoP.isEmpty) {
+      string_cargo = display_list[index].id_cargo;
+    } else {
+      string_cargo = cargoP;
+    }
+    DocumentSnapshot carg = await cargos.doc(string_cargo).get();
     CollectionReference faixassalarias =
         carg.reference.collection('FaixaSalarial');
     faixassalarias
-        .where('final_intervalo')
         .orderBy('final_intervalo', descending: true)
         .get()
         .then((QuerySnapshot q) {
       int contador = 0;
       q.docs.forEach((element) {
-        if (contador == 0)
+        if (contador == 0) {
           setState(() {
             display_list[index].salario_ideal = element['valor'];
           });
-
-        if (element['final_intervalo'] <= display_list[index].pontuacao)
+        } else if (element['final_intervalo'] >=
+            display_list_cargos[index].pontuacao) {
           setState(() {
             display_list[index].salario_ideal = element['valor'];
           });
+        }
 
         contador++;
       });
@@ -1632,6 +1650,12 @@ class _ProfessoresState extends State<Professores> {
   void adicionar_matriculas(String param) {
     setState(() {
       widget.textEditingMatriculas.add(TextEditingController(text: param));
+    });
+  }
+
+  void adicionar_salarios(String param) {
+    setState(() {
+      widget.textEditingSalarios.add(TextEditingController(text: param));
     });
   }
 
@@ -2151,6 +2175,8 @@ class _ProfessoresState extends State<Professores> {
                                               height: 250,
                                               width: 40,
                                               child: ListView.builder(
+                                                controller:
+                                                    _scrollControllerOne,
                                                 itemCount:
                                                     this.display_list.length,
                                                 itemBuilder: (context, index) =>
@@ -2203,10 +2229,18 @@ class _ProfessoresState extends State<Professores> {
                                                                           TextButton(
                                                                               onPressed: () {
                                                                                 setState(() {
+                                                                                  int contador_remover = -1;
+                                                                                  for (int i = 0; i < widget.usuarios.length; i++) {
+                                                                                    if (widget.usuarios[i].id_usuario == display_list[index].id_usuario) {
+                                                                                      i = widget.usuarios.length;
+                                                                                    }
+                                                                                    contador_remover++;
+                                                                                  }
                                                                                   widget.textEditingMatriculas.removeAt(index);
                                                                                   widget.textEditingNomes.removeAt(index);
                                                                                   widget.textEditingAprovacaoConcursoPublico.removeAt(index);
                                                                                   widget.textEditingCreditosPosGraduacao.removeAt(index);
+                                                                                  widget.textEditingSalarios.removeAt(index);
                                                                                   widget.textEditingCursosAperfeicoamento.removeAt(index);
                                                                                   widget.textEditingOutrosCursos.removeAt(index);
                                                                                   widget.textEditingCursosExtensaoCultural.removeAt(index);
@@ -2217,13 +2251,18 @@ class _ProfessoresState extends State<Professores> {
                                                                                   widget.textEditingTrabalhosCientificosPublicados.removeAt(index);
                                                                                   widget.textEditingAssiduidade.removeAt(index);
                                                                                   widget.textEditingData.removeAt(index);
-                                                                                  widget.textEditingObservacoes.removeAt(index);
 
                                                                                   display_list.removeAt(index);
                                                                                   display_list_status.removeAt(index);
                                                                                   display_list_cargos.removeAt(index);
                                                                                   display_list_cargos_antigo.removeAt(index);
-                                                                                  widget.deletados.add(index);
+
+                                                                                  widget.usuarios.removeAt(contador_remover);
+                                                                                  widget.cargos_usuarios.removeAt(contador_remover);
+                                                                                  widget.cargos_antigo.removeAt(contador_remover);
+                                                                                  widget.situacoes_usuarios.removeAt(contador_remover);
+
+                                                                                  widget.deletados.add(contador_remover);
                                                                                 });
                                                                                 Navigator.of(context).pop();
                                                                               },
@@ -2886,6 +2925,34 @@ class _ProfessoresState extends State<Professores> {
                                         children: [
                                           Text(
                                             textAlign: TextAlign.center,
+                                            "Salário atual",
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 8.0,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 2,
+                                    ),
+                                    Container(
+                                      alignment: Alignment.center,
+                                      width: 104.5,
+                                      height: 40.0,
+                                      decoration: BoxDecoration(
+                                        color: Colors.blue,
+                                        borderRadius:
+                                            BorderRadius.circular(5.0),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            textAlign: TextAlign.center,
                                             "PONTUAÇÃO",
                                             style: TextStyle(
                                               color: Colors.black,
@@ -2911,8 +2978,9 @@ class _ProfessoresState extends State<Professores> {
                                             Center(child: Text(this.mensagem)))
                                     : Container(
                                         height: 250,
-                                        width: 2954.5,
+                                        width: 3061,
                                         child: ListView.builder(
+                                          controller: _scrollControllerTwo,
                                           itemCount: this.display_list.length,
                                           itemBuilder: (context, index) =>
                                               Padding(
@@ -3000,6 +3068,8 @@ class _ProfessoresState extends State<Professores> {
                                                                                 escolha.toString())
                                                                               display_list_status[index].calcula_valor = element.calcula_valor;
                                                                           });
+                                                                          pegar_id_status(
+                                                                              index);
                                                                         });
                                                                         if (valuee
                                                                             .isNotEmpty)
@@ -3345,6 +3415,9 @@ class _ProfessoresState extends State<Professores> {
                                                                             : valuee,
                                                                         onChanged:
                                                                             (escolha) {
+                                                                          pegar_id_cargo(
+                                                                              index,
+                                                                              true);
                                                                           setState(
                                                                               () {
                                                                             atualizaContainer(index);
@@ -3510,7 +3583,7 @@ class _ProfessoresState extends State<Professores> {
                                                               retornar_pontuacoes(
                                                                   index);
                                                               get_salario_ideal(
-                                                                  index);
+                                                                  index, "");
                                                             }),
                                                             inputFormatters: <
                                                                 TextInputFormatter>[
@@ -3572,7 +3645,7 @@ class _ProfessoresState extends State<Professores> {
                                                                 retornar_pontuacoes(
                                                                     index);
                                                                 get_salario_ideal(
-                                                                    index);
+                                                                    index, "");
                                                               });
                                                             },
                                                             inputFormatters: <
@@ -3635,7 +3708,7 @@ class _ProfessoresState extends State<Professores> {
                                                                 retornar_pontuacoes(
                                                                     index);
                                                                 get_salario_ideal(
-                                                                    index);
+                                                                    index, "");
                                                               });
                                                             },
                                                             inputFormatters: <
@@ -3698,7 +3771,7 @@ class _ProfessoresState extends State<Professores> {
                                                                 retornar_pontuacoes(
                                                                     index);
                                                                 get_salario_ideal(
-                                                                    index);
+                                                                    index, "");
                                                               });
                                                             },
                                                             inputFormatters: <
@@ -3761,7 +3834,7 @@ class _ProfessoresState extends State<Professores> {
                                                                 retornar_pontuacoes(
                                                                     index);
                                                                 get_salario_ideal(
-                                                                    index);
+                                                                    index, "");
                                                               });
                                                             },
                                                             inputFormatters: <
@@ -3824,7 +3897,7 @@ class _ProfessoresState extends State<Professores> {
                                                                 retornar_pontuacoes(
                                                                     index);
                                                                 get_salario_ideal(
-                                                                    index);
+                                                                    index, "");
                                                               });
                                                             },
                                                             inputFormatters: <
@@ -3923,7 +3996,7 @@ class _ProfessoresState extends State<Professores> {
                                                                 retornar_pontuacoes(
                                                                     index);
                                                                 get_salario_ideal(
-                                                                    index);
+                                                                    index, "");
                                                               });
                                                             },
                                                             inputFormatters: <
@@ -3986,7 +4059,7 @@ class _ProfessoresState extends State<Professores> {
                                                                 retornar_pontuacoes(
                                                                     index);
                                                                 get_salario_ideal(
-                                                                    index);
+                                                                    index, "");
                                                               });
                                                             },
                                                             inputFormatters: <
@@ -4049,7 +4122,7 @@ class _ProfessoresState extends State<Professores> {
                                                                 retornar_pontuacoes(
                                                                     index);
                                                                 get_salario_ideal(
-                                                                    index);
+                                                                    index, "");
                                                               });
                                                             },
                                                             inputFormatters: <
@@ -4112,7 +4185,7 @@ class _ProfessoresState extends State<Professores> {
                                                                 retornar_pontuacoes(
                                                                     index);
                                                                 get_salario_ideal(
-                                                                    index);
+                                                                    index, "");
                                                               });
                                                             },
                                                             inputFormatters: <
@@ -4211,7 +4284,7 @@ class _ProfessoresState extends State<Professores> {
                                                                 retornar_pontuacoes(
                                                                     index);
                                                                 get_salario_ideal(
-                                                                    index);
+                                                                    index, "");
                                                               });
                                                             },
                                                             inputFormatters: <
@@ -4267,7 +4340,7 @@ class _ProfessoresState extends State<Professores> {
                                                                 retornar_pontuacoes(
                                                                     index);
                                                                 get_salario_ideal(
-                                                                    index);
+                                                                    index, "");
                                                               });
                                                             },
                                                             onTap: () async {
@@ -4291,7 +4364,8 @@ class _ProfessoresState extends State<Professores> {
                                                                   retornar_pontuacoes(
                                                                       index);
                                                                   get_salario_ideal(
-                                                                      index);
+                                                                      index,
+                                                                      "");
                                                                   display_list[
                                                                               index]
                                                                           .data_admissao =
@@ -4353,6 +4427,10 @@ class _ProfessoresState extends State<Professores> {
                                                                     .obs = value;
                                                                 atualizaContainer(
                                                                     index);
+                                                                retornar_pontuacoes(
+                                                                    index);
+                                                                get_salario_ideal(
+                                                                    index, "");
                                                               });
                                                             },
                                                             controller: widget
@@ -4364,7 +4442,79 @@ class _ProfessoresState extends State<Professores> {
                                                             style: TextStyle(
                                                               color:
                                                                   Colors.black,
-                                                              fontSize: 8.0,
+                                                              fontSize: 16.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2,
+                                                        ),
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 104.5,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: (display_list_status
+                                                                    .asMap()
+                                                                    .containsKey(
+                                                                        index))
+                                                                ? display_list_status[index]
+                                                                            .calcula_valor ==
+                                                                        false
+                                                                    ? Colors.red[
+                                                                        200]
+                                                                    : Colors
+                                                                        .white
+                                                                : Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                          ),
+                                                          child: TextField(
+                                                            onChanged: (value) {
+                                                              setState(() {
+                                                                display_list[
+                                                                            index]
+                                                                        .salario_atual =
+                                                                    double.parse(
+                                                                        value.replaceAll(
+                                                                            ',',
+                                                                            '.'));
+                                                                atualizaContainer(
+                                                                    index);
+                                                              });
+                                                            },
+                                                            inputFormatters: <
+                                                                TextInputFormatter>[
+                                                              FilteringTextInputFormatter
+                                                                  .allow(RegExp(
+                                                                      r'[0-9]+[,.]{0,1}[0-9]*')),
+                                                              TextInputFormatter
+                                                                  .withFunction(
+                                                                (oldValue,
+                                                                        newValue) =>
+                                                                    newValue
+                                                                        .copyWith(
+                                                                  text: newValue
+                                                                      .text
+                                                                      .replaceAll(
+                                                                          '.',
+                                                                          ','),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                            controller: widget
+                                                                    .textEditingSalarios[
+                                                                index],
+                                                            maxLines: null,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16.0,
                                                             ),
                                                           ),
                                                         ),
@@ -9931,6 +10081,7 @@ class Professores extends StatefulWidget {
   List<TextEditingController> textEditingAssiduidade;
   List<TextEditingController> textEditingData;
   List<TextEditingController> textEditingObservacoes;
+  List<TextEditingController> textEditingSalarios;
   List<Cargo> cargos_usuarios;
   List<SituacaoAdmissional> situacoes_usuarios;
   List<Cargo> cargos;
@@ -9957,6 +10108,7 @@ class Professores extends StatefulWidget {
       required this.textEditingAssiduidade,
       required this.textEditingData,
       required this.textEditingObservacoes,
+      required this.textEditingSalarios,
       required this.cargos_usuarios,
       required this.situacoes_usuarios,
       required this.cargos,

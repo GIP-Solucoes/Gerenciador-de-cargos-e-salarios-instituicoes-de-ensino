@@ -2,6 +2,7 @@ import 'dart:html';
 import 'dart:js';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gip_solucoes/screens/home_screen/components/model/Cargo.dart';
 import 'package:gip_solucoes/screens/home_screen/components/model/FaixaSalarial.dart';
@@ -9,6 +10,7 @@ import 'package:gip_solucoes/screens/home_screen/components/model/Pontuacao.dart
 import 'package:gip_solucoes/screens/home_screen/components/model/PontuacaoAtributo.dart';
 import 'package:gip_solucoes/screens/home_screen/components/model/SituacaoAdmissional.dart';
 import 'package:gip_solucoes/screens/home_screen/components/model/Usuario.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/content/login_content.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/desktop/desktop_cargos.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/desktop/desktop_configuracoes.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/desktop/desktop_login.dart';
@@ -67,10 +69,17 @@ class _StateSistemaContent extends State<SistemaContent> {
   String email;
   List<Cargo> cargosss = [];
   List<Cargo> cargos_antigo = [];
-  cargoo(usuariop, String cargo_antigo, String matricula, String primeiro_nome,
-      String segundo_nome, String instituition) async {
+  cargoo(
+      usuariop,
+      String cargo_antigo,
+      String matricula,
+      String primeiro_nome,
+      String segundo_nome,
+      String instituition,
+      String cargo,
+      String usuario0) async {
     CollectionReference cargos = FirebaseFirestore.instance.collection('Cargo');
-    DocumentSnapshot? carg = await cargos.doc(usuariop['cargo']).get();
+
     /* if (cargo_antigo == '-') {
       Cargo cargobase2 =
           new Cargo('', '', 'Sem registros!', -1, -1, '', -1, -1, '');
@@ -93,10 +102,11 @@ class _StateSistemaContent extends State<SistemaContent> {
     cargobase2.matricula = matricula;
     cargobase2.primeiro_nome = primeiro_nome;
     cargobase2.segundo_nome = segundo_nome;
+    cargobase2.usuario_id = usuario0;
     cargos_antigo.add(cargobase2);
     // }
     // setState(() {
-
+    DocumentSnapshot? carg = await cargos.doc(cargo).get();
     Cargo cargobase = new Cargo(
         carg['competencias'],
         carg['descricao'],
@@ -107,6 +117,7 @@ class _StateSistemaContent extends State<SistemaContent> {
         carg['valor_pontuacao'],
         carg['grau'],
         carg['instituicao']);
+    cargobase.usuario_id = usuario0;
     cargobase.matricula = usuariop['matricula'];
     cargobase.primeiro_nome = usuariop['primeiro_nome'];
     cargobase.segundo_nome = usuariop['segundo_nome'];
@@ -317,7 +328,7 @@ class _StateSistemaContent extends State<SistemaContent> {
 
   List<SituacaoAdmissional> situacoesAdm = [];
   situacaoAdmissional(String situacaop, String matricul, String primeiro_nom,
-      String segundo_nom) async {
+      String segundo_nom, String id_usuario) async {
     CollectionReference situacoes =
         FirebaseFirestore.instance.collection('SituacaoAdmissional');
     DocumentSnapshot? sit = await situacoes.doc(situacaop).get();
@@ -327,6 +338,7 @@ class _StateSistemaContent extends State<SistemaContent> {
     situation.matricula = matricul;
     situation.primeiro_nome = primeiro_nom;
     situation.segundo_nome = segundo_nom;
+    situation.id_usuario = id_usuario;
     situacoesAdm.add(situation);
     //  });
   }
@@ -348,6 +360,18 @@ class _StateSistemaContent extends State<SistemaContent> {
     });
   }
 
+  retornar_considera(String status, double atual, double ideal) async {
+    CollectionReference statuss =
+        FirebaseFirestore.instance.collection('SituacaoAdmissional');
+    DocumentSnapshot? stat = await statuss.doc(status).get();
+    if (stat['calcula_valor'] == true) {
+      setState(() {
+        total_atual = total_atual + atual;
+        total_ideal = total_ideal + ideal;
+      });
+    }
+  }
+
   retornar_usuarios() {
     int indice = 0;
     String inst = this.usuario.instituicao;
@@ -359,8 +383,9 @@ class _StateSistemaContent extends State<SistemaContent> {
         .then((QuerySnapshot q) {
       q.docs.forEach((element) {
         setState(() {
-          total_atual = total_atual + element['salario_atual'];
-          total_ideal = total_ideal + element['salario_ideal'];
+          retornar_considera(element['status'], element['salario_atual'],
+              element['salario_ideal']);
+
           this.usuarios.add(new Usuario(
               element['data_admissao'].toDate(),
               element['quantidade_aprovacao_concurso'],
@@ -381,18 +406,27 @@ class _StateSistemaContent extends State<SistemaContent> {
               element['primeiro_nome'],
               element['segundo_nome'],
               element['telefone']));
+          usuarios[usuarios.length - 1].id_usuario = element.id;
           usuarios[usuarios.length - 1].matricula = element['matricula'];
           usuarios[usuarios.length - 1].obs = element['obs'];
           usuarios[usuarios.length - 1].salario_atual =
               element['salario_atual'];
           usuarios[usuarios.length - 1].status = element['status'];
+          usuarios[usuarios.length - 1].id_status = element['status'];
           usuarios[usuarios.length - 1].id_cargo = element['cargo'];
           //////////////////
 
-          cargoo(element, element['cargo_antigo'], element['matricula'],
-              element['primeiro_nome'], element['segundo_nome'], inst);
+          cargoo(
+              element,
+              element['cargo_antigo'],
+              element['matricula'],
+              element['primeiro_nome'],
+              element['segundo_nome'],
+              inst,
+              element['cargo'],
+              element.id);
           situacaoAdmissional(element['status'], element['matricula'],
-              element['primeiro_nome'], element['segundo_nome']);
+              element['primeiro_nome'], element['segundo_nome'], element.id);
         });
 
         //////////////////

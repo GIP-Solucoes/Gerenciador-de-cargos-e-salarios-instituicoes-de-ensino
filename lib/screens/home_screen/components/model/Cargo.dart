@@ -18,6 +18,7 @@ class Cargo {
   double pontuacaoExperiencia = 0;
   double salario_ideal = 0;
   double quantidade_anos = 0;
+  String usuario_id = "";
   List<FaixaSalarial> faixas = [];
   Cargo(
       this.competencias,

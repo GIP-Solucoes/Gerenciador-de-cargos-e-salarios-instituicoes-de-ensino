@@ -1815,6 +1815,11 @@ class _ResultadosState extends State<Resultados> {
                                                       child: Text(
                                                         textAlign:
                                                             TextAlign.center,
+                                                            (this
+                                                                .situacao_list
+                                                                .asMap()
+                                                                .containsKey(
+                                                                    index))?(this.situacao_list[index].calcula_valor==true)?
                                                         (((display_list[index].salario_ideal /
                                                                             display_list[index]
                                                                                 .salario_atual) -
@@ -1825,7 +1830,7 @@ class _ResultadosState extends State<Resultados> {
                                                                 .toString()
                                                                 .replaceAll(
                                                                     '.', ',') +
-                                                            "%",
+                                                            "%":"- %":"- %",
                                                         style: TextStyle(
                                                           color: (((display_list[index].salario_ideal /
                                                                               display_list[index]
@@ -1859,6 +1864,11 @@ class _ResultadosState extends State<Resultados> {
                                                       child: Text(
                                                         textAlign:
                                                             TextAlign.center,
+                                                            (this
+                                                                .situacao_list
+                                                                .asMap()
+                                                                .containsKey(
+                                                                    index))?(this.situacao_list[index].calcula_valor==true)?
                                                         (display_list[index]
                                                                         .salario_ideal -
                                                                     display_list[
@@ -1876,7 +1886,7 @@ class _ResultadosState extends State<Resultados> {
                                                                     .replaceAll(
                                                                         '.',
                                                                         ',')
-                                                            : "R\$ -",
+                                                            : "R\$ -":"R\$ -":"R\$ -",
                                                         style: TextStyle(
                                                           color: Colors.red,
                                                           fontSize: 16.0,
@@ -1899,6 +1909,11 @@ class _ResultadosState extends State<Resultados> {
                                                       child: Text(
                                                         textAlign:
                                                             TextAlign.center,
+                                                            (this
+                                                                .situacao_list
+                                                                .asMap()
+                                                                .containsKey(
+                                                                    index))?(this.situacao_list[index].calcula_valor==true)?
                                                         (display_list[index]
                                                                         .salario_ideal -
                                                                     display_list[
@@ -1916,7 +1931,7 @@ class _ResultadosState extends State<Resultados> {
                                                                     .replaceAll(
                                                                         '.',
                                                                         ',')
-                                                            : "R\$ -",
+                                                            : "R\$ -":"R\$ -":"R\$ -",
                                                         style: TextStyle(
                                                           color: Colors.black,
                                                           fontSize: 16.0,

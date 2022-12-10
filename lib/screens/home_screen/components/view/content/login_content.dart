@@ -4,6 +4,8 @@ import 'package:gip_solucoes/screens/home_screen/components/model/Usuario.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/hero_content.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/sistema_content.dart';
 
+String ppp="";
+
 class Login extends StatefulWidget {
   double tamanho;
 
@@ -61,7 +63,7 @@ class _LoginState extends State<Login> {
         SizedBox(
           width: 300 * widget.tamanho,
           child: TextField(
-            obscureText: showPassword==false?true:false,
+            obscureText: showPassword == false ? true : false,
             controller: controllerSenha,
             decoration: InputDecoration(
               hintText: 'Senha',
@@ -123,7 +125,9 @@ class _LoginState extends State<Login> {
           onPressed: () {
             paginaS = 0;
             Usuario usuario = Usuario.getInformacoes();
-            usuario.realizar_login(context,controllerEmail.text, controllerSenha.text);
+            ppp = controllerSenha.text;
+            usuario.realizar_login(
+                context, controllerEmail.text, controllerSenha.text);
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,

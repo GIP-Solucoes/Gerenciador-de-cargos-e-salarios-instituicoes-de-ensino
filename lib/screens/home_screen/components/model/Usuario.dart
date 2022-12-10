@@ -34,7 +34,9 @@ class Usuario {
   String obs = "...";
   String pass = "123456";
   String id_cargo = "";
+  String id_status = "";
   String cargo_antigo = "FzdK008ea6QlbrKww8Za";
+  String id_usuario="";
   Usuario(
       this.data_admissao,
       this.quantidade_aprovacao_concurso,

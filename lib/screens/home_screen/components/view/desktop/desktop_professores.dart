@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 class DesktopProfessores extends StatefulWidget {
   List<Usuario> usuarios;
   List<Cargo> cargos_antigo;
+  List<Cargo> cargos_antigo_final=[];
   List<Size> sizeAlturas = [];
   List<GlobalKey> keysAltura = [];
   List<GlobalKey> keysAlturaX = [];
@@ -27,8 +28,11 @@ class DesktopProfessores extends StatefulWidget {
   List<TextEditingController> textEditingAssiduidade = [];
   List<TextEditingController> textEditingData = [];
   List<TextEditingController> textEditingObservacoes = [];
+  List<TextEditingController> textEditingSalario = [];
   List<Cargo> cargos_usuarios;
+  List<Cargo> cargos_usuarios_final = [];
   List<SituacaoAdmissional> situacoes_usuarios;
+  List<SituacaoAdmissional> situacoes_usuarios_final=[];
   List<Cargo> cargos;
   List<SituacaoAdmissional> situacoes;
   String instituicao;
@@ -39,7 +43,8 @@ class DesktopProfessores extends StatefulWidget {
       required this.situacoes_usuarios,
       required this.cargos,
       required this.situacoes,
-      required this.cargos_antigo,required this.instituicao})
+      required this.cargos_antigo,
+      required this.instituicao})
       : super(key: key);
 
   @override
@@ -52,6 +57,27 @@ class _StateDesktopProfessores extends State<DesktopProfessores> {
   @override
   Widget build(BuildContext context) {
     widget.usuarios.forEach((element) {
+      widget.cargos_usuarios.forEach((elementt) {
+        if (element.id_usuario == elementt.usuario_id) {
+          setState(() {
+            widget.cargos_usuarios_final.add(elementt);
+          });
+        }
+      });
+      widget.cargos_antigo.forEach((elementt) {
+        if (element.id_usuario == elementt.usuario_id) {
+          setState(() {
+            widget.cargos_antigo_final.add(elementt);
+          });
+        }
+      });
+      widget.situacoes_usuarios.forEach((elementt) {
+        if (element.id_usuario == elementt.id_usuario) {
+          setState(() {
+            widget.situacoes_usuarios_final.add(elementt);
+          });
+        }
+      });
       widget.sizeAlturas.add(Size(0, 49));
       widget.keysAltura.add(GlobalKey());
       widget.keysAlturaX.add(GlobalKey());
@@ -83,11 +109,14 @@ class _StateDesktopProfessores extends State<DesktopProfessores> {
                   element.quantidade_trabalhos_cientificos_revista.toString()));
       widget.textEditingAssiduidade.add(
           TextEditingController(text: element.quantidade_faltas.toString()));
+          widget.textEditingSalario.add(
+          TextEditingController(text: element.salario_atual.toString().replaceAll('.', ',')));
       widget.textEditingData.add(TextEditingController(
           text: DateFormat("dd/MM/yyyy").format(element.data_admissao)));
       widget.textEditingObservacoes
           .add(TextEditingController(text: element.obs));
     });
+    int ind = 1;
     final mediaQuery = MediaQuery.of(context).size;
     return SingleChildScrollView(
         child: Container(
@@ -106,11 +135,12 @@ class _StateDesktopProfessores extends State<DesktopProfessores> {
               key: keyProfessores,
               instituicao: widget.instituicao,
               sizeAlturas: widget.sizeAlturas,
-              cargos_antigo: widget.cargos_antigo,
+              cargos_antigo: widget.cargos_antigo_final,
               valor: 0.63,
               usuarios: widget.usuarios,
               textEditingAprovacaoConcursoPublico:
                   widget.textEditingAprovacaoConcursoPublico,
+                 textEditingSalarios:widget.textEditingSalario,
               textEditingAssiduidade: widget.textEditingAssiduidade,
               textEditingCreditosPosGraduacao:
                   widget.textEditingCreditosPosGraduacao,
@@ -132,9 +162,9 @@ class _StateDesktopProfessores extends State<DesktopProfessores> {
                   widget.textEditingTrabalhosCientificosPublicados,
               textEditingVariaveis: widget.textEditingVariaveis,
               cargos: widget.cargos,
-              cargos_usuarios: widget.cargos_usuarios,
+              cargos_usuarios: widget.cargos_usuarios_final,
               situacoes: widget.situacoes,
-              situacoes_usuarios: widget.situacoes_usuarios,
+              situacoes_usuarios: widget.situacoes_usuarios_final,
               keysAltura: widget.keysAltura,
               keysAlturaX: widget.keysAlturaX,
             ),
