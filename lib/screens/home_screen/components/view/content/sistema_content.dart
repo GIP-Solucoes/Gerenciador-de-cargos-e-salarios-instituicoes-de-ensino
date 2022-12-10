@@ -24,6 +24,7 @@ import 'package:gip_solucoes/screens/home_screen/components/view/desktop/desktop
 import 'package:gip_solucoes/screens/home_screen/components/view/desktop/desktop_tabela.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/mobile/mobile_cargos.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/mobile/mobile_configuracoes.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/mobile/mobile_login.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/mobile/mobile_menu.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/mobile/mobile_meucargo.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/mobile/mobile_pontuacoes.dart';
@@ -36,6 +37,7 @@ import 'package:gip_solucoes/screens/home_screen/components/view/mobile/mobile_t
 import 'package:gip_solucoes/screens/home_screen/components/view/tablet/tablet_cargos.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/tablet/tablet_configuracoes.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/desktop/desktop_simulador.dart';
+import 'package:gip_solucoes/screens/home_screen/components/view/tablet/tablet_login.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/tablet/tablet_menu.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/tablet/tablet_meucargo.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/tablet/tablet_pontuacoes.dart';
@@ -923,10 +925,11 @@ class _StateSistemaContent extends State<SistemaContent> {
     return LayoutBuilder(
       builder: ((context, constraints) {
         Object? data = ModalRoute.of(context)?.settings.arguments;
-        if (data == null && paginaS == 11) {
+        
+        if (constraints.maxWidth >= 850) {
+          if (data == null && paginaS == 11) {
           return const DesktopLogin();
         }
-        if (constraints.maxWidth >= 850) {
           if (paginaU == 0) {
             return const Center(
               child: Text('Carregando...'),
@@ -1038,81 +1041,231 @@ class _StateSistemaContent extends State<SistemaContent> {
               break;
           }
         } else if (constraints.maxWidth >= 600) {
-          switch (paginaS) {
-            case 0:
+          if (data == null && paginaS == 11) {
+          return const TabletLogin();
+        }
+          if (paginaU == 0) {
+            return const Center(
+              child: Text('Carregando...'),
+            );
+          }
+          if (paginaU == 1) {
+            if (paginaS == 0 || paginaS == 11) {
+              return TabletMeucargo(
+                cargo: cargo,
+                competencias_cargo: competencias_cargo,
+                titulo_cargo: titulo_cargo,
+                nome_cargo: nome_cargo,
+                soma: soma,
+                intervalo_atual_inicio: intervalo_atual_inicio,
+                intervalo_atual_fim: intervalo_atual_fim,
+                intervalo_proximo_fim: intervalo_proximo_fim,
+                intervalo_proximo_inicio: intervalo_proximo_inicio,
+                proximo_valor: proximo_valor,
+                valor_atual: valor_atual,
+              );
+            }
+          }
+          if (paginaU == 2) {
+            if (paginaS == 0 || paginaS == 11) {
               return const TabletMenu();
-              break;
+            }
+          }
+          if (paginaS == 2) {
+            return TabletMeucargo(
+              cargo: cargo,
+              competencias_cargo: competencias_cargo,
+              titulo_cargo: titulo_cargo,
+              nome_cargo: nome_cargo,
+              soma: soma,
+              intervalo_atual_inicio: intervalo_atual_inicio,
+              intervalo_atual_fim: intervalo_atual_fim,
+              intervalo_proximo_fim: intervalo_proximo_fim,
+              intervalo_proximo_inicio: intervalo_proximo_inicio,
+              proximo_valor: proximo_valor,
+              valor_atual: valor_atual,
+            );
+          }
+          switch (paginaS) {
             case 1:
-              return const TabletConfiguracoes();
-              break;
-            case 2:
-              return const TabletMeucargo();
+              return TabletConfiguracoes(usuario: usuario);
               break;
             case 3:
-              return const TabletResultados();
+              return TabletResultados(
+                usuarios: usuarios,
+                total_atual: this.total_atual,
+                total_ideal: this.total_ideal,
+                cargos: cargosss,
+                situacoes: this.situacoesAdm,
+              );
               break;
             case 4:
-              return const TabletCargos();
+              return TabletCargos(
+                cargos: cargossss,
+                instituicao: usuario.instituicao,
+              );
               break;
             case 5:
-              return const TabletProfessores();
+              return TabletProfessores(
+                usuarios: usuarios,
+                cargos: cargossss,
+                cargos_usuarios: cargosss,
+                situacoes: situacoesAllAdm,
+                situacoes_usuarios: this.situacoesAdm,
+                cargos_antigo: cargos_antigo,
+                instituicao: usuario.instituicao,
+              );
               break;
             case 6:
-              return const TabletPontuacoes();
+              return TabletPontuacoes(
+                cargos: cargossss,
+                pontuacoes: pont,
+                instituicao: usuario.instituicao,
+              );
               break;
             case 7:
-              return const TabletSimulador();
+              return TabletSimulador(
+                cargos: cargossss,
+                pontuacoes: pont,
+                instituicao: usuario.instituicao,
+              );
               break;
             case 8:
-              return const TabletSuaspontuacoes();
+              return TabletSuaspontuacoes(
+                  cargo: cargo,
+                  pontuacoes: pont,
+                  quantidade_anos: quantidade_anos,
+                  quantidade_meses: quantidade_meses,
+                  titulo_cargo: titulo_cargo,
+                  usuario: usuario,
+                  valor_cargo: pontuacao_cargo,
+                  soma: soma);
               break;
             case 9:
-              return const TabletTabela();
+              return TabletTabela(
+                cargos: cargossss,
+                instituicao: usuario.instituicao,
+              );
               break;
             case 10:
-              return const TabletStatus();
-              break;
-            case 11:
-              return const TabletMenu();
+              return TabletStatus(
+                instituicao: usuario.instituicao,
+                situacoesAdmissional: situacoesAllAdm,
+              );
               break;
           }
         }
-        switch (paginaS) {
-          case 0:
-            return const MobileMenu();
-            break;
-          case 1:
-            return const MobileConfiguracoes();
-            break;
-          case 2:
-            return const MobileMeucargo();
-            break;
-          case 3:
-            return const MobileResultados();
-            break;
-          case 4:
-            return const MobileCargos();
-            break;
-          case 5:
-            return const MobileProfessores();
-            break;
-          case 6:
-            return const MobilePontuacoes();
-            break;
-          case 7:
-            return const MobileSimulador();
-            break;
-          case 8:
-            return const MobileSuaspontuacoes();
-            break;
-          case 9:
-            return const MobileTabela();
-            break;
-          case 11:
-            return const MobileMenu();
-            break;
+        if (data == null && paginaS == 11) {
+          return const MobileLogin();
         }
-        return const MobileStatus();
+          if (paginaU == 0) {
+            return const Center(
+              child: Text('Carregando...'),
+            );
+          }
+          if (paginaU == 1) {
+            if (paginaS == 0 || paginaS == 11) {
+              return MobileMeucargo(
+                cargo: cargo,
+                competencias_cargo: competencias_cargo,
+                titulo_cargo: titulo_cargo,
+                nome_cargo: nome_cargo,
+                soma: soma,
+                intervalo_atual_inicio: intervalo_atual_inicio,
+                intervalo_atual_fim: intervalo_atual_fim,
+                intervalo_proximo_fim: intervalo_proximo_fim,
+                intervalo_proximo_inicio: intervalo_proximo_inicio,
+                proximo_valor: proximo_valor,
+                valor_atual: valor_atual,
+              );
+            }
+          }
+          if (paginaU == 2) {
+            if (paginaS == 0 || paginaS == 11) {
+              return const MobileMenu();
+            }
+          }
+          if (paginaS == 2) {
+            return MobileMeucargo(
+              cargo: cargo,
+              competencias_cargo: competencias_cargo,
+              titulo_cargo: titulo_cargo,
+              nome_cargo: nome_cargo,
+              soma: soma,
+              intervalo_atual_inicio: intervalo_atual_inicio,
+              intervalo_atual_fim: intervalo_atual_fim,
+              intervalo_proximo_fim: intervalo_proximo_fim,
+              intervalo_proximo_inicio: intervalo_proximo_inicio,
+              proximo_valor: proximo_valor,
+              valor_atual: valor_atual,
+            );
+          }
+          switch (paginaS) {
+            case 1:
+              return MobileConfiguracoes(usuario: usuario);
+              break;
+            case 3:
+              return MobileResultados(
+                usuarios: usuarios,
+                total_atual: this.total_atual,
+                total_ideal: this.total_ideal,
+                cargos: cargosss,
+                situacoes: this.situacoesAdm,
+              );
+              break;
+            case 4:
+              return MobileCargos(
+                cargos: cargossss,
+                instituicao: usuario.instituicao,
+              );
+              break;
+            case 5:
+              return MobileProfessores(
+                usuarios: usuarios,
+                cargos: cargossss,
+                cargos_usuarios: cargosss,
+                situacoes: situacoesAllAdm,
+                situacoes_usuarios: this.situacoesAdm,
+                cargos_antigo: cargos_antigo,
+                instituicao: usuario.instituicao,
+              );
+              break;
+            case 6:
+              return MobilePontuacoes(
+                cargos: cargossss,
+                pontuacoes: pont,
+                instituicao: usuario.instituicao,
+              );
+              break;
+            case 7:
+              return MobileSimulador(
+                cargos: cargossss,
+                pontuacoes: pont,
+                instituicao: usuario.instituicao,
+              );
+              break;
+            case 8:
+              return MobileSuaspontuacoes(
+                  cargo: cargo,
+                  pontuacoes: pont,
+                  quantidade_anos: quantidade_anos,
+                  quantidade_meses: quantidade_meses,
+                  titulo_cargo: titulo_cargo,
+                  usuario: usuario,
+                  valor_cargo: pontuacao_cargo,
+                  soma: soma);
+              break;
+            case 9:
+              return MobileTabela(
+                cargos: cargossss,
+                instituicao: usuario.instituicao,
+              );
+              break;
+          }
+        return MobileStatus(
+                instituicao: usuario.instituicao,
+                situacoesAdmissional: situacoesAllAdm,
+              );
       }),
     );
   }

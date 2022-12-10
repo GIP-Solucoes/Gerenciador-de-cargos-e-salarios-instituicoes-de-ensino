@@ -179,9 +179,6 @@ class _BotaoCalcularState extends State<BotaoCalcular> {
   }
 
   get_pontuacao_simulador() {
-    print("fora de tudo");
-    print(this.widget.instituicao);
-    print(keySimulador.currentState!.tituloo);
     double somaS;
     CollectionReference cargos = FirebaseFirestore.instance.collection('Cargo');
     cargos
@@ -802,7 +799,7 @@ class _SimuladorState extends State<Simulador> {
 
       return Container(
         height: 430,
-        width: 1000,
+        width: ((mediaQuery.width * valor) - 40)+(mediaQuery.width * 0.02),
         decoration: BoxDecoration(
           color: Colors.grey[200],
           borderRadius: BorderRadius.circular(10),

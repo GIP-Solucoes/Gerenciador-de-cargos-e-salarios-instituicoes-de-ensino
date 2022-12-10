@@ -2023,7 +2023,7 @@ class _ProfessoresState extends State<Professores> {
 
       return Container(
         height: 430,
-        width: 1000,
+        width: (mediaQuery.width * this.valor)+(mediaQuery.width * 0.02),
         decoration: BoxDecoration(
           color: Colors.grey[200],
           borderRadius: BorderRadius.circular(10),
@@ -4472,50 +4472,57 @@ class _ProfessoresState extends State<Professores> {
                                                                     .circular(
                                                                         5.0),
                                                           ),
-                                                          child: TextField(
-                                                            onChanged: (value) {
-                                                              setState(() {
-                                                                display_list[
-                                                                            index]
-                                                                        .salario_atual =
-                                                                    double.parse(
-                                                                        value.replaceAll(
-                                                                            ',',
-                                                                            '.'));
-                                                                atualizaContainer(
-                                                                    index);
-                                                              });
-                                                            },
-                                                            inputFormatters: <
-                                                                TextInputFormatter>[
-                                                              FilteringTextInputFormatter
-                                                                  .allow(RegExp(
-                                                                      r'[0-9]+[,.]{0,1}[0-9]*')),
-                                                              TextInputFormatter
-                                                                  .withFunction(
-                                                                (oldValue,
-                                                                        newValue) =>
-                                                                    newValue
-                                                                        .copyWith(
-                                                                  text: newValue
-                                                                      .text
-                                                                      .replaceAll(
-                                                                          '.',
-                                                                          ','),
+                                                          child: Row(
+                                                            children: [
+                                                              Text("R\$ "),
+                                                              Flexible(
+                                                                child: TextField(
+                                                                  onChanged: (value) {
+                                                                    setState(() {
+                                                                      display_list[
+                                                                                  index]
+                                                                              .salario_atual =
+                                                                          double.parse(
+                                                                              value.replaceAll(
+                                                                                  ',',
+                                                                                  '.'));
+                                                                      atualizaContainer(
+                                                                          index);
+                                                                    });
+                                                                  },
+                                                                  inputFormatters: <
+                                                                      TextInputFormatter>[
+                                                                    FilteringTextInputFormatter
+                                                                        .allow(RegExp(
+                                                                            r'[0-9]+[,.]{0,1}[0-9]*')),
+                                                                    TextInputFormatter
+                                                                        .withFunction(
+                                                                      (oldValue,
+                                                                              newValue) =>
+                                                                          newValue
+                                                                              .copyWith(
+                                                                        text: newValue
+                                                                            .text
+                                                                            .replaceAll(
+                                                                                '.',
+                                                                                ','),
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                  controller: widget
+                                                                          .textEditingSalarios[
+                                                                      index],
+                                                                  maxLines: null,
+                                                                  textAlign: TextAlign
+                                                                      .center,
+                                                                  style: TextStyle(
+                                                                    color:
+                                                                        Colors.black,
+                                                                    fontSize: 16.0,
+                                                                  ),
                                                                 ),
                                                               ),
                                                             ],
-                                                            controller: widget
-                                                                    .textEditingSalarios[
-                                                                index],
-                                                            maxLines: null,
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.black,
-                                                              fontSize: 16.0,
-                                                            ),
                                                           ),
                                                         ),
                                                         SizedBox(

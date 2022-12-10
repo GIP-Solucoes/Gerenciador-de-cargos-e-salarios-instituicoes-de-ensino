@@ -516,7 +516,7 @@ class _StateCargos extends State<Cargos> {
       tabContext = context;
       return Container(
         height: 400,
-        width: 1000,
+        width: (mediaQuery.width * this.valor)+(mediaQuery.width * 0.02),
         //margin: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           color: Colors.grey[200],
@@ -734,8 +734,7 @@ class _StateCargos extends State<Cargos> {
                                       ? Container(
                                           height: 250,
                                           width:
-                                              (mediaQuery.width * this.valor) -
-                                                  211,
+                                              (mediaQuery.width * this.valor),
                                           child: Center(
                                               child: Text("Carregando...")))
                                       : Container(

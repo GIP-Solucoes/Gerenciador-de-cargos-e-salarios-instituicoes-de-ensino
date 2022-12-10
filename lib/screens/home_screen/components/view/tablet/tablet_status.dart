@@ -1,11 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:gip_solucoes/screens/home_screen/components/model/SituacaoAdmissional.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/status_content.dart';
 
-class TabletStatus extends StatelessWidget {
-  const TabletStatus({Key? key}) : super(key: key);
+class TabletStatus extends StatefulWidget {
+  List<SituacaoAdmissional> situacoesAdmissional;
+  List<TextEditingController> nomes = [];
+  String instituicao;
+  List<bool> tipos = [];
+  TabletStatus({Key? key, required this.situacoesAdmissional, required this.instituicao}) : super(key: key);
 
   @override
+  State<TabletStatus> createState() => _TabletStatusState();
+}
+
+class _TabletStatusState extends State<TabletStatus> {
+  @override
   Widget build(BuildContext context) {
+    verificadoresNome = [];
+    vertificadoresTipo = [];
+    widget.situacoesAdmissional.forEach((element) {
+      verificadoresNome.add(false);
+      vertificadoresTipo.add(false);
+      widget.nomes.add(TextEditingController(text: element.nome));
+      widget.tipos.add(element.calcula_valor);
+    });
     final mediaQuery = MediaQuery.of(context).size;
     return SingleChildScrollView(
       child:Center(
@@ -21,7 +39,10 @@ class TabletStatus extends StatelessWidget {
                   TitleStatus(),
                 ],),
                 
-                Status(valor:(mediaQuery.width * 0.63), instituicao: '', textEditingNomes: [], textEditingTipos: [],),
+                Status(valor:(mediaQuery.width * 0.63),key: keyStatus,
+              instituicao: widget.instituicao,
+              textEditingNomes: widget.nomes,
+              textEditingTipos: widget.tipos,),
                 SizedBox(
                   height: 20,
                 ),

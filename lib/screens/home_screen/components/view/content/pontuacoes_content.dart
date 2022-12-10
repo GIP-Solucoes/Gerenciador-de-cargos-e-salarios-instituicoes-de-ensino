@@ -348,7 +348,7 @@ class _PontuacoesState extends State<Pontuacoes> {
 
       return Container(
         height: 430,
-        width: 1000,
+        width: ((mediaQuery.width * valor) - 40)+(mediaQuery.width * 0.02),
         decoration: BoxDecoration(
           color: Colors.grey[200],
           borderRadius: BorderRadius.circular(10),

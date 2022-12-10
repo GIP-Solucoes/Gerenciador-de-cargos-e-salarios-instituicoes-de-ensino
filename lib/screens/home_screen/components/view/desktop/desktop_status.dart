@@ -18,6 +18,8 @@ class DesktopStatus extends StatefulWidget {
 class _DesktopStatusState extends State<DesktopStatus> {
   @override
   Widget build(BuildContext context) {
+    verificadoresNome = [];
+    vertificadoresTipo = [];
     widget.situacoesAdmissional.forEach((element) {
       verificadoresNome.add(false);
       vertificadoresTipo.add(false);

@@ -2,10 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:gip_solucoes/screens/home_screen/components/model/Usuario.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/configuracoes_content.dart';
 
-class DesktopConfiguracoes extends StatelessWidget {
+class DesktopConfiguracoes extends StatefulWidget {
   Usuario usuario;
   DesktopConfiguracoes({Key? key, required this.usuario}) : super(key: key);
 
+  @override
+  State<DesktopConfiguracoes> createState() => _DesktopConfiguracoesState();
+}
+
+class _DesktopConfiguracoesState extends State<DesktopConfiguracoes> {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context).size;
@@ -14,10 +19,10 @@ class DesktopConfiguracoes extends StatelessWidget {
     TextEditingController controller_email = new TextEditingController();
     TextEditingController controller_telefone = new TextEditingController();
     TextEditingController controller_senha = new TextEditingController();
-    controller_primeiro_nome.text = usuario.primeiro_nome;
-    controller_segundo_nome.text = usuario.segundo_nome;
-    controller_email.text = usuario.email;
-    controller_telefone.text = usuario.telefone;
+    controller_primeiro_nome.text = widget.usuario.primeiro_nome;
+    controller_segundo_nome.text = widget.usuario.segundo_nome;
+    controller_email.text = widget.usuario.email;
+    controller_telefone.text = widget.usuario.telefone;
     return SingleChildScrollView(
       child: Center(
           child: Center(
@@ -56,7 +61,7 @@ class DesktopConfiguracoes extends StatelessWidget {
                               Dadosgerais(
                                   controllerEmail: controller_email,
                                   controllerTelefone: controller_telefone,senha: controller_senha),
-                              BotaoSalvar(imagem: usuario.foto,email: controller_email, primeiro_nome: controller_primeiro_nome, segundo_nome: controller_segundo_nome, senha: controller_senha, telefone: controller_telefone,)
+                              BotaoSalvar(imagem: widget.usuario.foto,email: controller_email, primeiro_nome: controller_primeiro_nome, segundo_nome: controller_segundo_nome, senha: controller_senha, telefone: controller_telefone,)
                             ],
                           ),
                           Column(
@@ -65,7 +70,7 @@ class DesktopConfiguracoes extends StatelessWidget {
                               SizedBox(
                                 height: 30,
                               ),
-                              Alterarimagem(foto: usuario.foto)
+                              Alterarimagem(foto: widget.usuario.foto)
                             ],
                           )
                         ])),

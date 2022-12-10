@@ -1,8 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:gip_solucoes/screens/home_screen/components/model/Cargo.dart';
+import 'package:gip_solucoes/screens/home_screen/components/model/Pontuacao.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/simulador_content.dart';
 
 class MobileSimulador extends StatefulWidget {
-  const MobileSimulador({Key? key}) : super(key: key);
+  String instituicao;
+  String valorr = "?";
+  String faixaSalariall = "??,??";
+  List<TextEditingController> textEditingAssiduidade = [
+    TextEditingController(text: '0')
+  ];
+  TextEditingController resultado = TextEditingController(text: '??,??');
+  TextEditingController resultadoFaixaSalarial =
+      TextEditingController(text: '?');
+  List<TextEditingController> textEditingExperiencia = [
+    TextEditingController(text: '0'),
+    TextEditingController(text: '0'),
+    TextEditingController(text: '0'),
+    TextEditingController(text: '0')
+  ];
+  List<TextEditingController> textEditingFormacao = [
+    TextEditingController(text: '0'),
+    TextEditingController(text: '0'),
+    TextEditingController(text: '0'),
+    TextEditingController(text: '0'),
+    TextEditingController(text: '0'),
+    TextEditingController(text: '0')
+  ];
+  List<Cargo> cargos;
+  List<Pontuacao> pontuacoes;
+  MobileSimulador({Key? key,
+    required this.cargos,
+    required this.pontuacoes,
+    required this.instituicao}) : super(key: key);
 
   
   
@@ -29,7 +59,14 @@ class _StateMobileSimulador extends State<MobileSimulador>{
                   TitleSimulador(),
                 ],),
                 
-                Simulador(valor:0.9, cargos: [], pontuacoes: [], textEditingAssiduidade: [], textEditingExperiencia: [], textEditingFormacao: [], resultado: TextEditingController(), resultadoFaixaSalarial: TextEditingController(), ),
+                Simulador(valor:0.9, key: keySimulador,
+              cargos: widget.cargos,
+              pontuacoes: widget.pontuacoes,
+              textEditingAssiduidade: widget.textEditingAssiduidade,
+              textEditingExperiencia: widget.textEditingExperiencia,
+              textEditingFormacao: widget.textEditingFormacao,
+              resultado: widget.resultado,
+              resultadoFaixaSalarial: widget.resultadoFaixaSalarial,),
                 SizedBox(
                   height: 17,
                 ),
@@ -39,10 +76,19 @@ class _StateMobileSimulador extends State<MobileSimulador>{
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     
-                  Resultado(tamanho: 0.5, faixaSalariall: '', valorr: '', resultado: TextEditingController(), resultadoFaixaSalarial: TextEditingController(),),
+                  Resultado(tamanho: 0.5, key: keyFaixa,
+            faixaSalariall: widget.faixaSalariall,
+            valorr: widget.faixaSalariall,
+            resultado: widget.resultado,
+            resultadoFaixaSalarial: widget.resultadoFaixaSalarial,),
                     SizedBox(height: 5,),
 
-                      BotaoCalcular(cargos: [], pontuacoes: [], faixaSalariall: '', valorr: '', resultado: TextEditingController(), resultadoFaixaSalarial: TextEditingController(), instituicao: '', textEditingControllerAssiduidade: [], textEditingControllerExperiencia: [], textEditingControllerFormacao: [],),
+                      BotaoCalcular(cargos: widget.cargos,
+            pontuacoes: widget.pontuacoes,
+            faixaSalariall: widget.faixaSalariall,
+            valorr: widget.valorr,
+            resultado: widget.resultado,
+            resultadoFaixaSalarial: widget.resultadoFaixaSalarial, instituicao: widget.instituicao, textEditingControllerAssiduidade: widget.textEditingAssiduidade, textEditingControllerExperiencia: widget.textEditingExperiencia, textEditingControllerFormacao: widget.textEditingFormacao,),
                       SizedBox(height: 5,),
                       BotaoVoltar(),
 

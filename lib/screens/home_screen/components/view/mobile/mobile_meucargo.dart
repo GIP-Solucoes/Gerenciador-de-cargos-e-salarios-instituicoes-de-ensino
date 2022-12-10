@@ -1,8 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:gip_solucoes/screens/home_screen/components/model/Cargo.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/meucargo_content.dart';
 
 class MobileMeucargo extends StatelessWidget {
-  const MobileMeucargo({Key? key}) : super(key: key);
+  Cargo cargo;
+  String competencias_cargo;
+  String titulo_cargo;
+  String nome_cargo;
+  double soma;
+  double valor_atual;
+  double proximo_valor;
+  double intervalo_atual_inicio;
+  double intervalo_atual_fim;
+  double intervalo_proximo_inicio;
+  double intervalo_proximo_fim;
+  MobileMeucargo({Key? key,
+      required this.cargo,
+      required this.competencias_cargo,
+      required this.nome_cargo,
+      required this.titulo_cargo,
+      required this.soma, required this.valor_atual, required this.proximo_valor, required this.intervalo_atual_inicio, required this.intervalo_atual_fim, required this.intervalo_proximo_inicio, required this.intervalo_proximo_fim}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +39,13 @@ class MobileMeucargo extends StatelessWidget {
                   horizontal: mediaQuery.width * 0.015),
               child: Column(
                   children: [
-                    CargoText(competencias: '', descricao: '', nome: '',),
+                    CargoText(competencias: this.cargo.competencias,
+                              descricao: this.cargo.descricao,
+                              nome: this.cargo.nome,),
                     SizedBox(height: 22,),
-                    DadosText(tempo_empresa: 1, tempo_experiencia: 1, titulo: '',),
+                    DadosText(tempo_empresa: this.cargo.tempo_empresa,
+                              titulo: this.cargo.titulo,
+                              tempo_experiencia: this.cargo.tempo_experiencia,),
                     SizedBox(height: 22,),
                     Container(
                             padding: EdgeInsets.symmetric(
@@ -35,13 +56,17 @@ class MobileMeucargo extends StatelessWidget {
                                             borderRadius:
                                                 BorderRadius.circular(5.0),
                                           ),
-                                          child: ProximoCargoText(grau: 5, instituicao: '', competencias_cargo: '', nome_cargo: '', titulo_cargo: '',),
+                                          child: ProximoCargoText(grau: this.cargo.grau,
+                            instituicao: this.cargo.instituicao,
+                            competencias_cargo: competencias_cargo,
+                            nome_cargo: nome_cargo,
+                            titulo_cargo: titulo_cargo),
                                         ),
                     SizedBox(height: 22,),
-                    Faixassalariais(tamanho: mediaQuery.width*0.003, intervalo_atual_fim: 0, intervalo_atual_inicio: 0, intervalo_proximo_fim: 0, intervalo_proximo_inicio: 0, proximo_valor: 0, valor_atual: 0,),
+                    Faixassalariais(tamanho: mediaQuery.width*0.003, intervalo_atual_fim: intervalo_atual_fim, intervalo_atual_inicio: intervalo_atual_inicio, intervalo_proximo_fim: intervalo_proximo_fim, intervalo_proximo_inicio: intervalo_proximo_inicio, proximo_valor: proximo_valor, valor_atual: valor_atual,),
                     SizedBox(height: 22,),
                     
-                              Pontuacaolayout(tamanho: 190, soma: 0,),
+                              Pontuacaolayout(tamanho: 190, soma: soma,),
                               SizedBox(height: 22,),
                               BotaoPontuacoes(),
                   ]),

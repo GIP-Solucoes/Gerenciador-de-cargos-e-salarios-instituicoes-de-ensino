@@ -777,7 +777,7 @@ class _StateTabela extends State<Tabela> {
       tabContext = context;
       return Container(
         height: 400,
-        width: 1000,
+        width: (mediaQuery.width * valor)+(mediaQuery.width * 0.02),
         decoration: BoxDecoration(
           color: Colors.grey[200],
           borderRadius: BorderRadius.circular(10),

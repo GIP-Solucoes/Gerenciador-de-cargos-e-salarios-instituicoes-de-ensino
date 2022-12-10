@@ -67,17 +67,6 @@ class _StateDesktopProfessores extends State<DesktopPontuacoes> {
         });
       }
     }));
-    /*   List<TextEditingController> pontuacoesTitulo = [];
-
-  List<TextEditingController> pontuacoesFormacao = [];
-  List<TextEditingController> pontuacoesExperiencia = [];
-  List<TextEditingController> pontuacoesFormacaoQtde = [];
-  List<TextEditingController> pontuacoesExperienciaQtde = [];
-
-  List<TextEditingController> pontuacoesAssiduidade = [];
-
-  List<TextEditingController> pontuacoesTempoCasa = [];
-*/
     return SingleChildScrollView(
         child: Container(
       child: Padding(

@@ -27,7 +27,6 @@ class DesktopSimulador extends StatefulWidget {
     TextEditingController(text: '0'),
     TextEditingController(text: '0')
   ];
-  //cargos: [], pontuacoes: [], textEditingAssiduidade: [], textEditingExperiencia: [], //textEditingFormacao: [],
   List<Cargo> cargos;
   List<Pontuacao> pontuacoes;
   DesktopSimulador({
