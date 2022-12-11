@@ -70,7 +70,7 @@ class _DesktopConfiguracoesState extends State<DesktopConfiguracoes> {
                               SizedBox(
                                 height: 30,
                               ),
-                              Alterarimagem(foto: widget.usuario.foto)
+                              Alterarimagem(key:keyImage ,foto: widget.usuario.foto)
                             ],
                           )
                         ])),

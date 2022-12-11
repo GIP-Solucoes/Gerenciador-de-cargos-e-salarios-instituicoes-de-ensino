@@ -68,7 +68,7 @@ class _MobileConfiguracoesState extends State<MobileConfiguracoes> {
                             SizedBox(
                               height: 30,
                             ),
-                            Alterarimagem(
+                            Alterarimagem(key:keyImage ,
                               foto: widget.usuario.foto,
                             ),
                             BotaoSalvar(imagem: widget.usuario.foto, email: controller_email, primeiro_nome: controller_primeiro_nome, segundo_nome: controller_segundo_nome, senha: controller_senha, telefone: controller_telefone,),

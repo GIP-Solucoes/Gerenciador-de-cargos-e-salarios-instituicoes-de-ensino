@@ -60,7 +60,7 @@ class _TabletConfiguracoesState extends State<TabletConfiguracoes> {
                           Dadosgerais(controllerEmail: controller_email, controllerTelefone: controller_telefone,senha: controller_senha,),
                           
                           SizedBox(height: 30,),
-                        Alterarimagem(foto: widget.usuario.foto,),
+                        Alterarimagem(foto: widget.usuario.foto,key:keyImage ,),
                         BotaoSalvar(imagem: widget.usuario.foto,email: controller_email, primeiro_nome: controller_primeiro_nome, segundo_nome: controller_segundo_nome, senha: controller_senha, telefone: controller_telefone,),
                         ],
                       ),

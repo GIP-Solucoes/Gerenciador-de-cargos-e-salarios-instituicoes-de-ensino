@@ -17,11 +17,11 @@ import 'package:gip_solucoes/screens/home_screen/components/view/content/sistema
 import 'package:image_picker/image_picker.dart';
 import 'package:image_picker_web/image_picker_web.dart';
 import 'dart:html';
-
+final keyImage = GlobalKey<_AlterarimagemState>();
 Usuario usuario = new Usuario(
     DateTime.now(), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', '', '', '');
 String senha = '';
-var imagee;
+
 List<bool> verificadores = [false, false, false, false];
 
 class MenuText extends StatelessWidget {
@@ -263,6 +263,7 @@ class _SegundonomeState extends State<Segundonome> {
 
 class Alterarimagem extends StatefulWidget {
   String foto;
+  var imagee;
   Alterarimagem({Key? key, required this.foto}) : super(key: key);
 
   @override
@@ -317,7 +318,7 @@ class _AlterarimagemState extends State<Alterarimagem> {
       final imag = await ImagePickerWeb.getImageAsBytes();
       if (imag != null) {
         setState(() {
-          imagee = imag;
+          widget.imagee = imag;
         });
       }
       if (imag != null) {
@@ -354,12 +355,12 @@ class _AlterarimagemState extends State<Alterarimagem> {
                 child: Stack(
                   children: [
                     Center(
-                      child: imagee != null
+                      child: widget.imagee != null
                           ? SizedBox(
                               height: 125,
                               width: 125,
                               child: CircleAvatar(
-                                backgroundImage: MemoryImage(imagee),
+                                backgroundImage: MemoryImage(widget.imagee),
                               ),
                             )
                           : SizedBox(
@@ -460,14 +461,15 @@ class _BotaoSalvarState extends State<BotaoSalvar> {
     return TextButton(
         onPressed: () async {
           String downloadUrl = "";
-    if (imagee != null) {
+    if (keyImage.currentState!.widget.imagee != null) {
       var storage = FirebaseStorage.instance;
       var snapshot = await storage
           .ref('usuarios/img-${DateTime.now().toString()}.jpg')
-          .putData(imagee)
+          .putData(keyImage.currentState!.widget.imagee)
           .catchError((e) => print(e));
 
       downloadUrl = await snapshot.ref.getDownloadURL();
+      if(widget.imagem.isNotEmpty)
       storage.refFromURL(widget.imagem).delete();
     }
     CollectionReference usuarios =
@@ -603,7 +605,7 @@ class _BotaoSalvarState extends State<BotaoSalvar> {
         verificadores[2] == true ||
         verificadores[3] == true ||
         verificadores[1] == true ||
-        imagee != null) {
+        keyImage.currentState!.widget.imagee != null) {
       if (widget.email.text.isNotEmpty && widget.email.text.contains('@'))
         showDialog(
             context: context,
