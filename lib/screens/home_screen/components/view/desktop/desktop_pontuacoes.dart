@@ -15,9 +15,14 @@ class DesktopPontuacoes extends StatefulWidget {
 
   List<TextEditingController> pontuacoesTempoCasa = [];
   List<Cargo> cargos;
+  List<Cargo> display_list_cargos;
   List<Pontuacao> pontuacoes;
   String instituicao;
-  DesktopPontuacoes({Key? key, required this.cargos, required this.pontuacoes,required this.instituicao})
+  DesktopPontuacoes(
+      {Key? key,
+      required this.cargos,
+      required this.pontuacoes,
+      required this.instituicao,required this.display_list_cargos})
       : super(key: key);
 
   @override
@@ -105,12 +110,16 @@ class _StateDesktopProfessores extends State<DesktopPontuacoes> {
                   width: 5,
                 ),
                 BotaoSalvar(
-                    instituicao: widget.instituicao,
-                    textEditingAssiduidade: widget.pontuacoesAssiduidade,
-                    textEditingExperiencia: widget.pontuacoesExperiencia,
-                    textEditingFormacao: widget.pontuacoesFormacao,
-                    textEditingTempoCasa: widget.pontuacoesTempoCasa,
-                    textEditingTitulo: widget.pontuacoesTitulo, textEditingExperienciaQtde: widget.pontuacoesExperienciaQtde, textEditingFormacaoQtde: widget.pontuacoesFormacaoQtde,),
+                  instituicao: widget.instituicao,
+                  textEditingAssiduidade: widget.pontuacoesAssiduidade,
+                  textEditingExperiencia: widget.pontuacoesExperiencia,
+                  textEditingFormacao: widget.pontuacoesFormacao,
+                  textEditingTempoCasa: widget.pontuacoesTempoCasa,
+                  textEditingTitulo: widget.pontuacoesTitulo,
+                  textEditingExperienciaQtde: widget.pontuacoesExperienciaQtde,
+                  textEditingFormacaoQtde: widget.pontuacoesFormacaoQtde,
+                  display_list_cargos: widget.display_list_cargos,
+                ),
               ],
             )
           ],

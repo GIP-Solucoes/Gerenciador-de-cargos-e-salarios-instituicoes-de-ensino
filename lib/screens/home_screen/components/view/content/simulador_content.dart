@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gip_solucoes/screens/home_screen/components/model/Cargo.dart';
 import 'package:gip_solucoes/screens/home_screen/components/model/Pontuacao.dart';
-import 'package:gip_solucoes/screens/home_screen/components/view/content/sistema_content.dart';
+import 'package:gip_solucoes/screens/home_screen/components/controller/sistema_content.dart';
 
 class MenuText extends StatelessWidget {
   const MenuText({Key? key}) : super(key: key);
@@ -149,7 +149,6 @@ class _BotaoCalcularState extends State<BotaoCalcular> {
             }
           });
         });
-        ////////////
       }
       q.docs.forEach((element) {
         if (verificador == false) {
@@ -159,23 +158,6 @@ class _BotaoCalcularState extends State<BotaoCalcular> {
         }
       });
     });
-    /*
-    if (verificador == false) {
-      bool verificador2 = false;
-      faixassalarias
-          .where('final_intervalo', isGreaterThanOrEqualTo: soma)
-          .orderBy('final_intervalo', descending: true)
-          .get()
-          .then((QuerySnapshot q) {
-        q.docs.forEach((element) {
-          if (verificador2 == false) {
-            keyFaixa.currentState!
-                .alterarValor(element['valor'].toString().replaceAll('.', ','));
-            verificador2 = true;
-          }
-        });
-      });
-    }*/
   }
 
   get_pontuacao_simulador() {
@@ -388,163 +370,11 @@ class _BotaoCalcularState extends State<BotaoCalcular> {
                 print(somaS);
                 get_faixas_salariais_simulador(somaS, element.id);
               });
-            }); //.catchError((e) => print(e.toString()));
-            //.catchError((e) => print(e.toString()));
-
-////////////////////////////////
+            });
           });
         });
       });
     });
-    /*
-        _collectionReference
-            .orderBy('nome', descending: false)
-            .get()
-            .then((QuerySnapshot q) {
-          q.docs.forEach((element) {
-            double valor = 0;
-            pontuacaoAtrib.add(new PontuacaoAtributo(element['nome'],
-                element['quantidade_maxima'], element['valor']));
-            //setState(() {
-            // pontuacoes.forEach((element) {
-            if (elementt['nome'] == "Pontuação de Formação Acadêmica") {
-              // element.pontuacaoAtributo.forEach((element) {
-              if (element['nome'] ==
-                  "Cursos de Aperfeiçoamento (mínimo 180 Hs)") {
-                if (usuario.quantidade_cursos_aperfeicoamento >
-                    element['quantidade_maxima']) {
-                  valor = element['quantidade_maxima'] * element['valor'];
-                } else {
-                  valor = usuario.quantidade_cursos_aperfeicoamento *
-                      element['valor'];
-                }
-              } else if (element['nome'] ==
-                  "Cursos de Extensão Cultural (mínimo 30 Hs)") {
-                if (usuario.quantidade_cursos_extensao_cultural >
-                    element['quantidade_maxima']) {
-                  valor = element['quantidade_maxima'] * element['valor'];
-                } else {
-                  valor = usuario.quantidade_cursos_extensao_cultural *
-                      element['valor'];
-                }
-              } else if (element['nome'] ==
-                  'Créditos de Pós-Graduação "Stricto Sensu" por disciplina') {
-                if (usuario.quantidade_stricto_sensu >
-                    element['quantidade_maxima']) {
-                  valor = element['quantidade_maxima'] * element['valor'];
-                } else {
-                  valor = usuario.quantidade_stricto_sensu * element['valor'];
-                }
-              } else if (element['nome'] == "Variáveis") {
-                if (usuario.quantidade_variaveis >
-                    element['quantidade_maxima']) {
-                  valor = element['quantidade_maxima'] * element['valor'];
-                } else {
-                  valor = usuario.quantidade_variaveis * element['valor'];
-                }
-              } else if (element['nome'] == "Outros Cursos de Graduação") {
-                if (usuario.quantidade_outros_cursos_realizados >
-                    element['quantidade_maxima']) {
-                  valor = element['quantidade_maxima'] * element['valor'];
-                } else {
-                  valor = usuario.quantidade_outros_cursos_realizados *
-                      element['valor'];
-                }
-              } else {
-                if (usuario.quantidade_aprovacao_concurso >
-                    element['quantidade_maxima']) {
-                  valor = element['quantidade_maxima'] * element['valor'];
-                } else {
-                  valor =
-                      usuario.quantidade_aprovacao_concurso * element['valor'];
-                }
-              }
-            } else if (elementt['nome'] == "Experiência") {
-              if (element['nome'] ==
-                  "Trabalhos científicos publicados em revista especializada") {
-                if (usuario.quantidade_trabalhos_cientificos_revista >
-                    element['quantidade_maxima']) {
-                  valor = element['quantidade_maxima'] * element['valor'];
-                } else {
-                  valor = usuario.quantidade_trabalhos_cientificos_revista *
-                      element['valor'];
-                }
-              } else if (element['nome'] ==
-                  "Realização de Pesquisa aprovada pela Instituição (Mínimo 1 ano)") {
-                if (usuario.quantidade_pesquisas_aprovadas >
-                    element['quantidade_maxima']) {
-                  valor = element['quantidade_maxima'] * element['valor'];
-                } else {
-                  valor =
-                      usuario.quantidade_pesquisas_aprovadas * element['valor'];
-                }
-              } else if (element['nome'] ==
-                  "Professor de universidade pública (Por ano completo)") {
-                if (usuario.quantidade_professor_universidade_publica >
-                    element['quantidade_maxima']) {
-                  valor = element['quantidade_maxima'] * element['valor'];
-                } else {
-                  valor = usuario.quantidade_professor_universidade_publica *
-                      element['valor'];
-                }
-              } else {
-                if (usuario.quantidade_livros > element['quantidade_maxima']) {
-                  valor = element['quantidade_maxima'] * element['valor'];
-                } else {
-                  valor = usuario.quantidade_livros * element['valor'];
-                }
-              }
-            } else if (elementt['nome'] == "Assiduidade") {
-              if (usuario.quantidade_faltas <= element['quantidade_maxima']) {
-                valor = element['valor'];
-              } else {
-                valor = 0;
-              }
-            } else {
-              double yearsBetween(DateTime from, DateTime to) {
-                from = DateTime(from.year, from.month, from.day);
-                to = DateTime(to.year, to.month, to.day);
-                return (to.difference(from).inHours / 24 / 365)
-                    .toInt()
-                    .toDouble();
-              }
-
-              double monthsBetween(DateTime from, DateTime to) {
-                from = DateTime(from.year, from.month, from.day);
-                to = DateTime(to.year, to.month, to.day);
-                return (to.difference(from).inHours / 24 / 365 * 12)
-                    .toInt()
-                    .toDouble();
-              }
-
-              Teste:
-              DateTime date1 = usuario.data_admissao;
-              DateTime date2 = DateTime.now();
-              setState(() {
-                quantidade_anos = yearsBetween(date1, date2);
-                quantidade_meses = monthsBetween(date1, date2) % 12;
-              });
-
-              if (quantidade_anos > element['quantidade_maxima']) {
-                valor = element['quantidade_maxima'] * element['valor'];
-              } else {
-                valor = quantidade_anos * element['valor'];
-              }
-            }
-            //});
-            // });
-            setState(() {
-              this.soma = this.soma + valor;
-            });
-          });
-        }); //.catchError((e) => print(e.toString()));
-        setState(() {
-          pontuacoes.add(new Pontuacao(
-              elementt['instituicao'], elementt['nome'], pontuacaoAtrib));
-        });
-      });
-    }); //.catchError((e) => print(e.toString()));
-    */
   }
 
   Future<List<String>> retornar_dados() async {
@@ -716,18 +546,6 @@ class _SimuladorState extends State<Simulador> {
   ];
   final dropValue2 = ValueNotifier('');
   final dropOpcoes2 = ['1 ano', '2 anos', '3 anos', '4 anos', '5 anos'];
-  static List<TextEditingController> controllerl1 = [
-    TextEditingController(text: "0"),
-    TextEditingController(text: "3"),
-    TextEditingController(text: "20"),
-    TextEditingController(text: "40"),
-    TextEditingController(text: "60"),
-    TextEditingController(text: "6"),
-    TextEditingController(text: "1"),
-    TextEditingController(text: "2"),
-    TextEditingController(text: "3"),
-    TextEditingController(text: "4"),
-  ];
   static TextEditingController text = TextEditingController(text: "5");
   final List<GlobalKey> categorias = [
     GlobalKey(),
@@ -799,7 +617,7 @@ class _SimuladorState extends State<Simulador> {
 
       return Container(
         height: 430,
-        width: ((mediaQuery.width * valor) - 40)+(mediaQuery.width * 0.02),
+        width: ((mediaQuery.width * valor) - 40) + (mediaQuery.width * 0.02),
         decoration: BoxDecoration(
           color: Colors.grey[200],
           borderRadius: BorderRadius.circular(10),
@@ -830,7 +648,6 @@ class _SimuladorState extends State<Simulador> {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        //Column(children: [
                         SizedBox(
                           width: (mediaQuery.width * valor) - 40,
                           child: SingleChildScrollView(
@@ -1051,7 +868,6 @@ class _SimuladorState extends State<Simulador> {
                                                                         : value,
                                                                     onChanged:
                                                                         (escolha) {
-                                                                      //////////////
                                                                       widget.valueNotifierTitulo
                                                                               .value =
                                                                           escolha
@@ -1073,14 +889,13 @@ class _SimuladorState extends State<Simulador> {
                                                                               statusCont = i + 1;
                                                                             });
                                                                       });
-                                                                      ///////////////
                                                                     },
                                                                     items: widget
                                                                         .cargos
                                                                         .map((op) =>
                                                                             DropdownMenuItem(
                                                                               value: op.titulo,
-                                                                              child: Text (op.titulo),
+                                                                              child: Text(op.titulo),
                                                                             ))
                                                                         .toList(),
                                                                   );
@@ -1387,7 +1202,6 @@ class _SimuladorState extends State<Simulador> {
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .bold,
-                                                                      // fontWeight: FontWeight.bold,
                                                                     ),
                                                                   ),
                                                                 ],

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gip_solucoes/screens/home_screen/components/view/content/hero_content.dart';
+import 'package:gip_solucoes/screens/home_screen/components/controller/hero_content.dart';
 
 import '../../../constants.dart';
 import '../../components.dart';

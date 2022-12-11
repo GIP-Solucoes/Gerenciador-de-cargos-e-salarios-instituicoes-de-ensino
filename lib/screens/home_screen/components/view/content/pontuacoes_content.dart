@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gip_solucoes/screens/home_screen/components/model/Cargo.dart';
 import 'package:gip_solucoes/screens/home_screen/components/model/Pontuacao.dart';
-import 'package:gip_solucoes/screens/home_screen/components/view/content/sistema_content.dart';
+import 'package:gip_solucoes/screens/home_screen/components/controller/sistema_content.dart';
 
 List<bool> verificadoresTitulo = [false, false, false, false, false];
 List<bool> verificadoresAssiduidade = [false, false];
@@ -37,6 +37,7 @@ class MenuText extends StatelessWidget {
 
 class BotaoSalvar extends StatefulWidget {
   String instituicao;
+  List<Cargo> display_list_cargos;
   List<TextEditingController> textEditingTitulo;
   List<TextEditingController> textEditingAssiduidade;
   List<TextEditingController> textEditingFormacao;
@@ -53,7 +54,8 @@ class BotaoSalvar extends StatefulWidget {
       required this.textEditingExperiencia,
       required this.textEditingTempoCasa,
       required this.textEditingFormacaoQtde,
-      required this.textEditingExperienciaQtde})
+      required this.textEditingExperienciaQtde,
+      required this.display_list_cargos})
       : super(key: key);
 
   @override
@@ -61,6 +63,57 @@ class BotaoSalvar extends StatefulWidget {
 }
 
 class _BotaoSalvarState extends State<BotaoSalvar> {
+  pegar_id_cargo(int index) {
+    CollectionReference cargosS =
+        FirebaseFirestore.instance.collection('Cargo');
+    cargosS
+        .where('instituicao', isEqualTo: widget.instituicao)
+        .orderBy('grau')
+        .get()
+        .then((QuerySnapshot q) {
+      q.docs.forEach((elementt) {
+        if (widget.display_list_cargos[index].titulo == elementt['titulo']) {
+          DocumentReference _documentReference = elementt.reference;
+          get_salario_ideal(index, _documentReference.id);
+        }
+      });
+    });
+  }
+ Future<void> alterar_usuarios(int index,double valor)async{
+CollectionReference usuarios =
+          FirebaseFirestore.instance.collection('Usuario');
+          DocumentSnapshot u = await usuarios
+              .doc(widget.display_list_cargos[index].usuario_id)
+              .get();
+          var reference = u.reference;
+          reference.update({"salario_ideal": valor});
+    }
+  Future<void> get_salario_ideal(int index, String cargoP) async {
+    
+    CollectionReference cargos = FirebaseFirestore.instance.collection('Cargo');
+    String string_cargo = cargoP;
+    DocumentSnapshot carg = await cargos.doc(string_cargo).get();
+    CollectionReference faixassalarias =
+        carg.reference.collection('FaixaSalarial');
+    faixassalarias
+        .orderBy('final_intervalo', descending: true)
+        .get()
+        .then((QuerySnapshot q) {
+      int contador = 0;
+      
+      q.docs.forEach((element){
+        if (contador == 0) {
+          alterar_usuarios(index,element['valor']);
+        } else if (element['final_intervalo'] >=
+            widget.display_list_cargos[index].pontuacao) {
+          alterar_usuarios(index,element['valor']);
+        }
+
+        contador++;
+      });
+    });
+  }
+
   alterar_pontuacoes() {
     int contador = 0;
     CollectionReference cargos = FirebaseFirestore.instance.collection('Cargo');
@@ -74,8 +127,8 @@ class _BotaoSalvarState extends State<BotaoSalvar> {
         if (verificadoresTitulo[contador] != false) {
           if (widget.textEditingTitulo[contador].text.isNotEmpty)
             e.update({
-              "valor_pontuacao":
-                  double.parse(widget.textEditingTitulo[contador].text.replaceAll(',', '.'))
+              "valor_pontuacao": double.parse(
+                  widget.textEditingTitulo[contador].text.replaceAll(',', '.'))
             });
         }
         contador++;
@@ -98,31 +151,35 @@ class _BotaoSalvarState extends State<BotaoSalvar> {
                 if (verificadoresAssiduidade[0] != false) {
                   if (widget.textEditingAssiduidade[0].text.isNotEmpty)
                     ee.update({
-                      "quantidade_maxima":
-                          double.parse(widget.textEditingAssiduidade[0].text.replaceAll(',', '.'))
+                      "quantidade_maxima": double.parse(widget
+                          .textEditingAssiduidade[0].text
+                          .replaceAll(',', '.'))
                     });
                 }
                 if (verificadoresAssiduidade[1] != false) {
                   if (widget.textEditingAssiduidade[1].text.isNotEmpty)
                     ee.update({
-                      "valor":
-                          double.parse(widget.textEditingAssiduidade[1].text.replaceAll(',', '.'))
+                      "valor": double.parse(widget
+                          .textEditingAssiduidade[1].text
+                          .replaceAll(',', '.'))
                     });
                 }
               } else if (elementt["nome"] == "Experiência") {
                 if (verificadoresExperiencia[contador2] != false) {
                   if (widget.textEditingExperiencia[contador2].text.isNotEmpty)
                     ee.update({
-                      "valor": double.parse(
-                          widget.textEditingExperiencia[contador2].text.replaceAll(',', '.'))
+                      "valor": double.parse(widget
+                          .textEditingExperiencia[contador2].text
+                          .replaceAll(',', '.'))
                     });
                 }
                 if (verificadoresExperienciaQtde[contador2] != false) {
                   if (widget
                       .textEditingExperienciaQtde[contador2].text.isNotEmpty)
                     ee.update({
-                      "quantidade_maxima": double.parse(
-                          widget.textEditingExperienciaQtde[contador2].text.replaceAll(',', '.'))
+                      "quantidade_maxima": double.parse(widget
+                          .textEditingExperienciaQtde[contador2].text
+                          .replaceAll(',', '.'))
                     });
                 }
               } else if (elementt["nome"] ==
@@ -130,22 +187,25 @@ class _BotaoSalvarState extends State<BotaoSalvar> {
                 if (verificadoresFormacao[contador2] != false) {
                   if (widget.textEditingFormacao[contador2].text.isNotEmpty)
                     ee.update({
-                      "valor": double.parse(
-                          widget.textEditingFormacao[contador2].text.replaceAll(',', '.'))
+                      "valor": double.parse(widget
+                          .textEditingFormacao[contador2].text
+                          .replaceAll(',', '.'))
                     });
                 }
                 if (verificadoresFormacaoQtde[contador2] != false) {
                   if (widget.textEditingFormacaoQtde[contador2].text.isNotEmpty)
                     ee.update({
-                      "quantidade_maxima": double.parse(
-                          widget.textEditingFormacaoQtde[contador2].text.replaceAll(',', '.'))
+                      "quantidade_maxima": double.parse(widget
+                          .textEditingFormacaoQtde[contador2].text
+                          .replaceAll(',', '.'))
                     });
                 }
               } else {
                 if (verificadorTempo != false) {
                   if (widget.textEditingTempoCasa[0].text.isNotEmpty) {
                     ee.update({
-                      "valor": double.parse(widget.textEditingTempoCasa[0].text.replaceAll(',', '.'))
+                      "valor": double.parse(widget.textEditingTempoCasa[0].text
+                          .replaceAll(',', '.'))
                     });
                   }
                 }
@@ -226,6 +286,9 @@ class _BotaoSalvarState extends State<BotaoSalvar> {
         if (element.text.isEmpty) verificar_vazios = true;
       });
       if (verificar_vazios == false) {
+        for(int i=0;i<widget.display_list_cargos.length;i++)
+            pegar_id_cargo(i);
+        
         showDialog(
             context: context,
             builder: (_) => AlertDialog(
@@ -348,7 +411,7 @@ class _PontuacoesState extends State<Pontuacoes> {
 
       return Container(
         height: 430,
-        width: ((mediaQuery.width * valor) - 40)+(mediaQuery.width * 0.02),
+        width: ((mediaQuery.width * valor) - 40) + (mediaQuery.width * 0.02),
         decoration: BoxDecoration(
           color: Colors.grey[200],
           borderRadius: BorderRadius.circular(10),
@@ -1146,7 +1209,10 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                                               '.')) *
                                                                           (i +
                                                                               1))
-                                                                      .toString().replaceAll('.', ',');
+                                                                      .toString()
+                                                                      .replaceAll(
+                                                                          '.',
+                                                                          ',');
                                                                 }
                                                               }
                                                             }
@@ -1632,7 +1698,10 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                                               '.')) *
                                                                           (i +
                                                                               1))
-                                                                      .toString().replaceAll('.', ',');
+                                                                      .toString()
+                                                                      .replaceAll(
+                                                                          '.',
+                                                                          ',');
                                                                 }
                                                               }
                                                             }
@@ -2118,7 +2187,10 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                                               '.')) *
                                                                           (i +
                                                                               1))
-                                                                      .toString().replaceAll('.', ',');
+                                                                      .toString()
+                                                                      .replaceAll(
+                                                                          '.',
+                                                                          ',');
                                                                 }
                                                               }
                                                             }
@@ -2606,7 +2678,10 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                                               '.')) *
                                                                           (i +
                                                                               1))
-                                                                      .toString().replaceAll('.', ',');
+                                                                      .toString()
+                                                                      .replaceAll(
+                                                                          '.',
+                                                                          ',');
                                                                 }
                                                               }
                                                             }
@@ -2953,7 +3028,10 @@ class _PontuacoesState extends State<Pontuacoes> {
                                                                               '.')) *
                                                                           (i +
                                                                               1))
-                                                                      .toString().replaceAll('.', ',');
+                                                                      .toString()
+                                                                      .replaceAll(
+                                                                          '.',
+                                                                          ',');
                                                                 }
                                                               }
                                                             }

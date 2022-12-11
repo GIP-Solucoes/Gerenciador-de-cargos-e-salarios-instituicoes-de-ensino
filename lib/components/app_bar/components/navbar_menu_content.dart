@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:gip_solucoes/screens/home_screen/components/view/content/hero_content.dart';
-import 'package:gip_solucoes/screens/home_screen/components/view/content/sistema_content.dart';
+import 'package:gip_solucoes/screens/home_screen/components/controller/hero_content.dart';
+import 'package:gip_solucoes/screens/home_screen/components/controller/sistema_content.dart';
 
 String inst = 'k';
 

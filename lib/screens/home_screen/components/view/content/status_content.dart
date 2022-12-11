@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/pontuacoes_content.dart';
-import 'package:gip_solucoes/screens/home_screen/components/view/content/sistema_content.dart';
+import 'package:gip_solucoes/screens/home_screen/components/controller/sistema_content.dart';
 
 List<bool> verificadoresNome = [];
 List<bool> vertificadoresTipo = [];
@@ -110,7 +110,6 @@ class BotaoSalvar extends StatefulWidget {
 
 class _BotaoSalvarState extends State<BotaoSalvar> {
   salvar() {
-    //keyTabela.currentState!.widget.textEditingCargos
     CollectionReference status =
         FirebaseFirestore.instance.collection('SituacaoAdmissional');
     if (keyStatus.currentState!.widget.adicionados.isNotEmpty) {
@@ -339,7 +338,6 @@ class _BotaoNovostatusState extends State<BotaoNovostatus> {
                       TextButton(
                           onPressed: () {
                             int contt = 0;
-                            ///////////////////////
                             keyStatus.currentState!.adicionar_status(keyStatus
                                 .currentState!.widget.textEditingNomes.length);
                             setState(() {
@@ -349,8 +347,6 @@ class _BotaoNovostatusState extends State<BotaoNovostatus> {
                                   .add(tipo);
                             });
                             Navigator.of(context).pop();
-
-                            /////////////////////
                           },
                           child: Text('Ok')),
                     ],
@@ -655,7 +651,6 @@ class _StateStatus extends State<Status> {
                                                                 Icons.cancel),
                                                             color: Colors.red,
                                                             onPressed: () {
-                                                              /////////////////////
 
                                                               if (widget
                                                                       .adicionados
@@ -713,347 +708,12 @@ class _StateStatus extends State<Status> {
                                                                           ],
                                                                         ));
                                                               }
-
-                                                              /////////////////////
                                                             },
                                                           ),
                                                         ),
                                                       ],
                                                     ),
                                                   )))
-                                      /*SizedBox(
-                                          height: 250,
-                                          child: SingleChildScrollView(
-                                              child: Column(
-                                            children: [
-                                              Container(
-                                                  constraints: BoxConstraints(
-                                                      maxHeight: 100),
-                                                  //key: _key1,
-                                                  child: IntrinsicHeight(
-                                                    child: Row(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .stretch,
-                                                      children: [
-                                                        Container(
-                                                          alignment:
-                                                              Alignment.center,
-                                                          width: 209.0,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: Colors.white,
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        5.0),
-                                                          ),
-                                                          child:
-                                                              TextField(
-                                                            maxLines: null,
-                                                            controller:
-                                                                controllercoluna1[
-                                                                    0],
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.black,
-                                                              fontSize: 16.0,
-                                                            ),
-                                                          ),
-                                                        ),
-
-                                                        Container(
-                                                          width: 2,
-                                                        ),
-                                                        Container(
-                                                            alignment: Alignment
-                                                                .center,
-                                                            width: 150,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color:
-                                                                  Colors.white,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          5.0),
-                                                            ),
-                                                            child: Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .center,
-                                                              children: [
-                                                                ValueListenableBuilder(
-                                                                    valueListenable:
-                                                                        dropValue,
-                                                                    builder: (BuildContext
-                                                                            context,
-                                                                        String
-                                                                            value,
-                                                                        _) {
-                                                                      return DropdownButton<
-                                                                          String>(
-                                                                        hint: Text(
-                                                                            textAlign: TextAlign.center,
-                                                                            style: TextStyle(
-                                                                              color: Colors.black,
-                                                                              fontSize: 16.0,
-                                                                            ),
-                                                                            dropOpcoes[0]),
-                                                                        value: (value.isEmpty)
-                                                                            ? null
-                                                                            : value,
-                                                                        onChanged:
-                                                                            (escolha) {
-                                                                          dropValue.value =
-                                                                              escolha.toString();
-                                                                        },
-                                                                        items: dropOpcoes
-                                                                            .map((op) => DropdownMenuItem(
-                                                                                  value: op,
-                                                                                  child: Text(op),
-                                                                                ))
-                                                                            .toList(),
-                                                                      );
-                                                                    }),
-                                                              ],
-                                                            )),
-
-                                                        SizedBox(
-                                                          width: 2,
-                                                        ),
-                                                        Container(
-                                                          alignment:
-                                                              Alignment.center,
-                                                          width: 40,
-                                                          child: IconButton(
-                                                            icon: const Icon(
-                                                                Icons.cancel),
-                                                            color: Colors.red,
-                                                            onPressed: () {},
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  )),
-                                              SizedBox(height: 2),
-                                              Container(
-                                                  constraints: BoxConstraints(
-                                                      maxHeight: 100),
-                                                  child: IntrinsicHeight(
-                                                    child: Row(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .stretch,
-                                                      children: [
-                                                        Container(
-                                                          alignment:
-                                                              Alignment.center,
-                                                          width: 209.0,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: Colors.white,
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        5.0),
-                                                          ),
-                                                          child:
-                                                              TextField(
-                                                            maxLines: null,
-                                                            controller:
-                                                                controllercoluna1[
-                                                                    1],
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.black,
-                                                              fontSize: 16.0,
-                                                            ),
-                                                          ),
-                                                        ),
-
-                                                        Container(
-                                                          width: 2,
-                                                        ), Container(
-                                                          alignment:
-                                                              Alignment.center,
-
-                                                          width: 150,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: Colors.white,
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        5.0),
-                                                          ),
-                                                          child:
-                                                              ValueListenableBuilder(
-                                                                  valueListenable:
-                                                                      dropValue,
-                                                                  builder: (BuildContext
-                                                                          context,
-                                                                      String
-                                                                          value,
-                                                                      _) {
-                                                                    return DropdownButton<
-                                                                        String>(
-                                                                      hint: Text(
-                                                                          textAlign: TextAlign.center,
-                                                                          style: TextStyle(
-                                                                            color:
-                                                                                Colors.black,
-                                                                            fontSize:
-                                                                                16.0,
-                                                                          ),
-                                                                          dropOpcoes[1]),
-                                                                      value: (value
-                                                                              .isEmpty)
-                                                                          ? null
-                                                                          : value,
-                                                                      onChanged:
-                                                                          (escolha) {
-                                                                        dropValue.value =
-                                                                            escolha.toString();
-                                                                      },
-                                                                      items: dropOpcoes
-                                                                          .map((op) => DropdownMenuItem(
-                                                                                value: op,
-                                                                                child: Text(op),
-                                                                              ))
-                                                                          .toList(),
-                                                                    );
-                                                                  }),
-                                                        ),
-
-                                                        SizedBox(
-                                                          width: 2,
-                                                        ),
-                                                        Container(
-                                                          alignment:
-                                                              Alignment.center,
-                                                          width: 40,
-                                                          child: IconButton(
-                                                            icon: const Icon(
-                                                                Icons.cancel),
-                                                            color: Colors.red,
-                                                            onPressed: () {},
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  )),
-                                              SizedBox(
-                                                height: 2,
-                                              ),
-                                              Container(
-                                                  constraints: BoxConstraints(
-                                                      maxHeight: 100),
-                                                  child: IntrinsicHeight(
-                                                    child: Row(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .stretch,
-                                                      children: [
-                                                        Container(
-                                                          alignment:
-                                                              Alignment.center,
-                                                          width: 209.0,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: Colors.white,
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        5.0),
-                                                          ),
-                                                          child:
-                                                              TextField(
-                                                            maxLines: null,
-                                                            controller:
-                                                                controllercoluna1[
-                                                                    2],
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.black,
-                                                              fontSize: 16.0,
-                                                            ),
-                                                          ),
-                                                        ),
-
-                                                        Container(
-                                                          width: 2,
-                                                        ),Container(
-                                                          alignment:
-                                                              Alignment.center,
-
-                                                          width: 150,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: Colors.white,
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        5.0),
-                                                          ),
-                                                          child:
-                                                              ValueListenableBuilder(
-                                                                  valueListenable:
-                                                                      dropValue,
-                                                                  builder: (BuildContext
-                                                                          context,
-                                                                      String
-                                                                          value,
-                                                                      _) {
-                                                                    return DropdownButton<
-                                                                        String>(
-                                                                      hint: Text(
-                                                                          textAlign: TextAlign.center,
-                                                                          style: TextStyle(
-                                                                            color:
-                                                                                Colors.black,
-                                                                            fontSize:
-                                                                                16.0,
-                                                                          ),
-                                                                          dropOpcoes[0]),
-                                                                      value: (value
-                                                                              .isEmpty)
-                                                                          ? null
-                                                                          : value,
-                                                                      onChanged:
-                                                                          (escolha) {
-                                                                        dropValue.value =
-                                                                            escolha.toString();
-                                                                      },
-                                                                      items: dropOpcoes
-                                                                          .map((op) => DropdownMenuItem(
-                                                                                value: op,
-                                                                                child: Text(op),
-                                                                              ))
-                                                                          .toList(),
-                                                                    );
-                                                                  }),
-                                                        ),
-
-                                                        SizedBox(
-                                                          width: 2,
-                                                        ),
-                                                        Container(
-                                                          alignment:
-                                                              Alignment.center,
-                                                          width: 40,
-                                                          child: IconButton(
-                                                            icon: const Icon(
-                                                                Icons.cancel),
-                                                            color: Colors.red,
-                                                            onPressed: () {},
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  )),
-                                            ],
-                                          )))*/
                                     ],
                                   ),
                                 ],

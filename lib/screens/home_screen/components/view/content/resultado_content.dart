@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gip_solucoes/screens/home_screen/components/model/Cargo.dart';
 import 'package:gip_solucoes/screens/home_screen/components/model/SituacaoAdmissional.dart';
 import 'package:gip_solucoes/screens/home_screen/components/model/Usuario.dart';
-import 'package:gip_solucoes/screens/home_screen/components/view/content/name_color.dart';
-import 'package:gip_solucoes/screens/home_screen/components/view/content/sistema_content.dart';
+import 'package:gip_solucoes/screens/home_screen/components/controller/sistema_content.dart';
 
 class MenuText extends StatelessWidget {
   const MenuText({Key? key}) : super(key: key);
@@ -395,8 +394,6 @@ class _ResultadosState extends State<Resultados> {
                                           fontSize: 16.0,
                                         ),
                                       ),
-                                      //],
-                                      //),
                                     ],
                                   ),
                                 ),
@@ -1310,8 +1307,7 @@ class _ResultadosState extends State<Resultados> {
                                                     Container(
                                                       alignment:
                                                           Alignment.center,
-                                                      width: 150,
-                                                      //height: 60.0,
+                                                      width: 150, 
                                                       decoration: BoxDecoration(
                                                         color: Colors.white,
                                                         borderRadius:
@@ -1944,7 +1940,7 @@ class _ResultadosState extends State<Resultados> {
                                             ),
                                           ),
                                         ),
-                                      ), /*)*/
+                                      ),
                               ],
                             ),
                           ),
@@ -2124,6 +2120,3 @@ class BotaoVoltar extends StatelessWidget {
     );
   }
 }
-
-
-/**/

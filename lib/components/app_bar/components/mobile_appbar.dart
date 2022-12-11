@@ -24,6 +24,5 @@ class MobileNavbar extends StatelessWidget {
         ],
       ),
     );
-    //);
   }
 }

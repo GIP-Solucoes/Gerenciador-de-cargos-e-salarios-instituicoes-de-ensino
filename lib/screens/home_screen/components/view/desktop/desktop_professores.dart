@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:gip_solucoes/screens/home_screen/components/model/Cargo.dart';
 import 'package:gip_solucoes/screens/home_screen/components/model/SituacaoAdmissional.dart';
 import 'package:gip_solucoes/screens/home_screen/components/model/Usuario.dart';

@@ -7,10 +7,12 @@ class TabletTabela extends StatefulWidget {
   double quantidade = 0;
   bool verifica_geral = false;
   String instituicao;
+  List<Cargo> display_list_cargos;
   List<TextEditingController> textEditingCargos = [];
   List<List<TextEditingController>> textEditingIntervalos = [];
   List<List<TextEditingController>> textEditingValores = [];
-  TabletTabela({Key? key, required this.cargos, required this.instituicao}) : super(key: key);
+  TabletTabela({Key? key, required this.cargos, required this.instituicao,required this.display_list_cargos})
+      : super(key: key);
 
   @override
   State<TabletTabela> createState() => _TabletTabelaState();
@@ -49,40 +51,47 @@ class _TabletTabelaState extends State<TabletTabela> {
     widget.verifica_geral = true;
     final mediaQuery = MediaQuery.of(context).size;
     return SingleChildScrollView(
-      child:Center(
-        child: Padding(
+        child: Center(
+      child: Padding(
         padding: EdgeInsets.symmetric(horizontal: mediaQuery.width * 0.05),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
-              
+          children: [
+            Row(
               children: [
-                Row(children: [
-                  SizedBox(width: 5),
-                  TitleTabela(),
-                ],),
-                
-                Tabela(valor:0.877, key: keyTabela,
+                SizedBox(width: 5),
+                TitleTabela(),
+              ],
+            ),
+            Tabela(
+              valor: 0.877,
+              key: keyTabela,
               quantidadeFaixas: widget.quantidade,
               textEditingCargos: widget.textEditingCargos,
               textEditingIntervalos: widget.textEditingIntervalos,
-              textEditingValores: widget.textEditingValores,),
+              textEditingValores: widget.textEditingValores,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Row(
+              children: [
                 SizedBox(
-                  height: 20,
+                  width: 5,
                 ),
-                Row(children: [
-                  SizedBox(width: 5,),
-                  BotaoVoltar(),
-                  SizedBox(width: 5,),
-                  BotaoSalvar(instituicao: widget.instituicao,),
-                ],)
-                
+                BotaoVoltar(),
+                SizedBox(
+                  width: 5,
+                ),
+                BotaoSalvar(
+                    instituicao: widget.instituicao,
+                    display_list_cargos: widget.display_list_cargos),
+              ],
+            )
           ],
         ),
-        
       ),
-      )
-      
-    );
+    ));
   }
 }

@@ -18,59 +18,7 @@ class HeroText extends StatelessWidget {
     );
   }
 }
-/*
-class BuyNowButton extends StatelessWidget {
-  const BuyNowButton({
-    Key? key,
-  }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      width: 150.0,
-      height: 50.0,
-      decoration: BoxDecoration(
-        color: Colors.black87,
-        borderRadius: BorderRadius.circular(40.0),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            "Buy now",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16.0,
-            ),
-          ),
-          Icon(Icons.navigate_next_rounded,
-              color: Colors.deepOrangeAccent, size: 30.0),
-        ],
-      ),
-    );
-  }
-}
-
-class CappucinoPrice extends StatelessWidget {
-  const CappucinoPrice({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return AutoSizeText(
-      "\$8.60",
-      style: TextStyle(
-        color: Colors.black,
-        fontSize: 30.0,
-        fontWeight: FontWeight.w700,
-        fontFamily: 'Santana',
-      ),
-    );
-  }
-}
-*/
 class InicioParagrafo extends StatelessWidget {
   const InicioParagrafo({
     Key? key,

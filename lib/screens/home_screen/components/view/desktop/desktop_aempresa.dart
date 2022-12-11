@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:gip_solucoes/screens/home_screen/components/view/content/aempresa_content.dart';
 
 class DesktopAempresa extends StatelessWidget {
@@ -33,24 +32,3 @@ class DesktopAempresa extends StatelessWidget {
     );
   }
 }
-
-/*class _ServingItems extends StatelessWidget {
-  const _ServingItems({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView.separated(
-        itemBuilder: (context, index) {
-          return servingItems[index];
-        },
-        separatorBuilder: (context, _) {
-          return const SizedBox(height: 40.0);
-        },
-        itemCount: servingItems.length,
-        shrinkWrap: true,
-      ),
-    );
-  }
-}
-*/

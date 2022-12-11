@@ -17,16 +17,21 @@ class MobilePontuacoes extends StatefulWidget {
   List<Cargo> cargos;
   List<Pontuacao> pontuacoes;
   String instituicao;
-  MobilePontuacoes({Key? key, required this.cargos, required this.pontuacoes,required this.instituicao}) : super(key: key);
+  List<Cargo> display_list_cargos;
+  MobilePontuacoes(
+      {Key? key,
+      required this.cargos,
+      required this.pontuacoes,
+      required this.instituicao,required this.display_list_cargos})
+      : super(key: key);
 
-  
-  
   @override
   State<MobilePontuacoes> createState() {
     return _StateMobilePontuacoes();
   }
 }
-class _StateMobilePontuacoes extends State<MobilePontuacoes>{
+
+class _StateMobilePontuacoes extends State<MobilePontuacoes> {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context).size;
@@ -68,19 +73,20 @@ class _StateMobilePontuacoes extends State<MobilePontuacoes>{
       }
     }));
     return SingleChildScrollView(
-      child:Container(
-        child: Padding(
+        child: Container(
+      child: Padding(
         padding: EdgeInsets.symmetric(horizontal: mediaQuery.width * 0.05),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-              
+          children: [
+            Row(
               children: [
-                Row(children: [
-                  SizedBox(width: 5),
-                  TitlePontuacoes(),
-                ],),
-                
-                Pontuacoes(valor:0.9,
+                SizedBox(width: 5),
+                TitlePontuacoes(),
+              ],
+            ),
+            Pontuacoes(
+              valor: 0.9,
               cargos: widget.cargos,
               pontuacoes: widget.pontuacoes,
               pontuacoesAssiduidade: widget.pontuacoesAssiduidade,
@@ -89,28 +95,36 @@ class _StateMobilePontuacoes extends State<MobilePontuacoes>{
               pontuacoesTempoCasa: widget.pontuacoesTempoCasa,
               pontuacoesTitulo: widget.pontuacoesTitulo,
               pontuacoesExperienciaQtde: widget.pontuacoesExperienciaQtde,
-              pontuacoesFormacaoQtde: widget.pontuacoesFormacaoQtde,),
+              pontuacoesFormacaoQtde: widget.pontuacoesFormacaoQtde,
+            ),
+            SizedBox(
+              height: 17,
+            ),
+            Row(
+              children: [
                 SizedBox(
-                  height: 17,
+                  width: 5,
                 ),
-                Row(children: [
-                  SizedBox(width: 5,),
-                  BotaoVoltar(),
-                  SizedBox(width: 5,),
-                  BotaoSalvar(instituicao: widget.instituicao,
-                    textEditingAssiduidade: widget.pontuacoesAssiduidade,
-                    textEditingExperiencia: widget.pontuacoesExperiencia,
-                    textEditingFormacao: widget.pontuacoesFormacao,
-                    textEditingTempoCasa: widget.pontuacoesTempoCasa,
-                    textEditingTitulo: widget.pontuacoesTitulo, textEditingExperienciaQtde: widget.pontuacoesExperienciaQtde, textEditingFormacaoQtde: widget.pontuacoesFormacaoQtde,),
-                ],)
-                
+                BotaoVoltar(),
+                SizedBox(
+                  width: 5,
+                ),
+                BotaoSalvar(
+                  instituicao: widget.instituicao,
+                  textEditingAssiduidade: widget.pontuacoesAssiduidade,
+                  textEditingExperiencia: widget.pontuacoesExperiencia,
+                  textEditingFormacao: widget.pontuacoesFormacao,
+                  textEditingTempoCasa: widget.pontuacoesTempoCasa,
+                  textEditingTitulo: widget.pontuacoesTitulo,
+                  textEditingExperienciaQtde: widget.pontuacoesExperienciaQtde,
+                  textEditingFormacaoQtde: widget.pontuacoesFormacaoQtde,
+                  display_list_cargos: widget.display_list_cargos,
+                ),
+              ],
+            )
           ],
         ),
-        
       ),
-      )
-      
-    );
+    ));
   }
 }

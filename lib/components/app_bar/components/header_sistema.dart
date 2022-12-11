@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gip_solucoes/screens/home_screen/components/view/content/sistema_content.dart';
+import 'package:gip_solucoes/screens/home_screen/components/controller/sistema_content.dart';
 //imagem empresa (sistema)
 class HeaderSistema extends StatelessWidget {
   const HeaderSistema({

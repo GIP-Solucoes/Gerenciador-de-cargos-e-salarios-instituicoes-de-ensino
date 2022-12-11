@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gip_solucoes/screens/home_screen/components/view/content/name_color.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:gip_solucoes/screens/home_screen/components/view/content/sistema_content.dart';
+import 'package:gip_solucoes/screens/home_screen/components/controller/sistema_content.dart';
 
 class MenuText extends StatelessWidget {
   const MenuText({Key? key}) : super(key: key);

@@ -7,10 +7,11 @@ class DesktopTabela extends StatefulWidget {
   double quantidade = 0;
   bool verifica_geral = false;
   String instituicao;
+  List<Cargo> display_list_cargos;
   List<TextEditingController> textEditingCargos = [];
   List<List<TextEditingController>> textEditingIntervalos = [];
   List<List<TextEditingController>> textEditingValores = [];
-  DesktopTabela({Key? key, required this.cargos, required this.instituicao})
+  DesktopTabela({Key? key, required this.cargos, required this.instituicao,required this.display_list_cargos})
       : super(key: key);
 
   @override
@@ -85,6 +86,7 @@ class _DesktopTabelaState extends State<DesktopTabela> {
                   width: 5,
                 ),
                 BotaoSalvar(
+                  display_list_cargos: widget.display_list_cargos,
                   instituicao: widget.instituicao,
                 ),
               ],

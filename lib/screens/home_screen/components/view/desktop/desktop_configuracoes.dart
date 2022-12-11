@@ -41,7 +41,6 @@ class _DesktopConfiguracoesState extends State<DesktopConfiguracoes> {
               Container(
                 height: 450,
                 width: 600,
-                //margin: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
                   color: Colors.grey[200],
                   borderRadius: BorderRadius.circular(10),

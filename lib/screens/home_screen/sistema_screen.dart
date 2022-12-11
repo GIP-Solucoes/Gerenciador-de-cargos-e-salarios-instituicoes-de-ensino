@@ -4,7 +4,7 @@ import 'package:gip_solucoes/components/app_bar/components/app_drawer_sistema.da
 import 'package:gip_solucoes/components/app_bar/custom_navbar.dart';
 import 'package:gip_solucoes/components/app_bar/custom_navbar_sistema.dart';
 import 'package:gip_solucoes/constants.dart';
-import 'package:gip_solucoes/screens/home_screen/components/view/content/sistema_content.dart';
+import 'package:gip_solucoes/screens/home_screen/components/controller/sistema_content.dart';
 
 //gerenciador da página do sistema
 class SistemaScreen extends StatefulWidget {

@@ -1,6 +1,3 @@
-//import 'dart:html';
-// ignore_for_file: unnecessary_this
-
 import 'dart:convert';
 import 'dart:io' as dart;
 import 'dart:async';
@@ -13,7 +10,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gip_solucoes/screens/home_screen/components/model/Usuario.dart';
-import 'package:gip_solucoes/screens/home_screen/components/view/content/sistema_content.dart';
+import 'package:gip_solucoes/screens/home_screen/components/controller/sistema_content.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image_picker_web/image_picker_web.dart';
 import 'dart:html';
@@ -277,7 +274,6 @@ class _AlterarimagemState extends State<Alterarimagem> {
   dart.File? file;
   Uint8List webImage = Uint8List(8);
   late dart.File filee;
-  //Uint8List? imageData;
   bool verificar = false;
   uploadToStorage() {
     InputElement input =
@@ -285,30 +281,16 @@ class _AlterarimagemState extends State<Alterarimagem> {
     FirebaseStorage fs = FirebaseStorage.instance;
     input.click();
     input.onChange.listen((event) {
-      setState(() {
-        //file = input.files!.first;
-      });
-
       final reader = FileReader();
-      //reader.readAsDataUrl(file);
-//setState(() {
-      //      imageData = file as Uint8List;
-      //     verificar = true;
-      // });
       reader.onLoadEnd.listen((event) async {
         final encoded = reader.result as String;
         final imageBase64 = encoded.replaceFirst(
             RegExp(r'data:image/[^;]+;base64,'),
-            ''); // this is to remove some non necessary stuff
+            '');
         setState(() {
           filee = dart.File.fromRawPath(base64Decode(imageBase64));
           verificar = true;
         });
-        //var snapshot = await fs
-        //    .ref()
-        //    .child('usuarios/${DateTime.now().toString()}')
-        //    .putBlob(file);
-        //var downloadUrl = snapshot.ref.getDownloadURL();
       });
     });
   }
@@ -648,7 +630,6 @@ class _BotaoSalvarState extends State<BotaoSalvar> {
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 16.0,
-                  // fontWeight: FontWeight.bold,
                 ),
               ),
             ],
@@ -683,7 +664,6 @@ class _StateResultados extends State<Resultados> {
     return Container(
       height: 400,
       width: 600,
-      //margin: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: Colors.grey[200],
         borderRadius: BorderRadius.circular(10),
@@ -692,7 +672,6 @@ class _StateResultados extends State<Resultados> {
           padding: EdgeInsets.symmetric(
               vertical: 15.0, horizontal: mediaQuery.width * 0.01),
           child: Column(children: [
-            //],)
           ])),
     );
   }

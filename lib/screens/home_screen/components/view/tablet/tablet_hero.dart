@@ -24,7 +24,7 @@ class TabletHero extends StatelessWidget {
             vertical: 40.0, horizontal: mediaQuery.width * 0.14),
               child:YoutubePlayerIFrame(
               controller: YoutubePlayerController(
-                initialVideoId: 'L3wKzyIN1yk',
+                initialVideoId: '7S-AMLNHTzM',
                 params: const YoutubePlayerParams(
         startAt: const Duration(minutes: 1, seconds: 36),
         showControls: true,

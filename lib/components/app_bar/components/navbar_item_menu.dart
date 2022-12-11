@@ -41,8 +41,6 @@ class _NavbarItemMenuState extends State<NavbarItemMenu> {
           this.tnome = element['primeiro_nome'];
           this.foto = element['foto'];
         });
-
-        //print(element['primeiro_nome']);
       });
     }).catchError((e) => print(e.toString()));
     print('ttg');

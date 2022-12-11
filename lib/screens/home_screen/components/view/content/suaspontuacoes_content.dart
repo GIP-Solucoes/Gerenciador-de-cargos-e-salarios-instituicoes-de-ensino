@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gip_solucoes/screens/home_screen/components/model/Cargo.dart';
 import 'package:gip_solucoes/screens/home_screen/components/model/Pontuacao.dart';
 import 'package:gip_solucoes/screens/home_screen/components/model/Usuario.dart';
-import 'package:gip_solucoes/screens/home_screen/components/view/content/sistema_content.dart';
+import 'package:gip_solucoes/screens/home_screen/components/controller/sistema_content.dart';
 import 'package:intl/intl.dart';
 
 class _SuaspontuacoesState extends State<Suaspontuacoes> {
@@ -13,18 +13,6 @@ class _SuaspontuacoesState extends State<Suaspontuacoes> {
   _SuaspontuacoesState(double valor) {
     this.valor = valor;
   }
-  static List<TextEditingController> controllerl1 = [
-    TextEditingController(text: "0"),
-    TextEditingController(text: "3"),
-    TextEditingController(text: "20"),
-    TextEditingController(text: "40"),
-    TextEditingController(text: "60"),
-    TextEditingController(text: "6"),
-    TextEditingController(text: "1"),
-    TextEditingController(text: "2"),
-    TextEditingController(text: "3"),
-    TextEditingController(text: "4"),
-  ];
   static TextEditingController text = TextEditingController(text: "5");
   final List<GlobalKey> categorias = [
     GlobalKey(),
