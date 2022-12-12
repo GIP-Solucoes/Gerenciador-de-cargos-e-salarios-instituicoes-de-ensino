@@ -5,6 +5,7 @@ import 'package:gip_solucoes/screens/home_screen/components/view/content/status_
 class DesktopStatus extends StatefulWidget {
   List<SituacaoAdmissional> situacoesAdmissional;
   List<TextEditingController> nomes = [];
+  List<String> id_situacao = [];
   String instituicao;
   List<bool> tipos = [];
   DesktopStatus(
@@ -46,7 +47,7 @@ class _DesktopStatusState extends State<DesktopStatus> {
               valor: 530,
               instituicao: widget.instituicao,
               textEditingNomes: widget.nomes,
-              textEditingTipos: widget.tipos,
+              textEditingTipos: widget.tipos, id_situacao: widget.id_situacao,
             ),
             SizedBox(
               height: 20,

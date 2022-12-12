@@ -313,9 +313,11 @@ class _StateSistemaContent extends State<SistemaContent> {
         .get()
         .then((QuerySnapshot q) {
       q.docs.forEach((elementS) {
+        SituacaoAdmissional sit = new SituacaoAdmissional(
+            elementS['calcula_valor'], elementS['nome']);
+        sit.id_situacao = elementS.id;
         setState(() {
-          situacoesAllAdm.add(new SituacaoAdmissional(
-              elementS['calcula_valor'], elementS['nome']));
+          situacoesAllAdm.add(sit);
         });
       });
     });
@@ -375,7 +377,7 @@ class _StateSistemaContent extends State<SistemaContent> {
           usuarios[usuarios.length - 1].status = element['status'];
           usuarios[usuarios.length - 1].id_status = element['status'];
           usuarios[usuarios.length - 1].id_cargo = element['cargo'];
-
+          usuarios[usuarios.length - 1].cargo_antigo = element['cargo_antigo'];
           cargoo(
               element,
               element['cargo_antigo'],
@@ -536,6 +538,7 @@ class _StateSistemaContent extends State<SistemaContent> {
       });
     });
   }
+
   List<Cargo> cargossss = [];
   get_cargos() {
     CollectionReference cargosS =
@@ -608,7 +611,7 @@ class _StateSistemaContent extends State<SistemaContent> {
             double valor = 0;
             pontuacaoAtrib.add(new PontuacaoAtributo(element['nome'],
                 element['quantidade_maxima'], element['valor']));
-                
+
             if (elementt['nome'] == "Pontuação de Formação Acadêmica") {
               if (element['nome'] ==
                   "Cursos de Aperfeiçoamento (mínimo 180 Hs)") {
@@ -832,11 +835,11 @@ class _StateSistemaContent extends State<SistemaContent> {
     return LayoutBuilder(
       builder: ((context, constraints) {
         Object? data = ModalRoute.of(context)?.settings.arguments;
-        
+
         if (constraints.maxWidth >= 850) {
           if (data == null && paginaS == 11) {
-          return const DesktopLogin();
-        }
+            return const DesktopLogin();
+          }
           if (paginaU == 0) {
             return const Center(
               child: Text('Carregando...'),
@@ -913,7 +916,8 @@ class _StateSistemaContent extends State<SistemaContent> {
               return DesktopPontuacoes(
                 cargos: cargossss,
                 pontuacoes: pont,
-                instituicao: usuario.instituicao, display_list_cargos: cargosss,
+                instituicao: usuario.instituicao,
+                display_list_cargos: cargosss,
               );
               break;
             case 7:
@@ -936,7 +940,7 @@ class _StateSistemaContent extends State<SistemaContent> {
               break;
             case 9:
               return DesktopTabela(
-                display_list_cargos:cargosss,
+                display_list_cargos: cargosss,
                 cargos: cargossss,
                 instituicao: usuario.instituicao,
               );
@@ -950,8 +954,8 @@ class _StateSistemaContent extends State<SistemaContent> {
           }
         } else if (constraints.maxWidth >= 600) {
           if (data == null && paginaS == 11) {
-          return const TabletLogin();
-        }
+            return const TabletLogin();
+          }
           if (paginaU == 0) {
             return const Center(
               child: Text('Carregando...'),
@@ -1025,7 +1029,8 @@ class _StateSistemaContent extends State<SistemaContent> {
               );
               break;
             case 6:
-              return TabletPontuacoes(display_list_cargos: cargosss,
+              return TabletPontuacoes(
+                display_list_cargos: cargosss,
                 cargos: cargossss,
                 pontuacoes: pont,
                 instituicao: usuario.instituicao,
@@ -1051,7 +1056,7 @@ class _StateSistemaContent extends State<SistemaContent> {
               break;
             case 9:
               return TabletTabela(
-                display_list_cargos:cargosss,
+                display_list_cargos: cargosss,
                 cargos: cargossss,
                 instituicao: usuario.instituicao,
               );
@@ -1067,34 +1072,13 @@ class _StateSistemaContent extends State<SistemaContent> {
         if (data == null && paginaS == 11) {
           return const MobileLogin();
         }
-          if (paginaU == 0) {
-            return const Center(
-              child: Text('Carregando...'),
-            );
-          }
-          if (paginaU == 1) {
-            if (paginaS == 0 || paginaS == 11) {
-              return MobileMeucargo(
-                cargo: cargo,
-                competencias_cargo: competencias_cargo,
-                titulo_cargo: titulo_cargo,
-                nome_cargo: nome_cargo,
-                soma: soma,
-                intervalo_atual_inicio: intervalo_atual_inicio,
-                intervalo_atual_fim: intervalo_atual_fim,
-                intervalo_proximo_fim: intervalo_proximo_fim,
-                intervalo_proximo_inicio: intervalo_proximo_inicio,
-                proximo_valor: proximo_valor,
-                valor_atual: valor_atual,
-              );
-            }
-          }
-          if (paginaU == 2) {
-            if (paginaS == 0 || paginaS == 11) {
-              return const MobileMenu();
-            }
-          }
-          if (paginaS == 2) {
+        if (paginaU == 0) {
+          return const Center(
+            child: Text('Carregando...'),
+          );
+        }
+        if (paginaU == 1) {
+          if (paginaS == 0 || paginaS == 11) {
             return MobileMeucargo(
               cargo: cargo,
               competencias_cargo: competencias_cargo,
@@ -1109,74 +1093,95 @@ class _StateSistemaContent extends State<SistemaContent> {
               valor_atual: valor_atual,
             );
           }
-          switch (paginaS) {
-            case 1:
-              return MobileConfiguracoes(usuario: usuario);
-              break;
-            case 3:
-              return MobileResultados(
-                usuarios: usuarios,
-                total_atual: this.total_atual,
-                total_ideal: this.total_ideal,
-                cargos: cargosss,
-                situacoes: this.situacoesAdm,
-              );
-              break;
-            case 4:
-              return MobileCargos(
-                cargos: cargossss,
-                instituicao: usuario.instituicao,
-              );
-              break;
-            case 5:
-              return MobileProfessores(
-                usuarios: usuarios,
-                cargos: cargossss,
-                cargos_usuarios: cargosss,
-                situacoes: situacoesAllAdm,
-                situacoes_usuarios: this.situacoesAdm,
-                cargos_antigo: cargos_antigo,
-                instituicao: usuario.instituicao,
-              );
-              break;
-            case 6:
-              return MobilePontuacoes(
-                display_list_cargos: cargosss,
-                cargos: cargossss,
-                pontuacoes: pont,
-                instituicao: usuario.instituicao,
-              );
-              break;
-            case 7:
-              return MobileSimulador(
-                cargos: cargossss,
-                pontuacoes: pont,
-                instituicao: usuario.instituicao,
-              );
-              break;
-            case 8:
-              return MobileSuaspontuacoes(
-                  cargo: cargo,
-                  pontuacoes: pont,
-                  quantidade_anos: quantidade_anos,
-                  quantidade_meses: quantidade_meses,
-                  titulo_cargo: titulo_cargo,
-                  usuario: usuario,
-                  valor_cargo: pontuacao_cargo,
-                  soma: soma);
-              break;
-            case 9:
-              return MobileTabela(
-                display_list_cargos:cargosss,
-                cargos: cargossss,
-                instituicao: usuario.instituicao,
-              );
-              break;
+        }
+        if (paginaU == 2) {
+          if (paginaS == 0 || paginaS == 11) {
+            return const MobileMenu();
           }
+        }
+        if (paginaS == 2) {
+          return MobileMeucargo(
+            cargo: cargo,
+            competencias_cargo: competencias_cargo,
+            titulo_cargo: titulo_cargo,
+            nome_cargo: nome_cargo,
+            soma: soma,
+            intervalo_atual_inicio: intervalo_atual_inicio,
+            intervalo_atual_fim: intervalo_atual_fim,
+            intervalo_proximo_fim: intervalo_proximo_fim,
+            intervalo_proximo_inicio: intervalo_proximo_inicio,
+            proximo_valor: proximo_valor,
+            valor_atual: valor_atual,
+          );
+        }
+        switch (paginaS) {
+          case 1:
+            return MobileConfiguracoes(usuario: usuario);
+            break;
+          case 3:
+            return MobileResultados(
+              usuarios: usuarios,
+              total_atual: this.total_atual,
+              total_ideal: this.total_ideal,
+              cargos: cargosss,
+              situacoes: this.situacoesAdm,
+            );
+            break;
+          case 4:
+            return MobileCargos(
+              cargos: cargossss,
+              instituicao: usuario.instituicao,
+            );
+            break;
+          case 5:
+            return MobileProfessores(
+              usuarios: usuarios,
+              cargos: cargossss,
+              cargos_usuarios: cargosss,
+              situacoes: situacoesAllAdm,
+              situacoes_usuarios: this.situacoesAdm,
+              cargos_antigo: cargos_antigo,
+              instituicao: usuario.instituicao,
+            );
+            break;
+          case 6:
+            return MobilePontuacoes(
+              display_list_cargos: cargosss,
+              cargos: cargossss,
+              pontuacoes: pont,
+              instituicao: usuario.instituicao,
+            );
+            break;
+          case 7:
+            return MobileSimulador(
+              cargos: cargossss,
+              pontuacoes: pont,
+              instituicao: usuario.instituicao,
+            );
+            break;
+          case 8:
+            return MobileSuaspontuacoes(
+                cargo: cargo,
+                pontuacoes: pont,
+                quantidade_anos: quantidade_anos,
+                quantidade_meses: quantidade_meses,
+                titulo_cargo: titulo_cargo,
+                usuario: usuario,
+                valor_cargo: pontuacao_cargo,
+                soma: soma);
+            break;
+          case 9:
+            return MobileTabela(
+              display_list_cargos: cargosss,
+              cargos: cargossss,
+              instituicao: usuario.instituicao,
+            );
+            break;
+        }
         return MobileStatus(
-                instituicao: usuario.instituicao,
-                situacoesAdmissional: situacoesAllAdm,
-              );
+          instituicao: usuario.instituicao,
+          situacoesAdmissional: situacoesAllAdm,
+        );
       }),
     );
   }

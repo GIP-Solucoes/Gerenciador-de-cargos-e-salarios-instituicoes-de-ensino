@@ -7,6 +7,7 @@ class TabletStatus extends StatefulWidget {
   List<TextEditingController> nomes = [];
   String instituicao;
   List<bool> tipos = [];
+  List<String> id_situacao = [];
   TabletStatus({Key? key, required this.situacoesAdmissional, required this.instituicao}) : super(key: key);
 
   @override
@@ -42,7 +43,7 @@ class _TabletStatusState extends State<TabletStatus> {
                 Status(valor:(mediaQuery.width * 0.63),key: keyStatus,
               instituicao: widget.instituicao,
               textEditingNomes: widget.nomes,
-              textEditingTipos: widget.tipos,),
+              textEditingTipos: widget.tipos, id_situacao: widget.id_situacao,),
                 SizedBox(
                   height: 20,
                 ),

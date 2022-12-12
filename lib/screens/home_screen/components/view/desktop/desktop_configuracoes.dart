@@ -60,7 +60,7 @@ class _DesktopConfiguracoesState extends State<DesktopConfiguracoes> {
                               Dadosgerais(
                                   controllerEmail: controller_email,
                                   controllerTelefone: controller_telefone,senha: controller_senha),
-                              BotaoSalvar(imagem: widget.usuario.foto,email: controller_email, primeiro_nome: controller_primeiro_nome, segundo_nome: controller_segundo_nome, senha: controller_senha, telefone: controller_telefone,)
+                              BotaoSalvar(verifica_email: widget.usuario.email, imagem: widget.usuario.foto,email: controller_email, primeiro_nome: controller_primeiro_nome, segundo_nome: controller_segundo_nome, senha: controller_senha, telefone: controller_telefone,)
                             ],
                           ),
                           Column(

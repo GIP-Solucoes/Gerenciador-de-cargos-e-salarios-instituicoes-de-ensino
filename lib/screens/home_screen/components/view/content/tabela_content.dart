@@ -117,6 +117,42 @@ class BotaoSalvar extends StatefulWidget {
 }
 
 class _BotaoSalvarState extends State<BotaoSalvar> {
+  alterar2(int contarAlterar,int contadorAlterar, CollectionReference collectionReference) {
+    CollectionReference faixas2 = collectionReference;
+          faixas2.orderBy('final_intervalo').get().then((QuerySnapshot qq) {
+            qq.docs.forEach((elementt) {
+              var eee = elementt.reference;
+              if (keyTabela
+                  .currentState!
+                  .widget
+                  .textEditingIntervalos[contarAlterar][contadorAlterar]
+                  .text
+                  .isNotEmpty) {
+                eee.update({
+                  "final_intervalo": double.parse(keyTabela
+                      .currentState!
+                      .widget
+                      .textEditingIntervalos[contarAlterar][contadorAlterar]
+                      .text
+                      .replaceAll(',', '.'))
+                });
+              }
+              if (keyTabela
+                  .currentState!
+                  .widget
+                  .textEditingValores[contarAlterar][contadorAlterar]
+                  .text
+                  .isNotEmpty) {
+                eee.update({
+                  "valor": double.parse(keyTabela.currentState!.widget
+                      .textEditingValores[contarAlterar][contadorAlterar].text
+                      .replaceAll(',', '.'))
+                });
+              }
+              contadorAlterar++;
+            });
+          });
+  }
   salvar() {
     CollectionReference cargos = FirebaseFirestore.instance.collection('Cargo');
     cargos
@@ -169,35 +205,9 @@ class _BotaoSalvarState extends State<BotaoSalvar> {
             });
           }
           int contadorAlterar = 0;
+          alterar2(contarAlterar,contadorAlterar,e.collection('FaixaSalarial'));
+          
 
-          q.docs.forEach((elementt) {
-            var eee = elementt.reference;
-            if (keyTabela
-                .currentState!
-                .widget
-                .textEditingIntervalos[contarAlterar][contadorAlterar]
-                .text
-                .isNotEmpty) {
-              eee.update({
-                "final_intervalo": double.parse(keyTabela.currentState!.widget
-                    .textEditingIntervalos[contarAlterar][contadorAlterar].text
-                    .replaceAll(',', '.'))
-              });
-            }
-            if (keyTabela
-                .currentState!
-                .widget
-                .textEditingValores[contarAlterar][contadorAlterar]
-                .text
-                .isNotEmpty) {
-              eee.update({
-                "valor": double.parse(keyTabela.currentState!.widget
-                    .textEditingValores[contarAlterar][contadorAlterar].text
-                    .replaceAll(',', '.'))
-              });
-            }
-            contadorAlterar++;
-          });
           contarAlterar++;
         });
       });
@@ -252,7 +262,7 @@ class _BotaoSalvarState extends State<BotaoSalvar> {
           duration: Duration(seconds: 5),
         ));
       } else {
-        for (int i = 0; i < widget.display_list_cargos.length;i++)
+        for (int i = 0; i < widget.display_list_cargos.length; i++)
           pegar_id_cargo(i);
         paginaS = 0;
         Navigator.pushNamed(context, '/sistema');
@@ -1315,7 +1325,7 @@ class _StateTabela extends State<Tabela> {
                                                           ),
                                                       ]))),
                                     ],
-                                  ), 
+                                  ),
                                 ],
                               ),
                             ),

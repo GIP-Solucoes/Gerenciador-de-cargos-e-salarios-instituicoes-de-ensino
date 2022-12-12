@@ -975,10 +975,6 @@ class _BotaoSalvarState extends State<BotaoSalvar> {
     return verificador;
   }
 
-  criar_usuario(index) async {
-    
-    
-  }
   List<FirebaseApp> tempApp = [];
   adicionar_firebase_app() async {
     tempApp.add(await Firebase.initializeApp(
@@ -1142,7 +1138,8 @@ class _BotaoSalvarState extends State<BotaoSalvar> {
                 }
 
                 if (keyProfessores.currentState!.widget.adicionados
-                    .isEmpty) if (contador3 == contador4) {
+                    .isEmpty) if (element.id_usuario ==
+                      elementtt.id) {
                   var eee = elementtt.reference;
                   eee.update({
                     "status": element.id_status,

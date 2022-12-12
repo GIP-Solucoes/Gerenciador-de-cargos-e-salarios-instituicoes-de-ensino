@@ -6,6 +6,7 @@ class MobileStatus extends StatefulWidget {
   List<TextEditingController> nomes = [];
   String instituicao;
   List<bool> tipos = [];
+  List<String> id_situacao = [];
   MobileStatus({Key? key, required this.situacoesAdmissional, required this.instituicao}) : super(key: key);
 
   @override
@@ -41,7 +42,7 @@ class _MobileStatusState extends State<MobileStatus> {
                 Status(valor:(mediaQuery.width * 0.75),key: keyStatus,
               instituicao: widget.instituicao,
               textEditingNomes: widget.nomes,
-              textEditingTipos: widget.tipos,),
+              textEditingTipos: widget.tipos, id_situacao: widget.id_situacao,),
                 SizedBox(
                   height: 20,
                 ),

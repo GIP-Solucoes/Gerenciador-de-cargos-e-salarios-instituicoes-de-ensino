@@ -28,12 +28,13 @@ class Status extends StatefulWidget {
   List<bool> textEditingTipos;
   String instituicao;
   double valor;
+  List<String> id_situacao;
   Status(
       {Key? key,
       required this.valor,
       required this.instituicao,
       required this.textEditingNomes,
-      required this.textEditingTipos})
+      required this.textEditingTipos,required this.id_situacao})
       : super(key: key);
   @override
   State<StatefulWidget> createState() {
@@ -142,14 +143,15 @@ class _BotaoSalvarState extends State<BotaoSalvar> {
             contadorRemover++;
           });
         }
-        if (keyStatus
-            .currentState!.widget.textEditingNomes[contar].text.isNotEmpty) {
-          e.update({
-            "nome":
-                keyStatus.currentState!.widget.textEditingNomes[contar].text,
-            "calcula_valor":
-                keyStatus.currentState!.widget.textEditingTipos[contar]
-          });
+        for (int i = 0;
+            i < keyStatus.currentState!.widget.id_situacao.length;
+            i++) {
+          if (keyStatus.currentState!.widget.id_situacao[i] == e.id)
+            e.update({
+              "nome": keyStatus.currentState!.widget.textEditingNomes[i].text,
+              "calcula_valor":
+                  keyStatus.currentState!.widget.textEditingTipos[i]
+            });
         }
         contar++;
       });
@@ -651,7 +653,6 @@ class _StateStatus extends State<Status> {
                                                                 Icons.cancel),
                                                             color: Colors.red,
                                                             onPressed: () {
-
                                                               if (widget
                                                                       .adicionados
                                                                       .isEmpty &&
