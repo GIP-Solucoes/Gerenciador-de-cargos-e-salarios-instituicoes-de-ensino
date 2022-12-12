@@ -321,7 +321,7 @@ class _ResultadosState extends State<Resultados> {
                                             this
                                                 .widget
                                                 .total_atual
-                                                .toStringAsPrecision(4)
+                                                .toStringAsFixed(2)
                                                 .toString()
                                                 .replaceAll('.', ','),
                                         style: TextStyle(
@@ -386,7 +386,7 @@ class _ResultadosState extends State<Resultados> {
                                             this
                                                 .widget
                                                 .total_ideal
-                                                .toStringAsPrecision(4)
+                                                .toStringAsFixed(2)
                                                 .toString()
                                                 .replaceAll('.', ','),
                                         style: TextStyle(
@@ -453,7 +453,7 @@ class _ResultadosState extends State<Resultados> {
                                                                 .total_atual) -
                                                         1) *
                                                     100)
-                                                .toStringAsPrecision(4)
+                                                .toStringAsFixed(2)
                                                 .toString()
                                                 .replaceAll('.', ',') +
                                             "%",
@@ -491,7 +491,7 @@ class _ResultadosState extends State<Resultados> {
                                         "R\$ " +
                                             (this.widget.total_ideal -
                                                     this.widget.total_atual)
-                                                .toStringAsPrecision(4)
+                                                .toStringAsFixed(2)
                                                 .toString()
                                                 .replaceAll('.', ','),
                                         style: TextStyle(
@@ -1662,8 +1662,8 @@ class _ResultadosState extends State<Resultados> {
                                                                     index))
                                                             ? cargo_list[index]
                                                                 .pontuacao
-                                                                .toStringAsPrecision(
-                                                                    4)
+                                                                .toStringAsFixed(
+                                                                    2)
                                                                 .toString()
                                                                 .replaceAll(
                                                                     '.', ',')
@@ -1754,8 +1754,8 @@ class _ResultadosState extends State<Resultados> {
                                                         "R\$ " +
                                                             display_list[index]
                                                                 .salario_atual
-                                                                .toStringAsPrecision(
-                                                                    4)
+                                                                .toStringAsFixed(
+                                                                    2)
                                                                 .toString()
                                                                 .replaceAll(
                                                                     '.', ','),
@@ -1784,8 +1784,8 @@ class _ResultadosState extends State<Resultados> {
                                                         "R\$ " +
                                                             display_list[index]
                                                                 .salario_ideal
-                                                                .toStringAsPrecision(
-                                                                    4)
+                                                                .toStringAsFixed(
+                                                                    2)
                                                                 .toString()
                                                                 .replaceAll(
                                                                     '.', ','),
@@ -1821,8 +1821,8 @@ class _ResultadosState extends State<Resultados> {
                                                                                 .salario_atual) -
                                                                         1) *
                                                                     100)
-                                                                .toStringAsPrecision(
-                                                                    4)
+                                                                .toStringAsFixed(
+                                                                    2)
                                                                 .toString()
                                                                 .replaceAll(
                                                                     '.', ',') +
@@ -1876,8 +1876,8 @@ class _ResultadosState extends State<Resultados> {
                                                                             .salario_ideal -
                                                                         display_list[index]
                                                                             .salario_atual)
-                                                                    .toStringAsPrecision(
-                                                                        4)
+                                                                    .toStringAsFixed(
+                                                                        2)
                                                                     .toString()
                                                                     .replaceAll(
                                                                         '.',
@@ -1921,8 +1921,8 @@ class _ResultadosState extends State<Resultados> {
                                                                             .salario_ideal -
                                                                         display_list[index]
                                                                             .salario_atual)
-                                                                    .toStringAsPrecision(
-                                                                        4)
+                                                                    .toStringAsFixed(
+                                                                        2)
                                                                     .toString()
                                                                     .replaceAll(
                                                                         '.',

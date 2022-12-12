@@ -535,7 +535,7 @@ class _StateCargos extends State<Cargos> {
                                       ),
                                       Container(
                                         alignment: Alignment.center,
-                                        width: 104.5,
+                                        width: 150,
                                         height: 40.0,
                                         decoration: BoxDecoration(
                                           color: Colors.blue,
@@ -681,7 +681,7 @@ class _StateCargos extends State<Cargos> {
                                               child: Text("Carregando...")))
                                       : Container(
                                           height: 250,
-                                          width: 1159.5,
+                                          width: 1205,
                                           child: ListView.builder(
                                             itemCount: widget
                                                 .editingControllerNomes.length,
@@ -738,7 +738,7 @@ class _StateCargos extends State<Cargos> {
                                                           alignment:
                                                               Alignment.center,
 
-                                                          width: 104.5,
+                                                          width: 150,
                                                           decoration:
                                                               BoxDecoration(
                                                             color: Colors.white,
