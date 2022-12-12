@@ -606,6 +606,9 @@ class _StateSistemaContent extends State<SistemaContent> {
             .then((QuerySnapshot q) {
           q.docs.forEach((element) {
             double valor = 0;
+            pontuacaoAtrib.add(new PontuacaoAtributo(element['nome'],
+                element['quantidade_maxima'], element['valor']));
+                
             if (elementt['nome'] == "Pontuação de Formação Acadêmica") {
               if (element['nome'] ==
                   "Cursos de Aperfeiçoamento (mínimo 180 Hs)") {
